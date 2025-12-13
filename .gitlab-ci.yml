@@ -17,8 +17,10 @@ pages:
     - apk add --no-cache gzip brotli
 
     # Création du dossier public qui va contenir tout ce qui est nécessaire pour l'application
-    - mkdir public
-    - cp -r * public
+    - mkdir .public
+    - cp -r * .public
+    - mv .public public
+
 
     # Construction de l'application
     - cd public
