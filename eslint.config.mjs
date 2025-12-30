@@ -19,6 +19,7 @@ export default defineConfig([
 	pluginJs.configs.recommended,
 	{
 		files: [APP_FOLDER + "**/*.js", APP_FOLDER + "**/*.mjs", "tests/**/*.*js"],
+		plugins: { codeceptjs: codeceptjsPlugin },
 		rules: {
 			...codeceptjsPlugin.configs.recommended.rules,
 			semi: ["error", "always"],
