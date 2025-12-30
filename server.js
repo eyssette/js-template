@@ -15,8 +15,17 @@ const ALLOWED_FILES = [
 	APP_FOLDER + "/script.min.js",
 	APP_FOLDER + "/script.min.js.map",
 	APP_FOLDER + "/favicon.svg",
-	APP_FOLDER + "/css/styles.min.css",
+	APP_FOLDER + "/css/*.min.css",
 ];
+
+// Conversion des motifs avec wildcards en expressions régulières
+const ALLOWED_PATTERNS = ALLOWED_FILES.map((p) => {
+	if (p.includes("*")) {
+		const escaped = p.replace(/[.+^${}()|[\]\\]/g, "\\$&").replace(/\*/g, ".*");
+		return new RegExp("^" + escaped + "$");
+	}
+	return p;
+});
 
 // Type MIME sécurisé
 const MIME_TYPES = {
@@ -50,9 +59,12 @@ const server = http.createServer((request, response) => {
 	const requestedPath = path.normalize(path.join(APP_FOLDER, publicPath));
 
 	// Vérification si le fichier demandé est autorisé
-	if (!ALLOWED_FILES.includes(requestedPath)) {
+	const isAllowed = ALLOWED_PATTERNS.some((pat) =>
+		typeof pat === "string" ? pat === requestedPath : pat.test(requestedPath)
+	);
+	if (!isAllowed) {
 		response.writeHead(403, { "Content-Type": "text/plain" });
-		response.end("403 Forbidden: Access Denied");
+		response.end("403 Forbidden: Access Denied / " + requestedPath);
 		return;
 	}
 
