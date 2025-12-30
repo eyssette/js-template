@@ -3,20 +3,22 @@ import globals from "globals";
 import pluginJs from "@eslint/js";
 import codeceptjsPlugin from "eslint-plugin-codeceptjs";
 
+const APP_FOLDER = "app/";
+
 export default defineConfig([
-	globalIgnores(["app/js/lib/**"]),
+	globalIgnores([APP_FOLDER + "js/lib/**"]),
 	{
 		languageOptions: {
 			globals: {
 				...globals.browser,
 				...globals.jasmine,
 			},
-			ecmaVersion: 2018,
+			ecmaVersion: 2020,
 		},
 	},
 	pluginJs.configs.recommended,
 	{
-		files: ["/app/**/*.js", "/app/**/*.mjs", "tests/**/*.*js"],
+		files: [APP_FOLDER + "**/*.js", APP_FOLDER + "**/*.mjs", "tests/**/*.*js"],
 		rules: {
 			...codeceptjsPlugin.configs.recommended.rules,
 			semi: ["error", "always"],

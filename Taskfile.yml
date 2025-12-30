@@ -145,4 +145,4 @@ tasks:
     sources:
       - "{{.APP_FOLDER}}/js/**/*.mjs"
     cmds:
-      - npx eslint "app/**/*.mjs"
+      - npx eslint "{{.APP_FOLDER}}/**/*.mjs"
