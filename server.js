@@ -7,13 +7,15 @@ const { createReadStream } = require("fs");
 
 const PORT = process.argv[2] || 8888;
 
+const APP_FOLDER = "/app";
+
 // Liste des fichiers autorisés
 const ALLOWED_FILES = [
-	"/app/index.html",
-	"/app/script.min.js",
-	"/app/script.min.js.map",
-	"/app/favicon.svg",
-	"/app/css/styles.min.css",
+	APP_FOLDER + "/index.html",
+	APP_FOLDER + "/script.min.js",
+	APP_FOLDER + "/script.min.js.map",
+	APP_FOLDER + "/favicon.svg",
+	APP_FOLDER + "/css/styles.min.css",
 ];
 
 // Type MIME sécurisé
@@ -45,7 +47,7 @@ const server = http.createServer((request, response) => {
 	const publicPath = decodeURIComponent(
 		parsedUrl.pathname === "/" ? "/index.html" : parsedUrl.pathname
 	);
-	const requestedPath = path.normalize(path.join("/app", publicPath));
+	const requestedPath = path.normalize(path.join(APP_FOLDER, publicPath));
 
 	// Vérification si le fichier demandé est autorisé
 	if (!ALLOWED_FILES.includes(requestedPath)) {
@@ -76,7 +78,7 @@ const server = http.createServer((request, response) => {
 			return;
 		}
 
-		if (requestedPath === "/app/index.html") {
+		if (requestedPath === APP_FOLDER + "/index.html") {
 			fs.readFile(filePath, "utf8", (err, data) => {
 				if (err) {
 					response.writeHead(500, { "Content-Type": "text/plain" });
