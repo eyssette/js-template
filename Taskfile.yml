@@ -146,3 +146,48 @@ tasks:
       - "{{.APP_FOLDER}}/js/**/*.mjs"
     cmds:
       - npx eslint "{{.APP_FOLDER}}/**/*.mjs"
+
+  compress:png:
+    cmds:
+    - |
+        set -euo pipefail
+        echo "Compressing PNGs in {{.APP_FOLDER}}..."
+        find "{{.APP_FOLDER}}" -type f -iname "*.png" -exec sh -c '
+          for f; do
+            echo "Compressing: $f"
+            pngquant --force --ext .png --quality=65-80 "$f"
+          done
+        ' _ {} +
+    silent: true
+
+  compress:jpg:
+    cmds:
+      - |
+        set -euo pipefail
+        echo "Compressing JPGs in {{.APP_FOLDER}}..."
+        find "{{.APP_FOLDER}}" -type f -iname "*.jpg" -exec sh -c '
+          for f; do
+            echo "Compressing: $f"
+            jpegoptim --max=80 --strip-all "$f"
+          done
+        ' _ {} +
+      - |
+        set -euo pipefail
+        echo "Compressing JPGs in {{.APP_FOLDER}}..."
+        find "{{.APP_FOLDER}}" -type f -iname "*.jpeg" -exec sh -c '
+          for f; do
+            echo "Compressing: $f"
+            jpegoptim --max=80 --strip-all "$f"
+          done
+        ' _ {} +
+    silent: true
+
+  compress:svg:
+    cmds:
+      - npx svgo "{{.APP_FOLDER}}/"
+
+  compress:images:
+    cmds:
+      - compress:svg
+      - compress:png
+      - compress:jpg
