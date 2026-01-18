@@ -1,3 +1,10 @@
+## 1.1.1 (2026-01-18)
+
+### Fix
+
+- précisions pour la configuration de VSCodium
+- ajout d'une recommandation d'extension ESlint
+
 ## 1.1.0 (2026-01-04)
 
 ### Feat
