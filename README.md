@@ -13,7 +13,7 @@ Le template est préconfiguré avec :
 ## Prérequis
 
 1. Installer Node.js et npm
-2. Installer les dépendances du projet
+2. Installer les dépendances du projet, en lançant la commande suivante dans un terminal à la racine du projet :
 
 ```bash
 npm install
@@ -28,6 +28,31 @@ Pour compiler le code, on utilise Rollup et la tâche `task build`.
 On écrit les tests dans le dossier `tests` : 
 - les tests unitaires dans `tests/unit`
 - les tests _end-to-end_ dans `features` en langage naturel avec Gherkin, et leur implémentation dans `tests/e2e`
+
+## Configuration de l'éditeur (VSCodium)
+
+### Extensions
+
+Des extensions sont recommandées pour VSCodium, pour faciliter le développement avec ce template (_Prettier_, _ESLint_, _Cucumber (Gherkin) autocomplete_).
+
+Ces extensions sont listées dans le fichier `.vscode/extensions.json` et les recommandations d'installation apparaîtront automatiquement à l'ouverture des extensions si vous ouvrez le projet avec VSCodium.
+
+### Tâches préconfigurées
+
+Une tâche par défaut est configurée pour lancer la compilation du projet. Il faut ouvrir la palette de commandes (Ctrl+Shift+P), puis taper `Run Task`, sélectionner `Task: Run Task`, puis choisir `build`, ou bien utiliser le raccourci clavier (Ctrl+Shift+B).
+
+Une tâche par défaut est également configurée pour lancer les tests (unitaires et end-to-end). Il faut ouvrir la palette de commandes (Ctrl+Shift+P), puis taper `Run Test Task`, sélectionner `Task: Run Test Task`, puis choisir `tests:unit`, ou bien utiliser le raccourci clavier (Ctrl+Shift+T).
+
+Vous pouvez aussi utiliser le terminal intégré de VSCodium pour lancer les commandes `task` décrites ci-dessous.
+
+### Formateur de code
+
+Par défaut, le formateur de code est _Prettier_ et le code est automatiquement formaté à chaque sauvegarde du fichier.
+
+Le linter _ESLint_ est également configuré pour vérifier qu'il n'y a pas d'erreurs de syntaxe ou de style dans le code.
+
+On peut changer les paramètres de formatage dans le fichier `.vscode/settings.json`, et dans les fichiers de configuration de Prettier et ESLint (`.prettierrc` et `.eslint.config.mjs`).
+
 
 ## Commits
 
