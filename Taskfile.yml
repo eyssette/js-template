@@ -130,7 +130,7 @@ tasks:
 
   server:start:
     cmds:
-      - node server.js {{.PORT_LOCAL_SERVER}} & # On lance le serveur en arrière-plan
+      - node {{.TEST_FOLDER}}/e2e/server.js {{.PORT_LOCAL_SERVER}} & # On lance le serveur en arrière-plan
       - until nc -z localhost {{.PORT_LOCAL_SERVER}}; do sleep 1; done # On attend que le port soit ouvert avant de lancer la suite
   
   server:stop:
