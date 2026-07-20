@@ -9,7 +9,7 @@
 		"editor.formatOnSave": true
 	},
 	"liveServer.settings.port": 5501,
-	"liveServer.settings.root": "/app",
+	"liveServer.settings.root": "/dist",
 	"editor.semanticTokenColorCustomizations": {
         "enabled": true,
         "rules": {

@@ -1,10 +1,12 @@
 import terser from "@rollup/plugin-terser";
 // import { string } from "rollup-plugin-string";
 import postcss from "rollup-plugin-postcss";
+import copy from "rollup-plugin-copy";
 import clean from "postcss-clean";
 
 const ECMA_VERSION = 2018;
 const appFolder = "app/";
+const distFolder = "dist/";
 
 // On supprime certains messages d'erreurs qu'affiche Rollup et qui ne sont pas très utiles
 const onwarn = (warning) => {
@@ -22,7 +24,7 @@ export default {
 	input: appFolder + "js/main.mjs",
 	onwarn,
 	output: {
-		file: appFolder + "script.min.js",
+		file: distFolder + "script.min.js",
 		format: "iife",
 		plugins: [terser(optionsTerser)],
 		sourcemap: true,
@@ -44,6 +46,19 @@ export default {
 					},
 				}),
 			],
+		}),
+		copy({
+			targets: [
+				{
+					src: [
+						appFolder + "**/*",
+						`!${appFolder}js/**`,
+						`!${appFolder}css/**`,
+					],
+					dest: distFolder,
+				},
+			],
+			flatten: false,
 		}),
 	],
 };

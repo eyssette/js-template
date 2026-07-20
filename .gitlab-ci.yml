@@ -9,7 +9,7 @@ cache:
 # Fichiers à compresser, et nom de l'application à utiliser
 variables:
   FILES_TO_COMPRESS: "htm html txt text js css md ico svg"
-  APP_FOLDER: "app"
+  DIST_FOLDER: "dist"
 
 pages:
   script:
@@ -32,7 +32,7 @@ pages:
 
     # L'application est construite dans le répertoire app : on déplace tous les fichiers nécessaires à la racine
     - cd ..
-    - cp -r $APP_FOLDER/* public
+    - cp -r $DIST_FOLDER/* public
 
     # Compression des fichiers spécifiés
     - |

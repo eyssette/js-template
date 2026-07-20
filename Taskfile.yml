@@ -4,6 +4,7 @@ version: '3'
 
 vars:
   APP_FOLDER: "app"
+  DIST_FOLDER: "dist"
   TEST_FOLDER: "tests"
   FEATURES_FOLDER: "features"
   PORT_LOCAL_SERVER: 8888
@@ -23,9 +24,10 @@ tasks:
       - "{{.APP_FOLDER}}/css/**/*.css"
       - rollup.config.mjs
     generates:
-      - "{{.APP_FOLDER}}/css/styles.min.css"
-      - "{{.APP_FOLDER}}/script.min.js"
-      - "{{.APP_FOLDER}}/script.min.js.map"
+      - "{{.DIST_FOLDER}}/css/styles.min.css"
+      - "{{.DIST_FOLDER}}/script.min.js"
+      - "{{.DIST_FOLDER}}/script.min.js.map"
+      - "{{.DIST_FOLDER}}/index.html"
     method: timestamp
     cmds:
       - npx rollup --config

@@ -7,15 +7,15 @@ const { createReadStream } = require("fs");
 
 const PORT = process.argv[2] || 8888;
 
-const APP_FOLDER = "/app";
+const DIST_FOLDER = "/dist";
 
 // Liste des fichiers autorisés
 const ALLOWED_FILES = [
-	APP_FOLDER + "/index.html",
-	APP_FOLDER + "/script.min.js",
-	APP_FOLDER + "/script.min.js.map",
-	APP_FOLDER + "/favicon.svg",
-	APP_FOLDER + "/css/*.min.css",
+	DIST_FOLDER + "/index.html",
+	DIST_FOLDER + "/script.min.js",
+	DIST_FOLDER + "/script.min.js.map",
+	DIST_FOLDER + "/favicon.svg",
+	DIST_FOLDER + "/css/*.min.css",
 ];
 
 // Conversion des motifs avec wildcards en expressions régulières
@@ -54,13 +54,13 @@ const server = http.createServer((request, response) => {
 
 	const parsedUrl = url.parse(request.url);
 	const publicPath = decodeURIComponent(
-		parsedUrl.pathname === "/" ? "/index.html" : parsedUrl.pathname
+		parsedUrl.pathname === "/" ? "/index.html" : parsedUrl.pathname,
 	);
-	const requestedPath = path.normalize(path.join(APP_FOLDER, publicPath));
+	const requestedPath = path.normalize(path.join(DIST_FOLDER, publicPath));
 
 	// Vérification si le fichier demandé est autorisé
 	const isAllowed = ALLOWED_PATTERNS.some((pat) =>
-		typeof pat === "string" ? pat === requestedPath : pat.test(requestedPath)
+		typeof pat === "string" ? pat === requestedPath : pat.test(requestedPath),
 	);
 	if (!isAllowed) {
 		response.writeHead(403, { "Content-Type": "text/plain" });
@@ -90,7 +90,7 @@ const server = http.createServer((request, response) => {
 			return;
 		}
 
-		if (requestedPath === APP_FOLDER + "/index.html") {
+		if (requestedPath === DIST_FOLDER + "/index.html") {
 			fs.readFile(filePath, "utf8", (err, data) => {
 				if (err) {
 					response.writeHead(500, { "Content-Type": "text/plain" });
@@ -139,6 +139,6 @@ const server = http.createServer((request, response) => {
 // Démarrage du serveur
 server.listen(PORT, () => {
 	console.log(
-		`Static file server running at:\n  => http://localhost:${PORT}/index.html\nCTRL + C to shutdown`
+		`Static file server running at:\n  => http://localhost:${PORT}/index.html\nCTRL + C to shutdown`,
 	);
 });
