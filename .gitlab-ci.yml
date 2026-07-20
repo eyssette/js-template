@@ -16,23 +16,13 @@ pages:
     # Installation des outils de compression
     - apk add --no-cache gzip brotli
 
-    # Création du dossier public qui va contenir tout ce qui est nécessaire pour l'application
-    - mkdir .public
-    - cp -r * .public
-    - mv .public public
-
-
     # Construction de l'application
-    - cd public
     - npm ci --cache ../.npm --prefer-offline --no-audit
     - npm run build
 
-    # Suppression des éléments inutiles dans public
+    # Suppression des éléments inutiles 
     - rm -r node_modules
-
-    # L'application est construite dans le répertoire app : on déplace tous les fichiers nécessaires à la racine
-    - cd ..
-    - cp -r $DIST_FOLDER/* public
+    - mv dist public
 
     # Compression des fichiers spécifiés
     - |
