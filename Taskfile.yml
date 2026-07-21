@@ -221,3 +221,7 @@ tasks:
       - compress:svg
       - compress:png
       - compress:jpg
+
+  tree:
+    cmds:
+      - tree -a -I '.git|.task|node_modules|_'
