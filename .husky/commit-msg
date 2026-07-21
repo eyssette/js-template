@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if ! cz check --allow-abort --commit-msg-file "$1" > /tmp/cz_output.txt 2>&1; then
+if ! npx --no -- commitlint --edit "$1" > /tmp/commit-check_output.txt 2>&1; then
   echo ""
   echo "❌ Message de commit invalide"
   echo ""
