@@ -22,6 +22,7 @@ export default {
 				"bump",
 			],
 		],
+		"header-max-length": [2, "always", 300],
 		"scope-required-for-feat-fix": [2, "always"],
 	},
 	plugins: [
