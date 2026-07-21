@@ -50,11 +50,7 @@ export default {
 		copy({
 			targets: [
 				{
-					src: [
-						appFolder + "**/*",
-						`!${appFolder}js/**`,
-						`!${appFolder}css/**`,
-					],
+					src: [appFolder + "**/*"],
 					dest: distFolder,
 				},
 			],
