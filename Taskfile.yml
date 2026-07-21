@@ -142,12 +142,40 @@ tasks:
       - "{{.APP_FOLDER}}/js/**/*.mjs"
     cmds:
       - npx es-check es2018 "{{.APP_FOLDER}}/js/**/*.mjs" --module
+  
+  ecma:
+    sources:
+      - "{{.APP_FOLDER}}/js/**/*.mjs"
+    cmds:
+      - npx es-check es2018 "{{.APP_FOLDER}}/js/**/*.mjs" --module
+
+  ecma:staged:
+    desc: Vérifie la compatibilité ECMAScript des fichiers .mjs staged (pour le hook pre-commit)
+    silent: true
+    cmds:
+      - |
+        FILES=$(git diff --cached --name-only --diff-filter=ACM -- '{{.APP_FOLDER}}/js/**/*.mjs')
+        if [ -z "$FILES" ]; then
+          exit 0
+        fi
+        npx es-check es2018 $FILES --module
 
   lint:
     sources:
       - "{{.APP_FOLDER}}/js/**/*.mjs"
     cmds:
       - npx eslint "{{.APP_FOLDER}}/**/*.mjs"
+
+  lint:staged:
+    desc: Lint uniquement les fichiers .mjs staged (pour le hook pre-commit)
+    silent: true
+    cmds:
+      - |
+        FILES=$(git diff --cached --name-only --diff-filter=ACM -- '{{.APP_FOLDER}}/**/*.mjs')
+        if [ -z "$FILES" ]; then
+          exit 0
+        fi
+        npx eslint $FILES
 
   compress:png:
     cmds:

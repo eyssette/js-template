@@ -1,0 +1,2 @@
+npx task lint:staged --silent
+npx task ecma:staged --silent

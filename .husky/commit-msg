@@ -1,0 +1,17 @@
+#!/bin/bash
+if ! cz check --allow-abort --commit-msg-file "$1" > /tmp/cz_output.txt 2>&1; then
+  echo ""
+  echo "❌ Message de commit invalide"
+  echo ""
+  echo "Format attendu : <type>(<scope>): <description>"
+  echo ""
+  echo "  Types valides : fix, feat, build, ci, docs, perf, refactor, style, test, chore, revert, bump"
+  echo "  Le scope est obligatoire pour fix/feat, optionnel pour les autres"
+  echo ""
+  echo "  Exemples :"
+  echo "    feat(auth): ajoute la connexion par SSO"
+  echo "    fix(api): corrige la timeout sur /users"
+  echo "    docs: met à jour le README"
+  echo ""
+  exit 1
+fi
