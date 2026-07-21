@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "npx task build",
-    "test": "npx task test"
+    "test": "npx task tests"
   },
   "repository": {
     "type": "git",
