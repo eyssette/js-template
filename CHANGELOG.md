@@ -1,3 +1,27 @@
+## 1.3.0 (2026-07-21)
+
+### Feat
+
+- **complexity**: ajout d'une extension pour calculer et afficher automatiquement la complexité des fonctions JS
+- **commitlint**: utilisation de commitlint pour vérifier les commits
+
+### Fix
+
+- **commitlint**: possibilité d'avoir un message de commit plus long
+- **rollup**: copie de app dans dist
+- **cz**: cohérence des types de commit
+- **husky**: amélioration du message en cas d'erreur
+- **cz**: mise en cohérence des types autorisés de commits
+
+### Chore
+
+- suppression de la version minififiée des styles CSS dans "app"
+- ajout d'une tâche pour obtenir l'arborescence du répertoire
+
+### Docs
+
+- mise à jour de la documentation
+
 ## 1.2.0 (2026-07-21)
 
 ### Feat
