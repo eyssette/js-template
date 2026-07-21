@@ -37,6 +37,10 @@ types = [
   { type = "docs", description = "Documentation only changes" },
   { type = "refactor", description = "Code changes without bug fix or feature" },
   { type = "test", description = "Add or fix tests" },
+  { type = "style", description = "Changes that do not affect code meaning" },
+  { type = "perf", description = "Code changes that improve performance" },
+  { type = "build", description = "Changes that affect the build system or external dependencies" },
+  { type = "ci", description = "Changes to CI configuration files and scripts" },
   { type = "chore", description = "Other changes" }
 ]
 
