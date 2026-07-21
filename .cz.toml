@@ -41,7 +41,8 @@ types = [
   { type = "perf", description = "Code changes that improve performance" },
   { type = "build", description = "Changes that affect the build system or external dependencies" },
   { type = "ci", description = "Changes to CI configuration files and scripts" },
-  { type = "chore", description = "Other changes" }
+  { type = "chore", description = "Other changes" },
+  { type = "revert", description = "Reverts a previous commit" }
 ]
 
 [[tool.commitizen.customize.questions]]
@@ -59,7 +60,9 @@ choices = [
       { value = "test", name = "test: Adding missing or correcting existing tests", key = "t" },
       { value = "build", name = "build: Changes that affect the build system or external dependencies", key = "b" },
       { value = "ci", name = "ci: Changes to CI configuration files and scripts", key = "c" },
-      { value = "edit", name = "edit: Internal change (not in changelog)", key = "e" }
+      { value = "edit", name = "edit: Internal change (not in changelog)", key = "e" },
+      { value = "chore", name = "chore: Other changes that don't modify src or test files", key = "h" },
+      { value = "revert", name = "revert: Reverts a previous commit", key = "v" }
   ]
 
 
