@@ -30,4 +30,5 @@
 		"editor.defaultFormatter": "alexkrechik.cucumberautocomplete",
 		"editor.formatOnSave": true
 	},
+	"cognitiveComplexityShow.enabled": true,
 }
