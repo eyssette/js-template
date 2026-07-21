@@ -24,6 +24,7 @@ npm install
 On écrit son code dans le dossier `app`.
 On utilise du javascript modulaire (ESM), avec des `import` et des `export`.
 Pour compiler le code, on utilise Rollup et la tâche `task build`.
+Le code est compilé dans le dossier `dist`, avec des fichiers javascript et CSS minifiés et optimisés.
 
 On écrit les tests dans le dossier `tests` : 
 - les tests unitaires dans `tests/unit`
@@ -54,22 +55,27 @@ Le linter _ESLint_ est également configuré pour vérifier qu'il n'y a pas d'er
 On peut changer les paramètres de formatage dans le fichier `.vscode/settings.json`, et dans les fichiers de configuration de Prettier et ESLint (`.prettierrc` et `.eslint.config.mjs`).
 
 
-## Commits
+## Commits et mise à jour automatiuqe du CHANGELOG
 
 On écrit des messages de commit clairs et structurés selon la convention [Conventional Commits](https://www.conventionalcommits.org/fr).
 
 Principalement, on utilise :
-- `feat: `: pour une nouvelle fonctionnalité
-- `fix: `: pour une correction de bug, ou une modification mineure
+- `feat(<scope>): `: pour une nouvelle fonctionnalité
+- `fix(<scope>): `: pour une correction de bug, ou une modification mineure
 - `chore: ` : pour des modifications dans la configuration, la rédaction du code, la documentation du projet qui n'ajoutent pas de fonctionnalité ou ne corrigent pas de bug.
 
+Le `<scope>` précise la partie du projet concernée par le commit. Il peut correspondre à un nom de dossier, de fichier, ou de fonctionnalité. Il est obligatoire pour les commits `feat` et `fix`, mais pas pour les commits `chore`.
+
+On peut utiliser d'autres types de commit, comme `docs`, `style`, `refactor`, `perf`, `test`, `build` ou `ci`. Le type `edit` est également disponible pour des corrections typographiques dans le code ou la documentation (ces modifications n'apparaissent pas dans le CHANGELOG).
+
 Si on introduit une modification qui casse la compatibilité avec les versions précédentes, on ajoute `!` après le type de commit, par exemple : `feat!: ` ou `fix!: `.
+
+Des hooks sont configurés, avec husky, pour vérifier que les messages de commit respectent la convention et que le code respecte les règles de formattage.
 
 Après une série de commits, on peut faire une montée de version avec la tâche `task bump` :
 - un nouveau tag git correspondant à la nouvelle version sera créé : le nouveau numéro de version est calculé automatiquement d'après les messages de commit selon la convention [Semantic Versioning](https://semver.org/lang/fr/) ;
 - le numéro de version sera automatiquement mis à jour dans les fichiers `package.json`, `package-lock.json` et `VERSION` ;
 - le changelog sera automatiquement mis à jour dans le fichier `CHANGELOG.md`.
-
 
 
 ## Commandes utiles
