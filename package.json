@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "npx task build",
+    "dev": "npx task dev",
     "test": "npx task tests",
     "prepare": "husky"
   },
@@ -26,6 +27,8 @@
     "@commitlint/config-conventional": "^21.2.0",
     "@eslint/js": "^9.39.2",
     "@go-task/cli": "^3.45.5",
+    "@rollup/plugin-commonjs": "^29.0.3",
+    "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "^0.4.4",
     "codeceptjs": "^3.7.5",
     "es-check": "^9.5.2",
@@ -40,6 +43,9 @@
     "postcss-clean": "^1.2.2",
     "rollup": "^4.53.3",
     "rollup-plugin-copy": "^3.5.0",
-    "rollup-plugin-postcss": "^4.0.2"
+    "rollup-plugin-delete": "^3.0.2",
+    "rollup-plugin-livereload": "^2.0.5",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-serve": "^3.0.0"
   }
 }

@@ -1,8 +1,14 @@
 import terser from "@rollup/plugin-terser";
+// À décommenter si on veut importer des fichiers texte (comme les fichiers Markdown) en tant que chaînes de caractères dans le code JavaScript
 // import { string } from "rollup-plugin-string";
 import postcss from "rollup-plugin-postcss";
 import copy from "rollup-plugin-copy";
 import clean from "postcss-clean";
+import del from "rollup-plugin-delete";
+import resolve from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
+import serve from "rollup-plugin-serve";
+import livereload from "rollup-plugin-livereload";
 
 const ECMA_VERSION = 2018;
 const appFolder = "app/";
@@ -16,6 +22,9 @@ const onwarn = (warning) => {
 	}
 	console.warn(`(!) ${warning.message}`);
 };
+
+const development =
+	process.env.NODE_ENV && process.env.NODE_ENV === "development";
 
 // En mode DEBUG, on ne change pas le nom des variables, afin de pouvoir les vérifier, sinon on les minifie pour réduire la taille du fichier final
 const optionsTerser =
@@ -35,9 +44,21 @@ export default {
 		sourcemap: true,
 	},
 	plugins: [
+		// Importe des fichiers texte (comme les fichiers Markdown) en tant que chaînes de caractères dans le code JavaScript
 		// string({
 		// 	include: appFolder + "*.md",
 		// }),
+
+		// Supprime le contenu du dossier dist avant de compiler
+		del({ targets: "dist" }),
+
+		// Résout les modules Node.js
+		resolve(),
+
+		// Convertit les modules CommonJS en modules ES6 pour qu'ils puissent être utilisés par Rollup
+		commonjs(),
+
+		// Compile et minifie le CSS
 		postcss({
 			extensions: [".css"],
 			extract: "css/styles.min.css",
@@ -52,6 +73,8 @@ export default {
 				}),
 			],
 		}),
+
+		// Copie les fichiers du dossier app vers le dossier dist
 		copy({
 			targets: [
 				{
@@ -61,5 +84,10 @@ export default {
 			],
 			flatten: false,
 		}),
+
+		// En mode développement, lance un serveur de développement et recharge la page automatiquement lorsqu'un fichier est modifié
+		development &&
+			serve({ historyApiFallback: true, contentBase: ["dist", "./"] }),
+		development && livereload(),
 	],
 };
