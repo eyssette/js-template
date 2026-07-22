@@ -1,3 +1,20 @@
+## 1.4.0 (2026-07-22)
+
+### Feat
+
+- **rollup**: ajout d'un serveur de développement + amélioration de la configuration
+
+### Fix
+
+- **rollup**: amélioration config du serveur de développement
+- **lint**: amélioration config ESlint
+- **rollup**: minification des noms de variable
+- **e2e**: le serveur de test autorise tous les fichiers dans le dossier "dist"
+
+### Docs
+
+- mise à jour de la documentation (serveur de développement)
+
 ## 1.3.0 (2026-07-21)
 
 ### Feat
