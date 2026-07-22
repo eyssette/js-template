@@ -1,6 +1,6 @@
 {
   "name": "js-template",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Un template pour un projet en Javascript fondé sur de bonnes pratiques de développement",
   "main": "app/js/main.js",
   "directories": {

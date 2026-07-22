@@ -1,3 +1,22 @@
+## 2.0.2 (2026-07-22)
+
+### Fix
+
+- **codceptJS**: mise à jour du fichier de configuration
+- **vscode**: config debug avec vscode
+- **task**: ajout d'un dépôt remote
+
+### Chore
+
+- **lint**: fichier .eslintignore deprecated
+- mise à jour des dépendances
+- **lint**: pas de camel-case imposé pour les variables de configuration de Jasmine
+- règle eslint inutile
+
+### Test
+
+- fix typo
+
 ## 2.0.1 (2026-07-22)
 
 ### Fix
