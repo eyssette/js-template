@@ -12,7 +12,7 @@ exports.config = {
 	include: {
 		I: "./tests/e2e/.config/steps_file.js",
 	},
-	mocha: {},
+	mocha: { bail: true },
 	bootstrap: null,
 	timeout: null,
 	teardown: null,
