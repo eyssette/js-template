@@ -4,6 +4,7 @@ import pluginJs from "@eslint/js";
 import codeceptjsPlugin from "eslint-plugin-codeceptjs";
 
 const APP_FOLDER = "app/";
+const CODECEPT_GLOBALS = codeceptjsPlugin.environments.codeceptjs.globals;
 
 export default defineConfig([
 	globalIgnores([APP_FOLDER + "js/lib/**"]),
@@ -38,6 +39,17 @@ export default defineConfig([
 			"padded-blocks": ["error", "never"],
 			"space-before-blocks": ["error"],
 			"keyword-spacing": ["error"],
+		},
+	},
+	{
+		files: ["tests/e2e/**/*.js", "tests/e2e/**/*.mjs"],
+		languageOptions: {
+			globals: {
+				...CODECEPT_GLOBALS,
+				Given: false,
+				When: false,
+				Then: false,
+			},
 		},
 	},
 ]);
