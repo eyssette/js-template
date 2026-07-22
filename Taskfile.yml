@@ -148,12 +148,6 @@ tasks:
       - "{{.APP_FOLDER}}/js/**/*.mjs"
     cmds:
       - npx es-check es2018 "{{.APP_FOLDER}}/js/**/*.mjs" --module
-  
-  ecma:
-    sources:
-      - "{{.APP_FOLDER}}/js/**/*.mjs"
-    cmds:
-      - npx es-check es2018 "{{.APP_FOLDER}}/js/**/*.mjs" --module
 
   ecma:staged:
     desc: Vérifie la compatibilité ECMAScript des fichiers .mjs staged (pour le hook pre-commit)
