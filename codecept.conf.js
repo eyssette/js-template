@@ -22,13 +22,11 @@ exports.config = {
 		steps: "./tests/e2e/step_definitions/**/*.js",
 	},
 	plugins: {
-		screenshotOnFail: {
+		screenshot: {
 			enabled: true,
+			on: "fail",
 		},
 		retryFailedStep: {
-			enabled: true,
-		},
-		eachElement: {
 			enabled: true,
 		},
 		pauseOnFail: {},
