@@ -112,7 +112,7 @@ tasks:
     cmds:
       - task: server:start
       - defer: {task: server:stop}
-      - npx codeceptjs run --steps --grep '(?=.*)^(?!.*@WIP)(?=.*{{.CURRENT_E2E_TEST}})'
+      - npx codeceptjs run --steps --verbose --grep '(?=.*)^(?!.*@WIP)(?=.*{{.CURRENT_E2E_TEST}})'
 
   tests:unit:
     aliases:
