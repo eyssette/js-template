@@ -36,18 +36,7 @@ tasks:
   dev:
     deps: [npm:install]
     cmds:
-      - NODE_ENV=development npx rollup --config --watch &
-      - until nc -z localhost {{.PORT_DEV_SERVER}}; do sleep 1; done # On attend que le port soit ouvert avant de lancer la suite
-      - |
-          bash <<'BASH'
-          if command -v xdg-open &> /dev/null; then
-            xdg-open http://localhost:{{.PORT_DEV_SERVER}}
-          elif command -v open &> /dev/null; then
-            open http://localhost:{{.PORT_DEV_SERVER}}
-          else
-            echo "⚠️  Impossible d'ouvrir le navigateur automatiquement. Veuillez ouvrir manuellement http://localhost:{{.PORT_DEV_SERVER}}"
-          fi
-          BASH
+      - NODE_ENV=development npx rollup --config --watch
       
   npm:install:
     sources:

@@ -86,8 +86,7 @@ export default {
 		}),
 
 		// En mode développement, lance un serveur de développement et recharge la page automatiquement lorsqu'un fichier est modifié
-		development &&
-			serve({ historyApiFallback: true, contentBase: ["dist", "./"] }),
+		development && serve({ contentBase: ["dist", "./"], open: true }),
 		development && livereload(),
 	],
 };
