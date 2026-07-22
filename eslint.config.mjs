@@ -2,6 +2,7 @@ import { defineConfig, globalIgnores } from "eslint/config";
 import globals from "globals";
 import pluginJs from "@eslint/js";
 import codeceptjsPlugin from "eslint-plugin-codeceptjs";
+import unicorn from "eslint-plugin-unicorn";
 
 const APP_FOLDER = "app/";
 const CODECEPT_GLOBALS = codeceptjsPlugin.environments.codeceptjs.globals;
@@ -21,7 +22,8 @@ export default defineConfig([
 	pluginJs.configs.recommended,
 	{
 		files: [APP_FOLDER + "**/*.js", APP_FOLDER + "**/*.mjs", "tests/**/*.*js"],
-		plugins: { codeceptjs: codeceptjsPlugin },
+		plugins: { codeceptjs: codeceptjsPlugin, unicorn },
+		extends: ["unicorn/recommended"],
 		rules: {
 			...codeceptjsPlugin.configs.recommended.rules,
 			semi: ["error", "always"],
