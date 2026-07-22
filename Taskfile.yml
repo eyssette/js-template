@@ -49,7 +49,7 @@ tasks:
 
   push:
     vars:
-      GIT_REPO_NAMES: [forge]
+      GIT_REPO_NAMES: [forge, github]
     cmds:
       - task: lint
       - task: tests
