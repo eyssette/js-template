@@ -11,13 +11,10 @@ describe("capitalizeFirstLetter", () => {
 		expect(result).toBe("World");
 	});
 
-	if (
-		("capitalizes only the first letter of the first word",
-		() => {
-			const result = capitalizeFirstLetter("hello world");
-			expect(result).toBe("Hello world");
-		})
-	);
+	it("capitalizes only the first letter of the first word", () => {
+		const result = capitalizeFirstLetter("hello world");
+		expect(result).toBe("Hello world");
+	});
 
 	it("returns an empty string when given an empty string", () => {
 		const result = capitalizeFirstLetter("");
