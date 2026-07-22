@@ -1,8 +1,8 @@
-const http = require("http");
-const url = require("url");
-const path = require("path");
-const fs = require("fs");
-const { createReadStream } = require("fs");
+import crypto from "node:crypto";
+import fs, { createReadStream } from "node:fs";
+import http from "node:http";
+import path from "node:path";
+import url from "node:url";
 
 const PORT = process.argv[2] || 8888;
 
@@ -21,8 +21,6 @@ const MIME_TYPES = {
 	".jpg": "image/jpeg",
 	".jpeg": "image/jpeg",
 };
-
-const crypto = require("crypto"); // Pour générer un nonce
 
 // Serveur HTTP sécurisé
 const server = http.createServer((request, response) => {
@@ -49,20 +47,20 @@ const server = http.createServer((request, response) => {
 	const filePath = path.join(process.cwd(), requestedPath);
 
 	// Déterminer le type MIME
-	const ext = path.extname(filePath);
-	const contentType = MIME_TYPES[ext] || "application/octet-stream";
+	const extension = path.extname(filePath);
+	const contentType = MIME_TYPES[extension] || "application/octet-stream";
 
 	// Lecture sécurisée du fichier
-	fs.access(filePath, fs.constants.F_OK, (err) => {
-		if (err) {
+	fs.access(filePath, fs.constants.F_OK, (error) => {
+		if (error) {
 			response.writeHead(404, { "Content-Type": "text/plain" });
 			response.end("404 Not Found: File does not exist");
 			return;
 		}
 
 		if (requestedPath === DIST_FOLDER + "/index.html") {
-			fs.readFile(filePath, "utf8", (err, data) => {
-				if (err) {
+			fs.readFile(filePath, "utf8", (error, data) => {
+				if (error) {
 					response.writeHead(500, { "Content-Type": "text/plain" });
 					response.end("500 Internal Server Error");
 					return;

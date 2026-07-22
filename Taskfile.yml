@@ -91,6 +91,7 @@ tasks:
       - "{{.APP_FOLDER}}/js/**/*.js"
       - "{{.APP_FOLDER}}/index.html"
       - "{{.TEST_FOLDER}}/e2e/**/*.js"
+      - "{{.TEST_FOLDER}}/e2e/**/*.mjs"
       - "{{.FEATURES_FOLDER}}/**/*.feature"
     cmds:
       # On vérifie avant qu'il n'y ait pas le terme "@CURRENT" dans les fichiers tests e2e
@@ -136,7 +137,7 @@ tasks:
 
   server:start:
     cmds:
-      - node {{.TEST_FOLDER}}/e2e/server.js {{.PORT_LOCAL_SERVER}} & # On lance le serveur en arrière-plan
+      - node {{.TEST_FOLDER}}/e2e/server.mjs {{.PORT_LOCAL_SERVER}} & # On lance le serveur en arrière-plan
       - until nc -z localhost {{.PORT_LOCAL_SERVER}}; do sleep 1; done # On attend que le port soit ouvert avant de lancer la suite
   
   server:stop:
