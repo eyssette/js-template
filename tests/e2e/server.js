@@ -9,24 +9,6 @@ const PORT = process.argv[2] || 8888;
 
 const DIST_FOLDER = "/dist";
 
-// Liste des fichiers autorisés
-const ALLOWED_FILES = [
-	DIST_FOLDER + "/index.html",
-	DIST_FOLDER + "/script.min.js",
-	DIST_FOLDER + "/script.min.js.map",
-	DIST_FOLDER + "/favicon.svg",
-	DIST_FOLDER + "/css/*.min.css",
-];
-
-// Conversion des motifs avec wildcards en expressions régulières
-const ALLOWED_PATTERNS = ALLOWED_FILES.map((p) => {
-	if (p.includes("*")) {
-		const escaped = p.replace(/[.+^${}()|[\]\\]/g, "\\$&").replace(/\*/g, ".*");
-		return new RegExp("^" + escaped + "$");
-	}
-	return p;
-});
-
 // Type MIME sécurisé
 const MIME_TYPES = {
 	".html": "text/html; charset=utf-8",
@@ -58,25 +40,14 @@ const server = http.createServer((request, response) => {
 	);
 	const requestedPath = path.normalize(path.join(DIST_FOLDER, publicPath));
 
-	// Vérification si le fichier demandé est autorisé
-	const isAllowed = ALLOWED_PATTERNS.some((pat) =>
-		typeof pat === "string" ? pat === requestedPath : pat.test(requestedPath),
-	);
-	if (!isAllowed) {
+	// Vérifie que le chemin demandé est dans le répertoire autorisé
+	if (!requestedPath.startsWith(DIST_FOLDER + path.sep)) {
 		response.writeHead(403, { "Content-Type": "text/plain" });
 		response.end("403 Forbidden: Access Denied / " + requestedPath);
 		return;
 	}
 
-	// Normalisation et sécurisation du chemin d'accès
-	const filePath = path.normalize(path.join(process.cwd(), requestedPath));
-
-	// Vérification pour s'assurer que le chemin reste dans le répertoire courant
-	if (!filePath.startsWith(process.cwd())) {
-		response.writeHead(403, { "Content-Type": "text/plain" });
-		response.end("403 Forbidden: Invalid Path");
-		return;
-	}
+	const filePath = path.join(process.cwd(), requestedPath);
 
 	// Déterminer le type MIME
 	const ext = path.extname(filePath);
