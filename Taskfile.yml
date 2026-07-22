@@ -16,14 +16,14 @@ tasks:
     aliases:
       - default
     cmds:
-      - task: rollup:build
+      - task: rolldown:build
 
-  rollup:build:
+  rolldown:build:
     deps: [npm:install]
     sources:
       - "{{.APP_FOLDER}}/js/**/*.mjs"
       - "{{.APP_FOLDER}}/css/**/*.css"
-      - rollup.config.mjs
+      - rolldown.config.mjs
     generates:
       - "{{.DIST_FOLDER}}/css/styles.min.css"
       - "{{.DIST_FOLDER}}/script.min.js"
@@ -31,12 +31,12 @@ tasks:
       - "{{.DIST_FOLDER}}/index.html"
     method: timestamp
     cmds:
-      - npx rollup --config
+      - npx rolldown --config
 
   dev:
     deps: [npm:install]
     cmds:
-      - NODE_ENV=development npx rollup --config --watch
+      - NODE_ENV=development npx rolldown --config --watch
       
   npm:install:
     sources:
