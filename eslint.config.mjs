@@ -15,6 +15,10 @@ export default defineConfig([
 			},
 			ecmaVersion: 2020,
 		},
+		env: {
+			browser: true,
+			node: true,
+		},
 	},
 	pluginJs.configs.recommended,
 	{
