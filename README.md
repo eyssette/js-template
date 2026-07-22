@@ -80,43 +80,49 @@ Après une série de commits, on peut faire une montée de version avec la tâch
 
 ## Commandes utiles
 
-1. Compiler le projet
+Lancer le serveur de développement
+
+```bash
+task dev
+```
+
+Compiler le projet
 
 ```bash
 task build
 ```
 
-2. Lancer les tests unitaires
+Lancer les tests unitaires
 
 ```bash
 task tests:unit
 ```
 
-3. Lancer les tests _end-to-end_
+Lancer les tests _end-to-end_
 
 ```bash
 task tests:e2e
 ```
 
-4. Lancer le linter
+Lancer le linter
 
 ```bash
 task lint
 ```
 
-5. Lancer la vérification du type de Javascript utilisé
+Lancer la vérification du type de Javascript utilisé
 
 ```bash
 task ecma
 ```
 
-6. Faire une montée de version
+Faire une montée de version
 
 ```bash
 task bump
 ```
 
-7. Pousser ces modifications sur le dépôt distant
+Pousser les modifications sur le dépôt distant
 
 ```bash
 task push
