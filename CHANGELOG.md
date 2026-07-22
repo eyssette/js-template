@@ -1,3 +1,15 @@
+## 2.0.1 (2026-07-22)
+
+### Fix
+
+- **e2e**: mode verbose pour les tests e2e:current
+- **lint**: intégration des constantes de codeceptjs pour éviter les erreurs no-undef
+- **e2e**: option bail:true pour arrêter les tests e2e dès que l'un des tests plante
+
+### Chore
+
+- update package-lock.json
+
 ## 2.0.0 (2026-07-22)
 
 ### Fix
