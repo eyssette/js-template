@@ -12,12 +12,9 @@ export default defineConfig([
 			globals: {
 				...globals.browser,
 				...globals.jasmine,
+				...globals.node,
 			},
 			ecmaVersion: 2020,
-		},
-		env: {
-			browser: true,
-			node: true,
 		},
 	},
 	pluginJs.configs.recommended,
