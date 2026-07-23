@@ -4,13 +4,27 @@ Un environnement de développement préconfiguré pour démarrer un projet JavaS
 
 ## Ce que ce template apporte
 
+### Les fonctions principales
+
+Ce template propose un environnement de développement complet :
+
 - Compilation avec Rolldown (JS + CSS optimisés et minifiés)
 - Tests unitaires avec Jasmine
 - Tests end-to-end avec Gherkin + CodeceptJS
 - Qualité de code avec ESLint + Prettier
-- Automatisation des tâches avec Taskfile
 - Workflow de versionning et changelog automatisé avec Husky + Commitlint + Commitizen
 - Intégration continue dans Gitlab
+
+### Automatisation des tâches
+
+Les tâches courantes sont automatisées avec [Task](https://taskfile.dev/) et permettent de :
+
+- Lancer un serveur de développement local avec rechargement automatique en cas de modifications du code
+- Lancer les tâches de test, de lint, de compilation et de montée de version
+- Vérifier les versions des dépendances (avec npm outdated) et la conformité du code à la version ECMAScript utilisée (avec es-check)
+- Vérifier l’accessibilité de l’application (avec pa11y-ci)
+- Compresser des images (avec pngquant, jpegoptim et svgo)
+- Vérifier la sécurité de l'application (avec npm audit, semgrep et trivy)
 
 ## Démarrage rapide
 
@@ -202,6 +216,27 @@ Cette commande :
 
 Il faut changer la variable `GIT_REPO_NAMES` dans le fichier `Taskfile.yml` pour indiquer les dépôts Git sur lesquels pousser les modifications.
 
+### Accessibilité
+
+On peut vérifier l’accessibilité de l’application, grâce à pa11y-ci, avec la commande suivante :
+
+```bash
+# Vérifier l'accessibilité de la page principale de l'application (index.html)
+task a11y
+```
+
+ou 
+
+```bash
+# Vérifier l'accessibilité de l'application sur un fichier HTML spécifique
+task a11y --/page1
+```
+
+```bash
+# Vérifier l'accessibilité d'une page web externe
+task a11y --URL
+```
+
 
 ### Compression des images
 
@@ -215,6 +250,31 @@ Elle utilise plusieurs outils, qu'il faut installer sur votre machine :
 ```bash
 # Compresser les images du projet
 task images:compress
+```
+
+### Sécurité
+
+On peut vérifier la sécurité de l'application avec les commandes suivantes :
+
+```bash
+# Vérifier les vulnérabilités des dépendances avec npm audit
+task security:audit
+```
+
+```bash
+# Vérifier la sécurité du code avec semgrep
+task security:semgrep
+```
+
+```bash
+# Vérifier la sécurité de l'application avec trivy
+task security:trivy
+```
+
+Pour lancer toutes les vérifications de sécurité en une seule commande :
+
+```bash
+task security
 ```
 
 ## Licence
