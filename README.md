@@ -110,7 +110,7 @@ Raccourcis utiles :
 - ESLint vérifie la qualité du code.
 - L'extension `Cognitive Complexity Show` permet d'afficher la complexité cognitive des fonctions dans le code.
 
-On peut changer les paramètres de formatage dans le fichier `.vscode/settings.json`, et dans les fichiers de configuration de Prettier et ESLint (`.prettierrc` et `eslint.config.mjs`).
+On peut changer les paramètres de formatage dans le fichier `.vscode/settings.json`, et dans les fichiers de configuration de Prettier et ESLint (`prettier.config.mjs` et `eslint.config.mjs`).
 
 ## Commits, versions et changelog
 
