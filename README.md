@@ -117,21 +117,22 @@ La configuration des types de commit peut être modifiée dans `commitlint.confi
 
 ### Monter une version
 
-On peut automatiquement monter la version du projet et générer le changelog, avec la commande suivante :
+On peut automatiquement, avec Commitizen, monter la version du projet et générer le CHANGELOG, avec la commande suivante :
 
 ```bash
 task bump
 ```
 
-Cette commande lance Commitizen pour :
+1. La nouvelle version est calculée automatiquement en suivant la convention [Semantic Versioning](https://semver.org/lang/fr/).
+2. Un tag Git est créé pour cette version.
+3. Les fichiers `VERSION`, `package.json` et `package-lock.json` sont mis à jour.
+4. `CHANGELOG.md` est mis à jour avec les changements depuis la version précédente.
 
-- calculer la nouvelle version automatiquement selon la convention [Semantic Versioning](https://semver.org/lang/fr/) en se fondant sur les types de commit : 
-  - `feat` → version mineure
-  - `fix` → version patch
-  - `BREAKING CHANGE` ou `!` → version majeure
-- crée le tag Git correspondant
-- met à jour le numéro de version dans `VERSION`, `package.json`, `package-lock.json`
-- met à jour automatiquement le `CHANGELOG.md` en indiquant les changements apportés depuis la dernière version.
+Règle de calcul de version :
+
+- `feat` -> version mineure (ex: de 1.2.5 à 1.3.0)
+- `fix` -> version patch (ex: de 1.3.0 à 1.3.1)
+- `BREAKING CHANGE` ou `!` -> version majeure (ex: de 1.3.1 à 2.0.0)
 
 ## Commandes complémentaires
 
