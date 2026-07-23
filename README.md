@@ -216,3 +216,7 @@ Elle utilise plusieurs outils, qu'il faut installer sur votre machine :
 # Compresser les images du projet
 task images:compress
 ```
+
+## Licence
+
+Ce projet est sous licence libre MIT.
