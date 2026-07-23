@@ -236,3 +236,9 @@ tasks:
   tree:
     cmds:
       - tree -a -I '.git|.task|node_modules|_'
+
+  # Tâche pour vérifier les dépendances
+  deps:check:
+    cmds:
+      # Vérifie les versions des dépendances
+      - npm outdated
