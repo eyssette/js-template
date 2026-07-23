@@ -1,3 +1,24 @@
+## 2.1.0 (2026-07-23)
+
+### Feat
+
+- **css**: gestion des imports CSS et bundle avec minification dans le fichier CSS principal
+
+### Fix
+
+- **lint**: utilisation du plugin @stylistic
+- **lint**: règles unicorn désactivées pour un fichier de configuration CodeceptJS
+- **rolldown**: config simplifiée et sécurisée pour la récupération des fichiers CSS
+- **task**: ajout d'une tâche pour vérifier les dépendances
+
+### Chore
+
+- précision des versions de node et npm à utiliser
+
+### Docs
+
+- précisions sur le javascript modulaire et l'import des fichiers CSS
+
 ## 2.0.3 (2026-07-23)
 
 ### Fix
