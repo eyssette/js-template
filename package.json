@@ -33,6 +33,7 @@
     "@rollup/plugin-commonjs": "^29.0.3",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "^1.0.0",
+    "@stylistic/eslint-plugin": "^5.10.0",
     "codeceptjs": "^4.0.9",
     "es-check": "^9.6.4",
     "eslint": "^10.7.0",
