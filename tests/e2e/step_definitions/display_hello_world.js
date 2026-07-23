@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/filename-case */
 const { I } = inject();
 
 Given("Je lance la page d'accueil", () => {
