@@ -26,7 +26,41 @@ const CSS_EXTENSION_SUFFIX_REGEX = /\.css$/;
 
 // Récupère tous les fichiers CSS du dossier spécifié et de ses sous-dossiers
 function getCssFiles(folder) {
-	return fs.globSync(`${folder}**/*.css`);
+	const rootFolderPath = path.resolve(folder);
+	const cssFiles = [];
+
+	function walkDirectory(currentFolderPath) {
+		const relativeToRoot = path.relative(rootFolderPath, currentFolderPath);
+		if (relativeToRoot.startsWith("..") || path.isAbsolute(relativeToRoot)) {
+			return;
+		}
+
+		for (const dirent of fs.readdirSync(currentFolderPath, {
+			withFileTypes: true,
+		})) {
+			const entryPath = path.join(currentFolderPath, dirent.name);
+
+			if (dirent.isSymbolicLink()) {
+				continue;
+			}
+
+			if (dirent.isDirectory()) {
+				walkDirectory(entryPath);
+				continue;
+			}
+
+			if (dirent.isFile() && entryPath.endsWith(".css")) {
+				cssFiles.push(entryPath);
+			}
+		}
+	}
+
+	if (!fs.existsSync(rootFolderPath)) {
+		return cssFiles;
+	}
+
+	walkDirectory(rootFolderPath);
+	return cssFiles;
 }
 
 function resolveSafeCssImportPath(jsFile, cssImportPath) {
