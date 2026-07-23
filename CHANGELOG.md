@@ -1,3 +1,11 @@
+## 2.1.3 (2026-07-23)
+
+### Fix
+
+- **lint**: exclusion pour le lint des fichiers et dossiers qui sont dans le .gitignore
+- **app**: ajout d'un fichier robots.txt par défaut
+- **lint**: configuration de prettier dans prettier.config.mjs plutôt que .prettierrc
+
 ## 2.1.2 (2026-07-23)
 
 ### Fix
