@@ -19,6 +19,11 @@ const mainJsFile = appFolder + "js/main.mjs";
 const development =
 	process.env.NODE_ENV && process.env.NODE_ENV === "development";
 
+const RELATIVE_CSS_IMPORT_PATH_REGEX =
+	/^(?:\.{1,2}[\\/])[A-Za-z0-9._\-/]+\.css$/;
+const CSS_IMPORT_LINE_REGEX = /^(\s*)import\s+['"]([^'"]+\.css)['"]\s*;?\s*$/;
+const CSS_EXTENSION_SUFFIX_REGEX = /\.css$/;
+
 // Récupère tous les fichiers CSS du dossier spécifié et de ses sous-dossiers
 function getCssFiles(folder) {
 	return fs.globSync(`${folder}**/*.css`);
@@ -30,7 +35,7 @@ function resolveSafeCssImportPath(jsFile, cssImportPath) {
 	}
 
 	// Autorise uniquement des chemins relatifs vers des fichiers .css.
-	if (!/^(?:\.{1,2}[\\/])[A-Za-z0-9._\-/]+\.css$/.test(cssImportPath)) {
+	if (!RELATIVE_CSS_IMPORT_PATH_REGEX.test(cssImportPath)) {
 		return null;
 	}
 
@@ -75,7 +80,7 @@ function getImportedCssFiles(jsFile) {
 
 function commentCssImportsInMainJs(jsFile, importedCssFiles) {
 	const jsContent = fs.readFileSync(jsFile, "utf-8");
-	const importRegex = /^(\s*)import\s+['"]([^'"]+\.css)['"]\s*;?\s*$/;
+	const importRegex = CSS_IMPORT_LINE_REGEX;
 	const importedCssFilesSet = new Set(importedCssFiles);
 	const commentedContent = jsContent
 		.split("\n")
@@ -167,7 +172,7 @@ function minifyNonImportedCssFiles(importedCssFiles) {
 		const relativePath = path.relative(stylesFolder, stylesCssFile);
 		const stylesMinCssFile = path.join(
 			distStylesFolder,
-			relativePath.replace(/\.css$/, ".min.css"),
+			relativePath.replace(CSS_EXTENSION_SUFFIX_REGEX, ".min.css"),
 		);
 		// On ignore le fichier si c'est le fichier CSS principal (styles.css) car il a déjà été minifié dans la fonction minifyMainCss()
 		if (path.basename(stylesCssFile) === "styles.css") {
