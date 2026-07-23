@@ -87,6 +87,31 @@ function resolveSafeCssImportPath(jsFile, cssImportPath) {
 	return resolvedCssPath;
 }
 
+function getSafeModulePath(moduleId) {
+	if (typeof moduleId !== "string") {
+		return null;
+	}
+
+	const normalizedId = moduleId.split("?")[0].split("#")[0];
+	if (normalizedId.length === 0 || normalizedId.includes("\0")) {
+		return null;
+	}
+
+	if (normalizedId.startsWith("file://")) {
+		try {
+			return fileURLToPath(normalizedId);
+		} catch {
+			return null;
+		}
+	}
+
+	if (!path.isAbsolute(normalizedId)) {
+		return null;
+	}
+
+	return path.normalize(normalizedId);
+}
+
 // Récupère tous les fichiers CSS qui sont importés dans le fichier JS principal (main.mjs) et les concatène dans le fichier CSS principal (styles.css)
 function getImportedCssFiles(jsFile) {
 	const jsContent = fs.readFileSync(jsFile, "utf-8");
@@ -216,7 +241,8 @@ const minifyStylesPlugin = (() => {
 			}
 		},
 		transform(code, id) {
-			if (path.resolve(id) !== mainJsAbsolutePath) {
+			const modulePath = getSafeModulePath(id);
+			if (modulePath !== mainJsAbsolutePath) {
 				return null;
 			}
 
