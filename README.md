@@ -1,14 +1,14 @@
 # JS Template
 
-Un template pour un projet en Javascript fondé sur de bonnes pratiques de développement.
+Un template pour créer un projet en Javascript avec de bonnes pratiques de développement.
 
 Le template est préconfiguré avec :
-- une compilation avec Rollup
-- des tests unitaires avec Jasmine
-- des tests _end-to-end_ avec CodeceptJS et des _features_ rédigées en Gherkin
-- un linter avec ESLint
-- une gestion des tâches avec Taskfile
-- une intégration continue dans Gitlab
+- la compilation, l'optimisation et la minification des fichiers CSS et Javascript, avec _Rolldown_ et _LightningCSS_,
+- des tests unitaires avec _Jasmine_,
+- des tests _end-to-end_ avec _CodeceptJS_ et des _features_ rédigées en _Gherkin_,
+- un linter avec _ESLint_ et un formateur de code avec _Prettier_,
+- une gestion des tâches avec _Taskfile_,
+- une intégration continue dans _Gitlab_,
 
 ## Prérequis
 
@@ -23,7 +23,7 @@ npm install
 
 On écrit son code dans le dossier `app`.
 On utilise du javascript modulaire (ESM), avec des `import` et des `export`.
-Pour compiler le code, on utilise Rollup et la tâche `task build`.
+Pour compiler le code, on utilise Rolldown et la tâche `task build`.
 Le code est compilé dans le dossier `dist`, avec des fichiers javascript et CSS minifiés et optimisés.
 
 On écrit les tests dans le dossier `tests` : 
