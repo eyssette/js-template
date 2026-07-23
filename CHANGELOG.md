@@ -1,3 +1,25 @@
+## 2.0.3 (2026-07-23)
+
+### Fix
+
+- **ci**: actualisation de la version de node pour pouvoir faire le build de l'application
+- **tests**: patch pour l'installation de playwright quand certains navigateurs ne peuvent pas être installés
+- **lint**: ajout du plugin unicorn pour ESlint
+
+### Chore
+
+- ajout de .npm dans .gitignore
+- précision de la fonction de chaque extension
+- corrections erreurs ESlint pour le serveur de test
+
+### Docs
+
+- précision sur l'extension de calcul de la complexité des fonctions
+- précision sur la manière de pousser les tags git
+- amélioration partie sur la montée de version
+- réécriture plus claire et plus précise de la documentation
+- petites améliorations de la documentation
+
 ## 2.0.2 (2026-07-22)
 
 ### Fix
