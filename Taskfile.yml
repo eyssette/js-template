@@ -104,7 +104,7 @@ tasks:
             fi
           '
         silent: true
-      - npx playwright install
+      - task: tests:e2e:install:playwright
       - task: server:start
       - defer: {task: server:stop}
       - npx codeceptjs run --steps --grep '(?=.*)^(?!.*@WIP)'
@@ -114,6 +114,16 @@ tasks:
       - task: server:start
       - defer: {task: server:stop}
       - npx codeceptjs run --steps --verbose --grep '(?=.*)^(?!.*@WIP)(?=.*{{.CURRENT_E2E_TEST}})'
+
+  tests:e2e:install:playwright:
+    cmds:
+      # On installe les navigateurs pour Playwright (Chromium, Firefox et WebKit) et si cela ne marche pas pour certains navigateurs, on applique un patch qui permet de contourner le problème (voir https://github.com/microsoft/playwright/issues/1941#issuecomment-1008338376)
+      - |
+        set -e
+        if ! npx playwright install; then
+          echo "❌ Échec de l'installation de certains navigateurs Playwright. Application d'un patch pour contourner le problème";
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=true npm i -D playwright
+        fi
 
   tests:unit:
     aliases:
