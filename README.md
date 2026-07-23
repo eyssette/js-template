@@ -201,3 +201,18 @@ Cette commande :
 - pousse les modifications sur les différents dépôts Git configurés dans le projet
 
 Il faut changer la variable `GIT_REPO_NAMES` dans le fichier `Taskfile.yml` pour indiquer les dépôts Git sur lesquels pousser les modifications.
+
+
+### Compression des images
+
+Une tâche de compression des images est disponible pour réduire la taille des images du projet.
+
+Elle utilise plusieurs outils, qu'il faut installer sur votre machine :
+- pngquant pour les images PNG
+- jpegoptim pour les images JPEG
+- svgo pour les images SVG
+
+```bash
+# Compresser les images du projet
+task images:compress
+```
