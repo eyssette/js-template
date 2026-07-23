@@ -37,6 +37,10 @@ tasks:
     deps: [npm:install]
     cmds:
       - NODE_ENV=development npx rolldown --config --watch
+  
+  dev:stop:
+    cmds:
+      - bash -c 'kill $(lsof -ti :{{.PORT_DEV_SERVER}}) 2>/dev/null' || true
       
   npm:install:
     sources:
@@ -242,3 +246,51 @@ tasks:
     cmds:
       # Vérifie les versions des dépendances
       - npm outdated
+
+  a11y:check:
+    # Vérifie l'accessibilité du site avec pa11y-ci
+    cmds:
+      - |
+        ARGS="{{.CLI_ARGS}}"
+        if [ -z "$ARGS" ]; then
+          npx pa11y-ci http://localhost:{{.PORT_DEV_SERVER}}
+        elif [ "${ARGS#/}" != "$ARGS" ]; then
+          npx pa11y-ci "http://localhost:{{.PORT_DEV_SERVER}}$ARGS"
+        else
+          npx pa11y-ci "$ARGS"
+        fi
+
+  a11y:
+    cmds:
+      # S'il y a un argument passé à la tâche et que cet argument ne commence pas par "/" (ce qui signifie qu'il s'agit d'une URL), on lance directement la tâche "a11y:check" avec cet argument, et on ne lance pas la suite de la tâche
+      # Si le port du serveur de développement n'est pas ouvert, on lance la tâche "dev", puis quand le port est ouvert, on lance la tâche "a11y:check", puis on arrête le serveur de développement
+      # Si le port du serveur de développement est déjà ouvert, on lance directement la tâche "a11y:check"
+      - |
+        ARGS="{{.CLI_ARGS}}"
+        if [[ -n "$ARGS" && "$ARGS" != /* ]]; then
+          task a11y:check -- "$ARGS"
+          exit $?
+        elif nc -z localhost {{.PORT_DEV_SERVER}}; then
+          echo "Le serveur de développement est déjà ouvert. Lancement de la tâche \"a11y:check\"..."
+          if [ -n "$ARGS" ]; then
+            task a11y:check -- "$ARGS"
+          else 
+            task a11y:check
+          fi
+        else
+          echo "Le serveur de développement n'est pas ouvert. Lancement de la tâche \"dev\"..."
+          task npm:install
+          task dev &
+          until nc -z localhost {{.PORT_DEV_SERVER}}; do
+            sleep 1
+          done
+          STATUS=0
+          if [ -n "$ARGS" ]; then
+            task a11y:check -- "$ARGS" || STATUS=$?
+          else
+            task a11y:check || STATUS=$?
+          fi
+          echo "Arrêt du serveur de développement..."
+          task dev:stop
+          exit "$STATUS"
+        fi
