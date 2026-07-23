@@ -90,6 +90,10 @@ function resolveSafeCssImportPath(jsFile, cssImportPath) {
 // Récupère tous les fichiers CSS qui sont importés dans le fichier JS principal (main.mjs) et les concatène dans le fichier CSS principal (styles.css)
 function getImportedCssFiles(jsFile) {
 	const jsContent = fs.readFileSync(jsFile, "utf-8");
+	return getImportedCssFilesFromContent(jsFile, jsContent);
+}
+
+function getImportedCssFilesFromContent(jsFile, jsContent) {
 	const importRegex =
 		/^\s*(?:\/\/\s*)?import\s+['"]([^'"]+\.css)['"]\s*;?\s*$/gm;
 	const importedCssFiles = [];
@@ -105,11 +109,10 @@ function getImportedCssFiles(jsFile) {
 	return importedCssFiles;
 }
 
-function commentCssImportsInMainJs(jsFile, importedCssFiles) {
-	const jsContent = fs.readFileSync(jsFile, "utf-8");
+function stripCssImportsFromJsContent(jsFile, jsContent, importedCssFiles) {
 	const importRegex = CSS_IMPORT_LINE_REGEX;
 	const importedCssFilesSet = new Set(importedCssFiles);
-	const commentedContent = jsContent
+	return jsContent
 		.split("\n")
 		.map((line) => {
 			const match = line.match(importRegex);
@@ -129,8 +132,6 @@ function commentCssImportsInMainJs(jsFile, importedCssFiles) {
 			return `${match[1]}// ${line.trim()}`;
 		})
 		.join("\n");
-
-	fs.writeFileSync(jsFile, commentedContent);
 }
 
 // Concatène tous les fichiers CSS importés dans le fichier JS principal (main.mjs) et les enregistre dans une variable pour être minifiés ensuite dans le dossier dist/css
@@ -142,10 +143,6 @@ function concatenateImportedCssFiles(importedCssFiles) {
 	}
 
 	return concatenatedCss;
-}
-
-function restoreMainJsContent(originalMainJsContent) {
-	fs.writeFileSync(mainJsFile, originalMainJsContent);
 }
 
 function logGeneratedChunk(filePath) {
@@ -170,20 +167,6 @@ function minifyCssToFile(inputCss, sourceFile, outputFile) {
 	fs.writeFileSync(outputFile, code);
 	logGeneratedChunk(outputFile);
 }
-
-const originalMainJsContentForBuild = fs.readFileSync(mainJsFile, "utf-8");
-const importedCssFilesForBuild = getImportedCssFiles(mainJsFile);
-commentCssImportsInMainJs(mainJsFile, importedCssFilesForBuild);
-
-let mainJsRestored = false;
-const restoreMainJsAfterBuild = () => {
-	if (!mainJsRestored) {
-		restoreMainJsContent(originalMainJsContentForBuild);
-		mainJsRestored = true;
-	}
-};
-
-process.once("exit", restoreMainJsAfterBuild);
 
 // Minifie le fichier CSS principal (styles.css) et l'enregistre dans le dossier dist/css
 function minifyMainCss(importedCssFiles) {
@@ -219,17 +202,50 @@ function minifyNonImportedCssFiles(importedCssFiles) {
 }
 
 // Plugin pour minifier les fichiers CSS après la compilation
-const minifyStylesPlugin = {
-	name: "minify-styles",
-	writeBundle() {
-		try {
+const minifyStylesPlugin = (() => {
+	let importedCssFilesForBuild = [];
+	const mainJsAbsolutePath = path.resolve(mainJsFile);
+
+	return {
+		name: "minify-styles",
+		buildStart() {
+			// Les CSS non importés en JS ne sont pas toujours dans le graphe de modules;
+			// on les ajoute explicitement au watch mode pour déclencher un rebuild.
+			for (const cssFile of getCssFiles(stylesFolder)) {
+				this.addWatchFile(path.resolve(cssFile));
+			}
+		},
+		transform(code, id) {
+			if (path.resolve(id) !== mainJsAbsolutePath) {
+				return null;
+			}
+
+			importedCssFilesForBuild = getImportedCssFilesFromContent(id, code);
+			const transformedCode = stripCssImportsFromJsContent(
+				id,
+				code,
+				importedCssFilesForBuild,
+			);
+
+			if (transformedCode === code) {
+				return null;
+			}
+
+			return {
+				code: transformedCode,
+				map: null,
+			};
+		},
+		writeBundle() {
+			if (importedCssFilesForBuild.length === 0) {
+				importedCssFilesForBuild = getImportedCssFiles(mainJsFile);
+			}
+
 			minifyMainCss(importedCssFilesForBuild);
 			minifyNonImportedCssFiles(importedCssFilesForBuild);
-		} finally {
-			restoreMainJsAfterBuild();
-		}
-	},
-};
+		},
+	};
+})();
 
 // Configuration de la compilation avec Rolldown
 export default {
