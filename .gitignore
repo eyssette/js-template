@@ -5,3 +5,4 @@ node_modules/
 tests/e2e/output
 megalinter-reports/
 .mega-linter.yml
+.npm
