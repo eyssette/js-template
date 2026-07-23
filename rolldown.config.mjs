@@ -3,6 +3,7 @@
 
 import fs from "fs";
 import path from "path";
+import { fileURLToPath, pathToFileURL } from "url";
 import copy from "rollup-plugin-copy";
 import del from "rollup-plugin-delete";
 import serve from "rollup-plugin-serve";
@@ -23,6 +24,37 @@ function getCssFiles(folder) {
 	return fs.globSync(`${folder}**/*.css`);
 }
 
+function resolveSafeCssImportPath(jsFile, cssImportPath) {
+	if (typeof cssImportPath !== "string" || cssImportPath.includes("\0")) {
+		return null;
+	}
+
+	// Autorise uniquement des chemins relatifs vers des fichiers .css.
+	if (!/^(?:\.{1,2}[\\/])[A-Za-z0-9._\-/]+\.css$/.test(cssImportPath)) {
+		return null;
+	}
+
+	const normalizedImportPath = cssImportPath.replace(/\\/g, "/");
+	if (normalizedImportPath.startsWith("/")) {
+		return null;
+	}
+
+	const baseDirUrl = new URL("./", pathToFileURL(jsFile));
+	const resolvedCssUrl = new URL(normalizedImportPath, baseDirUrl);
+	const resolvedCssPath = fileURLToPath(resolvedCssUrl);
+	const appRootPath = path.resolve(appFolder);
+	const relativeToAppRoot = path.relative(appRootPath, resolvedCssPath);
+
+	if (
+		relativeToAppRoot.startsWith("..") ||
+		path.isAbsolute(relativeToAppRoot)
+	) {
+		return null;
+	}
+
+	return resolvedCssPath;
+}
+
 // Récupère tous les fichiers CSS qui sont importés dans le fichier JS principal (main.mjs) et les concatène dans le fichier CSS principal (styles.css)
 function getImportedCssFiles(jsFile) {
 	const jsContent = fs.readFileSync(jsFile, "utf-8");
@@ -32,28 +64,41 @@ function getImportedCssFiles(jsFile) {
 	let match;
 
 	while ((match = importRegex.exec(jsContent)) !== null) {
-		const cssFilePath = path.resolve(path.dirname(jsFile), match[1]);
-		importedCssFiles.push(cssFilePath);
+		const cssFilePath = resolveSafeCssImportPath(jsFile, match[1]);
+		if (cssFilePath !== null) {
+			importedCssFiles.push(cssFilePath);
+		}
 	}
 
 	return importedCssFiles;
 }
 
 function commentCssImportsInMainJs(jsFile, importedCssFiles) {
-	let jsContent = fs.readFileSync(jsFile, "utf-8");
+	const jsContent = fs.readFileSync(jsFile, "utf-8");
+	const importRegex = /^(\s*)import\s+['"]([^'"]+\.css)['"]\s*;?\s*$/;
+	const importedCssFilesSet = new Set(importedCssFiles);
+	const commentedContent = jsContent
+		.split("\n")
+		.map((line) => {
+			const match = line.match(importRegex);
+			if (!match) {
+				return line;
+			}
 
-	for (const cssFile of importedCssFiles) {
-		const relativePath = path.relative(path.dirname(jsFile), cssFile);
-		const importRegex = new RegExp(
-			`^(\\s*)import\\s+['"]${relativePath.replace(/\\/g, "\\\\")}['"]\\s*;?\\s*$`,
-			"gm",
-		);
-		jsContent = jsContent.replace(importRegex, (match, indent) => {
-			return `${indent}// ${match.trim()}`;
-		});
-	}
+			const resolvedImportPath = resolveSafeCssImportPath(jsFile, match[2]);
+			if (resolvedImportPath === null) {
+				return line;
+			}
 
-	fs.writeFileSync(jsFile, jsContent);
+			if (!importedCssFilesSet.has(resolvedImportPath)) {
+				return line;
+			}
+
+			return `${match[1]}// ${line.trim()}`;
+		})
+		.join("\n");
+
+	fs.writeFileSync(jsFile, commentedContent);
 }
 
 // Concatène tous les fichiers CSS importés dans le fichier JS principal (main.mjs) et les enregistre dans une variable pour être minifiés ensuite dans le dossier dist/css
