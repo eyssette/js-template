@@ -87,6 +87,7 @@ Raccourcis utiles :
 - Prettier est configuré comme formateur par défaut.
 - Le formatage à la sauvegarde est activé.
 - ESLint vérifie la qualité du code.
+- L'extension `Cognitive Complexity Show` permet d'afficher la complexité cognitive des fonctions dans le code.
 
 On peut changer les paramètres de formatage dans le fichier `.vscode/settings.json`, et dans les fichiers de configuration de Prettier et ESLint (`.prettierrc` et `eslint.config.mjs`).
 
