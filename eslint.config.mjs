@@ -1,5 +1,6 @@
-import { defineConfig, globalIgnores } from "eslint/config";
+import { defineConfig, globalIgnores, includeIgnoreFile } from "eslint/config";
 import globals from "globals";
+import path from "node:path";
 import pluginJs from "@eslint/js";
 import codeceptjsPlugin from "eslint-plugin-codeceptjs";
 import unicorn from "eslint-plugin-unicorn";
@@ -15,7 +16,10 @@ const E18E_WARN_RULES = Object.fromEntries(
 	]),
 );
 
+const gitignorePath = path.resolve(import.meta.dirname, ".gitignore");
+
 export default defineConfig([
+	includeIgnoreFile(gitignorePath),
 	globalIgnores([APP_FOLDER + "js/lib/**"]),
 	{
 		languageOptions: {
