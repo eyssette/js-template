@@ -1,3 +1,17 @@
+## 2.1.2 (2026-07-23)
+
+### Fix
+
+- **build**: amélioration de la sécurité pour la récupération des fichiers CSS sans globSync
+- **build**: sécurisation de la récupération des fichiers CSS sans globSync
+
+### Docs
+
+- ajout d'un fichier CONTRIBUTING
+- ajout de la référence à la licence
+- ajout documentation pour la tâche de compression des images
+- précision pour l'installation de Commitizen pour la tâche "bump"
+
 ## 2.1.1 (2026-07-23)
 
 ### Fix
