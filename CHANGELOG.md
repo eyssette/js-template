@@ -1,3 +1,14 @@
+## 2.1.1 (2026-07-23)
+
+### Fix
+
+- **lint**: ajout des règles de @e18e/eslint-plugin en mode "warning"
+- **build**: sécurisation du bundle des fichiers CSS
+
+### Chore
+
+- **lint**: regex dans une constante
+
 ## 2.1.0 (2026-07-23)
 
 ### Feat
