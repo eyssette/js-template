@@ -55,6 +55,27 @@ Pour générer le build final, lancer :
 task build
 ```
 
+## Programmation JavaScript et CSS
+
+Ce template est pensé pour programmer en JavaScript modulaire, avec une gestion explicite des imports et des exports. L’intérêt est de découper le code en petits fichiers plus simples à lire, à tester et à faire évoluer.
+
+Il est recommandé d’organiser les fichiers de manière logique, par exemple selon un modèle MVC (voir ci-dessous), ou selon les fonctionnalités de l’application.
+
+<details>
+<summary>Le modèle MVC</summary>
+
+Le modèle MVC (Modèle-Vue-Contrôleur) est une architecture logicielle qui sépare les responsabilités dans une application :
+
+- Le **Modèle** gère les données et la logique métier.
+- La **Vue** est responsable de l’affichage.
+- Le **Contrôleur** coordonne les actions entre le Modèle et la Vue (par exemple, lorsqu’un utilisateur interagit avec l’interface).
+
+</details>
+
+Le fichier principal est `app/js/main.mjs`. C’est le point d’entrée de l’application : il importe les autres fichiers JavaScript nécessaires au fonctionnement de l’application, mais aussi les styles CSS principaux.
+
+Ces styles peuvent être répartis dans plusieurs fichiers : ils seront regroupés automatiquement en un seul ensemble, dans l’ordre des imports, puis minifiés par l’outil de build.
+
 
 ## Structure du projet
 
@@ -178,4 +199,3 @@ Cette commande :
 - pousse les modifications sur les différents dépôts Git configurés dans le projet
 
 Il faut changer la variable `GIT_REPO_NAMES` dans le fichier `Taskfile.yml` pour indiquer les dépôts Git sur lesquels pousser les modifications.
-
