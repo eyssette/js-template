@@ -1,129 +1,173 @@
 # JS Template
 
-Un template pour créer un projet en Javascript avec de bonnes pratiques de développement.
+Un environnement de développement préconfiguré pour démarrer un projet JavaScript avec de bonnes pratiques.
 
-Le template est préconfiguré avec :
-- la compilation, l'optimisation et la minification des fichiers CSS et Javascript, avec _Rolldown_ et _LightningCSS_,
-- des tests unitaires avec _Jasmine_,
-- des tests _end-to-end_ avec _CodeceptJS_ et des _features_ rédigées en _Gherkin_,
-- un linter avec _ESLint_ et un formateur de code avec _Prettier_,
-- une gestion des tâches avec _Taskfile_,
-- une intégration continue dans _Gitlab_,
+## Ce que ce template apporte
 
-## Prérequis
+- Compilation avec Rolldown (JS + CSS optimisés et minifiés)
+- Tests unitaires avec Jasmine
+- Tests end-to-end avec Gherkin + CodeceptJS
+- Qualité de code avec ESLint + Prettier
+- Automatisation des tâches avec Taskfile
+- Workflow de versionning et changelog automatisé avec Husky + Commitlint + Commitizen
+- Intégration continue dans Gitlab
 
-1. Installer Node.js et npm
-2. Installer les dépendances du projet, en lançant la commande suivante dans un terminal à la racine du projet :
+## Démarrage rapide
+
+### 1) Prérequis
+
+Il faut avoir installé sur votre machine :
+
+- Node.js
+- npm
+
+### 2) Installer les dépendances
+
+À la racine du projet, lancer dans un terminal la commande suivante :
 
 ```bash
 npm install
 ```
 
-## Principes de développement
+### 3) Développer et tester
 
-On écrit son code dans le dossier `app`.
-On utilise du javascript modulaire (ESM), avec des `import` et des `export`.
-Pour compiler le code, on utilise Rolldown et la tâche `task build`.
-Le code est compilé dans le dossier `dist`, avec des fichiers javascript et CSS minifiés et optimisés.
-
-On écrit les tests dans le dossier `tests` : 
-- les tests unitaires dans `tests/unit`
-- les tests _end-to-end_ dans `features` en langage naturel avec Gherkin, et leur implémentation dans `tests/e2e`
-
-## Configuration de l'éditeur (VSCodium)
-
-### Extensions
-
-Des extensions sont recommandées pour VSCodium, pour faciliter le développement avec ce template (_Prettier_, _ESLint_, _Cucumber (Gherkin) autocomplete_).
-
-Ces extensions sont listées dans le fichier `.vscode/extensions.json` et les recommandations d'installation apparaîtront automatiquement à l'ouverture des extensions si vous ouvrez le projet avec VSCodium.
-
-### Tâches préconfigurées
-
-Une tâche par défaut est configurée pour lancer la compilation du projet. Il faut ouvrir la palette de commandes (Ctrl+Shift+P), puis taper `Run Task`, sélectionner `Task: Run Task`, puis choisir `build`, ou bien utiliser le raccourci clavier (Ctrl+Shift+B).
-
-Une tâche par défaut est également configurée pour lancer les tests (unitaires et end-to-end). Il faut ouvrir la palette de commandes (Ctrl+Shift+P), puis taper `Run Test Task`, sélectionner `Task: Run Test Task`, puis choisir `tests:unit`, ou bien utiliser le raccourci clavier (Ctrl+Shift+T).
-
-Vous pouvez aussi utiliser le terminal intégré de VSCodium pour lancer les commandes `task` décrites ci-dessous.
-
-### Formateur de code
-
-Par défaut, le formateur de code est _Prettier_ et le code est automatiquement formaté à chaque sauvegarde du fichier.
-
-Le linter _ESLint_ est également configuré pour vérifier qu'il n'y a pas d'erreurs de syntaxe ou de style dans le code.
-
-On peut changer les paramètres de formatage dans le fichier `.vscode/settings.json`, et dans les fichiers de configuration de Prettier et ESLint (`.prettierrc` et `.eslint.config.mjs`).
-
-
-## Commits et mise à jour automatiuqe du CHANGELOG
-
-On écrit des messages de commit clairs et structurés selon la convention [Conventional Commits](https://www.conventionalcommits.org/fr).
-
-Principalement, on utilise :
-- `feat(<scope>): `: pour une nouvelle fonctionnalité
-- `fix(<scope>): `: pour une correction de bug, ou une modification mineure
-- `chore: ` : pour des modifications dans la configuration, la rédaction du code, la documentation du projet qui n'ajoutent pas de fonctionnalité ou ne corrigent pas de bug.
-
-Le `<scope>` précise la partie du projet concernée par le commit. Il peut correspondre à un nom de dossier, de fichier, ou de fonctionnalité. Il est obligatoire pour les commits `feat` et `fix`, mais pas pour les commits `chore`.
-
-On peut utiliser d'autres types de commit, comme `docs`, `style`, `refactor`, `perf`, `test`, `build` ou `ci`. Le type `edit` est également disponible pour des corrections typographiques dans le code ou la documentation (ces modifications n'apparaissent pas dans le CHANGELOG).
-
-Si on introduit une modification qui casse la compatibilité avec les versions précédentes, on ajoute `!` après le type de commit, par exemple : `feat!: ` ou `fix!: `.
-
-Des hooks sont configurés, avec husky, pour vérifier que les messages de commit respectent la convention et que le code respecte les règles de formattage.
-
-Après une série de commits, on peut faire une montée de version avec la tâche `task bump` :
-- un nouveau tag git correspondant à la nouvelle version sera créé : le nouveau numéro de version est calculé automatiquement d'après les messages de commit selon la convention [Semantic Versioning](https://semver.org/lang/fr/) ;
-- le numéro de version sera automatiquement mis à jour dans les fichiers `package.json`, `package-lock.json` et `VERSION` ;
-- le changelog sera automatiquement mis à jour dans le fichier `CHANGELOG.md`.
-
-
-## Commandes utiles
-
-Lancer le serveur de développement
+Coder dans `app/js` et  `app/css`, puis lancer la commande suivante pour compiler et surveiller les changements, dans un serveur de développement local :
 
 ```bash
 task dev
 ```
 
-Compiler le projet
+Avant de pousser vos modifications, vérifier que tout est correct avec :
 
 ```bash
-task build
+task tests
 ```
 
-Lancer les tests unitaires
-
-```bash
-task tests:unit
-```
-
-Lancer les tests _end-to-end_
-
-```bash
-task tests:e2e
-```
-
-Lancer le linter
+et
 
 ```bash
 task lint
 ```
 
-Lancer la vérification du type de Javascript utilisé
+Pour générer le build final, lancer :
 
 ```bash
-task ecma
+task build
 ```
 
-Faire une montée de version
+
+## Structure du projet
+
+- `.husky` : hooks Git pour vérifier les commits et la qualité du code
+- `.vscode` : configuration de l'éditeur VS Code / VSCodium
+- `app` : code source de l'application
+- `dist` : fichiers générés (build)
+- `features` : scénarios Gherkin pour les tests end-to-end
+- `tests/unit` : tests unitaires avec Jasmine
+- `tests/e2e` : implémentation des scénarios end-to-end avec CodeceptJS
+
+## Éditeur (VS Code / VSCodium)
+
+### Extensions recommandées
+
+Le projet propose automatiquement des extensions utiles (Prettier, ESLint, Gherkin, etc.) via `.vscode/extensions.json`.
+
+### Tâches prêtes à l'emploi
+
+- Tâche build par défaut : `Build`
+- Tâche tests par défaut : `Test`
+
+Raccourcis utiles :
+
+- `Ctrl+Shift+B` : lancer la tâche de build
+- commande `Run Test Task` : lancer la tâche de test
+
+### Formatage et lint
+
+- Prettier est configuré comme formateur par défaut.
+- Le formatage à la sauvegarde est activé.
+- ESLint vérifie la qualité du code.
+
+On peut changer les paramètres de formatage dans le fichier `.vscode/settings.json`, et dans les fichiers de configuration de Prettier et ESLint (`.prettierrc` et `eslint.config.mjs`).
+
+## Commits, versions et changelog
+
+### Conventions de commit
+
+Les messages de commits doivent suivre les conventions [Conventional Commits](https://www.conventionalcommits.org/fr).
+
+Exemples :
+
+- `feat(scope): description` : nouvelle fonctionnalité
+- `fix(scope): description` : correction de bug ou modification mineure
+- `chore: description` : tâches de maintenance ou de configuration
+- `docs: description` : documentation
+
+Le scope est obligatoire pour les commits de type `feat` et `fix`, mais optionnel pour les autres types.
+
+Pour une rupture de compatibilité ou une montée de version majeure, ajouter `!` après le type et le scope, par exemple : `feat(scope)!: description`.
+
+Les hooks Husky vérifient automatiquement le format des commits avec Commitlint, la qualité du code et les règles de formatage avant chaque commit avec ESLint.
+
+### Autres types de commit
+- On peut utiliser d'autres types de commit, comme `style`, `refactor`, `perf`, `test`, `build` ou `ci`.
+- Le type `edit` est également disponible pour des corrections typographiques dans le code ou la documentation (ces modifications n'apparaissent pas dans le CHANGELOG).
+
+La configuration des types de commit peut être modifiée dans `commitlint.config.cjs` et dans `.cz.toml`.
+
+### Monter une version
+
+On peut automatiquement monter la version du projet et générer le changelog, avec la commande suivante :
 
 ```bash
 task bump
 ```
 
-Pousser les modifications sur le dépôt distant
+Cette commande lance Commitizen pour :
+
+- calculer la nouvelle version automatiquement selon la convention [Semantic Versioning](https://semver.org/lang/fr/) en se fondant sur les types de commit : 
+  - `feat` → version mineure
+  - `fix` → version patch
+  - `BREAKING CHANGE` ou `!` → version majeure
+- crée le tag Git correspondant
+- met à jour le numéro de version dans `VERSION`, `package.json`, `package-lock.json`
+- met à jour automatiquement le `CHANGELOG.md` en indiquant les changements apportés depuis la dernière version.
+
+## Commandes complémentaires
+
+### Tests
 
 ```bash
+# Lancer uniquement les tests unitaires
+task tests:unit
+```
+
+```bash
+# Lancer uniquement les tests end-to-end
+task tests:e2e
+```
+
+```bash
+# Lancer uniquement les tests e2e marqués @CURRENT
+task tests:e2e:current
+```
+
+```bash
+# Lancer uniquement la conformité du Javascript au standard utilisé
+task ecma
+```
+
+### Pousser les modifications sur le dépôt Git
+
+```bash
+# Pousser les modifications sur le dépôt Git
 task push
 ```
+
+Cette commande :
+- vérifie que le code est conforme au standard utilisé
+- vérifie que les tests unitaires et end-to-end passent
+- pousse les modifications sur les différents dépôts Git configurés dans le projet
+
+Il faut changer la variable `GIT_REPO_NAMES` dans le fichier `Taskfile.yml` pour indiquer les dépôts Git sur lesquels pousser les modifications.
+
