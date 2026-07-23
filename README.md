@@ -139,6 +139,8 @@ La configuration des types de commit peut être modifiée dans `commitlint.confi
 
 ### Monter une version
 
+Prérequis : installer [Commitizen](https://commitizen-tools.github.io/commitizen/#installation).
+
 On peut automatiquement, avec Commitizen, monter la version du projet et générer le CHANGELOG, avec la commande suivante :
 
 ```bash
