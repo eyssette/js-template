@@ -4,9 +4,16 @@ import pluginJs from "@eslint/js";
 import codeceptjsPlugin from "eslint-plugin-codeceptjs";
 import unicorn from "eslint-plugin-unicorn";
 import stylistic from "@stylistic/eslint-plugin";
+import e18e from "@e18e/eslint-plugin";
 
 const APP_FOLDER = "app/";
 const CODECEPT_GLOBALS = codeceptjsPlugin.environments.codeceptjs.globals;
+const E18E_WARN_RULES = Object.fromEntries(
+	Object.keys(e18e.configs.recommended.rules).map((ruleName) => [
+		ruleName,
+		"warn",
+	]),
+);
 
 export default defineConfig([
 	globalIgnores([APP_FOLDER + "js/lib/**"]),
@@ -23,10 +30,16 @@ export default defineConfig([
 	pluginJs.configs.recommended,
 	{
 		files: [APP_FOLDER + "**/*.js", APP_FOLDER + "**/*.mjs", "tests/**/*.*js"],
-		plugins: { codeceptjs: codeceptjsPlugin, unicorn, "@stylistic": stylistic },
-		extends: ["unicorn/recommended"],
+		plugins: {
+			codeceptjs: codeceptjsPlugin,
+			unicorn,
+			"@stylistic": stylistic,
+			e18e,
+		},
+		extends: ["unicorn/recommended", "e18e/recommended"],
 		rules: {
 			...codeceptjsPlugin.configs.recommended.rules,
+			...E18E_WARN_RULES,
 			camelcase: ["error"],
 			"no-duplicate-imports": ["error"],
 			"@stylistic/semi": ["error", "always"],
