@@ -294,3 +294,24 @@ tasks:
           task dev:stop
           exit "$STATUS"
         fi
+
+  security:
+    cmds:
+      - cmd: task security:npm-audit
+        ignore_error: true
+      - cmd: task security:semgrep
+        ignore_error: true
+      - cmd: task security:trivy
+        ignore_error: true
+
+  security:npm-audit:
+    cmds:
+      - npm audit --audit-level=high
+
+  security:semgrep:
+    cmds:
+      - semgrep scan
+
+  security:trivy:
+    cmds:
+      - trivy fs --exit-code 1 --severity HIGH,CRITICAL .
