@@ -134,6 +134,12 @@ Règle de calcul de version :
 - `fix` -> version patch (ex: de 1.3.0 à 1.3.1)
 - `BREAKING CHANGE` ou `!` -> version majeure (ex: de 1.3.1 à 2.0.0)
 
+Pour que les tags soient poussés sur le dépôt Git, il faut soit utiliser la commande `task push` après avoir monté la version (voir ci-dessous), soit utiliser la commande git : 
+
+```bash
+git push origin && git push origin --tags
+```
+
 ## Commandes complémentaires
 
 ### Tests
