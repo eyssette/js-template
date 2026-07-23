@@ -19,13 +19,7 @@ const development =
 
 // Récupère tous les fichiers CSS du dossier spécifié et de ses sous-dossiers
 function getCssFiles(folder) {
-	return fs.readdirSync(folder, { withFileTypes: true }).flatMap((entry) => {
-		const filePath = path.join(folder, entry.name);
-		if (entry.isDirectory()) {
-			return getCssFiles(filePath);
-		}
-		return entry.isFile() && entry.name.endsWith(".css") ? [filePath] : [];
-	});
+	return fs.globSync(`${folder}**/*.css`);
 }
 
 // Minifie les fichiers CSS du dossier "app/css" et les enregistre dans le dossier dist/css
