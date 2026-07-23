@@ -18,8 +18,8 @@ Un environnement de développement préconfiguré pour démarrer un projet JavaS
 
 Il faut avoir installé sur votre machine :
 
-- Node.js
-- npm
+- Node.js (version >=22)
+- npm (version 8 au minimum, version >=10 recommandée)
 
 ### 2) Installer les dépendances
 
