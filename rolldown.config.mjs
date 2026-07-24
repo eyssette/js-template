@@ -112,46 +112,54 @@ function getSafeModulePath(moduleId) {
 
 	return path.normalize(normalizedId);
 }
-
 // Récupère tous les fichiers CSS qui sont importés dans le fichier JS principal (main.mjs) et les concatène dans le fichier CSS principal (styles.css)
-function getImportedCssFiles(jsFile) {
-	const jsContent = fs.readFileSync(jsFile, "utf-8");
-	return getImportedCssFilesFromContent(jsFile, jsContent);
-}
-
-function getImportedCssFilesFromContent(jsFile, jsContent) {
-	const importRegex =
-		/^\s*(?:\/\/\s*)?import\s+['"]([^'"]+\.css)['"]\s*;?\s*$/gm;
+function getImportedCssFiles(jsFile, jsContent) {
 	const importedCssFiles = [];
-	let match;
 
-	while ((match = importRegex.exec(jsContent)) !== null) {
-		const cssFilePath = resolveSafeCssImportPath(jsFile, match[1]);
-		if (cssFilePath !== null) {
-			importedCssFiles.push(cssFilePath);
+	for (const line of jsContent.split("\n")) {
+		const match = line.match(CSS_IMPORT_LINE_REGEX);
+		if (!match) {
+			continue;
 		}
+
+		const cssImportPath = match[2];
+		const resolvedCssPath = resolveSafeCssImportPath(jsFile, cssImportPath);
+
+		if (resolvedCssPath === null) {
+			throw new Error(
+				`Import CSS refusé dans ${jsFile}: "${cssImportPath}". ` +
+					`Utilisez uniquement un chemin relatif vers un fichier .css situé dans ${appFolder}.`,
+			);
+		}
+
+		if (!fs.existsSync(resolvedCssPath)) {
+			throw new Error(
+				`Fichier CSS introuvable dans ${jsFile}: "${cssImportPath}" -> ${resolvedCssPath}`,
+			);
+		}
+
+		importedCssFiles.push(resolvedCssPath);
 	}
 
 	return importedCssFiles;
 }
 
 function stripCssImportsFromJsContent(jsFile, jsContent, importedCssFiles) {
-	const importRegex = CSS_IMPORT_LINE_REGEX;
 	const importedCssFilesSet = new Set(importedCssFiles);
+
 	return jsContent
 		.split("\n")
 		.map((line) => {
-			const match = line.match(importRegex);
+			const match = line.match(CSS_IMPORT_LINE_REGEX);
 			if (!match) {
 				return line;
 			}
 
-			const resolvedImportPath = resolveSafeCssImportPath(jsFile, match[2]);
-			if (resolvedImportPath === null) {
-				return line;
-			}
-
-			if (!importedCssFilesSet.has(resolvedImportPath)) {
+			const resolvedCssPath = resolveSafeCssImportPath(jsFile, match[2]);
+			if (
+				resolvedCssPath === null ||
+				!importedCssFilesSet.has(resolvedCssPath)
+			) {
 				return line;
 			}
 
@@ -219,6 +227,7 @@ function minifyNonImportedCssFiles(importedCssFiles) {
 		if (importedCssFiles.includes(stylesCssFileAbsolute)) {
 			continue;
 		}
+
 		minifyCssToFile(
 			fs.readFileSync(stylesCssFile),
 			stylesCssFile,
@@ -247,7 +256,7 @@ const minifyStylesPlugin = (() => {
 				return null;
 			}
 
-			importedCssFilesForBuild = getImportedCssFilesFromContent(id, code);
+			importedCssFilesForBuild = getImportedCssFiles(id, code);
 			const transformedCode = stripCssImportsFromJsContent(
 				id,
 				code,
@@ -265,7 +274,8 @@ const minifyStylesPlugin = (() => {
 		},
 		writeBundle() {
 			if (importedCssFilesForBuild.length === 0) {
-				importedCssFilesForBuild = getImportedCssFiles(mainJsFile);
+				const jsContent = fs.readFileSync(mainJsFile, "utf-8");
+				importedCssFilesForBuild = getImportedCssFiles(mainJsFile, jsContent);
 			}
 
 			minifyMainCss(importedCssFilesForBuild);
@@ -306,7 +316,7 @@ async function createBuildConfig() {
 			// }),
 
 			// Supprime le contenu du dossier dist avant de compiler
-			del({ targets: "dist" }),
+			del({ targets: "dist/*" }),
 
 			// Copie les fichiers du dossier app vers le dossier dist
 			copy({
@@ -318,7 +328,6 @@ async function createBuildConfig() {
 				],
 				flatten: false,
 			}),
-
 			minifyStylesPlugin,
 
 			// En mode développement, lance un serveur de développement et recharge la page automatiquement lorsqu'un fichier est modifié
