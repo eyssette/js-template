@@ -31,4 +31,40 @@
 		"editor.formatOnSave": true
 	},
 	"cognitiveComplexityShow.enabled": true,
+	"cSpell.enabledFileTypes": {
+		"javascript": false,
+		"markdown": true,
+		"json": true,
+		"csv": true,
+		"tsv": true,
+		"txt": true,
+		"html": true,
+		"yaml": false,
+	},
+	"cSpell.language": "en,fr-FR,fr",
+	"cSpell.words": [
+		"Codecept",
+		"codeceptjs",
+		"ecma",
+		"eyssette",
+		"Gitlab",
+		"jpegoptim",
+		"lightningcss",
+		"megalinter",
+		"pngquant",
+		"semgrep",
+		"Taskfile",
+		"trivy"
+	],
+	"cSpell.ignorePaths": [
+		"package-lock.json",
+		"node_modules",
+		"vscode-extension",
+		".git/{info,lfs,logs,refs,objects}/**",
+		".git/{index,*refs,*HEAD}",
+		".vscode",
+		".vscode-insiders",
+		".gitignore",
+		"package.json"
+	],
 }

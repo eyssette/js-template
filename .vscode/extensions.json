@@ -5,6 +5,8 @@
 		"stylelint.vscode-stylelint", /* Vérification du CSS */
 		"ampcpmgp.cognitive-complexity-show", /* Affiche la complexité cognitive des fonctions */
 		"alexkrechik.cucumberautocomplete", /* Autocomplétion des steps Cucumber */
-		"ericgomez.js-string-syntax" /* Permet de faire de la coloration syntaxique dans une variable texte */
+		"ericgomez.js-string-syntax", /* Permet de faire de la coloration syntaxique dans une variable texte */
+		"streetsidesoftware.code-spell-checker", /* Vérification orthographique */
+		"streetsidesoftware.code-spell-checker-french", /* Vérification orthographique en français */
 	]
 }

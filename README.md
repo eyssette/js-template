@@ -12,7 +12,7 @@ Ce template propose un environnement de développement complet :
 - Tests unitaires avec Jasmine
 - Tests end-to-end avec Gherkin + CodeceptJS
 - Qualité de code avec ESLint, Prettier et Stylelint
-- Workflow de versionning et changelog automatisé avec Husky + Commitlint + Commitizen
+- Workflow de versioning et changelog automatisé avec Husky + Commitlint + Commitizen
 - Intégration continue dans Gitlab
 
 ### Automatisation des tâches
