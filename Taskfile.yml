@@ -260,6 +260,7 @@ tasks:
         else
           npx pa11y-ci "$ARGS"
         fi
+    silent: true
 
   a11y:
     cmds:
@@ -295,6 +296,7 @@ tasks:
           task dev:stop
           exit "$STATUS"
         fi
+    silent: true
 
   security:
     cmds:
