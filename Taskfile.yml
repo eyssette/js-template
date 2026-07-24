@@ -10,6 +10,7 @@ vars:
   PORT_LOCAL_SERVER: 8888
   PORT_DEV_SERVER: 10001
   CURRENT_E2E_TEST: "@CURRENT"
+  REPORT_DIR: ".report"
 
 tasks:
   build:
@@ -315,3 +316,89 @@ tasks:
   security:trivy:
     cmds:
       - trivy fs --exit-code 1 --severity HIGH,CRITICAL .
+
+  perf:
+    # On invite l'utilisateur à utiliser soit "perf:desktop" soit "perf:mobile"
+    cmds:
+      - cmd: task select-perf-mode --interactive
+
+  select-perf-mode:
+    desc: "Sélectionne le mode de performance (desktop ou mobile) pour la tâche perf"
+    interactive: true
+    # On demande à l'utilisateur de choisir entre le mode desktop et le mode mobile, puis on demande à l'utilisateur de saisir l'URL à tester (ou on utilise l'URL par défaut http://localhost:{{.PORT_DEV_SERVER}} si aucune URL n'est saisie), puis on lance la tâche "perf:desktop" ou "perf:mobile" en fonction du choix de l'utilisateur
+    cmds:
+      - |
+        echo "Sélectionnez le mode de performance :"
+        echo "1) desktop"
+        echo "2) mobile"
+        while true; do
+          printf "Votre choix (1 ou 2) : "
+          if ! IFS= read -r CHOICE; then
+            echo
+            echo "Interruption demandée. Arrêt de la sélection du mode de performance."
+            exit 130
+          fi
+
+          case "$CHOICE" in
+            1)
+              MODE="desktop"
+              break
+              ;;
+            2)
+              MODE="mobile"
+              break
+              ;;
+            *)
+              echo "Sélection invalide. Veuillez choisir 1 ou 2."
+              ;;
+          esac
+        done
+
+        echo "Vous avez sélectionné le mode : $MODE"
+        printf "Entrez l'URL à tester (ou appuyez sur Entrée pour utiliser l'URL par défaut http://localhost:{{.PORT_DEV_SERVER}}) : "
+        if ! IFS= read -r URL; then
+          echo
+          echo "Interruption demandée. Arrêt de la sélection du mode de performance."
+          exit 130
+        fi
+        if [ -z "$URL" ]; then
+          URL="http://localhost:{{.PORT_DEV_SERVER}}"
+        fi
+        task perf:"$MODE" -- "$URL"
+    silent: true
+
+  perf:*:
+    aliases:
+      - performance:*
+    cmds:
+      - |
+        MODE="{{index .MATCH 0}}"
+        if [ -z "$MODE" ]; then
+          echo "❌ Veuillez utiliser soit \"perf:desktop\" soit \"perf:mobile\""
+          exit 1
+        elif [ "$MODE" = "desktop" ] || [ "$MODE" = "mobile" ]; then
+          URL="{{.CLI_ARGS}}"
+          if [ -z "$URL" ]; then
+            URL="http://localhost:{{.PORT_DEV_SERVER}}"
+            task lighthouse:"$MODE" -- "$URL"
+          fi
+          if [ "${URL#/}" != "$URL" ]; then
+            task lighthouse:"$MODE" -- "http://localhost:{{.PORT_DEV_SERVER}}$URL"
+          else
+            task lighthouse:"$MODE" -- "$URL"
+          fi 
+        else
+          echo "❌ Argument invalide pour la tâche \"lighthouse\". Veuillez indiquer soit \"desktop\" soit \"mobile\" comme argument."
+          exit 1
+        fi
+    silent: true
+
+  lighthouse:desktop:
+    cmds:
+      - mkdir -p {{.REPORT_DIR}}
+      - lighthouse {{.CLI_ARGS}} --output html --output-path {{.REPORT_DIR}}/lighthouse-report-desktop.html --chrome-flags="--headless" --view --preset=desktop
+
+  lighthouse:mobile:
+    cmds:
+      - mkdir -p {{.REPORT_DIR}}
+      - lighthouse {{.CLI_ARGS}} --output html --output-path {{.REPORT_DIR}}/lighthouse-report-mobile.html --chrome-flags="--headless" --view --throttling-method=simulate --throttling.rttMs=150 --throttling.throughputKbps=1638.4 --throttling.uploadThroughputKbps=750 --throttling.cpuSlowdownMultiplier=4
