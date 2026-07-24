@@ -182,7 +182,7 @@ git push origin && git push origin --tags
 
 ## Commandes complémentaires
 
-### Tests
+### Tests unitaires et tests end-to-end
 
 ```bash
 # Lancer uniquement les tests unitaires
@@ -204,7 +204,9 @@ task tests:e2e:current
 task ecma
 ```
 
-### Lancer un rapport de couverture des tests unitaires
+### Rapport de couverture des tests unitaires
+
+Un rapport de couverture permet de savoir quelles parties du code sont couvertes par les tests unitaires et quelles parties ne le sont pas.
 
 ```bash
 # Lancer un rapport de couverture des tests unitaires
@@ -215,7 +217,7 @@ Le rapport de couverture est généré dans le dossier `.report/coverage` et peu
 
 Par défaut, il est ouvert automatiquement dès la fin de la génération du rapport. 
 
-### Pousser les modifications sur le dépôt Git
+### Push sur les dépôts Git
 
 ```bash
 # Pousser les modifications sur le dépôt Git
