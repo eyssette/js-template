@@ -422,3 +422,19 @@ tasks:
     cmds:
       - mkdir -p {{.REPORT_DIR}}/lighthouse
       - lighthouse {{.CLI_ARGS}} --output html --output-path {{.REPORT_DIR}}/lighthouse/lighthouse-report-mobile.html --chrome-flags="--headless" --view --throttling-method=simulate --throttling.rttMs=150 --throttling.throughputKbps=1638.4 --throttling.uploadThroughputKbps=750 --throttling.cpuSlowdownMultiplier=4
+
+  bundle-size:
+    aliases:
+      - size
+    cmds:
+      - ANALYZE=true npx rolldown -c
+      # On ouvre le rapport de visualisation du bundle dans le navigateur par défaut
+      - cmd: |
+          if command -v xdg-open > /dev/null; then
+            xdg-open .report/bundle-size/rollup-visualizer.html
+          elif command -v open > /dev/null; then
+            open .report/bundle-size/rollup-visualizer.html
+          else
+            echo "❌ Impossible d'ouvrir le rapport de visualisation du bundle automatiquement. Veuillez ouvrir le fichier .report/bundle-size/rollup-visualizer.html manuellement."
+          fi
+        silent: true

@@ -9,6 +9,7 @@
   "scripts": {
     "build": "npx task build",
     "dev": "npx task dev",
+    "visualize": "ANALYZE=true npx rolldown -c",
     "test": "npx task tests",
     "prepare": "husky"
   },
@@ -52,6 +53,7 @@
     "rollup-plugin-delete": "^3.0.2",
     "rollup-plugin-livereload": "^2.0.5",
     "rollup-plugin-postcss": "^4.0.2",
-    "rollup-plugin-serve": "^3.0.0"
+    "rollup-plugin-serve": "^3.0.0",
+    "rollup-plugin-visualizer": "^7.0.1"
   }
 }

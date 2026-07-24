@@ -18,6 +18,7 @@ const mainJsFile = appFolder + "js/main.mjs";
 
 const development =
 	process.env.NODE_ENV && process.env.NODE_ENV === "development";
+const analyze = String(process.env.ANALYZE).toLowerCase() === "true";
 
 const RELATIVE_CSS_IMPORT_PATH_REGEX =
 	/^(?:\.{1,2}[\\/])[A-Za-z0-9._\-/]+\.css$/;
@@ -273,39 +274,61 @@ const minifyStylesPlugin = (() => {
 	};
 })();
 
-// Configuration de la compilation avec Rolldown
-export default {
-	input: appFolder + "js/main.mjs",
-	output: {
-		file: distFolder + "script.min.js",
-		format: "iife",
+async function getVisualizerPlugin() {
+	if (!analyze) {
+		return null;
+	}
+
+	const { visualizer } = await import("rollup-plugin-visualizer");
+	return visualizer({
+		filename: ".report/bundle-size/rollup-visualizer.html",
+		title: "Rollup Visualizer",
 		sourcemap: true,
-		minify: true,
-	},
-	plugins: [
-		// Importe des fichiers texte (comme les fichiers Markdown) en tant que chaînes de caractères dans le code JavaScript
-		// string({
-		// 	include: appFolder + "*.md",
-		// }),
+	});
+}
 
-		// Supprime le contenu du dossier dist avant de compiler
-		del({ targets: "dist" }),
+// Configuration de la compilation avec Rolldown
+async function createBuildConfig() {
+	const visualizerPlugin = await getVisualizerPlugin();
 
-		// Copie les fichiers du dossier app vers le dossier dist
-		copy({
-			targets: [
-				{
-					src: [appFolder + "**/*"],
-					dest: distFolder,
-				},
-			],
-			flatten: false,
-		}),
+	return {
+		input: appFolder + "js/main.mjs",
+		output: {
+			file: distFolder + "script.min.js",
+			format: "iife",
+			sourcemap: true,
+			minify: true,
+		},
+		plugins: [
+			// Importe des fichiers texte (comme les fichiers Markdown) en tant que chaînes de caractères dans le code JavaScript
+			// string({
+			// 	include: appFolder + "*.md",
+			// }),
 
-		minifyStylesPlugin,
+			// Supprime le contenu du dossier dist avant de compiler
+			del({ targets: "dist" }),
 
-		// En mode développement, lance un serveur de développement et recharge la page automatiquement lorsqu'un fichier est modifié
-		development && serve({ contentBase: ["dist", "./"], open: true }),
-		development && livereload({ delay: 300 }),
-	],
-};
+			// Copie les fichiers du dossier app vers le dossier dist
+			copy({
+				targets: [
+					{
+						src: [appFolder + "**/*"],
+						dest: distFolder,
+					},
+				],
+				flatten: false,
+			}),
+
+			minifyStylesPlugin,
+
+			// En mode développement, lance un serveur de développement et recharge la page automatiquement lorsqu'un fichier est modifié
+			development && serve({ contentBase: ["dist", "./"], open: true }),
+			development && livereload({ delay: 300 }),
+
+			// Génère un rapport de visualisation uniquement quand ANALYZE=true
+			visualizerPlugin,
+		],
+	};
+}
+
+export default createBuildConfig();
