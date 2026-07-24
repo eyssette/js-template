@@ -88,7 +88,7 @@ tasks:
     silent: false
 
   tests:
-    desc: Lance les tests unitaires et e2e
+    desc: Lance les tests unitaires et e2e, et vérifie la compatibilité ECMAScript
     cmds:
       - task: ecma
       - task: tests:unit
