@@ -139,6 +139,24 @@ tasks:
     cmds:
       - npx jasmine --config='tests/unit/.config/jasmine.mjs'
 
+  tests:coverage:
+    aliases:
+      - coverage
+    silent: true
+    cmds:
+      # On crée un rapport de couverture de code avec c8, dans le dossier .report/coverage
+      - npx c8 --reporter=lcov --reporter=html --reporter=text-summary --include='app/js/**/*.mjs' --exclude='tests/**' --report-dir '.report/coverage' jasmine --config=tests/unit/.config/jasmine.mjs --random=false
+      # On ouvre le rapport de couverture dans le navigateur par défaut
+      - cmd: |
+          if command -v xdg-open > /dev/null; then
+            xdg-open .report/coverage/index.html
+          elif command -v open > /dev/null; then
+            open .report/coverage/index.html
+          else
+            echo "❌ Impossible d'ouvrir le rapport de couverture automatiquement. Veuillez ouvrir le fichier .report/coverage/index.html manuellement."
+          fi
+        silent: true
+
   bump:
     generates:
       - VERSION
@@ -397,10 +415,10 @@ tasks:
 
   lighthouse:desktop:
     cmds:
-      - mkdir -p {{.REPORT_DIR}}
-      - lighthouse {{.CLI_ARGS}} --output html --output-path {{.REPORT_DIR}}/lighthouse-report-desktop.html --chrome-flags="--headless" --view --preset=desktop
+      - mkdir -p {{.REPORT_DIR}}/lighthouse
+      - lighthouse {{.CLI_ARGS}} --output html --output-path {{.REPORT_DIR}}/lighthouse/lighthouse-report-desktop.html --chrome-flags="--headless" --view --preset=desktop
 
   lighthouse:mobile:
     cmds:
-      - mkdir -p {{.REPORT_DIR}}
-      - lighthouse {{.CLI_ARGS}} --output html --output-path {{.REPORT_DIR}}/lighthouse-report-mobile.html --chrome-flags="--headless" --view --throttling-method=simulate --throttling.rttMs=150 --throttling.throughputKbps=1638.4 --throttling.uploadThroughputKbps=750 --throttling.cpuSlowdownMultiplier=4
+      - mkdir -p {{.REPORT_DIR}}/lighthouse
+      - lighthouse {{.CLI_ARGS}} --output html --output-path {{.REPORT_DIR}}/lighthouse/lighthouse-report-mobile.html --chrome-flags="--headless" --view --throttling-method=simulate --throttling.rttMs=150 --throttling.throughputKbps=1638.4 --throttling.uploadThroughputKbps=750 --throttling.cpuSlowdownMultiplier=4
