@@ -1,3 +1,26 @@
+## 2.3.0 (2026-07-24)
+
+### Feat
+
+- **task**: ajout d'une tâche pour voir la taille des différents modules dans le fichier compilé
+- **gitlab**: ajout de templates pour les issues, le service desk, et pour le déploiement de l'application dans un autre dépôt
+- **tests**: tâche pour créer un rapport de couverture de code (coverage) avec c8
+
+### Fix
+
+- **vscode**: ajout de l'extension code-spell-checker pour la correction de l'orthographe dans les fichiers de type texte
+- **css**: ajout de Stylelint pour la vérification du CSS
+
+### Chore
+
+- **Taskfile**: ajout d'une description pour chaque tâche
+
+### Docs
+
+- explications pour la tâche de visualisation de la taille des modules
+- amélioration de la formulation
+- explications pour la couverture de code avec c8
+
 ## 2.2.0 (2026-07-24)
 
 ### Feat
