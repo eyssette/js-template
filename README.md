@@ -9,7 +9,7 @@ Un environnement de développement préconfiguré pour démarrer un projet JavaS
 Ce template propose un environnement de développement complet :
 
 - Compilation avec Rolldown (JS + CSS optimisés et minifiés)
-- Tests unitaires avec Jasmine
+- Tests unitaires avec Jasmine et couverture de code avec c8
 - Tests end-to-end avec Gherkin + CodeceptJS
 - Qualité de code avec ESLint, Prettier et Stylelint
 - Workflow de versioning et changelog automatisé avec Husky + Commitlint + Commitizen
@@ -203,6 +203,17 @@ task tests:e2e:current
 # Lancer uniquement la conformité du Javascript au standard utilisé
 task ecma
 ```
+
+### Lancer un rapport de couverture des tests unitaires
+
+```bash
+# Lancer un rapport de couverture des tests unitaires
+task coverage
+```
+
+Le rapport de couverture est généré dans le dossier `.report/coverage` et peut être consulté dans un navigateur web.
+
+Par défaut, il est ouvert automatiquement dès la fin de la génération du rapport. 
 
 ### Pousser les modifications sur le dépôt Git
 
