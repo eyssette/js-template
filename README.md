@@ -27,6 +27,11 @@ Les tâches courantes sont automatisées avec [Task](https://taskfile.dev/) et p
 - Compresser des images (avec pngquant, jpegoptim et svgo)
 - Vérifier la sécurité de l'application (avec npm audit, semgrep et trivy)
 
+Les tâches sont définies dans le fichier `Taskfile.yml`.
+
+Elles peuvent être lancées avec la commande `task <nom_de_la_tâche>` si Task est installé de manière globale sur votre machine (option recommandée), ou avec la commande `npx task <nom_de_la_tâche>`.
+
+
 ## Démarrage rapide
 
 ### 1) Prérequis
