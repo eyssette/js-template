@@ -1,9 +1,10 @@
 {
 	"recommendations": [
-		"esbenp.prettier-vscode", /* Formattage du code */
-		"alexkrechik.cucumberautocomplete", /* Autocomplétion des steps Cucumber */
+		"esbenp.prettier-vscode", /* Formattage du code javascript */
 		"dbaeumer.vscode-eslint", /* Vérification de la qualité du code avec ESlint */
+		"stylelint.vscode-stylelint", /* Vérification du CSS */
 		"ampcpmgp.cognitive-complexity-show", /* Affiche la complexité cognitive des fonctions */
+		"alexkrechik.cucumberautocomplete", /* Autocomplétion des steps Cucumber */
 		"ericgomez.js-string-syntax" /* Permet de faire de la coloration syntaxique dans une variable texte */
 	]
 }

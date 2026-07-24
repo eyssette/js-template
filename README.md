@@ -11,7 +11,7 @@ Ce template propose un environnement de développement complet :
 - Compilation avec Rolldown (JS + CSS optimisés et minifiés)
 - Tests unitaires avec Jasmine
 - Tests end-to-end avec Gherkin + CodeceptJS
-- Qualité de code avec ESLint + Prettier
+- Qualité de code avec ESLint, Prettier et Stylelint
 - Workflow de versionning et changelog automatisé avec Husky + Commitlint + Commitizen
 - Intégration continue dans Gitlab
 
@@ -106,7 +106,7 @@ Ces styles peuvent être répartis dans plusieurs fichiers : ils seront regroup�
 
 ### Extensions recommandées
 
-Le projet propose automatiquement des extensions utiles (Prettier, ESLint, Gherkin, etc.) via `.vscode/extensions.json`.
+Le projet propose automatiquement des extensions utiles (Prettier, ESLint, Stylelint, etc.) via `.vscode/extensions.json`.
 
 ### Tâches prêtes à l'emploi
 
@@ -122,7 +122,8 @@ Raccourcis utiles :
 
 - Prettier est configuré comme formateur par défaut.
 - Le formatage à la sauvegarde est activé.
-- ESLint vérifie la qualité du code.
+- ESLint vérifie la qualité du code Javascript.
+- Stylelint vérifie la qualité du code CSS.
 - L'extension `Cognitive Complexity Show` permet d'afficher la complexité cognitive des fonctions dans le code.
 
 On peut changer les paramètres de formatage dans le fichier `.vscode/settings.json`, et dans les fichiers de configuration de Prettier et ESLint (`prettier.config.mjs` et `eslint.config.mjs`).
