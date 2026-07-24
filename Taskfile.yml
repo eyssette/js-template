@@ -16,10 +16,12 @@ tasks:
   build:
     aliases:
       - default
+    desc: Compile le projet
     cmds:
       - task: rolldown:build
 
   rolldown:build:
+    desc: Compile le projet avec Rolldown
     deps: [npm:install]
     sources:
       - "{{.APP_FOLDER}}/js/**/*.mjs"
@@ -35,15 +37,18 @@ tasks:
       - npx rolldown --config
 
   dev:
+    desc: Lance le serveur de développement avec Rolldown en mode watch
     deps: [npm:install]
     cmds:
       - NODE_ENV=development npx rolldown --config --watch
   
   dev:stop:
+    desc: Arrête le serveur de développement
     cmds:
       - bash -c 'kill $(lsof -ti :{{.PORT_DEV_SERVER}}) 2>/dev/null' || true
       
   npm:install:
+    desc: Installe les dépendances du projet
     sources:
       - package.json
       - package-lock.json
@@ -53,6 +58,7 @@ tasks:
       - npm install
 
   push:
+    desc: Pousse le code sur les dépôts Git
     vars:
       GIT_REPO_NAMES: [forge, github]
     cmds:
@@ -82,12 +88,14 @@ tasks:
     silent: false
 
   tests:
+    desc: Lance les tests unitaires et e2e
     cmds:
       - task: ecma
       - task: tests:unit
       - task: tests:e2e
 
   tests:e2e:
+    desc: Lance les tests e2e avec CodeceptJS
     aliases:
       - tests:codeceptjs
     sources:
@@ -115,12 +123,14 @@ tasks:
       - npx codeceptjs run --steps --grep '(?=.*)^(?!.*@WIP)'
 
   tests:e2e:current:
+    desc: Lance les tests e2e pour le test courant (utile pour le développement des tests e2e)
     cmds:
       - task: server:start
       - defer: {task: server:stop}
       - npx codeceptjs run --steps --verbose --grep '(?=.*)^(?!.*@WIP)(?=.*{{.CURRENT_E2E_TEST}})'
 
   tests:e2e:install:playwright:
+    desc: Installe les navigateurs pour Playwright (Chromium, Firefox et WebKit)
     cmds:
       # On installe les navigateurs pour Playwright (Chromium, Firefox et WebKit) et si cela ne marche pas pour certains navigateurs, on applique un patch qui permet de contourner le problème (voir https://github.com/microsoft/playwright/issues/1941#issuecomment-1008338376)
       - |
@@ -131,6 +141,7 @@ tasks:
         fi
 
   tests:unit:
+    desc: Lance les tests unitaires avec Jasmine
     aliases:
       - tests:jasmine
     sources:
@@ -140,6 +151,7 @@ tasks:
       - npx jasmine --config='tests/unit/.config/jasmine.mjs'
 
   tests:coverage:
+    desc: Génère un rapport de couverture de code avec c8 et Jasmine
     aliases:
       - coverage
     silent: true
@@ -158,6 +170,7 @@ tasks:
         silent: true
 
   bump:
+    desc: Incrémente la version du projet et met à jour le CHANGELOG.md
     generates:
       - VERSION
       - package.json
@@ -169,15 +182,18 @@ tasks:
       - cz bump
 
   server:start:
+    desc: Lance le serveur local pour les tests e2e
     cmds:
       - node {{.TEST_FOLDER}}/e2e/server.mjs {{.PORT_LOCAL_SERVER}} & # On lance le serveur en arrière-plan
       - until nc -z localhost {{.PORT_LOCAL_SERVER}}; do sleep 1; done # On attend que le port soit ouvert avant de lancer la suite
   
   server:stop:
+    desc: Arrête le serveur local pour les tests e2e
     cmds:
       - bash -c 'kill $(lsof -ti :{{.PORT_LOCAL_SERVER}}) 2>/dev/null' || true
 
   ecma:
+    desc: Vérifie la compatibilité ECMAScript des fichiers .mjs
     sources:
       - "{{.APP_FOLDER}}/js/**/*.mjs"
     cmds:
@@ -195,6 +211,7 @@ tasks:
         npx es-check es2020 $FILES --module
 
   lint:
+    desc: Lint les fichiers .mjs avec ESLint
     sources:
       - "{{.APP_FOLDER}}/js/**/*.mjs"
     cmds:
@@ -212,6 +229,7 @@ tasks:
         npx eslint $FILES
 
   compress:png:
+    desc: Compresse les images PNG avec pngquant
     cmds:
     - |
         set -euo pipefail
@@ -225,6 +243,7 @@ tasks:
     silent: true
 
   compress:jpg:
+    desc: Compresse les images JPG avec jpegoptim
     cmds:
       - |
         set -euo pipefail
@@ -247,27 +266,31 @@ tasks:
     silent: true
 
   compress:svg:
+    desc: Compresse les images SVG avec SVGO
     cmds:
       - npx svgo "{{.APP_FOLDER}}/"
 
   compress:images:
+    desc: Compresse les images PNG, JPG et SVG
     cmds:
       - compress:svg
       - compress:png
       - compress:jpg
 
   tree:
+    desc: Affiche l'arborescence du projet
     cmds:
       - tree -a -I '.git|.task|node_modules|_'
 
   # Tâche pour vérifier les dépendances
   deps:check:
+    desc: Vérifie les versions des dépendances du projet
     cmds:
       # Vérifie les versions des dépendances
       - npm outdated
 
   a11y:check:
-    # Vérifie l'accessibilité du site avec pa11y-ci
+    desc: Vérifie l'accessibilité d'une URL avec Pa11y
     cmds:
       - |
         ARGS="{{.CLI_ARGS}}"
@@ -281,6 +304,7 @@ tasks:
     silent: true
 
   a11y:
+    desc: Vérifie l'accessibilité d'une URL avec Pa11y, en lançant d'abord le serveur de développement si nécessaire
     cmds:
       # S'il y a un argument passé à la tâche et que cet argument ne commence pas par "/" (ce qui signifie qu'il s'agit d'une URL), on lance directement la tâche "a11y:check" avec cet argument, et on ne lance pas la suite de la tâche
       # Si le port du serveur de développement n'est pas ouvert, on lance la tâche "dev", puis quand le port est ouvert, on lance la tâche "a11y:check", puis on arrête le serveur de développement
@@ -317,6 +341,7 @@ tasks:
     silent: true
 
   security:
+    desc: Vérifie la sécurité du projet avec l'ensemble des outils de sécurité
     cmds:
       - cmd: task security:npm-audit
         ignore_error: true
@@ -326,18 +351,22 @@ tasks:
         ignore_error: true
 
   security:npm-audit:
+    desc: Vérifie la sécurité des dépendances avec npm audit
     cmds:
       - npm audit --audit-level=high
 
   security:semgrep:
+    desc: Vérifie la sécurité du code avec Semgrep
     cmds:
       - semgrep scan
 
   security:trivy:
+    desc: Vérifie la sécurité du code avec Trivy
     cmds:
       - trivy fs --exit-code 1 --severity HIGH,CRITICAL .
 
   perf:
+    desc: Vérifie les performances d'une URL avec Lighthouse
     # On invite l'utilisateur à utiliser soit "perf:desktop" soit "perf:mobile"
     cmds:
       - cmd: task select-perf-mode --interactive
@@ -414,16 +443,19 @@ tasks:
     silent: true
 
   lighthouse:desktop:
+    desc: Vérifie les performances d'une URL avec Lighthouse en mode desktop
     cmds:
       - mkdir -p {{.REPORT_DIR}}/lighthouse
       - lighthouse {{.CLI_ARGS}} --output html --output-path {{.REPORT_DIR}}/lighthouse/lighthouse-report-desktop.html --chrome-flags="--headless" --view --preset=desktop
 
   lighthouse:mobile:
+    desc: Vérifie les performances d'une URL avec Lighthouse en mode mobile
     cmds:
       - mkdir -p {{.REPORT_DIR}}/lighthouse
       - lighthouse {{.CLI_ARGS}} --output html --output-path {{.REPORT_DIR}}/lighthouse/lighthouse-report-mobile.html --chrome-flags="--headless" --view --throttling-method=simulate --throttling.rttMs=150 --throttling.throughputKbps=1638.4 --throttling.uploadThroughputKbps=750 --throttling.cpuSlowdownMultiplier=4
 
   bundle-size:
+    desc: Visualise la taille des différents modules du projet avec le plugin rollup-plugin-visualizer
     aliases:
       - size
     cmds:
