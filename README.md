@@ -23,6 +23,7 @@ Les tâches courantes sont automatisées avec [Task](https://taskfile.dev/) et p
 - Lancer les tâches de test, de lint, de compilation et de montée de version
 - Vérifier les versions des dépendances (avec npm outdated) et la conformité du code à la version ECMAScript utilisée (avec es-check)
 - Vérifier l’accessibilité de l’application (avec pa11y-ci)
+- Mesurer les performances de l’application (avec lighthouse)
 - Compresser des images (avec pngquant, jpegoptim et svgo)
 - Vérifier la sécurité de l'application (avec npm audit, semgrep et trivy)
 
@@ -237,6 +238,40 @@ task a11y --/page1
 task a11y --URL
 ```
 
+### Performances
+
+On peut mesurer les performances en local ou en ligne de son application, avec lighthouse.
+
+Il faut d'abord installer lighthouse sur sa machine, avec la commande suivante :
+
+```bash
+npm install -g lighthouse
+```
+
+Si on veut mesurer les performances en local, il faut d'abord avoir lancé le serveur de développement avec la commande `task dev`.
+
+On peut mesurer les performances de l’application avec lighthouse, grâce à la commande suivante :
+
+```bash
+# Mesurer les performances de l'application
+task perf
+```
+
+La tâche va inviter à choisir entre les deux options suivantes :
+1. Mesurer les performances de l’application sur un ordinateur de bureau (desktop)
+2. Mesurer les performances de l’application sur un appareil mobile (mobile)
+
+Elle demandera ensuite d’indiquer l’URL de la page à analyser
+- si l’URL est vide, la page principale de l’application (index.html) sera analysée
+- si l’URL est un chemin relatif (qui commence par `/`), la page correspondante dans le projet sera analysée
+- si l'URL est une URL externe, la page correspondante sera analysée
+
+#### Raccourcis
+
+- `task perf:desktop` : mesurer les performances de `index.html` sur un ordinateur de bureau
+- `task perf:mobile` : mesurer les performances de `index.html` sur un appareil mobile
+- `task perf:MODE -- /page1` : mesurer les performances de `/page1` (MODE = `desktop` ou `mobile`)
+- `task perf:MODE -- URL` : mesurer les performances d’une page externe (MODE = `desktop` ou `mobile`)
 
 ### Compression des images
 
