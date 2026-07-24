@@ -1,3 +1,26 @@
+## 2.2.0 (2026-07-24)
+
+### Feat
+
+- **perf**: ajout d'une tâche pour mesurer les performances (avec Lighthouse)
+- **security**: ajout de tâches pour vérifier la sécurité de l'application
+- **a11y**: tâche pour vérifier l'accessibilité
+
+### Fix
+
+- **build**: sécurisation de la récupération des fichiers CSS
+- **build**: config rollwodnwcorrigée pour permettre le rebuild en mode dev (avec prise en compte des fichiers CSS)
+- **ecma**: cohérence version ECMA visée (2020)
+
+### Chore
+
+- ajout de "silent: true" pour certaines tâches
+
+### Docs
+
+- explications pour les tâches de mesure de performance avec Lighthouse
+- distinction des fonctions principales et de l'automatisation des tâches + précision sur les tâches automatisées
+
 ## 2.1.3 (2026-07-23)
 
 ### Fix
