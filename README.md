@@ -301,6 +301,15 @@ Elle utilise plusieurs outils, qu'il faut installer sur votre machine :
 task images:compress
 ```
 
+### Taille des différents modules
+
+On peut visualiser la taille des différents modules du projet avec la commande suivante :
+
+```bash
+# Visualiser la taille des différents modules du projet
+task size
+```
+
 ### Sécurité
 
 On peut vérifier la sécurité de l'application avec les commandes suivantes :
