@@ -1,14 +1,6 @@
 {
 	"editor.defaultFormatter": "oxc.oxc-vscode",
 	"editor.formatOnSave": true,
-	"[javascript]": {
-		"editor.defaultFormatter": "oxc.oxc-vscode",
-		"editor.formatOnSave": true
-	},
-	"[css]": {
-		"editor.defaultFormatter": "oxc.oxc-vscode",
-		"editor.formatOnSave": true
-	},
 	"liveServer.settings.port": 5501,
 	"liveServer.settings.root": "/dist",
 	"editor.semanticTokenColorCustomizations": {
@@ -64,6 +56,7 @@
 		".gitignore",
 		"package.json",
 	],
+	"oxc.enable": true,
 	"oxc.enable.oxfmt": "true",
 	"oxc.enable.oxlint": "true",
 	"oxc.configPath": "oxlint.config.mjs",
@@ -72,5 +65,4 @@
         "editorWarning.foreground": "#00000000", /* Désactive le soulignement des erreurs de type simplement "warning" */
 	},
 	"oxc.disableNestedConfig": "true",
-	"oxc.enable": true,
 }
