@@ -1,6 +1,6 @@
 {
 	"recommendations": [
-		"oxc.oxc" /* Lint et formattage du code javascript avec oxlint et oxfmt */,
+		"oxc.oxc-vscode" /* Lint et formattage du code javascript avec oxlint et oxfmt */,
 		"stylelint.vscode-stylelint" /* Vérification du CSS */,
 		"ampcpmgp.cognitive-complexity-show" /* Affiche la complexité cognitive des fonctions */,
 		"alexkrechik.cucumberautocomplete" /* Autocomplétion des steps Cucumber */,
