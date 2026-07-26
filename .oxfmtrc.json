@@ -6,5 +6,6 @@
 	"semi": true,
 	"singleQuote": false,
 	"arrowParens": "always",
+	"printWidth": 80,
 	"ignorePatterns": ["**/*.min.js", "**/*.min.css"]
 }
