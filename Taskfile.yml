@@ -1,6 +1,6 @@
 # https://taskfile.dev
 
-version: '3'
+version: "3"
 
 vars:
   APP_FOLDER: "app"
@@ -41,12 +41,12 @@ tasks:
     deps: [npm:install]
     cmds:
       - NODE_ENV=development npx rolldown --config --watch
-  
+
   dev:stop:
     desc: Arrête le serveur de développement
     cmds:
       - bash -c 'kill $(lsof -ti :{{.PORT_DEV_SERVER}}) 2>/dev/null' || true
-      
+
   npm:install:
     desc: Installe les dépendances du projet
     sources:
@@ -65,7 +65,7 @@ tasks:
       - task: lint
       - task: tests
       - for: { var: GIT_REPO_NAMES }
-        cmd:  git push {{.ITEM}} && git push {{.ITEM}} --tags
+        cmd: git push {{.ITEM}} && git push {{.ITEM}} --tags
 
   tag:
     desc: "Crée un tag avec pour date du tag la date du commit (usage: task tag -- <commit> <tag>)"
@@ -119,14 +119,14 @@ tasks:
         silent: true
       - task: tests:e2e:install:playwright
       - task: server:start
-      - defer: {task: server:stop}
+      - defer: { task: server:stop }
       - npx codeceptjs run --steps --grep '(?=.*)^(?!.*@WIP)'
 
   tests:e2e:current:
     desc: Lance les tests e2e pour le test courant (utile pour le développement des tests e2e)
     cmds:
       - task: server:start
-      - defer: {task: server:stop}
+      - defer: { task: server:stop }
       - npx codeceptjs run --steps --verbose --grep '(?=.*)^(?!.*@WIP)(?=.*{{.CURRENT_E2E_TEST}})'
 
   tests:e2e:install:playwright:
@@ -186,7 +186,7 @@ tasks:
     cmds:
       - node {{.TEST_FOLDER}}/e2e/server.mjs {{.PORT_LOCAL_SERVER}} & # On lance le serveur en arrière-plan
       - until nc -z localhost {{.PORT_LOCAL_SERVER}}; do sleep 1; done # On attend que le port soit ouvert avant de lancer la suite
-  
+
   server:stop:
     desc: Arrête le serveur local pour les tests e2e
     cmds:
@@ -211,11 +211,9 @@ tasks:
         npx es-check es2020 $FILES --module
 
   lint:
-    desc: Lint les fichiers .mjs avec ESLint
-    sources:
-      - "{{.APP_FOLDER}}/js/**/*.mjs"
+    desc: Lint les fichiers .mjs avec Oxlint
     cmds:
-      - npx eslint "{{.APP_FOLDER}}/**/*.mjs"
+      - ERRORS_ONLY=1 npx oxlint --config oxlint.config.mjs --quiet
 
   lint:staged:
     desc: Lint uniquement les fichiers .mjs staged (pour le hook pre-commit)
@@ -226,12 +224,24 @@ tasks:
         if [ -z "$FILES" ]; then
           exit 0
         fi
-        npx eslint $FILES
+        ERRORS_ONLY=1 npx oxlint --config oxlint.config.mjs --quiet $FILES
+
+  lint:all:
+    cmds:
+      - npx oxlint --config oxlint.config.mjs
+
+  lint:all:errors:
+    cmds:
+      - npx oxlint --config oxlint.config.mjs --quiet
+
+  lint:all:category:
+    cmds:
+      - npx oxlint --format json --config oxlint.config.mjs | jq '.diagnostics[] | select(.code | test("{{.CLI_ARGS}}"))'
 
   compress:png:
     desc: Compresse les images PNG avec pngquant
     cmds:
-    - |
+      - |
         set -euo pipefail
         echo "Compressing PNGs in {{.APP_FOLDER}}..."
         find "{{.APP_FOLDER}}" -type f -iname "*.png" -exec sh -c '

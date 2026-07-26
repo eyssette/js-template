@@ -11,7 +11,8 @@ Ce template propose un environnement de développement complet :
 - Compilation avec Rolldown (JS + CSS optimisés et minifiés)
 - Tests unitaires avec Jasmine et couverture de code avec c8
 - Tests end-to-end avec Gherkin + CodeceptJS
-- Qualité de code avec ESLint, Prettier et Stylelint
+- Qualité de code avec Oxlint et Stylelint
+- Formatage automatique avec Oxfmt
 - Workflow de versioning et changelog automatisé avec Husky + Commitlint + Commitizen
 - Intégration continue dans Gitlab
 
@@ -30,7 +31,6 @@ Les tâches courantes sont automatisées avec [Task](https://taskfile.dev/) et p
 Les tâches sont définies dans le fichier `Taskfile.yml`.
 
 Elles peuvent être lancées avec la commande `task <nom_de_la_tâche>` si Task est installé de manière globale sur votre machine (option recommandée), ou avec la commande `npx task <nom_de_la_tâche>`.
-
 
 ## Démarrage rapide
 
@@ -51,7 +51,7 @@ npm install
 
 ### 3) Développer et tester
 
-Coder dans `app/js` et  `app/css`, puis lancer la commande suivante pour compiler et surveiller les changements, dans un serveur de développement local :
+Coder dans `app/js` et `app/css`, puis lancer la commande suivante pour compiler et surveiller les changements, dans un serveur de développement local :
 
 ```bash
 task dev
@@ -96,7 +96,6 @@ Le fichier principal est `app/js/main.mjs`. C’est le point d’entrée de l’
 
 Ces styles peuvent être répartis dans plusieurs fichiers : ils seront regroupés automatiquement en un seul ensemble, dans l’ordre des imports, puis minifiés par l’outil de build.
 
-
 ## Structure du projet
 
 - `.husky` : hooks Git pour vérifier les commits et la qualité du code
@@ -111,7 +110,13 @@ Ces styles peuvent être répartis dans plusieurs fichiers : ils seront regroup�
 
 ### Extensions recommandées
 
-Le projet propose automatiquement des extensions utiles (Prettier, ESLint, Stylelint, etc.) via `.vscode/extensions.json`.
+Le projet propose automatiquement des extensions utiles via `.vscode/extensions.json`.
+
+- OXC : Lint et formatage du code javascript avec Oxlint et Oxfmt
+- Stylelint : Vérification du CSS
+- Cognitive Complexity Show : Affiche la complexité cognitive des fonctions
+- Code Spell Checker et Code Spell Checker French : Vérification orthographique en français pour les fichiers texte
+- Cucumber Autocomplete : Autocomplétion des steps Cucumber (pour décrire les features qui sont la base des tests end-to-end)
 
 ### Tâches prêtes à l'emploi
 
@@ -125,13 +130,10 @@ Raccourcis utiles :
 
 ### Formatage et lint
 
-- Prettier est configuré comme formateur par défaut.
-- Le formatage à la sauvegarde est activé.
-- ESLint vérifie la qualité du code Javascript.
+- Oxfmt formate le code lors de la sauvegarde du fichier (configuration dans `.oxfmtrc.json`).
+- Oxlint vérifie la qualité du code Javascript (configuration dans `oxlint.config.mjs`).
 - Stylelint vérifie la qualité du code CSS.
 - L'extension `Cognitive Complexity Show` permet d'afficher la complexité cognitive des fonctions dans le code.
-
-On peut changer les paramètres de formatage dans le fichier `.vscode/settings.json`, et dans les fichiers de configuration de Prettier et ESLint (`prettier.config.mjs` et `eslint.config.mjs`).
 
 ## Commits, versions et changelog
 
@@ -150,9 +152,10 @@ Le scope est obligatoire pour les commits de type `feat` et `fix`, mais optionne
 
 Pour une rupture de compatibilité ou une montée de version majeure, ajouter `!` après le type et le scope, par exemple : `feat(scope)!: description`.
 
-Les hooks Husky vérifient automatiquement le format des commits avec Commitlint, la qualité du code et les règles de formatage avant chaque commit avec ESLint.
+Les hooks Husky vérifient automatiquement le format des commits avec Commitlint, la qualité du code et les règles de formatage avant chaque commit avec Oxlint et Oxfmt.
 
 ### Autres types de commit
+
 - On peut utiliser d'autres types de commit, comme `style`, `refactor`, `perf`, `test`, `build` ou `ci`.
 - Le type `edit` est également disponible pour des corrections typographiques dans le code ou la documentation (ces modifications n'apparaissent pas dans le CHANGELOG).
 
@@ -179,7 +182,7 @@ Règle de calcul de version :
 - `fix` -> version patch (ex: de 1.3.0 à 1.3.1)
 - `BREAKING CHANGE` ou `!` -> version majeure (ex: de 1.3.1 à 2.0.0)
 
-Pour que les tags soient poussés sur le dépôt Git, il faut soit utiliser la commande `task push` après avoir monté la version (voir ci-dessous), soit utiliser la commande git : 
+Pour que les tags soient poussés sur le dépôt Git, il faut soit utiliser la commande `task push` après avoir monté la version (voir ci-dessous), soit utiliser la commande git :
 
 ```bash
 git push origin && git push origin --tags
@@ -220,7 +223,7 @@ task coverage
 
 Le rapport de couverture est généré dans le dossier `.report/coverage` et peut être consulté dans un navigateur web.
 
-Par défaut, il est ouvert automatiquement dès la fin de la génération du rapport. 
+Par défaut, il est ouvert automatiquement dès la fin de la génération du rapport.
 
 ### Push sur les dépôts Git
 
@@ -230,6 +233,7 @@ task push
 ```
 
 Cette commande :
+
 - vérifie que le code est conforme au standard utilisé
 - vérifie que les tests unitaires et end-to-end passent
 - pousse les modifications sur les différents dépôts Git configurés dans le projet
@@ -245,7 +249,7 @@ On peut vérifier l’accessibilité de l’application, grâce à pa11y-ci, ave
 task a11y
 ```
 
-ou 
+ou
 
 ```bash
 # Vérifier l'accessibilité de l'application sur un fichier HTML spécifique
@@ -277,10 +281,12 @@ task perf
 ```
 
 La tâche va inviter à choisir entre les deux options suivantes :
+
 1. Mesurer les performances de l’application sur un ordinateur de bureau (desktop)
 2. Mesurer les performances de l’application sur un appareil mobile (mobile)
 
 Elle demandera ensuite d’indiquer l’URL de la page à analyser
+
 - si l’URL est vide, la page principale de l’application (index.html) sera analysée
 - si l’URL est un chemin relatif (qui commence par `/`), la page correspondante dans le projet sera analysée
 - si l'URL est une URL externe, la page correspondante sera analysée
@@ -297,6 +303,7 @@ Elle demandera ensuite d’indiquer l’URL de la page à analyser
 Une tâche de compression des images est disponible pour réduire la taille des images du projet.
 
 Elle utilise plusieurs outils, qu'il faut installer sur votre machine :
+
 - pngquant pour les images PNG
 - jpegoptim pour les images JPEG
 - svgo pour les images SVG

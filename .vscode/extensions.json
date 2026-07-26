@@ -1,7 +1,6 @@
 {
 	"recommendations": [
-		"esbenp.prettier-vscode", /* Formattage du code javascript */
-		"dbaeumer.vscode-eslint", /* Vérification de la qualité du code avec ESlint */
+		"oxc.oxc", /* Lint et formattage du code javascript avec oxlint et oxfmt */
 		"stylelint.vscode-stylelint", /* Vérification du CSS */
 		"ampcpmgp.cognitive-complexity-show", /* Affiche la complexité cognitive des fonctions */
 		"alexkrechik.cucumberautocomplete", /* Autocomplétion des steps Cucumber */
