@@ -1,3 +1,31 @@
+## 3.0.0 (2026-07-27)
+
+### Fix
+
+- **task**: gestion du cas où les tests ne peuvent pas être lancés (possibilité de ne pas bloquer le push malgré tout)
+- **IDE**: suppression d'une extension qui ne fonctionnait pas bien (pour la coloration syntaxique dans les variables texte)
+- **build**: récupération des fichiers CSS importés, sans commenter puis décommenter  le contenu de main.mjs
+
+### Chore
+
+- suppression de paquets inutiles depuis le passage à Rolldown
+- mise à jour du format via oxfmt
+- ajout d'une tâche format:staged pour le hook git pre-commit
+- tâche "format" dans Taskfile
+- printWidth configuré à 80 pour oxfmt
+- update package-lock.json
+- **IDE**: suppression de settings inutiles
+- suppression de post-ccs, inutile depuis le passage à rolldown
+- update package-lock.json
+
+### Docs
+
+- précision sur "task" vs "npx task"
+
+### Perf
+
+- **lint**: migration de ESlint vers Oxlint et de Prettier vers Oxfmt
+
 ## 2.3.0 (2026-07-24)
 
 ### Feat
