@@ -151,7 +151,7 @@ tasks:
     silent: true
     cmds:
       - cmd: |
-          if ! npx playwright install --with-deps; then
+          if ! npx playwright install; then
             echo "❌ Impossible d'installer Playwright et ses dépendances. Les tests e2e ne peuvent pas être lancés."
             exit 1
           fi
