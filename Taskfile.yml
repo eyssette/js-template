@@ -92,7 +92,23 @@ tasks:
     cmds:
       - task: ecma
       - task: tests:unit
-      - task: tests:e2e
+      # On lance la tâche tests:check-if-can-run-e2e et si il n'y a pas de code d'erreur, on lance la tâche tests:e2e.
+      # Sinon, on ne lance pas les tests e2e et on retourne un code de sortie 0 pour ne pas bloquer le processus de build.
+      # On demande à l'utilisateur s'il veut continuer malgré tout, et si il répond "y", on retourne un code de sortie 0 pour ne pas bloquer le processus de build, sinon on retourne un code de sortie 1 pour bloquer le processus de build.
+      - cmd: |
+          if task tests:check-if-can-run-e2e; then
+            task tests:e2e
+          else
+            read -p "❌ Les tests e2e ne peuvent pas être lancés. Voulez-vous continuer malgré tout ? (y/n) " CONTINUE
+            if [ "$CONTINUE" = "y" ]; then
+              echo "⚠️ Vous avez choisi de continuer malgré l'échec des tests e2e."
+              exit 0
+            else
+              echo "❌ Arrêt du processus de build à cause de l'échec des tests e2e."
+              exit 1
+            fi
+          fi
+        silent: true
 
   tests:e2e:
     desc: Lance les tests e2e avec CodeceptJS
@@ -107,6 +123,7 @@ tasks:
       - "{{.TEST_FOLDER}}/e2e/**/*.mjs"
       - "{{.FEATURES_FOLDER}}/**/*.feature"
     cmds:
+      - task: tests:check-if-can-run-e2e
       # On vérifie avant qu'il n'y ait pas le terme "@CURRENT" dans les fichiers tests e2e
       - cmd: |
           bash -c '
@@ -117,7 +134,6 @@ tasks:
             fi
           '
         silent: true
-      - task: tests:e2e:install:playwright
       - task: server:start
       - defer: { task: server:stop }
       - npx codeceptjs run --steps --grep '(?=.*)^(?!.*@WIP)'
@@ -125,20 +141,21 @@ tasks:
   tests:e2e:current:
     desc: Lance les tests e2e pour le test courant (utile pour le développement des tests e2e)
     cmds:
+      - task: tests:check-if-can-run-e2e
       - task: server:start
       - defer: { task: server:stop }
       - npx codeceptjs run --steps --verbose --grep '(?=.*)^(?!.*@WIP)(?=.*{{.CURRENT_E2E_TEST}})'
 
-  tests:e2e:install:playwright:
-    desc: Installe les navigateurs pour Playwright (Chromium, Firefox et WebKit)
+  tests:check-if-can-run-e2e:
+    desc: Vérifie si les tests e2e peuvent être lancés dans l'environnement actuel
+    silent: true
     cmds:
-      # On installe les navigateurs pour Playwright (Chromium, Firefox et WebKit) et si cela ne marche pas pour certains navigateurs, on applique un patch qui permet de contourner le problème (voir https://github.com/microsoft/playwright/issues/1941#issuecomment-1008338376)
-      - |
-        set -e
-        if ! npx playwright install; then
-          echo "❌ Échec de l'installation de certains navigateurs Playwright. Application d'un patch pour contourner le problème";
-          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=true npm i -D playwright
-        fi
+      - cmd: |
+          if ! npx playwright install --with-deps; then
+            echo "❌ Impossible d'installer Playwright et ses dépendances. Les tests e2e ne peuvent pas être lancés."
+            exit 1
+          fi
+        silent: true
 
   tests:unit:
     desc: Lance les tests unitaires avec Jasmine
