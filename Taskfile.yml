@@ -215,6 +215,17 @@ tasks:
     cmds:
       - npx oxfmt --config .oxfmtrc.json .
 
+  format:staged:
+    desc: Formate uniquement les fichiers .mjs staged (pour le hook pre-commit)
+    silent: true
+    cmds:
+      - |
+        FILES=$(git diff --cached --name-only --diff-filter=ACM -- '{{.APP_FOLDER}}/**/*.mjs')
+        if [ -z "$FILES" ]; then
+          exit 0
+        fi
+        npx oxfmt --config .oxfmtrc.json $FILES
+
   lint:
     desc: Lint les fichiers .mjs avec Oxlint
     cmds:
