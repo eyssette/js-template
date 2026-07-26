@@ -210,6 +210,11 @@ tasks:
         fi
         npx es-check es2020 $FILES --module
 
+  format:
+    desc: Formate les fichiers .mjs avec Oxfmt
+    cmds:
+      - npx oxfmt --config .oxfmtrc.json .
+
   lint:
     desc: Lint les fichiers .mjs avec Oxlint
     cmds:
