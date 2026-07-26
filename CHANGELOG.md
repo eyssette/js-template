@@ -157,7 +157,7 @@
 
 - **eslint**: fix pour la prise en charge des variables node
 - **rollup**: ajout d'un délai pour permettre le livereload
-- **IDE**: ajout d'une extension de syntax highlighting pour le HTML  et le CSS dans des chaînes de caractères en JS
+- **IDE**: ajout d'une extension de syntax highlighting pour le HTML et le CSS dans des chaînes de caractères en JS
 
 ### Perf
 

@@ -20,7 +20,7 @@ pages:
     - npm ci --cache ../.npm --prefer-offline --no-audit
     - npm run build
 
-    # Suppression des éléments inutiles 
+    # Suppression des éléments inutiles
     - rm -r node_modules
     - mv dist public
 

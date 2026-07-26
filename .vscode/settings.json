@@ -1,17 +1,21 @@
 {
 	"editor.defaultFormatter": "oxc.oxc-vscode",
 	"editor.formatOnSave": true,
+	"[javascript]": {
+		"editor.defaultFormatter": "oxc.oxc-vscode",
+		"editor.formatOnSave": true
+	},
 	"liveServer.settings.port": 5501,
 	"liveServer.settings.root": "/dist",
 	"editor.semanticTokenColorCustomizations": {
-        "enabled": true,
-        "rules": {
-            "variable": {"underline": true },
-            "variable.local": {"underline": false}, 
-            "variable.defaultLibrary": {"underline": false}, 
-            "property.declaration": {"underline": false}, 
-        }
-    },
+		"enabled": true,
+		"rules": {
+			"variable": { "underline": true },
+			"variable.local": { "underline": false },
+			"variable.defaultLibrary": { "underline": false },
+			"property.declaration": { "underline": false }
+		}
+	},
 	"[feature]": {
 		"editor.defaultFormatter": "alexkrechik.cucumberautocomplete",
 		"editor.formatOnSave": true
@@ -25,7 +29,7 @@
 		"tsv": true,
 		"txt": true,
 		"html": true,
-		"yaml": false,
+		"yaml": false
 	},
 	"cSpell.language": "en,fr-FR,fr",
 	"cSpell.words": [
@@ -54,7 +58,7 @@
 		".vscode",
 		".vscode-insiders",
 		".gitignore",
-		"package.json",
+		"package.json"
 	],
 	"oxc.enable": true,
 	"oxc.enable.oxfmt": "true",
@@ -62,7 +66,7 @@
 	"oxc.configPath": "oxlint.config.mjs",
 	"oxc.fmt.configPath": ".oxfmtrc.json",
 	"workbench.colorCustomizations": {
-        "editorWarning.foreground": "#00000000", /* Désactive le soulignement des erreurs de type simplement "warning" */
+		"editorWarning.foreground": "#00000000" /* Désactive le soulignement des erreurs de type simplement "warning" */
 	},
-	"oxc.disableNestedConfig": "true",
+	"oxc.disableNestedConfig": "true"
 }

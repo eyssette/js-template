@@ -9,7 +9,7 @@
 			"request": "launch",
 			"name": "Debug",
 			"url": "http://localhost:10001/",
-			"webRoot": "${workspaceFolder}/dist",
+			"webRoot": "${workspaceFolder}/dist"
 		}
 	]
 }

@@ -11,7 +11,9 @@ const toReadonlyGlobals = (scope) =>
 const BROWSER_GLOBALS = toReadonlyGlobals(globals.browser);
 const NODE_GLOBALS = toReadonlyGlobals(globals.node);
 const JASMINE_GLOBALS = toReadonlyGlobals(globals.jasmine);
-const CODECEPT_GLOBALS = toReadonlyGlobals(codeceptjs.environments.codeceptjs.globals);
+const CODECEPT_GLOBALS = toReadonlyGlobals(
+	codeceptjs.environments.codeceptjs.globals,
+);
 const GHERKIN_GLOBALS = {
 	And: "readonly",
 	But: "readonly",
@@ -24,7 +26,10 @@ const GHERKIN_GLOBALS = {
 const plugins = ["typescript", "import", "unicorn"];
 const jsPlugins = ERRORS_ONLY
 	? []
-	: [{ name: "e18e", specifier: "@e18e/eslint-plugin" }, "@stylistic/eslint-plugin"];
+	: [
+			{ name: "e18e", specifier: "@e18e/eslint-plugin" },
+			"@stylistic/eslint-plugin",
+		];
 
 const asWarn = (rules) =>
 	Object.fromEntries(
