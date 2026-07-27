@@ -80,4 +80,4 @@ async function createBuildConfig() {
 	};
 }
 
-export default createBuildConfig();
+export default await createBuildConfig();

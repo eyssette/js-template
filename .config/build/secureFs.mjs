@@ -1,4 +1,4 @@
-// oxlint-disable import/no-nodejs-modules import/group-exports max-statements no-magic-numbers no-control-regex no-continue unicorn/no-null prefer-destructuring
+// oxlint-disable import/no-nodejs-modules import/group-exports max-statements no-magic-numbers no-control-regex no-continue unicorn/no-null prefer-destructuring require-unicode-regexp
 // Utilitaires pour manipuler des chemins de fichiers de façon sécurisée
 // (protection contre les traversées de répertoire, chemins absolus non désirés, etc.)
 
@@ -30,8 +30,11 @@ export function ensurePathInsideRoot(rootPath, candidatePath, label = "path") {
 		/^(?:\.\.(?:\/|\\|$))+/,
 		"",
 	);
-	const candidateWithoutNullByte = candidateWithoutTraversal.replace(/\0/g, "");
-	const candidateAsPosixPath = candidateWithoutNullByte.replace(/\\/g, "/");
+	const candidateWithoutNullByte = candidateWithoutTraversal.replaceAll(
+		"\0",
+		"",
+	);
+	const candidateAsPosixPath = candidateWithoutNullByte.replaceAll("\\", "/");
 	const absolutePath = path.isAbsolute(candidateWithoutNullByte)
 		? path.normalize(candidateWithoutNullByte)
 		: fileURLToPath(
@@ -53,6 +56,7 @@ export function ensurePathInsideRoot(rootPath, candidatePath, label = "path") {
 export function getCssFiles(rootFolderPath) {
 	const cssFiles = [];
 	const safeRootPath = ensurePathInsideRoot(
+		// oxlint-disable-next-line no-undef
 		process.cwd(),
 		rootFolderPath,
 		"dossier CSS racine",
@@ -112,7 +116,7 @@ export function resolveSafeCssImportPath(jsFile, cssImportPath, appRootPath) {
 		return null;
 	}
 
-	const normalizedImportPath = cssImportPath.replace(/\\/g, "/");
+	const normalizedImportPath = cssImportPath.replaceAll("\\", "/");
 	if (normalizedImportPath.startsWith("/")) {
 		return null;
 	}

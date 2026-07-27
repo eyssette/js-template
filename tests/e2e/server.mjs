@@ -52,16 +52,16 @@ const server = http.createServer((request, response) => {
 	const contentType = MIME_TYPES[extension] || "application/octet-stream";
 
 	// Lecture sécurisée du fichier
-	fs.access(filePath, fs.constants.F_OK, (error) => {
-		if (error) {
+	fs.access(filePath, fs.constants.F_OK, (errorFileNotFound) => {
+		if (errorFileNotFound) {
 			response.writeHead(404, { "Content-Type": "text/plain" });
 			response.end("404 Not Found: File does not exist");
 			return;
 		}
 
 		if (requestedPath === `${DIST_FOLDER}/index.html`) {
-			fs.readFile(filePath, "utf8", (error, data) => {
-				if (error) {
+			fs.readFile(filePath, "utf8", (errorInternalServer, data) => {
+				if (errorInternalServer) {
 					response.writeHead(500, { "Content-Type": "text/plain" });
 					response.end("500 Internal Server Error");
 					return;
@@ -95,8 +95,8 @@ const server = http.createServer((request, response) => {
 			});
 
 			const stream = createReadStream(filePath);
-			stream.on("error", (error) => {
-				console.error("File read error:", error);
+			stream.on("error", (errorFileRead) => {
+				console.error("File read error:", errorFileRead);
 				response.writeHead(500, { "Content-Type": "text/plain" });
 				response.end("500 Internal Server Error");
 			});

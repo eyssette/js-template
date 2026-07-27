@@ -1,4 +1,4 @@
-// oxlint-disable import/no-nodejs-modules prefer-named-capture-group max-statements no-continue prefer-destructuring no-magic-numbers max-params unicorn/text-encoding-identifier-case unicorn/no-null
+// oxlint-disable import/no-nodejs-modules prefer-named-capture-group max-statements no-continue prefer-destructuring no-magic-numbers max-params unicorn/text-encoding-identifier-case unicorn/no-null require-unicode-regexp unicorn/escape-case unicorn/no-hex-escape
 // Plugin Rollup/Rolldown : concatène et minifie les CSS importés dans le JS principal,
 // puis minifie individuellement les CSS restants du dossier des styles.
 
@@ -115,15 +115,18 @@ function logGeneratedChunk(filePath, distRootPath) {
 	);
 	const stats = fs.statSync(safeFilePath);
 	const size = `${(stats.size / 1024).toFixed(2)} kB`;
+	// oxlint-disable-next-line no-undef
 	process.stdout.write(
 		`\x1b[90m<DIR>/\x1b[0m\x1b[34m${path.relative(distRootPath, safeFilePath)}\x1b[0m  \x1b[90mchunk │ size: ${size}\x1b[0m\n`,
 	);
 }
 
 function minifyCssToFile(inputCss, sourceFile, outputFile, distRootPath) {
+	// oxlint-disable-next-line no-undef
 	const sourceCode = Buffer.isBuffer(inputCss)
 		? inputCss
-		: Buffer.from(inputCss, "utf-8");
+		: // oxlint-disable-next-line no-undef
+			Buffer.from(inputCss, "utf-8");
 	const { code } = transform({
 		filename: sourceFile,
 		code: sourceCode,
@@ -181,7 +184,7 @@ function minifyNonImportedCssFiles(importedCssFiles, options) {
 			"fichier CSS source",
 		);
 		const relativePath = path.relative(stylesRootPath, safeStylesCssFile);
-		const normalizedRelativePath = relativePath.replace(/\\/g, "/");
+		const normalizedRelativePath = relativePath.replaceAll("\\", "/");
 		if (
 			normalizedRelativePath.startsWith("../") ||
 			normalizedRelativePath.includes("/../") ||
