@@ -122,6 +122,7 @@ const config = {
 
 	rules: {
 		"unicorn/filename-case": ["error", { case: "camelCase" }],
+		"no-unused-vars": ["error", { varsIgnorePattern: "^_" }],
 		"import/no-duplicates": "error",
 		"import/no-named-export": "off",
 		"import/no-default-export": "off",
