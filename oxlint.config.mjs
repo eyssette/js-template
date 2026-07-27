@@ -123,6 +123,9 @@ const config = {
 	rules: {
 		"unicorn/filename-case": ["error", { case: "camelCase" }],
 		"import/no-duplicates": "error",
+		"import/no-named-export": "off",
+		"import/no-default-export": "off",
+		"import/prefer-default-export": "off",
 		"eslint/no-ternary": "off",
 		"eslint/capitalized-comments": "off",
 		"eslint/sort-keys": "off",
