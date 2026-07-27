@@ -1,6 +1,5 @@
 import codeceptjs from "eslint-plugin-codeceptjs";
 import e18e from "@e18e/eslint-plugin";
-import globals from "globals";
 import stylistic from "@stylistic/eslint-plugin";
 
 const ERRORS_ONLY = process.env.ERRORS_ONLY === "1";
@@ -8,9 +7,6 @@ const ERRORS_ONLY = process.env.ERRORS_ONLY === "1";
 // Gestion des variables globales
 const toReadonlyGlobals = (scope) =>
 	Object.fromEntries(Object.keys(scope).map((name) => [name, "readonly"]));
-const BROWSER_GLOBALS = toReadonlyGlobals(globals.browser);
-const NODE_GLOBALS = toReadonlyGlobals(globals.node);
-const JASMINE_GLOBALS = toReadonlyGlobals(globals.jasmine);
 const CODECEPT_GLOBALS = toReadonlyGlobals(
 	codeceptjs.environments.codeceptjs.globals,
 );
@@ -26,11 +22,11 @@ const GHERKIN_GLOBALS = {
 
 const baseRules = {
 	"unicorn/filename-case": ["error", { case: "camelCase" }],
-	"no-unused-vars": ["error", { varsIgnorePattern: "^_" }],
 	"import/no-duplicates": "error",
 	"import/no-named-export": "off",
 	"import/no-default-export": "off",
 	"import/prefer-default-export": "off",
+	"eslint/no-unused-vars": ["error", { varsIgnorePattern: "^_" }],
 	"eslint/no-ternary": "off",
 	"eslint/capitalized-comments": "off",
 	"eslint/sort-keys": "off",
@@ -121,16 +117,16 @@ const config = {
 
 	env: {
 		builtin: true,
+		browser: true,
 	},
 
 	ignorePatterns: ["app/js/lib/**", "**/*.min.js", "app/js/plugins/**/*"],
-
-	globals: BROWSER_GLOBALS,
 
 	overrides: [
 		{
 			files: ["app/**/*.{js,mjs}"],
 			rules: appFolderOverridesRules,
+			env: { es2020: true, builtin: true },
 		},
 		{
 			files: ["tests/**/*", "./*.{js,mjs}"],
@@ -142,9 +138,8 @@ const config = {
 				"import/unambiguous": "off",
 				"import/no-relative-parent-imports": "off",
 			},
+			env: { builtin: true, browser: true, node: true, jasmine: true },
 			globals: {
-				...NODE_GLOBALS,
-				...JASMINE_GLOBALS,
 				...CODECEPT_GLOBALS,
 				...GHERKIN_GLOBALS,
 			},
