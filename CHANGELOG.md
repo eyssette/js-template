@@ -1,3 +1,24 @@
+## 3.0.3 (2026-07-28)
+
+### Fix
+
+- **lint**: constante ajoutée pour définir les fichiers à ignorer
+- **lint**: règles spécifiques pour le dossier des tests unitaires
+- **lint**: règle no-undef ajoutée dans les règles de base
+- **lint**: amélioration de la gestion des catégories dans la configuration d'Oxlint
+
+### Chore
+
+- **lint**: simplification de la configuration du defaultFormater dans l'IDE
+- **lint**: ajout de commentaires pour expliquer la configuration du lint
+- **lint**: constante pour définir les règles de lint pour le dossier "test"
+- **lint**: utilisation de "env" plutôt que globals pour les variables globales + configuration es2020 pour les fichiers dans app
+- **lint**: correctif pour les erreurs de lint
+- **lint**: configuration pour la catégorie "pedantic" à propos du nombre maximum de lignes pour une fonction
+- message d'information plus adéquat en cas d'impossibilité de lancer les tests e2e
+- ajout d'une description pour une tâche
+- **lint**: précisions pour les tâches de lint
+
 ## 3.0.2 (2026-07-27)
 
 ### Fix
