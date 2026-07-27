@@ -1,20 +1,19 @@
 // À décommenter si on veut importer des fichiers texte (comme les fichiers Markdown) en tant que chaînes de caractères dans le code JavaScript
 // import { string } from "rollup-plugin-string";
 
-import fs from "fs";
 import path from "path";
-import { fileURLToPath, pathToFileURL } from "url";
 import copy from "rollup-plugin-copy";
 import del from "rollup-plugin-delete";
 import serve from "rollup-plugin-serve";
 import livereload from "rollup-plugin-livereload";
-import { transform } from "lightningcss";
+import { createMinifyStylesPlugin } from "./.config/build/minifyCss.mjs";
 
 const appFolder = "app/";
 const distFolder = "dist/";
 const stylesFolder = appFolder + "css/";
-const distStylesFolder = distFolder + "css/";
+const distStylesFolder = "css/";
 const mainJsFile = appFolder + "js/main.mjs";
+
 const appRootPath = path.resolve(appFolder);
 const distRootPath = path.resolve(distFolder);
 const stylesRootPath = path.resolve(stylesFolder);
@@ -23,346 +22,6 @@ const mainJsAbsolutePath = path.resolve(mainJsFile);
 const development =
 	process.env.NODE_ENV && process.env.NODE_ENV === "development";
 const analyze = String(process.env.ANALYZE).toLowerCase() === "true";
-
-const RELATIVE_CSS_IMPORT_PATH_REGEX =
-	/^(?:\.{1,2}[\\/])[A-Za-z0-9._\-/]+\.css$/;
-const CSS_IMPORT_LINE_REGEX = /^(\s*)import\s+['"]([^'"]+\.css)['"]\s*;?\s*$/;
-const CSS_EXTENSION_SUFFIX_REGEX = /\.css$/;
-
-function ensurePathInsideRoot(rootPath, candidatePath, label = "path") {
-	if (
-		typeof rootPath !== "string" ||
-		rootPath.length === 0 ||
-		typeof candidatePath !== "string" ||
-		candidatePath.length === 0 ||
-		candidatePath.includes("\0")
-	) {
-		throw new Error(`Chemin invalide pour ${label}.`);
-	}
-
-	const normalizedRoot = path.normalize(rootPath);
-	const normalizedRootWithSlash = `${normalizedRoot}${path.sep}`;
-	const candidateWithoutTraversal = candidatePath.replace(
-		/^(?:\.\.(?:\/|\\|$))+/,
-		"",
-	);
-	const candidateWithoutNullByte = candidateWithoutTraversal.replace(/\0/g, "");
-	const candidateAsPosixPath = candidateWithoutNullByte.replace(/\\/g, "/");
-	const absolutePath = path.isAbsolute(candidateWithoutNullByte)
-		? path.normalize(candidateWithoutNullByte)
-		: fileURLToPath(
-				new URL(candidateAsPosixPath, pathToFileURL(normalizedRootWithSlash)),
-			);
-	const relativeToRoot = path.relative(normalizedRoot, absolutePath);
-
-	if (relativeToRoot.startsWith("..") || path.isAbsolute(relativeToRoot)) {
-		throw new Error(
-			`Chemin hors du dossier autorisé pour ${label}: ${candidatePath}`,
-		);
-	}
-
-	return absolutePath;
-}
-
-// Récupère tous les fichiers CSS du dossier spécifié et de ses sous-dossiers
-function getCssFiles() {
-	const cssFiles = [];
-
-	function walkDirectory(currentFolderPath) {
-		const safeCurrentFolderPath = ensurePathInsideRoot(
-			stylesRootPath,
-			currentFolderPath,
-			"dossier CSS",
-		);
-
-		for (const dirent of fs.readdirSync(safeCurrentFolderPath, {
-			withFileTypes: true,
-		})) {
-			const entryPath = ensurePathInsideRoot(
-				stylesRootPath,
-				`${safeCurrentFolderPath}/${dirent.name}`,
-				"entrée CSS",
-			);
-
-			if (dirent.isSymbolicLink()) {
-				continue;
-			}
-
-			if (dirent.isDirectory()) {
-				walkDirectory(entryPath);
-				continue;
-			}
-
-			if (dirent.isFile() && entryPath.endsWith(".css")) {
-				cssFiles.push(entryPath);
-			}
-		}
-	}
-
-	if (fs.existsSync(stylesRootPath)) {
-		walkDirectory(stylesRootPath);
-	}
-
-	return cssFiles;
-}
-
-function resolveSafeCssImportPath(jsFile, cssImportPath) {
-	if (typeof cssImportPath !== "string" || cssImportPath.includes("\0")) {
-		return null;
-	}
-
-	// Autorise uniquement des chemins relatifs vers des fichiers .css.
-	if (!RELATIVE_CSS_IMPORT_PATH_REGEX.test(cssImportPath)) {
-		return null;
-	}
-
-	const normalizedImportPath = cssImportPath.replace(/\\/g, "/");
-	if (normalizedImportPath.startsWith("/")) {
-		return null;
-	}
-
-	const baseDirUrl = new URL("./", pathToFileURL(jsFile));
-	const resolvedCssUrl = new URL(normalizedImportPath, baseDirUrl);
-	const resolvedCssPath = ensurePathInsideRoot(
-		appRootPath,
-		fileURLToPath(resolvedCssUrl),
-		"import CSS",
-	);
-	const relativeToAppRoot = path.relative(appRootPath, resolvedCssPath);
-
-	if (
-		relativeToAppRoot.startsWith("..") ||
-		path.isAbsolute(relativeToAppRoot)
-	) {
-		return null;
-	}
-
-	return resolvedCssPath;
-}
-
-function getSafeModulePath(moduleId) {
-	if (typeof moduleId !== "string") {
-		return null;
-	}
-
-	const normalizedId = moduleId.split("?")[0].split("#")[0];
-	if (normalizedId.length === 0 || normalizedId.includes("\0")) {
-		return null;
-	}
-
-	if (normalizedId.startsWith("file://")) {
-		try {
-			return fileURLToPath(normalizedId);
-		} catch {
-			return null;
-		}
-	}
-
-	if (!path.isAbsolute(normalizedId)) {
-		return null;
-	}
-
-	return path.normalize(normalizedId);
-}
-// Récupère tous les fichiers CSS qui sont importés dans le fichier JS principal (main.mjs) et les concatène dans le fichier CSS principal (styles.css)
-function getImportedCssFiles(jsFile, jsContent) {
-	const importedCssFiles = [];
-
-	for (const line of jsContent.split("\n")) {
-		const match = line.match(CSS_IMPORT_LINE_REGEX);
-		if (!match) {
-			continue;
-		}
-
-		const cssImportPath = match[2];
-		const resolvedCssPath = resolveSafeCssImportPath(jsFile, cssImportPath);
-
-		if (resolvedCssPath === null) {
-			throw new Error(
-				`Import CSS refusé dans ${jsFile}: "${cssImportPath}". ` +
-					`Utilisez uniquement un chemin relatif vers un fichier .css situé dans ${appFolder}.`,
-			);
-		}
-
-		const safeCssPath = ensurePathInsideRoot(
-			appRootPath,
-			resolvedCssPath,
-			"fichier CSS importé",
-		);
-
-		if (!fs.existsSync(safeCssPath)) {
-			throw new Error(
-				`Fichier CSS introuvable dans ${jsFile}: "${cssImportPath}" -> ${safeCssPath}`,
-			);
-		}
-
-		importedCssFiles.push(safeCssPath);
-	}
-
-	return importedCssFiles;
-}
-
-function stripCssImportsFromJsContent(jsFile, jsContent, importedCssFiles) {
-	const importedCssFilesSet = new Set(importedCssFiles);
-
-	return jsContent
-		.split("\n")
-		.map((line) => {
-			const match = line.match(CSS_IMPORT_LINE_REGEX);
-			if (!match) {
-				return line;
-			}
-
-			const resolvedCssPath = resolveSafeCssImportPath(jsFile, match[2]);
-			if (
-				resolvedCssPath === null ||
-				!importedCssFilesSet.has(resolvedCssPath)
-			) {
-				return line;
-			}
-
-			return `${match[1]}// ${line.trim()}`;
-		})
-		.join("\n");
-}
-
-// Concatène tous les fichiers CSS importés dans le fichier JS principal (main.mjs) et les enregistre dans une variable pour être minifiés ensuite dans le dossier dist/css
-function concatenateImportedCssFiles(importedCssFiles) {
-	let concatenatedCss = "";
-
-	for (const cssFile of importedCssFiles) {
-		const safeCssFile = ensurePathInsideRoot(
-			appRootPath,
-			cssFile,
-			"fichier CSS concaténé",
-		);
-		concatenatedCss += fs.readFileSync(safeCssFile, "utf-8") + "\n";
-	}
-
-	return concatenatedCss;
-}
-
-function logGeneratedChunk(filePath) {
-	const safeFilePath = ensurePathInsideRoot(
-		distRootPath,
-		filePath,
-		"chunk généré",
-	);
-	const stats = fs.statSync(safeFilePath);
-	const size = (stats.size / 1024).toFixed(2) + " kB";
-	console.log(
-		`\x1b[90m<DIR>/\x1b[0m\x1b[34m${path.relative(distRootPath, safeFilePath)}\x1b[0m  \x1b[90mchunk │ size: ${size}\x1b[0m`,
-	);
-}
-
-function minifyCssToFile(inputCss, sourceFile, outputFile) {
-	const sourceCode = Buffer.isBuffer(inputCss)
-		? inputCss
-		: Buffer.from(inputCss, "utf-8");
-	const { code } = transform({
-		filename: sourceFile,
-		code: sourceCode,
-		minify: true,
-	});
-	const safeOutputFile = ensurePathInsideRoot(
-		distRootPath,
-		outputFile,
-		"fichier CSS minifié",
-	);
-
-	fs.mkdirSync(path.dirname(safeOutputFile), { recursive: true });
-	fs.writeFileSync(safeOutputFile, code);
-	logGeneratedChunk(safeOutputFile);
-}
-
-// Minifie le fichier CSS principal (styles.css) et l'enregistre dans le dossier dist/css
-function minifyMainCss(importedCssFiles) {
-	const concatenatedCss = concatenateImportedCssFiles(importedCssFiles);
-	const mainCssFile = path.join(distStylesFolder, "styles.css");
-	const mainMinCssFile = path.join(distStylesFolder, "styles.min.css");
-	minifyCssToFile(concatenatedCss, mainCssFile, mainMinCssFile);
-}
-
-// Minifie les fichiers CSS non importés du dossier "app/css" et les enregistre dans le dossier dist/css
-function minifyNonImportedCssFiles(importedCssFiles) {
-	for (const stylesCssFile of getCssFiles()) {
-		const safeStylesCssFile = ensurePathInsideRoot(
-			stylesRootPath,
-			stylesCssFile,
-			"fichier CSS source",
-		);
-		const relativePath = path.relative(stylesRootPath, safeStylesCssFile);
-		const stylesMinCssFile = path.join(
-			distStylesFolder,
-			relativePath.replace(CSS_EXTENSION_SUFFIX_REGEX, ".min.css"),
-		);
-		// On ignore le fichier si c'est le fichier CSS principal (styles.css) car il a déjà été minifié dans la fonction minifyMainCss()
-		if (path.basename(safeStylesCssFile) === "styles.css") {
-			continue;
-		}
-		// On ignore le fichier si c'est un fichier importé dans le fichier JS principal (main.mjs) car a déjà été intégré et minifié dans le fichier CSS principal (styles.css)
-		const stylesCssFileAbsolute = path.resolve(safeStylesCssFile);
-		if (importedCssFiles.includes(stylesCssFileAbsolute)) {
-			continue;
-		}
-
-		minifyCssToFile(
-			fs.readFileSync(safeStylesCssFile),
-			safeStylesCssFile,
-			stylesMinCssFile,
-		);
-	}
-}
-
-// Plugin pour minifier les fichiers CSS après la compilation
-const minifyStylesPlugin = (() => {
-	let importedCssFilesForBuild = [];
-
-	return {
-		name: "minify-styles",
-		buildStart() {
-			// Les CSS non importés en JS ne sont pas toujours dans le graphe de modules;
-			// on les ajoute explicitement au watch mode pour déclencher un rebuild.
-			for (const cssFile of getCssFiles()) {
-				this.addWatchFile(path.resolve(cssFile));
-			}
-		},
-		transform(code, id) {
-			const modulePath = getSafeModulePath(id);
-			if (modulePath !== mainJsAbsolutePath) {
-				return null;
-			}
-
-			importedCssFilesForBuild = getImportedCssFiles(modulePath, code);
-			const transformedCode = stripCssImportsFromJsContent(
-				modulePath,
-				code,
-				importedCssFilesForBuild,
-			);
-
-			if (transformedCode === code) {
-				return null;
-			}
-
-			return {
-				code: transformedCode,
-				map: null,
-			};
-		},
-		writeBundle() {
-			if (importedCssFilesForBuild.length === 0) {
-				const jsContent = fs.readFileSync(mainJsAbsolutePath, "utf-8");
-				importedCssFilesForBuild = getImportedCssFiles(
-					mainJsAbsolutePath,
-					jsContent,
-				);
-			}
-
-			minifyMainCss(importedCssFilesForBuild);
-			minifyNonImportedCssFiles(importedCssFilesForBuild);
-		},
-	};
-})();
 
 async function getVisualizerPlugin() {
 	if (!analyze) {
@@ -379,10 +38,8 @@ async function getVisualizerPlugin() {
 
 // Configuration de la compilation avec Rolldown
 async function createBuildConfig() {
-	const visualizerPlugin = await getVisualizerPlugin();
-
 	return {
-		input: appFolder + "js/main.mjs",
+		input: mainJsFile,
 		output: {
 			file: distFolder + "script.min.js",
 			format: "iife",
@@ -400,22 +57,25 @@ async function createBuildConfig() {
 
 			// Copie les fichiers du dossier app vers le dossier dist
 			copy({
-				targets: [
-					{
-						src: [appFolder + "**/*"],
-						dest: distFolder,
-					},
-				],
+				targets: [{ src: [appFolder + "**/*"], dest: distFolder }],
 				flatten: false,
 			}),
-			minifyStylesPlugin,
+
+			// Concatène et minifie les CSS (importés en JS + fichiers autonomes du dossier styles)
+			createMinifyStylesPlugin({
+				mainJsAbsolutePath,
+				appRootPath,
+				stylesRootPath,
+				distRootPath,
+				distStylesFolder,
+			}),
 
 			// En mode développement, lance un serveur de développement et recharge la page automatiquement lorsqu'un fichier est modifié
 			development && serve({ contentBase: ["dist", "./"], open: true }),
 			development && livereload({ delay: 300 }),
 
 			// Génère un rapport de visualisation uniquement quand ANALYZE=true
-			visualizerPlugin,
+			await getVisualizerPlugin(),
 		],
 	};
 }
