@@ -13,15 +13,17 @@ const appFolder = "app/";
 const distFolder = "dist/";
 const mainJsFileName = "main.mjs";
 const scriptMinJsFileName = "script.min.js";
+const cssFolder = "css/";
 
-const stylesFolder = `${appFolder}css/`;
-const distStylesFolder = "css/";
 const mainJsFile = `${appFolder}js/${mainJsFileName}`;
 
-const appRootPath = path.resolve(appFolder);
-const distRootPath = path.resolve(distFolder);
-const stylesRootPath = path.resolve(stylesFolder);
-const mainJsAbsolutePath = path.resolve(mainJsFile);
+const minifyStylesPluginOptions = {
+	mainJsAbsolutePath: path.resolve(mainJsFile),
+	appRootPath: path.resolve(appFolder),
+	stylesRootPath: path.resolve(`${appFolder}${cssFolder}`),
+	distRootPath: path.resolve(distFolder),
+	distStylesFolder: cssFolder,
+};
 
 const development =
 	process.env.NODE_ENV && process.env.NODE_ENV === "development";
@@ -66,13 +68,7 @@ async function createBuildConfig() {
 			}),
 
 			// Concatène et minifie les CSS (importés en JS + fichiers autonomes du dossier styles)
-			createMinifyStylesPlugin({
-				mainJsAbsolutePath,
-				appRootPath,
-				stylesRootPath,
-				distRootPath,
-				distStylesFolder,
-			}),
+			createMinifyStylesPlugin(minifyStylesPluginOptions),
 
 			// En mode développement, lance un serveur de développement et recharge la page automatiquement lorsqu'un fichier est modifié
 			development && serve({ contentBase: ["dist", "./"], open: true }),
