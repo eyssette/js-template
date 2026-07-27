@@ -61,12 +61,12 @@
 		"package.json"
 	],
 	"oxc.enable": true,
-	"oxc.enable.oxfmt": "true",
-	"oxc.enable.oxlint": "true",
+	"oxc.enable.oxfmt": true,
+	"oxc.enable.oxlint": true,
 	"oxc.configPath": "oxlint.config.mjs",
 	"oxc.fmt.configPath": ".oxfmtrc.json",
 	"workbench.colorCustomizations": {
 		"editorWarning.foreground": "#00000000" /* Désactive le soulignement des erreurs de type simplement "warning" */
 	},
-	"oxc.disableNestedConfig": "true"
+	"oxc.disableNestedConfig": true
 }
