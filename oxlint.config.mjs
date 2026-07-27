@@ -35,6 +35,7 @@ const baseRules = {
 	"eslint/capitalized-comments": "off",
 	"eslint/sort-keys": "off",
 	"eslint/func-style": "off",
+	"eslint/no-magic-numbers": ["warn", { ignore: [-1, 0, 1] }],
 };
 
 // Règles différentes selon qu'on a le mode ERRORS_ONLY ou pas
@@ -131,6 +132,7 @@ const config = {
 				"eslint/new-cap": "off",
 				"eslint/id-length": "off",
 				"import/unambiguous": "off",
+				"import/no-relative-parent-imports": "off",
 			},
 			globals: {
 				...NODE_GLOBALS,
