@@ -1,3 +1,29 @@
+## 3.0.2 (2026-07-27)
+
+### Fix
+
+- **security**: correctif de sécurité pour corriger les points relevés par Bearer
+
+### Chore
+
+- **lint**: correction des erreurs de lint
+- **lint**: amélioration des règles de lint (no-magic-number autorise -0, 0 et 1 +  règle pour les imports dans les tests)
+- **lint**: amélioration règles oxlint pour les tests
+- **lint**: amélioration du lint (règles de base + snakeCase pour les fichiers tests)
+- **lint**: lint des fichiers de configuration du build
+- ajout règle no-unused-vars
+- **lint**: règles pour les imports
+- **lint**: unicorn-file-name-case pour tous les fichiers
+- ajout d'un mot autorisé pour cspell
+- **task**: ajout d'une tâche pour examiner la sécurité du code avec Bearer
+- update package-lock.json
+- **IDE**: fix de certains paramètres pour l'extension OXC
+
+### Refactor
+
+- simplification de l'écriture des constantes
+- **build**: déplacement dans des modules de la logique de création du plugin de minification des fichiers CSS + des accès sécurisés aux fichiers
+
 ## 3.0.1 (2026-07-27)
 
 ### Fix
