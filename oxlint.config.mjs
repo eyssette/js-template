@@ -62,7 +62,7 @@ const categories = ERRORS_ONLY
 		};
 
 const appFolderOverridesRules = ERRORS_ONLY
-	? { "unicorn/filename-case": ["error", { case: "camelCase" }] }
+	? {}
 	: {
 			"unicorn/filename-case": ["error", { case: "camelCase" }],
 			...e18eRulesWarnOnly,
@@ -121,6 +121,7 @@ const config = {
 	],
 
 	rules: {
+		"unicorn/filename-case": ["error", { case: "camelCase" }],
 		"import/no-duplicates": "error",
 		"eslint/no-ternary": "off",
 		"eslint/capitalized-comments": "off",
