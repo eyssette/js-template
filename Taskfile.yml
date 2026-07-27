@@ -244,7 +244,8 @@ tasks:
         npx oxfmt --config .oxfmtrc.json $FILES
 
   lint:
-    desc: Lint les fichiers .mjs avec Oxlint
+    desc: Lint les fichiers .mjs avec Oxlint, en affichant uniquement les erreurs (pas les warnings)
+    silent: true
     cmds:
       - ERRORS_ONLY=1 npx oxlint --config oxlint.config.mjs --quiet
 
@@ -260,16 +261,10 @@ tasks:
         ERRORS_ONLY=1 npx oxlint --config oxlint.config.mjs --quiet $FILES
 
   lint:all:
+    desc: Lint tous les fichiers .mjs avec Oxlint, en affichant toutes les erreurs, même les simples warnings
+    silent: true
     cmds:
       - npx oxlint --config oxlint.config.mjs
-
-  lint:all:errors:
-    cmds:
-      - npx oxlint --config oxlint.config.mjs --quiet
-
-  lint:all:category:
-    cmds:
-      - npx oxlint --format json --config oxlint.config.mjs | jq '.diagnostics[] | select(.code | test("{{.CLI_ARGS}}"))'
 
   compress:png:
     desc: Compresse les images PNG avec pngquant

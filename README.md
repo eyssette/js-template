@@ -190,6 +190,18 @@ git push origin && git push origin --tags
 
 ## Commandes complémentaires
 
+### Lint (qualité du code)
+
+```bash
+# Vérification de l'absence d'erreurs dans le code
+task lint
+```
+
+```bash
+# Affichage de toutes les erreurs, même non bloquantes, dans le code
+task lint:all
+```
+
 ### Tests unitaires et tests end-to-end
 
 ```bash
