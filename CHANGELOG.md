@@ -15,7 +15,7 @@
 
 - **task**: gestion du cas où les tests ne peuvent pas être lancés (possibilité de ne pas bloquer le push malgré tout)
 - **IDE**: suppression d'une extension qui ne fonctionnait pas bien (pour la coloration syntaxique dans les variables texte)
-- **build**: récupération des fichiers CSS importés, sans commenter puis décommenter  le contenu de main.mjs
+- **build**: récupération des fichiers CSS importés, sans commenter puis décommenter le contenu de main.mjs
 
 ### Chore
 
