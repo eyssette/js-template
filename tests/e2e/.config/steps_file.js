@@ -1,8 +1,6 @@
-// oxlint-disable import/no-commonjs func-names
-/* eslint-disable unicorn/filename-case */
+// oxlint-disable import/no-commonjs func-names unicorn/prefer-module unicorn/no-anonymous-default-export
 // in this file you can append custom step methods to 'I' object
 
-// eslint-disable-next-line unicorn/prefer-module, unicorn/no-anonymous-default-export
 module.exports = function () {
 	return actor({
 		// Define custom steps here, use 'this' to access default methods of I.
