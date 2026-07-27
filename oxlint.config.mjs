@@ -110,6 +110,20 @@ const appFolderOverridesRules = ERRORS_ONLY
 			"@stylistic/indent-binary-ops": "off",
 		};
 
+const testFolderOverridesRules = {
+	...baseRules,
+	"unicorn/filename-case": [
+		"error",
+		{ case: "snakeCase", ignore: [".spec.mjs"] },
+	],
+	"eslint/new-cap": "off",
+	"eslint/id-length": "off",
+	"import/unambiguous": "off",
+	"import/no-relative-parent-imports": "off",
+};
+
+// CONFIGURATION D'OXLINT
+
 const config = {
 	$schema: "./node_modules/oxlint/configuration_schema.json",
 	plugins,
@@ -131,14 +145,7 @@ const config = {
 		},
 		{
 			files: ["tests/**/*", "./*.{js,mjs}"],
-			rules: {
-				...baseRules,
-				"unicorn/filename-case": ["error", { case: "snakeCase" }],
-				"eslint/new-cap": "off",
-				"eslint/id-length": "off",
-				"import/unambiguous": "off",
-				"import/no-relative-parent-imports": "off",
-			},
+			rules: testFolderOverridesRules,
 			env: { builtin: true, browser: true, node: true, jasmine: true },
 			globals: {
 				...CODECEPT_GLOBALS,
