@@ -152,6 +152,13 @@ const config = {
 				...GHERKIN_GLOBALS,
 			},
 		},
+		// Override pour les tests unitaires (fichiers .spec.mjs) car on veut que les noms de fichiers soient en kebab-case, comme pour les fichiers Javascript correspondants.
+		{
+			files: ["tests/unit/**/*.{js, mjs}"],
+			rules: {
+				"unicorn/filename-case": ["error", { case: "kebabCase" }],
+			},
+		},
 	],
 
 	rules: {
