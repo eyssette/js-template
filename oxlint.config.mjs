@@ -26,6 +26,7 @@ const baseRules = {
 	"import/no-named-export": "off",
 	"import/no-default-export": "off",
 	"import/prefer-default-export": "off",
+	"eslint/no-undef": "error",
 	"eslint/no-unused-vars": ["error", { varsIgnorePattern: "^_" }],
 	"eslint/no-ternary": "off",
 	"eslint/capitalized-comments": "off",
