@@ -1,4 +1,5 @@
-export default {
+// oxlint-disable no-magic-numbers
+const config = {
 	extends: ["@commitlint/config-conventional"],
 	rules: {
 		// Ajout de "edit" et "bump", en plus des types standards
@@ -42,3 +43,5 @@ export default {
 		},
 	],
 };
+
+export default config;

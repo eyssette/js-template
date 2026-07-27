@@ -1,3 +1,4 @@
+// oxlint-disable-next-line import/no-relative-parent-imports
 import "../css/styles.css";
 import { capitalizeFirstLetter } from "./utils/strings.mjs";
 

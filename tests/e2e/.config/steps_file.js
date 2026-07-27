@@ -1,3 +1,4 @@
+// oxlint-disable import/no-commonjs func-names
 /* eslint-disable unicorn/filename-case */
 // in this file you can append custom step methods to 'I' object
 

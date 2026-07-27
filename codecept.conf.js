@@ -1,3 +1,4 @@
+// oxlint-disable import/no-commonjs unicorn/prefer-module unicorn/no-null
 exports.config = {
 	output: "./tests/e2e/output",
 	helpers: {

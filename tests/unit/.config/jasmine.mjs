@@ -1,4 +1,4 @@
-export default {
+const config = {
 	// eslint-disable-next-line camelcase
 	spec_dir: "tests/unit",
 	// eslint-disable-next-line camelcase
@@ -10,3 +10,5 @@ export default {
 		forbidDuplicateNames: true,
 	},
 };
+
+export default config;
