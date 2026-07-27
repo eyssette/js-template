@@ -5,7 +5,7 @@ import stylistic from "@stylistic/eslint-plugin";
 
 const ERRORS_ONLY = process.env.ERRORS_ONLY === "1";
 
-// 1. Gestion des variables globales
+// Gestion des variables globales
 const toReadonlyGlobals = (scope) =>
 	Object.fromEntries(Object.keys(scope).map((name) => [name, "readonly"]));
 const BROWSER_GLOBALS = toReadonlyGlobals(globals.browser);
@@ -22,7 +22,22 @@ const GHERKIN_GLOBALS = {
 	When: "readonly",
 };
 
-// 2. Règles différentes selon qu'on a le mode ERRORS_ONLY ou pas
+// Règles de base pour tous les fichiers
+
+const baseRules = {
+	"unicorn/filename-case": ["error", { case: "camelCase" }],
+	"no-unused-vars": ["error", { varsIgnorePattern: "^_" }],
+	"import/no-duplicates": "error",
+	"import/no-named-export": "off",
+	"import/no-default-export": "off",
+	"import/prefer-default-export": "off",
+	"eslint/no-ternary": "off",
+	"eslint/capitalized-comments": "off",
+	"eslint/sort-keys": "off",
+	"eslint/func-style": "off",
+};
+
+// Règles différentes selon qu'on a le mode ERRORS_ONLY ou pas
 const plugins = ["typescript", "import", "unicorn"];
 const jsPlugins = ERRORS_ONLY
 	? []
@@ -62,12 +77,11 @@ const categories = ERRORS_ONLY
 		};
 
 const appFolderOverridesRules = ERRORS_ONLY
-	? {}
+	? { ...baseRules }
 	: {
-			"unicorn/filename-case": ["error", { case: "camelCase" }],
+			...baseRules,
 			...e18eRulesWarnOnly,
 			...stylistic.configs.recommended.rules,
-			"import/no-duplicates": "error",
 			"@stylistic/semi": ["error", "always"],
 			"@stylistic/indent": "off",
 			"@stylistic/quotes": ["error", "double", { avoidEscape: true }],
@@ -111,6 +125,10 @@ const config = {
 		},
 		{
 			files: ["tests/**/*", "./*.{js,mjs}"],
+			rules: {
+				...baseRules,
+				"unicorn/filename-case": ["error", { case: "snakeCase" }],
+			},
 			globals: {
 				...NODE_GLOBALS,
 				...JASMINE_GLOBALS,
@@ -121,16 +139,7 @@ const config = {
 	],
 
 	rules: {
-		"unicorn/filename-case": ["error", { case: "camelCase" }],
-		"no-unused-vars": ["error", { varsIgnorePattern: "^_" }],
-		"import/no-duplicates": "error",
-		"import/no-named-export": "off",
-		"import/no-default-export": "off",
-		"import/prefer-default-export": "off",
-		"eslint/no-ternary": "off",
-		"eslint/capitalized-comments": "off",
-		"eslint/sort-keys": "off",
-		"eslint/func-style": "off",
+		...baseRules,
 	},
 };
 
