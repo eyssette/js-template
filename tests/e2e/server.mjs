@@ -1,5 +1,6 @@
-import crypto from "node:crypto";
+// oxlint-disable import/no-nodejs-modules max-statements no-magic-numbers no-console
 import fs, { createReadStream } from "node:fs";
+import crypto from "node:crypto";
 import http from "node:http";
 import path from "node:path";
 import url from "node:url";
@@ -40,7 +41,7 @@ const server = http.createServer((request, response) => {
 	// Vérifie que le chemin demandé est dans le répertoire autorisé
 	if (!requestedPath.startsWith(DIST_FOLDER + path.sep)) {
 		response.writeHead(403, { "Content-Type": "text/plain" });
-		response.end("403 Forbidden: Access Denied / " + requestedPath);
+		response.end(`403 Forbidden: Access Denied / ${requestedPath}`);
 		return;
 	}
 
@@ -58,7 +59,7 @@ const server = http.createServer((request, response) => {
 			return;
 		}
 
-		if (requestedPath === DIST_FOLDER + "/index.html") {
+		if (requestedPath === `${DIST_FOLDER}/index.html`) {
 			fs.readFile(filePath, "utf8", (error, data) => {
 				if (error) {
 					response.writeHead(500, { "Content-Type": "text/plain" });

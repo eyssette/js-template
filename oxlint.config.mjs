@@ -128,6 +128,9 @@ const config = {
 			rules: {
 				...baseRules,
 				"unicorn/filename-case": ["error", { case: "snakeCase" }],
+				"eslint/new-cap": "off",
+				"eslint/id-length": "off",
+				"import/unambiguous": "off",
 			},
 			globals: {
 				...NODE_GLOBALS,
