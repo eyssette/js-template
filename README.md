@@ -26,7 +26,7 @@ Les tâches courantes sont automatisées avec [Task](https://taskfile.dev/) et p
 - Vérifier l’accessibilité de l’application (avec pa11y-ci)
 - Mesurer les performances de l’application (avec lighthouse)
 - Compresser des images (avec pngquant, jpegoptim et svgo)
-- Vérifier la sécurité de l'application (avec npm audit, semgrep et trivy)
+- Vérifier la sécurité de l'application (avec npm audit, semgrep, bearer et trivy)
 
 Les tâches sont définies dans le fichier `Taskfile.yml`.
 
@@ -334,6 +334,11 @@ task security:audit
 ```bash
 # Vérifier la sécurité du code avec semgrep
 task security:semgrep
+```
+
+```bash
+# Vérifier la sécurité du code avec bearer
+task security:bearer
 ```
 
 ```bash

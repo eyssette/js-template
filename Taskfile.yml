@@ -403,6 +403,11 @@ tasks:
     cmds:
       - semgrep scan
 
+  security:bearer:
+    desc: Vérifie la sécurité du code avec Bearer
+    cmds:
+      - bearer scan .
+
   security:trivy:
     desc: Vérifie la sécurité du code avec Trivy
     cmds:
