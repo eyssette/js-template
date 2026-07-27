@@ -460,6 +460,7 @@ tasks:
     silent: true
 
   perf:*:
+    desc: Vérifie les performances d'une URL avec Lighthouse et permet de choisir le mode (desktop ou mobile) en fonction de l'argument passé à la tâche
     aliases:
       - performance:*
     cmds:
