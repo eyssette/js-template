@@ -2,9 +2,12 @@ import codeceptjs from "eslint-plugin-codeceptjs";
 import e18e from "@e18e/eslint-plugin";
 import stylistic from "@stylistic/eslint-plugin";
 
+// On peut activer le mode "ERRORS_ONLY" en mettant la variable d'environnement ERRORS_ONLY à 1
+// Cela permet de ne garder que les règles de type "error" et de désactiver les règles de type "warn" ou "off", afin que le lint se fasse plus rapidement et que l'on puisse se concentrer sur les erreurs à corriger en priorité.
 const ERRORS_ONLY = process.env.ERRORS_ONLY === "1";
 
-// Gestion des variables globales
+// GESTION DES VARIABLES GLOBALES
+
 const toReadonlyGlobals = (scope) =>
 	Object.fromEntries(Object.keys(scope).map((name) => [name, "readonly"]));
 const CODECEPT_GLOBALS = toReadonlyGlobals(
@@ -18,8 +21,7 @@ const GHERKIN_GLOBALS = {
 	When: "readonly",
 };
 
-// Règles de base pour tous les fichiers
-
+// RÉGLES DE BASE
 const baseRules = {
 	"unicorn/filename-case": ["error", { case: "camelCase" }],
 	"import/no-duplicates": "error",
@@ -39,8 +41,12 @@ const baseRules = {
 	],
 };
 
-// Règles différentes selon qu'on a le mode ERRORS_ONLY ou pas
 const plugins = ["typescript", "import", "unicorn"];
+
+// RÉGLES SPÉCIFIQUES
+// - si on est en mode "ERRORS_ONLY" ou pas
+// - pour le dossier "app" et pour le dossier "tests"
+
 const jsPlugins = ERRORS_ONLY
 	? []
 	: [
@@ -143,6 +149,11 @@ const config = {
 			rules: appFolderOverridesRules,
 			env: { es2020: true, builtin: true },
 		},
+		// Override pour les tests :
+		// - les fichiers tests e2e sont en snake_case (on rajoute un override ensuite pour les fichiers de tests unitaires qui sont en kebab-case)
+		// - on ajoute les variables globales de CodeceptJS et Gherkin
+		// - on ajoute l'environnement Node et Jasmine
+		// - on ne se contraint pas à rester en ES2020
 		{
 			files: ["tests/**/*", "./*.{js,mjs}"],
 			rules: testFolderOverridesRules,
