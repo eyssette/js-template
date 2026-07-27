@@ -101,10 +101,10 @@ tasks:
           else
             read -p "❌ Les tests e2e ne peuvent pas être lancés. Voulez-vous continuer malgré tout ? (y/n) " CONTINUE
             if [ "$CONTINUE" = "y" ]; then
-              echo "⚠️ Vous avez choisi de continuer malgré l'échec des tests e2e."
+              echo "⚠️ Vous avez choisi de continuer malgré l'impossibilité de lancer les tests e2e."
               exit 0
             else
-              echo "❌ Arrêt du processus de build à cause de l'échec des tests e2e."
+              echo "❌ Arrêt du processus de build à cause de l'impossibilité de lancer les tests e2e."
               exit 1
             fi
           fi
