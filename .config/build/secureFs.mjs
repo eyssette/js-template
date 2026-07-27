@@ -1,9 +1,10 @@
+// oxlint-disable import/no-nodejs-modules import/group-exports max-statements no-magic-numbers no-control-regex no-continue unicorn/no-null prefer-destructuring
 // Utilitaires pour manipuler des chemins de fichiers de façon sécurisée
 // (protection contre les traversées de répertoire, chemins absolus non désirés, etc.)
 
-import fs from "fs";
-import path from "path";
-import { fileURLToPath, pathToFileURL } from "url";
+import { fileURLToPath, pathToFileURL } from "node:url";
+import fs from "node:fs";
+import path from "node:path";
 
 const RELATIVE_CSS_IMPORT_PATH_REGEX =
 	/^(?:\.{1,2}[\\/])[A-Za-z0-9._\-/]+\.css$/;

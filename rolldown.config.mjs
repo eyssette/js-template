@@ -1,18 +1,22 @@
+// oxlint-disable unicorn/no-null import/no-nodejs-modules
 // À décommenter si on veut importer des fichiers texte (comme les fichiers Markdown) en tant que chaînes de caractères dans le code JavaScript
 // import { string } from "rollup-plugin-string";
 
-import path from "path";
 import copy from "rollup-plugin-copy";
-import del from "rollup-plugin-delete";
-import serve from "rollup-plugin-serve";
-import livereload from "rollup-plugin-livereload";
 import { createMinifyStylesPlugin } from "./.config/build/minifyCss.mjs";
+import del from "rollup-plugin-delete";
+import livereload from "rollup-plugin-livereload";
+import path from "node:path";
+import serve from "rollup-plugin-serve";
 
 const appFolder = "app/";
 const distFolder = "dist/";
-const stylesFolder = appFolder + "css/";
+const mainJsFileName = "main.mjs";
+const scriptMinJsFileName = "script.min.js";
+
+const stylesFolder = `${appFolder}css/`;
 const distStylesFolder = "css/";
-const mainJsFile = appFolder + "js/main.mjs";
+const mainJsFile = `${appFolder}js/${mainJsFileName}`;
 
 const appRootPath = path.resolve(appFolder);
 const distRootPath = path.resolve(distFolder);
@@ -41,7 +45,7 @@ async function createBuildConfig() {
 	return {
 		input: mainJsFile,
 		output: {
-			file: distFolder + "script.min.js",
+			file: distFolder + scriptMinJsFileName,
 			format: "iife",
 			sourcemap: true,
 			minify: true,
@@ -57,7 +61,7 @@ async function createBuildConfig() {
 
 			// Copie les fichiers du dossier app vers le dossier dist
 			copy({
-				targets: [{ src: [appFolder + "**/*"], dest: distFolder }],
+				targets: [{ src: [`${appFolder}**/*`], dest: distFolder }],
 				flatten: false,
 			}),
 

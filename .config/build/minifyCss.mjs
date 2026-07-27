@@ -1,15 +1,16 @@
+// oxlint-disable import/no-nodejs-modules prefer-named-capture-group max-statements no-continue prefer-destructuring no-magic-numbers max-params unicorn/text-encoding-identifier-case unicorn/no-null
 // Plugin Rollup/Rolldown : concatène et minifie les CSS importés dans le JS principal,
 // puis minifie individuellement les CSS restants du dossier des styles.
 
-import fs from "fs";
-import path from "path";
-import { transform } from "lightningcss";
 import {
 	ensurePathInsideRoot,
 	getCssFiles,
-	resolveSafeCssImportPath,
 	getSafeModulePath,
+	resolveSafeCssImportPath,
 } from "./secureFs.mjs";
+import fs from "node:fs";
+import path from "node:path";
+import { transform } from "lightningcss";
 
 const CSS_IMPORT_LINE_REGEX = /^(\s*)import\s+['"]([^'"]+\.css)['"]\s*;?\s*$/;
 const CSS_EXTENSION_SUFFIX_REGEX = /\.css$/;
@@ -100,7 +101,7 @@ function concatenateImportedCssFiles(importedCssFiles, appRootPath) {
 			cssFile,
 			"fichier CSS concaténé",
 		);
-		concatenatedCss += fs.readFileSync(safeCssFile, "utf-8") + "\n";
+		concatenatedCss += `${fs.readFileSync(safeCssFile, "utf-8")}\n`;
 	}
 
 	return concatenatedCss;
@@ -113,7 +114,7 @@ function logGeneratedChunk(filePath, distRootPath) {
 		"chunk généré",
 	);
 	const stats = fs.statSync(safeFilePath);
-	const size = (stats.size / 1024).toFixed(2) + " kB";
+	const size = `${(stats.size / 1024).toFixed(2)} kB`;
 	process.stdout.write(
 		`\x1b[90m<DIR>/\x1b[0m\x1b[34m${path.relative(distRootPath, safeFilePath)}\x1b[0m  \x1b[90mchunk │ size: ${size}\x1b[0m\n`,
 	);
