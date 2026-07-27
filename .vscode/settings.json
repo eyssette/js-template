@@ -43,6 +43,7 @@
 		"lightningcss",
 		"megalinter",
 		"oxfmt",
+		"oxfmtrc",
 		"oxlint",
 		"pngquant",
 		"semgrep",
