@@ -63,18 +63,22 @@ const asWarn = (rules) =>
 const e18eRulesWarnOnly = asWarn(e18e.configs.recommended.rules);
 const categories = ERRORS_ONLY
 	? {
-			correctness: "off",
-			style: "off",
+			correctness: "error",
+			suspicious: "warn",
 			pedantic: "off",
 			perf: "off",
+			style: "off",
 			restriction: "off",
+			nursery: "off",
 		}
 	: {
-			correctness: "warn",
-			style: "warn",
-			pedantic: "off",
+			correctness: "error",
+			suspicious: "warn",
+			pedantic: "warn",
 			perf: "warn",
+			style: "warn",
 			restriction: "warn",
+			nursery: "warn",
 		};
 
 const appFolderOverridesRules = ERRORS_ONLY
