@@ -7,7 +7,7 @@
 ### Chore
 
 - **lint**: correction des erreurs de lint
-- **lint**: amélioration des règles de lint (no-magic-number autorise -0, 0 et 1 +  règle pour les imports dans les tests)
+- **lint**: amélioration des règles de lint (no-magic-number autorise -0, 0 et 1 + règle pour les imports dans les tests)
 - **lint**: amélioration règles oxlint pour les tests
 - **lint**: amélioration du lint (règles de base + snakeCase pour les fichiers tests)
 - **lint**: lint des fichiers de configuration du build
