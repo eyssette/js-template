@@ -36,6 +36,10 @@ const baseRules = {
 	"eslint/sort-keys": "off",
 	"eslint/func-style": "off",
 	"eslint/no-magic-numbers": ["warn", { ignore: [-1, 0, 1] }],
+	"eslint/max-lines-per-function": [
+		"warn",
+		{ max: 100, skipComments: true, skipBlankLines: true },
+	],
 };
 
 // Règles différentes selon qu'on a le mode ERRORS_ONLY ou pas
