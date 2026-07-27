@@ -6,6 +6,10 @@ import stylistic from "@stylistic/eslint-plugin";
 // Cela permet de ne garder que les règles de type "error" et de désactiver les règles de type "warn" ou "off", afin que le lint se fasse plus rapidement et que l'on puisse se concentrer sur les erreurs à corriger en priorité.
 const ERRORS_ONLY = process.env.ERRORS_ONLY === "1";
 
+// IGNORE PATTERNS
+
+const ignorePatterns = ["**/*.min.js"];
+
 // GESTION DES VARIABLES GLOBALES
 
 const toReadonlyGlobals = (scope) =>
@@ -141,7 +145,7 @@ const config = {
 		browser: true,
 	},
 
-	ignorePatterns: ["app/js/lib/**", "**/*.min.js", "app/js/plugins/**/*"],
+	ignorePatterns,
 
 	overrides: [
 		{
