@@ -1,3 +1,14 @@
+## 3.0.1 (2026-07-27)
+
+### Fix
+
+- **IDE**: nom corrigé pour une extension
+
+### Chore
+
+- task simplifiée pour l'installation de Playwright
+- update package-lock.json
+
 ## 3.0.0 (2026-07-27)
 
 ### Fix
