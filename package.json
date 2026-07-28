@@ -19,6 +19,8 @@
 	"scripts": {
 		"build": "npx task build",
 		"dev": "npx task dev",
+		"debug": "npx task debug",
+		"debug-stop": "npx task dev:stop",
 		"visualize": "ANALYZE=true npx rolldown -c",
 		"test": "npx task tests",
 		"prepare": "husky"

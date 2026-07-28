@@ -7,8 +7,8 @@ vars:
   DIST_FOLDER: "dist"
   TEST_FOLDER: "tests"
   FEATURES_FOLDER: "features"
-  PORT_LOCAL_SERVER: 8888
   PORT_DEV_SERVER: 10001
+  PORT_TESTS_SERVER: 8888
   CURRENT_E2E_TEST: "@CURRENT"
   REPORT_DIR: ".report"
   ECMA_VERSION: "es2020"
@@ -45,8 +45,17 @@ tasks:
 
   dev:stop:
     desc: Arrête le serveur de développement
+    aliases:
+      - debug:stop
     cmds:
       - bash -c 'kill $(lsof -ti :{{.PORT_DEV_SERVER}}) 2>/dev/null' || true
+
+  debug:
+    desc: Lance le serveur de développement avec Rolldown en mode watch et debug
+    deps: [npm:install]
+    cmds:
+      - task: dev:stop
+      - NODE_ENV=debug npx rolldown --config --watch
 
   npm:install:
     desc: Installe les dépendances du projet
@@ -202,13 +211,13 @@ tasks:
   server:start:
     desc: Lance le serveur local pour les tests e2e
     cmds:
-      - node {{.TEST_FOLDER}}/e2e/server.mjs {{.PORT_LOCAL_SERVER}} & # On lance le serveur en arrière-plan
-      - until nc -z localhost {{.PORT_LOCAL_SERVER}}; do sleep 1; done # On attend que le port soit ouvert avant de lancer la suite
+      - node {{.TEST_FOLDER}}/e2e/server.mjs {{.PORT_TESTS_SERVER}} & # On lance le serveur en arrière-plan
+      - until nc -z localhost {{.PORT_TESTS_SERVER}}; do sleep 1; done # On attend que le port soit ouvert avant de lancer la suite
 
   server:stop:
     desc: Arrête le serveur local pour les tests e2e
     cmds:
-      - bash -c 'kill $(lsof -ti :{{.PORT_LOCAL_SERVER}}) 2>/dev/null' || true
+      - bash -c 'kill $(lsof -ti :{{.PORT_TESTS_SERVER}}) 2>/dev/null' || true
 
   ecma:
     desc: Vérifie la compatibilité ECMAScript des fichiers sources et des fichiers compilés dans le dossier dist

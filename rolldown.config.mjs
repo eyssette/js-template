@@ -29,7 +29,10 @@ const minifyStylesPluginOptions = {
 };
 
 const development =
-	process.env.NODE_ENV && process.env.NODE_ENV === "development";
+	process.env.NODE_ENV &&
+	(process.env.NODE_ENV === "development" || process.env.NODE_ENV === "debug");
+const debug = development && process.env.NODE_ENV === "debug";
+
 const analyze = String(process.env.ANALYZE).toLowerCase() === "true";
 
 async function getVisualizerPlugin() {
@@ -53,7 +56,8 @@ async function createBuildConfig() {
 			file: distFolder + scriptMinJsFileName,
 			format: "iife",
 			sourcemap: true,
-			minify: { mangle: true },
+			// En développement, on évite le mangle pour faciliter le débogage.
+			minify: debug ? false : { mangle: true },
 		},
 		transform: {
 			target: ECMA_VERSION,
@@ -77,7 +81,7 @@ async function createBuildConfig() {
 			createMinifyStylesPlugin(minifyStylesPluginOptions),
 
 			// En mode développement, lance un serveur de développement et recharge la page automatiquement lorsqu'un fichier est modifié
-			development && serve({ contentBase: ["dist", "./"], open: true }),
+			development && serve({ contentBase: ["dist", "./"], open: !debug }),
 			development && livereload({ delay: 300 }),
 
 			// Génère un rapport de visualisation uniquement quand ANALYZE=true
