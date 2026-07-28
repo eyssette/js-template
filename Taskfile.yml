@@ -211,14 +211,41 @@ tasks:
       - bash -c 'kill $(lsof -ti :{{.PORT_LOCAL_SERVER}}) 2>/dev/null' || true
 
   ecma:
-    desc: Vérifie la compatibilité ECMAScript des fichiers .mjs
+    desc: Vérifie la compatibilité ECMAScript des fichiers sources et des fichiers compilés dans le dossier dist
     sources:
       - "{{.APP_FOLDER}}/js/**/*.mjs"
+      - "{{.DIST_FOLDER}}/script.min.js"
+      - Taskfile.yml
     cmds:
-      - npx es-check es2020 "{{.APP_FOLDER}}/js/**/*.mjs" --module
+      - task: ecma:dist
+      - cmd: |
+          echo "✅ Les fichiers compilés dans le dossier dist sont compatibles avec la version ECMAScript {{.ECMA_VERSION}}"
+        silent: true
+      - task: ecma:source
+      - cmd: |
+          echo "✅ Les fichiers sources sont compatibles avec la version ECMAScript {{.ECMA_VERSION}}"
+        silent: true
+
+  ecma:source:
+    desc: Vérifie la compatibilité ECMAScript des fichiers .mjs sources
+    aliases:
+      - ecma:src
+    sources:
+      - "{{.APP_FOLDER}}/js/**/*.mjs"
+      - Taskfile.yml
+    cmds:
+      - npx es-check {{.ECMA_VERSION}} "{{.APP_FOLDER}}/js/**/*.mjs" --module
+
+  ecma:dist:
+    desc: Vérifie la compatibilité ECMAScript des fichiers compilés dans le dossier dist
+    sources:
+      - "{{.DIST_FOLDER}}/script.min.js"
+      - Taskfile.yml
+    cmds:
+      - npx es-check {{.ECMA_VERSION}} "{{.DIST_FOLDER}}/script.min.js"
 
   ecma:staged:
-    desc: Vérifie la compatibilité ECMAScript des fichiers .mjs staged (pour le hook pre-commit)
+    desc: Vérifie la compatibilité ECMAScript des fichiers source .mjs staged (pour le hook pre-commit)
     silent: true
     cmds:
       - |
@@ -226,7 +253,7 @@ tasks:
         if [ -z "$FILES" ]; then
           exit 0
         fi
-        npx es-check es2020 $FILES --module
+        npx es-check {{.ECMA_VERSION}} $FILES --module
 
   format:
     desc: Formate les fichiers .mjs avec Oxfmt
