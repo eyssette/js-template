@@ -1,3 +1,18 @@
+## 3.2.0 (2026-07-28)
+
+### Feat
+
+- **IDE**: configuration du mode DEBUG
+
+### Fix
+
+- **build**: paramètre corrigé pour minify
+
+### CI
+
+- correctif pour le job ecma-dist pour qu'il ait les artefacts du job prepare et du job build
+- décomposition du stage "code" en plusieurs jobs : format-check, lint, ecma-source
+
 ## 3.1.1 (2026-07-28)
 
 ### Fix
