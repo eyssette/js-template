@@ -15,6 +15,7 @@ Ce template propose un environnement de développement complet :
 - Formatage automatique avec Oxfmt
 - Workflow de versioning et changelog automatisé avec Husky + Commitlint + Commitizen
 - Intégration continue dans Gitlab
+- Configuration automatique de l’éditeur VS Code / VSCodium
 
 ### Automatisation des tâches
 
@@ -38,6 +39,7 @@ Elles peuvent être lancées avec la commande `task <nom_de_la_tâche>` si Task 
 
 Il faut avoir installé sur votre machine :
 
+- VSCode ou VSCodium
 - Node.js (version >=22)
 - npm (version 8 au minimum, version >=10 recommandée)
 
