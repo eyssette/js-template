@@ -202,6 +202,11 @@ task lint
 task lint:all
 ```
 
+```bash
+# Validation du code HTML avec html-validate
+task html-validate
+```
+
 ### Tests unitaires et tests end-to-end
 
 ```bash

@@ -65,5 +65,7 @@
 	"workbench.colorCustomizations": {
 		"editorWarning.foreground": "#00000000" /* Désactive le soulignement des erreurs de type simplement "warning" */
 	},
-	"oxc.disableNestedConfig": true
+	"oxc.disableNestedConfig": true,
+	"html-validate.validate": ["html"],
+	"html-validate.configFile": ".config/code/.htmlvalidate.json"
 }

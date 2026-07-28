@@ -248,6 +248,11 @@ tasks:
         fi
         npx oxfmt --config .oxfmtrc.json $FILES
 
+  html-validate:
+    desc: Vérifie la validité des fichiers HTML avec html-validate
+    cmds:
+      - npx html-validate "{{.APP_FOLDER}}/**/*.html" --preset recommended,prettier
+
   lint:
     desc: Lint les fichiers .mjs avec Oxlint, en affichant uniquement les erreurs principales
     silent: true
