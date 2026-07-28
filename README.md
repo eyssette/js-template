@@ -100,13 +100,18 @@ Ces styles peuvent être répartis dans plusieurs fichiers : ils seront regroup�
 
 ## Structure du projet
 
-- `.husky` : hooks Git pour vérifier les commits et la qualité du code
-- `.vscode` : configuration de l'éditeur VS Code / VSCodium
 - `app` : code source de l'application
 - `dist` : fichiers générés (build)
 - `features` : scénarios Gherkin pour les tests end-to-end
 - `tests/unit` : tests unitaires avec Jasmine
 - `tests/e2e` : implémentation des scénarios end-to-end avec CodeceptJS
+
+Les dossiers qui commencent par un point sont des dossiers de configuration
+
+- `.config` : configuration du pipeline de CI/CD
+- `.gitlab` : configuration de templates pour Gitlab
+- `.husky` : hooks Git pour vérifier les commits et la qualité du code
+- `.vscode` : configuration de l'éditeur VS Code / VSCodium
 
 ## Éditeur (VS Code / VSCodium)
 
