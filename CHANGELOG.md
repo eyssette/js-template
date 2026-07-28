@@ -1,3 +1,24 @@
+## 3.1.0 (2026-07-28)
+
+### Feat
+
+- **lint**: validation du HTML avec html-validate
+- **ci**: organisation de la CI en plusieurs stages + optimisation
+
+### Fix
+
+- **ci**: stage de déploiement amélioré
+- **ci**: conservation des modules nodes dans des artefacts pour les rendre disponibles dans chaque stage
+- **task**: ajout d'une tâche de check du format
+- **lint**: mode SHOW_MAIN_ERRORS_ONLY pour le lint plutôt que ERRORS_ONLY
+- **husky**: désactivation des contraintes de nombre de lignes ou de caractères pour les commits
+- **husky**: le message indique la cause de l'erreur si le commit n'a pas été accepté
+
+### Chore
+
+- **deploy**: déplacement du script de compression dans un dossier .config/deploy
+- **lint**: ajout de règles Eslint pour Oxlint
+
 ## 3.0.3 (2026-07-28)
 
 ### Fix
