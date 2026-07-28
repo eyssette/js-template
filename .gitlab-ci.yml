@@ -75,25 +75,20 @@ test:
   script:
     - npx task tests:unit
 
-pages:
+deploy:
   stage: deploy
   interruptible: false
   needs:
     - job: build
       artifacts: true
+    - job: test
   script:
     # Installation de gzip et brotli pour la compression des fichiers
     - apk add --no-cache gzip brotli
     # Déplacement du dossier de distribution vers le dossier public pour GitLab Pages
     - mv "$DIST_FOLDER" public
     # Compression des fichiers avec gzip et brotli
-    - |
-      find_args=()
-      for ext in $FILES_TO_COMPRESS; do
-        [ ${#find_args[@]} -gt 0 ] && find_args+=(-o)
-        find_args+=(-name "*.$ext")
-      done
-      find public -type f \( "${find_args[@]}" \) -exec gzip -kf {} + -exec brotli -kf {} +
+    - sh .config/ci/compress-assets.sh public "$FILES_TO_COMPRESS"
   pages: true
   artifacts:
     paths:
