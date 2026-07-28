@@ -46,6 +46,7 @@ const baseRules = {
 		"warn",
 		{ max: 100, skipComments: true, skipBlankLines: true },
 	],
+	"eslint/no-param-reassign": ["error", { props: true }],
 };
 
 const plugins = ["typescript", "import", "unicorn"];
