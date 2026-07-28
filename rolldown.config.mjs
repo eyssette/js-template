@@ -9,6 +9,9 @@ import livereload from "rollup-plugin-livereload";
 import path from "node:path";
 import serve from "rollup-plugin-serve";
 
+// Version ECMAScript utilisée pour la compilation
+const ECMA_VERSION = "es2020";
+
 const appFolder = "app/";
 const distFolder = "dist/";
 const mainJsFileName = "main.mjs";
@@ -51,6 +54,9 @@ async function createBuildConfig() {
 			format: "iife",
 			sourcemap: true,
 			minify: [{ mangle: true }],
+		},
+		transform: {
+			target: ECMA_VERSION,
 		},
 		plugins: [
 			// Importe des fichiers texte (comme les fichiers Markdown) en tant que chaînes de caractères dans le code JavaScript
