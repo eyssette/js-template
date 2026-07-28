@@ -39,11 +39,16 @@ prepare:
     policy: pull-push
   script:
     - npm ci --cache .npm --prefer-offline --no-audit
+  artifacts:
+    paths:
+      - node_modules
+    expire_in: 1 hour
 
 code:
   stage: code
   needs:
     - job: prepare
+      artifacts: true
   script:
     - npx task format:check
     - npx task lint
@@ -53,6 +58,7 @@ build:
   stage: build
   needs:
     - job: prepare
+      artifacts: true
   script:
     - npm run build
   artifacts:
