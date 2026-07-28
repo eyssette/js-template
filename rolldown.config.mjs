@@ -50,7 +50,7 @@ async function createBuildConfig() {
 			file: distFolder + scriptMinJsFileName,
 			format: "iife",
 			sourcemap: true,
-			minify: true,
+			minify: [{ mangle: true }],
 		},
 		plugins: [
 			// Importe des fichiers texte (comme les fichiers Markdown) en tant que chaînes de caractères dans le code JavaScript
