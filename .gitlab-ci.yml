@@ -44,14 +44,28 @@ prepare:
       - node_modules
     expire_in: 1 hour
 
-code:
+format-check:
   stage: code
   needs:
     - job: prepare
       artifacts: true
   script:
     - npx task format:check
+
+lint:
+  stage: code
+  needs:
+    - job: prepare
+      artifacts: true
+  script:
     - npx task lint
+
+ecma-source:
+  stage: code
+  needs:
+    - job: prepare
+      artifacts: true
+  script:
     - npx task ecma:source
 
 build:
