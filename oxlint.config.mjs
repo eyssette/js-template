@@ -33,7 +33,10 @@ const baseRules = {
 	"import/no-default-export": "off",
 	"import/prefer-default-export": "off",
 	"eslint/no-undef": "error",
-	"eslint/no-unused-vars": ["error", { varsIgnorePattern: "^_" }],
+	"eslint/no-unused-vars": [
+		"error",
+		{ varsIgnorePattern: "^_", caughtErrorsIgnorePattern: "^_" },
+	],
 	"eslint/no-ternary": "off",
 	"eslint/capitalized-comments": "off",
 	"eslint/sort-keys": "off",
@@ -128,6 +131,10 @@ const testFolderOverridesRules = {
 	],
 	"eslint/new-cap": "off",
 	"eslint/id-length": "off",
+	"eslint/no-magic-numbers": "off",
+	"eslint/max-lines-per-function": "off",
+	"eslint/max-statements": "off",
+	"eslint/max-lines": "off",
 	"import/unambiguous": "off",
 	"import/no-relative-parent-imports": "off",
 };
