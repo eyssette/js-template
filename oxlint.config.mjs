@@ -6,6 +6,8 @@ import stylistic from "@stylistic/eslint-plugin";
 // Cela permet de ne garder que les règles principales, afin que le lint se fasse plus rapidement et que l'on puisse se concentrer sur les erreurs à corriger en priorité.
 const SHOW_MAIN_ERRORS_ONLY = process.env.SHOW_MAIN_ERRORS_ONLY === "1";
 
+const ECMA_VERSION = "es2020";
+
 // IGNORE PATTERNS
 
 const ignorePatterns = ["**/*.min.js"];
@@ -155,11 +157,15 @@ const config = {
 
 	ignorePatterns,
 
+	rules: {
+		...baseRules,
+	},
+
 	overrides: [
 		{
 			files: ["app/**/*.{js,mjs}"],
 			rules: appFolderOverridesRules,
-			env: { es2020: true, builtin: true },
+			env: { [ECMA_VERSION]: true, browser: true },
 		},
 		// Override pour les tests :
 		// - les fichiers tests e2e sont en snake_case (on rajoute un override ensuite pour les fichiers de tests unitaires qui sont en kebab-case)
@@ -183,10 +189,6 @@ const config = {
 			},
 		},
 	],
-
-	rules: {
-		...baseRules,
-	},
 };
 
 // oxlint-disable-next-line import/no-default-export

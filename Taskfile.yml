@@ -11,6 +11,7 @@ vars:
   PORT_DEV_SERVER: 10001
   CURRENT_E2E_TEST: "@CURRENT"
   REPORT_DIR: ".report"
+  ECMA_VERSION: "es2020"
 
 tasks:
   build:
