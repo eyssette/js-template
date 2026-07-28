@@ -224,10 +224,24 @@ task tests:e2e
 task tests:e2e:current
 ```
 
+### Conformité du code au standard ECMAScript utilisé
+
 ```bash
-# Lancer uniquement la conformité du Javascript au standard utilisé
+# Vérifier que le code compilé dans le dossier dist est conforme au standard ECMAScript utilisé
+task ecma:dist
+```
+
+```bash
+# Vérifier que le code source est conforme au standard ECMAScript utilisé
+task ecma:source
+```
+
+```bash
+# Lancer les deux vérifications de conformité ECMAScript en une seule commande
 task ecma
 ```
+
+Si on veut changer le standard ECMAScript utilisé, il faut modifier la variable `ECMA_VERSION` dans le fichier `rolldown.config.mjs`, dans le fichier `Taskfile.yml`, dans la variable `env` dans le fichier `oxlint.config.mjs`.
 
 ### Rapport de couverture des tests unitaires
 
