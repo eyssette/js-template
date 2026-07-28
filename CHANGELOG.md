@@ -1,3 +1,31 @@
+## 3.1.1 (2026-07-28)
+
+### Fix
+
+- **task**: les tâches pour formater les fichiers s'appliquent à tous les fichiers
+- **ecma**: tâches pour vérifier la conformité ECMA soit sur les fichiers sources, soit sur les fichiers compilés dans "dist"
+- **ecma**: build dans la version ECMAscript souhaitée
+- **IDE**: ajout de l'extension pour la validation du HTML
+
+### CI
+
+- meilleure prise en compte de la vérification ECMA et optimisation (les tests unitaires peuvent être lancés en parallèle, sans attendre le build)
+
+### Chore
+
+- utilisation de constantes pour définir la version ECMA utilisée
+- **IDE**: on force l'utilisation d'OXC pour le HTML, le CSS, le Javascript et le Markdown
+- mise à jour package-lock.json
+- **lint**: ajout paramètre eslint/no-param-reassign
+
+### Docs
+
+- précision sur les tâches pour la vérification ECMA du code source et du code compilé + comment on peut changer le standard utilisé
+
+### Perf
+
+- **build**: minification avec option mangle pour renommer les variables et fonctions avec des noms très courts
+
 ## 3.1.0 (2026-07-28)
 
 ### Feat
