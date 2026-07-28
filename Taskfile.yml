@@ -256,21 +256,21 @@ tasks:
         npx es-check {{.ECMA_VERSION}} $FILES --module
 
   format:
-    desc: Formate les fichiers .mjs avec Oxfmt
+    desc: Formate les fichiers avec Oxfmt
     cmds:
       - npx oxfmt --config .oxfmtrc.json .
 
   format:check:
-    desc: Vérifie le format des fichiers .mjs avec Oxfmt
+    desc: Vérifie le format des fichiers avec Oxfmt
     cmds:
       - npx oxfmt --config .oxfmtrc.json --check .
 
   format:staged:
-    desc: Formate uniquement les fichiers .mjs staged (pour le hook pre-commit)
+    desc: Formate uniquement les fichiers staged (pour le hook pre-commit)
     silent: true
     cmds:
       - |
-        FILES=$(git diff --cached --name-only --diff-filter=ACM -- '{{.APP_FOLDER}}/**/*.mjs')
+        FILES=$(git diff --cached --name-only --diff-filter=ACM)
         if [ -z "$FILES" ]; then
           exit 0
         fi
