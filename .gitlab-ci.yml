@@ -91,6 +91,8 @@ tests-unit:
 ecma-dist:
   stage: test
   needs:
+    - job: prepare
+      artifacts: true
     - job: build
       artifacts: true
   script:
