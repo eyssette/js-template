@@ -2,9 +2,9 @@ import codeceptjs from "eslint-plugin-codeceptjs";
 import e18e from "@e18e/eslint-plugin";
 import stylistic from "@stylistic/eslint-plugin";
 
-// On peut activer le mode "ERRORS_ONLY" en mettant la variable d'environnement ERRORS_ONLY à 1
-// Cela permet de ne garder que les règles de type "error" et de désactiver les règles de type "warn" ou "off", afin que le lint se fasse plus rapidement et que l'on puisse se concentrer sur les erreurs à corriger en priorité.
-const ERRORS_ONLY = process.env.ERRORS_ONLY === "1";
+// On peut activer le mode "SHOW_MAIN_ERRORS_ONLY" en mettant la variable d'environnement SHOW_MAIN_ERRORS_ONLY à 1
+// Cela permet de ne garder que les règles principales, afin que le lint se fasse plus rapidement et que l'on puisse se concentrer sur les erreurs à corriger en priorité.
+const SHOW_MAIN_ERRORS_ONLY = process.env.SHOW_MAIN_ERRORS_ONLY === "1";
 
 // IGNORE PATTERNS
 
@@ -51,10 +51,10 @@ const baseRules = {
 const plugins = ["typescript", "import", "unicorn"];
 
 // RÉGLES SPÉCIFIQUES
-// - si on est en mode "ERRORS_ONLY" ou pas
+// - si on est en mode "SHOW_MAIN_ERRORS_ONLY" ou pas
 // - pour le dossier "app" et pour le dossier "tests"
 
-const jsPlugins = ERRORS_ONLY
+const jsPlugins = SHOW_MAIN_ERRORS_ONLY
 	? []
 	: [
 			{ name: "e18e", specifier: "@e18e/eslint-plugin" },
@@ -75,7 +75,7 @@ const asWarn = (rules) =>
 		}),
 	);
 const e18eRulesWarnOnly = asWarn(e18e.configs.recommended.rules);
-const categories = ERRORS_ONLY
+const categories = SHOW_MAIN_ERRORS_ONLY
 	? {
 			correctness: "error",
 			suspicious: "warn",
@@ -95,7 +95,7 @@ const categories = ERRORS_ONLY
 			nursery: "warn",
 		};
 
-const appFolderOverridesRules = ERRORS_ONLY
+const appFolderOverridesRules = SHOW_MAIN_ERRORS_ONLY
 	? { ...baseRules }
 	: {
 			...baseRules,
