@@ -232,6 +232,11 @@ tasks:
     cmds:
       - npx oxfmt --config .oxfmtrc.json .
 
+  format:check:
+    desc: Vérifie le format des fichiers .mjs avec Oxfmt
+    cmds:
+      - npx oxfmt --config .oxfmtrc.json --check .
+
   format:staged:
     desc: Formate uniquement les fichiers .mjs staged (pour le hook pre-commit)
     silent: true
