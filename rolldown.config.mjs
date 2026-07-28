@@ -53,7 +53,7 @@ async function createBuildConfig() {
 			file: distFolder + scriptMinJsFileName,
 			format: "iife",
 			sourcemap: true,
-			minify: [{ mangle: true }],
+			minify: { mangle: true },
 		},
 		transform: {
 			target: ECMA_VERSION,
