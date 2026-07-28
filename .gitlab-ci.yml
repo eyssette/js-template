@@ -88,7 +88,7 @@ deploy:
     # Déplacement du dossier de distribution vers le dossier public pour GitLab Pages
     - mv "$DIST_FOLDER" public
     # Compression des fichiers avec gzip et brotli
-    - sh .config/ci/compress-assets.sh public "$FILES_TO_COMPRESS"
+    - sh .config/deploy/compress-assets.sh public "$FILES_TO_COMPRESS"
   pages: true
   artifacts:
     paths:
