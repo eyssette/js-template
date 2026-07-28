@@ -23,7 +23,11 @@ const config = {
 				"bump",
 			],
 		],
-		"header-max-length": [2, "always", 300],
+		"header-max-length": [0],
+		"body-max-length": [0],
+		"body-max-line-length": [0],
+		"subject-max-length": [0],
+		"footer-max-length": [0],
 		"scope-required-for-feat-fix": [2, "always"],
 	},
 	plugins: [
