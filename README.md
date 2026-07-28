@@ -121,6 +121,7 @@ Le projet propose automatiquement des extensions utiles via `.vscode/extensions.
 
 - OXC : Lint et formatage du code javascript avec Oxlint et Oxfmt
 - Stylelint : Vérification du CSS
+- HTML-Validate : Vérification du HTML
 - Cognitive Complexity Show : Affiche la complexité cognitive des fonctions
 - Code Spell Checker et Code Spell Checker French : Vérification orthographique en français pour les fichiers texte
 - Cucumber Autocomplete : Autocomplétion des steps Cucumber (pour décrire les features qui sont la base des tests end-to-end)
@@ -137,10 +138,18 @@ Raccourcis utiles :
 
 ### Formatage et lint
 
-- Oxfmt formate le code lors de la sauvegarde du fichier (configuration dans `.oxfmtrc.json`).
-- Oxlint vérifie la qualité du code Javascript (configuration dans `oxlint.config.mjs`).
-- Stylelint vérifie la qualité du code CSS.
-- L'extension `Cognitive Complexity Show` permet d'afficher la complexité cognitive des fonctions dans le code.
+Oxfmt formate le code lors de la sauvegarde du fichier (configuration dans `.oxfmtrc.json`).
+
+Oxlint vérifie la qualité du code Javascript (configuration dans `oxlint.config.mjs`).
+Stylelint vérifie la qualité du code CSS.
+HTML-Validate vérifie la qualité du code HTML.
+
+- Les erreurs de lint sont affichées dans le panneau de problèmes de VSCode, ce qui permet de surveiller la qualité de son code en temps réel.
+- Les erreurs peuvent être non bloquantes (warnings) ou bloquantes (errors).
+- Les erreurs bloquantes doivent être corrigées avant de pousser le code sur le dépôt Git.
+- On peut décider d'ignorer certaines erreurs de lint du javascript, en les désactivant soit pour un fichier entier, soit pour une ligne spécifique, soit pour tous les fichiers (dans les fichier de configuration d'Oxlint : `oxlint.config.mjs`).
+
+L'extension `Cognitive Complexity Show` permet d'afficher la complexité cognitive des fonctions dans le code.
 
 ## Commits, versions et changelog
 
