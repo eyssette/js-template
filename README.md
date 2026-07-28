@@ -126,6 +126,12 @@ Le projet propose automatiquement des extensions utiles via `.vscode/extensions.
 - Code Spell Checker et Code Spell Checker French : Vérification orthographique en français pour les fichiers texte
 - Cucumber Autocomplete : Autocomplétion des steps Cucumber (pour décrire les features qui sont la base des tests end-to-end)
 
+### Debugger l'application
+
+Un fichier de configuration pour debugger l’application avec VSCode est disponible dans `.vscode/launch.json`.
+
+Il permet de lancer l’application dans le navigateur web intégré et de déboguer le code JavaScript, avec des points d’arrêt (breakpoints), qui permettent l’inspection des variables et l’exécution pas à pas du code.
+
 ### Tâches prêtes à l'emploi
 
 - Tâche build par défaut : `Build`
