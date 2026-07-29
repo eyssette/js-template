@@ -49,6 +49,9 @@ const baseRules = {
 		{ max: 150, skipComments: true, skipBlankLines: true },
 	],
 	"eslint/no-param-reassign": ["error", { props: true }],
+	"oxc/no-rest-spread-properties": "off",
+	"oxc/no-async-await": "off",
+	"oxc/no-barrel-file": ["error", { threshold: 0 }],
 };
 
 const plugins = ["eslint", "typescript", "unicorn", "oxc", "import", "promise"];
