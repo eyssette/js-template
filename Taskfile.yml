@@ -162,8 +162,7 @@ tasks:
     cmds:
       - cmd: |
           if ! npx playwright install; then
-            echo "❌ Impossible d'installer Playwright et ses dépendances. Les tests e2e ne peuvent pas être lancés."
-            exit 1
+            bash .config/test/check-playwright-browsers.sh
           fi
         silent: true
 
