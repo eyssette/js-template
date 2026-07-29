@@ -3,14 +3,31 @@
 Merci de vouloir contribuer !
 Ce document explique simplement comment proposer des améliorations pour ce projet.
 
-Avant tout, n'hésitez pas à consulter le fichier [README.md](README.md) pour comprendre le projet et son fonctionnement, et à contacter les responsables du projet si vous avez des questions ou des propositions.
+Avant tout, il est préférable de consulter le fichier [README.md](README.md) pour comprendre le projet et son fonctionnement.
 
-## Prérequis
+N'hésitez pas à contacter les responsables du projet si vous avez des questions ou des propositions.
+
+## Signaler un bug ou proposer une idée
+
+Dans un ticket (issue), indiquer :
+
+- le contexte
+- si c'est un bug : les étapes pour reproduire
+- le résultat attendu
+- le résultat observé
+
+Merci pour vos retours, ils sont précieux pour améliorer le projet !
+
+## Contribuer au développement
+
+### Prérequis
 
 - Node.js >= 22
-- npm >= 8 (>= 10 recommandé)
+- npm >= 10 recommandé (>= 8 minimum)
 
-## Récupérer le projet et installer les dépendances
+VSCode/VSCodium est conseillé pour le développement (le projet est préconfiguré pour cet éditeur).
+
+### Récupérer le projet et installer les dépendances
 
 Créer un nouveau dossier en local et lancer les commandes suivantes dans un terminal :
 
@@ -19,32 +36,37 @@ git clone <url-du-projet> .
 npm install
 ```
 
-## Workflow recommandé
+### Workflow recommandé
 
 1. Créer une branche depuis `main`.
-2. Développer, puis lancer les vérifications en local.
-3. Faire des commits clairs avec la convention du projet.
-4. Ouvrir une Merge Request avec une description précise.
+2. Développer dans `app/js` et `app/css`.
+3. Lancer les vérifications en local (tests, lint, build).
+4. Commiter avec la convention du projet.
+5. Ouvrir une Merge Request claire et ciblée.
 
-## Vérifications avant de proposer une MR
+### Vérifications avant de proposer une MR
 
-Lancer :
+Lancer au minimum :
 
 ```bash
-task build
+npx task format
+npx task lint
+npx task ecma:source
+npx task tests
+npx task build
 ```
 
 Commandes utiles :
 
 ```bash
-task lint
-task tests:unit
-task tests:e2e
-task tests:e2e:current
-task ecma
+task security
+task perf
+task a11y
+task coverage
+
 ```
 
-## Commits
+### Commits
 
 Le projet suit Conventional Commits.
 
@@ -59,24 +81,13 @@ Rappels :
 
 - Le `scope` est obligatoire pour `feat` et `fix`.
 - Utiliser `!` pour signaler une rupture de compatibilité.
-- Les hooks Husky exécutent automatiquement les contrôles.
+- Les hooks Husky vérifient automatiquement le format et la qualité du code.
 
-## Qualité des contributions
+### Bonnes pratiques
 
-Pour faciliter la revue :
-
-- Préférer des MR petites et ciblées.
-- Ajouter ou mettre à jour les tests quand le comportement change.
+- Faire des MR petites et faciles à relire.
+- Ajouter ou mettre à jour les tests si le comportement change.
 - Mettre à jour la documentation si nécessaire.
 - Garder un code lisible et cohérent avec le style existant.
-
-## Signaler un problème ou proposer une idée
-
-Dans votre ticket (issue), merci d'inclure :
-
-- le contexte
-- les étapes pour reproduire (si bug)
-- le résultat attendu
-- le résultat observé
 
 Merci pour votre contribution.
