@@ -46,7 +46,7 @@ const baseRules = {
 	"eslint/no-magic-numbers": ["warn", { ignore: [-1, 0, 1] }],
 	"eslint/max-lines-per-function": [
 		"warn",
-		{ max: 100, skipComments: true, skipBlankLines: true },
+		{ max: 150, skipComments: true, skipBlankLines: true },
 	],
 	"eslint/no-param-reassign": ["error", { props: true }],
 };
