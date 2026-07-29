@@ -43,6 +43,17 @@ Il faut avoir installé sur votre machine :
 - Node.js (version >=22)
 - npm (version 8 au minimum, version >=10 recommandée)
 
+<details>
+<summary>Recommandation : utiliser Volta pour gérer les versions de Node.js et npm</summary>
+
+Quand on travaille avec Node.js et npm, il est important d’utiliser les bonnes versions pour éviter les erreurs de compatibilité.
+
+[Volta](https://www.voltajs.com/) permet d'installer Node et npm et de gérer automatiquement la bonne version pour chaque projet.
+
+Je vous recommande donc d'installer Volta sur votre machine, puis d’installer Node.js et npm avec Volta, en suivant les instructions sur le site officiel.
+
+</details>
+
 ### 2) Installer les dépendances
 
 À la racine du projet, lancer dans un terminal la commande suivante :
