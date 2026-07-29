@@ -1,3 +1,24 @@
+## 3.2.1 (2026-07-29)
+
+### Fix
+
+- **lint**: ajout de règles du plugin "oxc"
+- **lint**: ajout des plugins par défaut (dont "oxc") + "promise"
+- **lint**: maximum de lignes pour une fonction fixé à 150
+- **playwright**: retour à une version antérieure de Playwright + hack si le téléchargement des navigateurs ne fonctionne plus
+
+### Chore
+
+- ajout d'un mot autorisé pour cSpell
+
+### Docs
+
+- mise à jour et organisation plus claire du CONTRIBUTING
+- explication du mode pour debugger
+- précisions pour le lint dans l'IDE
+- distinction des dossiers principaux et des dossiers de configuration (qui commencent par un point)
+- précision sur l'IDE à installer et qui est préconfiguré
+
 ## 3.2.0 (2026-07-28)
 
 ### Feat
