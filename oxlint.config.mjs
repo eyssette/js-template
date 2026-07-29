@@ -51,7 +51,7 @@ const baseRules = {
 	"eslint/no-param-reassign": ["error", { props: true }],
 };
 
-const plugins = ["typescript", "import", "unicorn"];
+const plugins = ["eslint", "typescript", "unicorn", "oxc", "import", "promise"];
 
 // RÉGLES SPÉCIFIQUES
 // - si on est en mode "SHOW_MAIN_ERRORS_ONLY" ou pas
