@@ -1,3 +1,23 @@
+## 3.2.3 (2026-07-30)
+
+### Fix
+
+- **lint**: déplacement du fichier de configuration du lint HTML + suppression du dossier ".config"
+- **scripts**: déplacement des scripts utilisés dans un dossier à part "scripts", plutôt que dans ".config" + lint mis à jour
+
+### CI
+
+- refactorisation pour séparer la compression et le déploiement final
+
+### Chore
+
+- description plus précise
+- **package**: ajout de "allowScripts" pour @go-task/cli
+
+### Docs
+
+- amélioration de la présentation de la structure du projet
+
 ## 3.2.2 (2026-07-30)
 
 ### Fix
