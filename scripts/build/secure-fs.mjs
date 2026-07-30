@@ -1,4 +1,4 @@
-// oxlint-disable import/no-nodejs-modules import/group-exports max-statements no-magic-numbers no-control-regex no-continue unicorn/no-null prefer-destructuring require-unicode-regexp
+// oxlint-disable import/no-nodejs-modules import/group-exports no-continue unicorn/no-null prefer-destructuring require-unicode-regexp
 // Utilitaires pour manipuler des chemins de fichiers de façon sécurisée
 // (protection contre les traversées de répertoire, chemins absolus non désirés, etc.)
 
@@ -56,7 +56,6 @@ export function ensurePathInsideRoot(rootPath, candidatePath, label = "path") {
 export function getCssFiles(rootFolderPath) {
 	const cssFiles = [];
 	const safeRootPath = ensurePathInsideRoot(
-		// oxlint-disable-next-line no-undef
 		process.cwd(),
 		rootFolderPath,
 		"dossier CSS racine",

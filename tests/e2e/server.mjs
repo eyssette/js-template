@@ -1,4 +1,4 @@
-// oxlint-disable import/no-nodejs-modules max-statements no-magic-numbers no-console
+// oxlint-disable import/no-nodejs-modules no-console
 import fs, { createReadStream } from "node:fs";
 import crypto from "node:crypto";
 import http from "node:http";
