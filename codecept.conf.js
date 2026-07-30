@@ -11,7 +11,7 @@ const config = {
 		},
 	},
 	include: {
-		I: "./tests/e2e/.config/steps_file.js",
+		I: "./tests/e2e/.config/steps-file.js",
 	},
 	mocha: { bail: true },
 	bootstrap: null,

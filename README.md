@@ -116,6 +116,7 @@ Ces styles peuvent être répartis dans plusieurs fichiers : ils seront regroup�
 - `app` : code source de l'application
 - `dist` : fichiers générés (build)
 - `features` : scénarios Gherkin pour les tests end-to-end
+- `scripts` : scripts pour les différentes tâches automatisées
 - `tests/unit` : tests unitaires avec Jasmine
 - `tests/e2e` : implémentation des scénarios end-to-end avec CodeceptJS
 

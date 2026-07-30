@@ -107,7 +107,7 @@ compress:
     # Installation de gzip et brotli pour la compression des fichiers
     - apk add --no-cache gzip brotli
     # Compression des fichiers avec gzip et brotli
-    - sh .config/deploy/compress-assets.sh "$DIST_FOLDER" "$FILES_TO_COMPRESS"
+    - sh scripts/deploy/compress-assets.sh "$DIST_FOLDER" "$FILES_TO_COMPRESS"
   artifacts:
     paths:
       - "$DIST_FOLDER"

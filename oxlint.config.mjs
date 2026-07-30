@@ -137,10 +137,6 @@ const appFolderOverridesRules = SHOW_MAIN_ERRORS_ONLY
 
 const testFolderOverridesRules = {
 	...baseRules,
-	"unicorn/filename-case": [
-		"error",
-		{ case: "snakeCase", ignore: [".spec.mjs"] },
-	],
 	"eslint/new-cap": "off",
 	"eslint/id-length": "off",
 	"eslint/no-magic-numbers": "off",
@@ -182,12 +178,24 @@ const config = {
 		// - on ajoute l'environnement Node et Jasmine
 		// - on ne se contraint pas à rester en ES2020
 		{
-			files: ["tests/**/*", "./*.{js,mjs}"],
+			files: ["tests/**/*", "./*.{js,mjs}", "scripts/**/*.{js,mjs}"],
 			rules: testFolderOverridesRules,
 			env: { builtin: true, browser: true, node: true, jasmine: true },
 			globals: {
 				...CODECEPT_GLOBALS,
 				...GHERKIN_GLOBALS,
+			},
+		},
+		{
+			files: ["tests/e2e/**/*.{js,mjs}"],
+			rules: {
+				"unicorn/filename-case": ["error", { case: "snakeCase" }],
+			},
+		},
+		{
+			files: ["scripts/**/*.{js,mjs}", "tests/e2e/.config/**/*.{js,mjs}"],
+			rules: {
+				"unicorn/filename-case": ["error", { case: "kebabCase" }],
 			},
 		},
 		// Override pour les tests unitaires (fichiers .spec.mjs) car on veut que les noms de fichiers soient en kebab-case, comme pour les fichiers Javascript correspondants.

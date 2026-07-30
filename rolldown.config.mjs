@@ -3,7 +3,7 @@
 // import { string } from "rollup-plugin-string";
 
 import copy from "rollup-plugin-copy";
-import { createMinifyStylesPlugin } from "./.config/build/minifyCss.mjs";
+import { createMinifyStylesPlugin } from "./scripts/build/minify-css.mjs";
 import del from "rollup-plugin-delete";
 import livereload from "rollup-plugin-livereload";
 import path from "node:path";

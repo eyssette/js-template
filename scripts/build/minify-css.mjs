@@ -7,7 +7,7 @@ import {
 	getCssFiles,
 	getSafeModulePath,
 	resolveSafeCssImportPath,
-} from "./secureFs.mjs";
+} from "./secure-fs.mjs";
 import fs from "node:fs";
 import path from "node:path";
 import { transform } from "lightningcss";
