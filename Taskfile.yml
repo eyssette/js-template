@@ -437,6 +437,8 @@ tasks:
         ignore_error: true
       - cmd: task security:semgrep
         ignore_error: true
+      - cmd: task security:bearer
+        ignore_error: true
       - cmd: task security:trivy
         ignore_error: true
 
