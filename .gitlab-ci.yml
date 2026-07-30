@@ -98,20 +98,33 @@ ecma-dist:
   script:
     - npx task ecma:dist
 
+compress:
+  stage: deploy
+  needs:
+    - job: build
+      artifacts: true
+  script:
+    # Installation de gzip et brotli pour la compression des fichiers
+    - apk add --no-cache gzip brotli
+    # Compression des fichiers avec gzip et brotli
+    - sh .config/deploy/compress-assets.sh "$DIST_FOLDER" "$FILES_TO_COMPRESS"
+  artifacts:
+    paths:
+      - "$DIST_FOLDER"
+    expire_in: 1 day
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
 deploy:
   stage: deploy
   interruptible: false
   needs:
-    - job: build
-      artifacts: true
     - job: tests-unit
+    - job: compress
+      artifacts: true
   script:
-    # Installation de gzip et brotli pour la compression des fichiers
-    - apk add --no-cache gzip brotli
     # Déplacement du dossier de distribution vers le dossier public pour GitLab Pages
     - mv "$DIST_FOLDER" public
-    # Compression des fichiers avec gzip et brotli
-    - sh .config/deploy/compress-assets.sh public "$FILES_TO_COMPRESS"
   pages: true
   artifacts:
     paths:
