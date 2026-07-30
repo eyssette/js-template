@@ -1,3 +1,23 @@
+## 4.0.0 (2026-07-30)
+
+### Feat
+
+- **i18n**: prise en charge de l'internationalisation (i18n) avec ParaglideJS
+
+### Fix
+
+- **tests**: mise en cohérence de la page d'accueil et du test e2e d'exemples
+- **security**: ajout de la tâche "security:bearer" dans la tâche plus générale "security"
+
+### Docs
+
+- ajout d'un lien pour l'installation de Taskfile
+- ajout de certains liens vers des outils utilisés pour l'accessibilité, les performances et la sécurité
+
+### Perf
+
+- **i18n**: suppression de la dépendance à Vite + compilation Paraglide beaucoup plus rapide (hors du module de compilation Rolldown)
+
 ## 3.2.4 (2026-07-30)
 
 ### Fix
