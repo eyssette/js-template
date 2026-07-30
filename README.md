@@ -10,28 +10,28 @@ Tout est prêt pour coder, tester et compiler votre application dans les meilleu
 
 ### Un éditeur de code préconfiguré
 
-Ce template est pensé pour être utilisé avec l’éditeur de code VSCode ou VSCodium, avec des extensions et une configuration prête à l'emploi, qui permet de :
+Ce template est pensé pour être utilisé avec l’éditeur de code [VS Code](https://code.visualstudio.com/) ou [VSCodium](https://vscodium.com/), avec des extensions et une configuration prête à l'emploi, qui permet de :
 
 - **Vérifier la qualité** du code (_lint_) en temps réel,
-  - avec Oxlint pour le JS,
-  - Stylelint pour le CSS
-  - HTML-Validate pour le HTML,
-- **Formater** automatiquement le code avec Oxfmt au moment de la sauvegarde,
+  - avec [Oxlint](https://oxc.rs/docs/guide/usage/linter) pour le JS,
+  - [Stylelint](https://stylelint.io/) pour le CSS
+  - [HTML-Validate](https://html-validate.org/) pour le HTML,
+- **Formater** automatiquement le code avec [Oxfmt](https://oxc.rs/docs/guide/usage/formatter) au moment de la sauvegarde,
 - **Déboguer** son application grâce à un serveur de développement local préconfiguré, qui permet de lancer l’application, de voir les modifications en direct, d’inspecter les variables et l’exécution du code pas à pas.
 
 ### Des tâches automatisées pour le développement et la maintenance
 
 Les tâches courantes sont automatisées avec [Task](https://taskfile.dev/) et permettent de :
 
-- **Compiler** automatiquement le code avec Rolldown pour produire des fichiers JavaScript et CSS optimisés et minifiés.
+- **Compiler** automatiquement le code avec [Rolldown](https://rolldown.rs/) pour produire des fichiers JavaScript et CSS optimisés et minifiés.
 - **Tester** son code en local :
-  - en lançant des tests unitaires avec Jasmine,
-  - en mesurant la couverture de code avec c8.
-  - en lançant des tests end-to-end avec CodeceptJS, que l'on peut écrire de manière plus naturelle avec la syntaxe Gherkin.
+  - en lançant des tests unitaires avec [Jasmine](https://jasmine.github.io/),
+  - en mesurant la couverture de code avec [c8](https://github.com/bcoe/c8).
+  - en lançant des tests end-to-end avec [CodeceptJS](https://codecept.io/), que l'on peut écrire de manière plus naturelle avec la syntaxe [Gherkin](https://cucumber.io/docs/gherkin/).
     - en vérifiant la conformité du code au standard ECMAScript utilisé
-- **Pousser** les modifications sur un ou plusieurs dépôts Git, avec vérification des messages de commits, de la qualité du code et des tests avant le push, calcul automatique de la version et génération du CHANGELOG (grâce à Husky, Commitlint et Commitizen).
-- **Déployer** l'application finale sur le web grâce à un pipeline préconfiguré pour Gitlab.
-- **Vérifier** l’accessibilité, les performances et la sécurité de l’application.
+- **Pousser** les modifications sur un ou plusieurs dépôts [Git](https://git-scm.com/), avec vérification des messages de commits, de la qualité du code et des tests avant le push, calcul automatique de la version et génération du CHANGELOG (grâce à [Husky](https://typicode.github.io/husky/), [Commitlint](https://commitlint.js.org/) et [Commitizen](https://commitizen-tools.github.io/commitizen/)).
+- **Déployer** l'application finale sur le web grâce à un pipeline préconfiguré pour [GitLab](https://about.gitlab.com/).
+- **Vérifier** l’accessibilité, les performances et la sécurité de l’application
 
 Les tâches courantes sont définies dans le fichier `Taskfile.yml` et peuvent être lancées avec `task <nom_de_la_tâche>` si Task est installé globalement, ou avec `npx task <nom_de_la_tâche>`.
 
@@ -41,18 +41,18 @@ Les tâches courantes sont définies dans le fichier `Taskfile.yml` et peuvent �
 
 Il faut avoir installé sur votre machine :
 
-- VSCode ou VSCodium
-- Node.js (version >=22)
-- npm (version 8 au minimum, version >=10 recommandée)
+- [VS Code](https://code.visualstudio.com/) ou [VSCodium](https://vscodium.com/)
+- [Node.js](https://nodejs.org/) (version >=22)
+- [npm](https://www.npmjs.com/) (version 8 au minimum, version >=10 recommandée)
 
 <details>
-<summary>Recommandation : utiliser Volta pour gérer les versions de Node.js et npm</summary>
+<summary>Recommandation : utiliser [Volta](https://www.voltajs.com/) pour gérer les versions de [Node.js](https://nodejs.org/) et [npm](https://www.npmjs.com/)</summary>
 
-Quand on travaille avec Node.js et npm, il est important d’utiliser les bonnes versions pour éviter les erreurs de compatibilité.
+Quand on travaille avec [Node.js](https://nodejs.org/) et [npm](https://www.npmjs.com/), il est important d’utiliser les bonnes versions pour éviter les erreurs de compatibilité.
 
-[Volta](https://www.voltajs.com/) permet d'installer Node et npm et de gérer automatiquement la bonne version pour chaque projet.
+[Volta](https://www.voltajs.com/) permet d'installer [Node.js](https://nodejs.org/) et [npm](https://www.npmjs.com/) et de gérer automatiquement la bonne version pour chaque projet.
 
-Je vous recommande donc d'installer Volta sur votre machine, puis d’installer Node.js et npm avec Volta, en suivant les instructions sur le site officiel.
+Je vous recommande donc d'installer [Volta](https://www.voltajs.com/) sur votre machine, puis d’installer [Node.js](https://nodejs.org/) et [npm](https://www.npmjs.com/) avec [Volta](https://www.voltajs.com/), en suivant les instructions sur le site officiel.
 
 </details>
 
@@ -118,31 +118,31 @@ Ces styles peuvent être répartis dans plusieurs fichiers : ils seront regroup�
 - `features` : scénarios Gherkin pour les tests end-to-end
 - `scripts` : scripts pour les différentes tâches automatisées
 - `tests` : dossier pour les tests
-  - `tests/unit` : tests unitaires avec Jasmine
-  - `tests/e2e` : implémentation des scénarios end-to-end avec CodeceptJS
+  - `tests/unit` : tests unitaires avec [Jasmine](https://jasmine.github.io/)
+  - `tests/e2e` : implémentation des scénarios end-to-end avec [CodeceptJS](https://codecept.io/)
 
 Les dossiers qui commencent par un point sont des dossiers de configuration
 
-- `.gitlab` : configuration de templates pour Gitlab
+- `.gitlab` : configuration de templates pour GitLab
 - `.husky` : hooks Git pour vérifier les commits et la qualité du code
-- `.vscode` : configuration de l'éditeur VS Code / VSCodium
+- `.vscode` : configuration de l'éditeur [VS Code](https://code.visualstudio.com/) / [VSCodium](https://vscodium.com/)
 
-## Éditeur (VS Code / VSCodium)
+## Éditeur ([VS Code](https://code.visualstudio.com/) / [VSCodium](https://vscodium.com/))
 
 ### Extensions recommandées
 
 Le projet propose automatiquement des extensions utiles via `.vscode/extensions.json`.
 
-- OXC : Lint et formatage du code javascript avec Oxlint et Oxfmt
-- Stylelint : Vérification du CSS
-- HTML-Validate : Vérification du HTML
-- Cognitive Complexity Show : Affiche la complexité cognitive des fonctions
-- Code Spell Checker et Code Spell Checker French : Vérification orthographique en français pour les fichiers texte
-- Cucumber Autocomplete : Autocomplétion des steps Cucumber (pour décrire les features qui sont la base des tests end-to-end)
+- [OXC](https://marketplace.visualstudio.com/items?itemName=oxc.oxc-vscode) : Lint et formatage du code javascript avec [Oxlint](https://oxc.rs/docs/guide/usage/linter) et [Oxfmt](https://oxc.rs/docs/guide/usage/formatter)
+- [Stylelint](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint) : Vérification du CSS
+- [HTML-Validate](https://marketplace.visualstudio.com/items?itemName=html-validate.vscode-html-validate) : Vérification du HTML
+- [Cognitive Complexity Show](https://marketplace.visualstudio.com/items?itemName=ampcpmgp.cognitive-complexity-show) : Affiche la complexité cognitive des fonctions
+- [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) et [Code Spell Checker French](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker-french) : Vérification orthographique en français pour les fichiers texte
+- [Cucumber Autocomplete](https://marketplace.visualstudio.com/items?itemName=alexkrechik.cucumberautocomplete) : Autocomplétion des steps [Cucumber](https://cucumber.io/) (pour décrire les features qui sont la base des tests end-to-end)
 
 ### Debugger l'application
 
-Un fichier de configuration pour debugger l’application avec VSCode est disponible dans `.vscode/launch.json`.
+Un fichier de configuration pour debugger l’application avec [VS Code](https://code.visualstudio.com/) / [VSCodium](https://vscodium.com/) est disponible dans `.vscode/launch.json`.
 
 Il permet de lancer l’application dans le navigateur web intégré et de déboguer le code JavaScript, avec des points d’arrêt (breakpoints), qui permettent l’inspection des variables et l’exécution pas à pas du code.
 
@@ -158,16 +158,16 @@ Raccourcis utiles :
 
 ### Formatage et lint
 
-Oxfmt formate le code lors de la sauvegarde du fichier (configuration dans `.oxfmtrc.json`).
+[Oxfmt](https://oxc.rs/docs/guide/usage/formatter) formate le code lors de la sauvegarde du fichier (configuration dans `.oxfmtrc.json`).
 
-Oxlint vérifie la qualité du code Javascript (configuration dans `oxlint.config.mjs`).
-Stylelint vérifie la qualité du code CSS.
-HTML-Validate vérifie la qualité du code HTML.
+[Oxlint](https://oxc.rs/docs/guide/usage/linter) vérifie la qualité du code Javascript (configuration dans `oxlint.config.mjs`).
+[Stylelint](https://stylelint.io/) vérifie la qualité du code CSS.
+[HTML-Validate](https://html-validate.org/) vérifie la qualité du code HTML.
 
-- Les erreurs de lint sont affichées dans le panneau de problèmes de VSCode, ce qui permet de surveiller la qualité de son code en temps réel.
+- Les erreurs de lint sont affichées dans le panneau de problèmes de l'éditeur VSCode / VSCodium, ce qui permet de surveiller la qualité de son code en temps réel.
 - Les erreurs peuvent être non bloquantes (warnings) ou bloquantes (errors).
 - Les erreurs bloquantes doivent être corrigées avant de pousser le code sur le dépôt Git.
-- On peut décider d'ignorer certaines erreurs de lint du javascript, en les désactivant soit pour un fichier entier, soit pour une ligne spécifique, soit pour tous les fichiers (dans les fichier de configuration d'Oxlint : `oxlint.config.mjs`).
+- On peut décider d'ignorer certaines erreurs de lint du javascript, en les désactivant soit pour un fichier entier, soit pour une ligne spécifique, soit pour tous les fichiers (dans les fichier de configuration d'[Oxlint](https://oxc.rs/docs/guide/usage/linter) : `oxlint.config.mjs`).
 
 L'extension `Cognitive Complexity Show` permet d'afficher la complexité cognitive des fonctions dans le code.
 
@@ -188,7 +188,7 @@ Le scope est obligatoire pour les commits de type `feat` et `fix`, mais optionne
 
 Pour une rupture de compatibilité ou une montée de version majeure, ajouter `!` après le type et le scope, par exemple : `feat(scope)!: description`.
 
-Les hooks Husky vérifient automatiquement le format des commits avec Commitlint, la qualité du code et les règles de formatage avant chaque commit avec Oxlint et Oxfmt.
+Les hooks [Husky](https://typicode.github.io/husky/) vérifient automatiquement le format des commits avec [Commitlint](https://commitlint.js.org/), la qualité du code et les règles de formatage avant chaque commit avec [Oxlint](https://oxc.rs/docs/guide/usage/linter) et [Oxfmt](https://oxc.rs/docs/guide/usage/formatter).
 
 ### Autres types de commit
 
@@ -201,7 +201,7 @@ La configuration des types de commit peut être modifiée dans `commitlint.confi
 
 Prérequis : installer [Commitizen](https://commitizen-tools.github.io/commitizen/#installation).
 
-On peut automatiquement, avec Commitizen, monter la version du projet et générer le CHANGELOG, avec la commande suivante :
+On peut automatiquement, avec [Commitizen](https://commitizen-tools.github.io/commitizen/), monter la version du projet et générer le CHANGELOG, avec la commande suivante :
 
 ```bash
 task bump
@@ -309,7 +309,7 @@ Il faut changer la variable `GIT_REPO_NAMES` dans le fichier `Taskfile.yml` pour
 
 ### Accessibilité
 
-On peut vérifier l’accessibilité de l’application, grâce à pa11y-ci, avec la commande suivante :
+On peut vérifier l’accessibilité de l’application, grâce à [pa11y-ci](https://github.com/pa11y/pa11y-ci), avec la commande suivante :
 
 ```bash
 # Vérifier l'accessibilité de la page principale de l'application (index.html)
@@ -330,9 +330,9 @@ task a11y --URL
 
 ### Performances
 
-On peut mesurer les performances en local ou en ligne de son application, avec lighthouse.
+On peut mesurer les performances en local ou en ligne de son application, avec [Lighthouse](https://github.com/GoogleChrome/lighthouse#using-the-node-cli).
 
-Il faut d'abord installer lighthouse sur sa machine, avec la commande suivante :
+Il faut d'abord installer [Lighthouse](https://github.com/GoogleChrome/lighthouse#using-the-node-cli) sur sa machine, avec la commande suivante :
 
 ```bash
 npm install -g lighthouse
@@ -340,7 +340,7 @@ npm install -g lighthouse
 
 Si on veut mesurer les performances en local, il faut d'abord avoir lancé le serveur de développement avec la commande `task dev`.
 
-On peut mesurer les performances de l’application avec lighthouse, grâce à la commande suivante :
+On peut mesurer les performances de l’application avec [Lighthouse](https://github.com/GoogleChrome/lighthouse#using-the-node-cli), grâce à la commande suivante :
 
 ```bash
 # Mesurer les performances de l'application
@@ -371,9 +371,9 @@ Une tâche de compression des images est disponible pour réduire la taille des 
 
 Elle utilise plusieurs outils, qu'il faut installer sur votre machine :
 
-- pngquant pour les images PNG
-- jpegoptim pour les images JPEG
-- svgo pour les images SVG
+- [pngquant](https://pngquant.org/) pour les images PNG
+- [jpegoptim](https://github.com/tjko/jpegoptim) pour les images JPEG
+- [SVGO](https://svgo.dev/) pour les images SVG
 
 ```bash
 # Compresser les images du projet
@@ -391,7 +391,13 @@ task size
 
 ### Sécurité
 
-On peut vérifier la sécurité de l'application avec les commandes suivantes :
+On peut vérifier la sécurité de l'application avec les commandes suivantes.
+
+Le prérequis est d'avoir installé les outils suivants sur sa machine :
+
+- [semgrep](https://github.com/semgrep/semgrep)
+- [bearer](https://docs.bearer.com/)
+- [trivy](https://trivy.dev/)
 
 ```bash
 # Vérifier les vulnérabilités des dépendances avec npm audit
