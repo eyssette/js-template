@@ -67,20 +67,25 @@ const jsPlugins = SHOW_MAIN_ERRORS_ONLY
 			"@stylistic/eslint-plugin",
 		];
 
-const asWarn = (rules) =>
+// Modification de la sévérité des règles d'un plugin, pour ne pas avoir trop d'erreurs à corriger en même temps.
+const setRulesSeverity = (rules, severity) =>
 	Object.fromEntries(
 		Object.entries(rules).map(([rule, config]) => {
 			if (Array.isArray(config)) {
-				// On extrait le premier élément du tableau des règles
-				// car le premier élément est le niveau de sévérité (error, warn, off)
-				// et qu'on veut le remplacer par "warn"
+				// On remplace uniquement la sévérité (premier élément),
+				// en conservant le reste de la configuration de la règle.
 				const [_firstElement, ...rest] = config;
-				return [rule, ["warn", ...rest]];
+				return [rule, [severity, ...rest]];
 			}
-			return [rule, config === "error" ? "warn" : config];
+			return [rule, severity];
 		}),
 	);
+
+const asWarn = (rules) => setRulesSeverity(rules, "warn");
+
+// Les règles du plugin e18e sont mises en mode "warn" car elles visent la modernisation du code et la performance, mais ne sont pas critiques pour le fonctionnement du code.
 const e18eRulesWarnOnly = asWarn(e18e.configs.recommended.rules);
+
 const categories = SHOW_MAIN_ERRORS_ONLY
 	? {
 			correctness: "error",
