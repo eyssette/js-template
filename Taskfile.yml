@@ -306,6 +306,12 @@ tasks:
         fi
         SHOW_MAIN_ERRORS_ONLY=1 npx oxlint --config oxlint.config.mjs $FILES
 
+  lint:errors:
+    desc: Lint les fichiers .mjs avec Oxlint, en affichant seulement les erreurs bloquantes
+    silent: true
+    cmds:
+      - SHOW_MAIN_ERRORS_ONLY=1 npx oxlint --config oxlint.config.mjs --quiet
+
   lint:all:
     desc: Lint tous les fichiers .mjs avec Oxlint, en affichant toutes les erreurs, même les simples warnings
     silent: true
