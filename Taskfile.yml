@@ -41,12 +41,20 @@ tasks:
 
   paraglide:compile:
     desc: Compile les fichiers de traduction Paraglide
+    deps: [npm:install]
     sources:
+      - "{{.APP_FOLDER}}/js/**/*.mjs"
       - i18n/messages/**/*.json
       - i18n/project.inlang/**/*.json
     generates:
       - "{{.APP_FOLDER}}/js/lib/paraglide/messages.js"
       - "{{.APP_FOLDER}}/js/lib/paraglide/runtime.js"
+    status:
+      - test -f "{{.APP_FOLDER}}/js/lib/paraglide/messages.js"
+      - test -f "{{.APP_FOLDER}}/js/lib/paraglide/runtime.js"
+      - test -f "{{.APP_FOLDER}}/js/lib/paraglide/registry.js"
+      - test -f "{{.APP_FOLDER}}/js/lib/paraglide/server.js"
+      - test -f "{{.APP_FOLDER}}/js/lib/paraglide/messages/_index.js"
     method: timestamp
     cmds:
       - npx paraglide-js compile --project ./i18n/project.inlang --outdir ./app/js/lib/paraglide --no-emit-ts-declarations --output-structure locale-modules
