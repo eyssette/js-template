@@ -23,7 +23,7 @@ Ce template est pensé pour être utilisé avec l’éditeur de code [VS Code](h
 
 Les tâches courantes sont automatisées avec [Task](https://taskfile.dev/) et permettent de :
 
-- **Compiler** automatiquement le code avec [Rolldown](https://rolldown.rs/) pour produire des fichiers JavaScript et CSS optimisés et minifiés.
+- **Compiler** automatiquement le code avec [Rolldown](https://rolldown.rs/) pour produire des fichiers JavaScript et CSS optimisés et minifiés, et [ParaGlideJS](https://paraglidejs.com/) pour la gestion de l'internationalisation (i18n).
 - **Tester** son code en local :
   - en lançant des tests unitaires avec [Jasmine](https://jasmine.github.io/),
   - en mesurant la couverture de code avec [c8](https://github.com/bcoe/c8).
@@ -111,11 +111,16 @@ Le fichier principal est `app/js/main.mjs`. C’est le point d’entrée de l’
 
 Ces styles peuvent être répartis dans plusieurs fichiers : ils seront regroupés automatiquement en un seul ensemble, dans l’ordre des imports, puis minifiés par l’outil de build.
 
+La gestion de l'internationalisation (i18n) est assurée par [ParaGlideJS](https://paraglidejs.com/), qui est déjà préconfiguré dans le projet.
+Les fichiers de traduction sont dans le dossier `i18n/messages`.
+Le fichier `js/main.mjs` montre un exemple simple d'utilisation de ParaGlideJS pour traduire du texte dans l'application. Pour plus d'informations sur l'utilisation de ParaGlideJS, consulter la [documentation](https://paraglidejs.com/basics).
+
 ## Structure du projet
 
 - `app` : code source de l'application
 - `dist` : fichiers générés (build)
 - `features` : scénarios Gherkin pour les tests end-to-end
+- `i18n` : fichiers pour l’internationalisation (i18n)
 - `scripts` : scripts pour les différentes tâches automatisées
 - `tests` : dossier pour les tests
   - `tests/unit` : tests unitaires avec [Jasmine](https://jasmine.github.io/)
