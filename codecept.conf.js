@@ -1,5 +1,4 @@
-// oxlint-disable import/no-commonjs unicorn/prefer-module unicorn/no-null
-exports.config = {
+const config = {
 	output: "./tests/e2e/output",
 	helpers: {
 		Playwright: {
@@ -22,6 +21,7 @@ exports.config = {
 		features: "./features/**/*.feature",
 		steps: "./tests/e2e/step_definitions/**/*.js",
 	},
+	noGlobals: true,
 	plugins: {
 		screenshot: {
 			enabled: true,
@@ -45,3 +45,5 @@ exports.config = {
 	],
 	name: "myApp",
 };
+
+export default config;

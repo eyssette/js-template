@@ -15,6 +15,7 @@
 	"directories": {
 		"test": "tests"
 	},
+	"type": "module",
 	"main": "app/js/main.js",
 	"scripts": {
 		"build": "npx task build",
