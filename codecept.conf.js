@@ -1,3 +1,4 @@
+// oxlint-disable unicorn/no-null
 const config = {
 	output: "./tests/e2e/output",
 	helpers: {
