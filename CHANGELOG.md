@@ -1,3 +1,26 @@
+## 3.2.2 (2026-07-30)
+
+### Fix
+
+- **test**: correctif pour le serveur de test afin d'éviter url.parse()
+- **lint**: ajout d'une tâche pour afficher seulement dans le lint les erreurs bloquantes sur tous les fichiers
+- **lint**: règles pour le lint (max 3 paramètres pour une fonction, et réassignation d'un paramètre signalée)
+
+### Chore
+
+- mise à jour des fichiers de configuration codeceptJS en ESM
+- ajout d'un mot autorisé pour cSpell
+- pin des versions de Node et NPM avec Volta
+
+### Docs
+
+- amélioration de la description initiale
+- ajout recommandation pour utilisation de Volta (gestion des versions Node et npm
+
+### Refactor
+
+- **lint**: fonction plus générale pour modifier la sévérité des règles d'un plugin
+
 ## 3.2.1 (2026-07-29)
 
 ### Fix
