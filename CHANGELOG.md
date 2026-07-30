@@ -1,3 +1,19 @@
+## 3.2.4 (2026-07-30)
+
+### Fix
+
+- **security**: mise à jour des versions de certains paquets
+- **security**: correctif pour la tâche qui lance trivy afin d'inclure le scan des dépendances
+- **lint**: option "report-unused-disable-directives-severity" activée quand on fait "task lint:all"
+
+### Chore
+
+- **lint**: suppression de la désactivation de certaines règles Oxlint dans des commentaires
+
+### Docs
+
+- ajout des liens vers les outils utilisés
+
 ## 3.2.3 (2026-07-30)
 
 ### Fix
