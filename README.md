@@ -122,7 +122,6 @@ Ces styles peuvent être répartis dans plusieurs fichiers : ils seront regroup�
 
 Les dossiers qui commencent par un point sont des dossiers de configuration
 
-- `.config` : configuration du pipeline de CI/CD
 - `.gitlab` : configuration de templates pour Gitlab
 - `.husky` : hooks Git pour vérifier les commits et la qualité du code
 - `.vscode` : configuration de l'éditeur VS Code / VSCodium

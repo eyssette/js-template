@@ -81,5 +81,5 @@
 	},
 	"oxc.disableNestedConfig": true,
 	"html-validate.validate": ["html"],
-	"html-validate.configFile": ".config/code/.htmlvalidate.json"
+	"html-validate.configFile": ".htmlvalidate.json"
 }
