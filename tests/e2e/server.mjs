@@ -3,7 +3,6 @@ import fs, { createReadStream } from "node:fs";
 import crypto from "node:crypto";
 import http from "node:http";
 import path from "node:path";
-import url from "node:url";
 
 const PORT = process.argv[2] || 8888;
 
@@ -32,7 +31,10 @@ const server = http.createServer((request, response) => {
 		return;
 	}
 
-	const parsedUrl = url.parse(request.url);
+	const parsedUrl = new URL(
+		request.url || "/",
+		`http://${request.headers.host || "localhost"}`,
+	);
 	const publicPath = decodeURIComponent(
 		parsedUrl.pathname === "/" ? "/index.html" : parsedUrl.pathname,
 	);
