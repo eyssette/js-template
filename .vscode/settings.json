@@ -49,12 +49,14 @@
 		"firefox",
 		"gitlab",
 		"Gitlab",
+		"inlang",
 		"jpegoptim",
 		"lightningcss",
 		"megalinter",
 		"oxfmt",
 		"oxfmtrc",
 		"oxlint",
+		"paraglide",
 		"pngquant",
 		"semgrep",
 		"Taskfile",
@@ -81,5 +83,8 @@
 	},
 	"oxc.disableNestedConfig": true,
 	"html-validate.validate": ["html"],
-	"html-validate.configFile": ".htmlvalidate.json"
+	"html-validate.configFile": ".htmlvalidate.json",
+	"json.schemaDownload.trustedDomains": {
+		"https://inlang.com/schema/project-settings": true
+	}
 }

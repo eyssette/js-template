@@ -6,6 +6,7 @@ import copy from "rollup-plugin-copy";
 import { createMinifyStylesPlugin } from "./scripts/build/minify-css.mjs";
 import del from "rollup-plugin-delete";
 import livereload from "rollup-plugin-livereload";
+import { paraglideRolldownPlugin } from "@inlang/paraglide-js";
 import path from "node:path";
 import serve from "rollup-plugin-serve";
 
@@ -75,6 +76,12 @@ async function createBuildConfig() {
 			copy({
 				targets: [{ src: [`${appFolder}**/*`], dest: distFolder }],
 				flatten: false,
+			}),
+
+			paraglideRolldownPlugin({
+				project: "./i18n/project.inlang",
+				outdir: "./app/js/lib/paraglide",
+				emitTsDeclarations: false,
 			}),
 
 			// Concatène et minifie les CSS (importés en JS + fichiers autonomes du dossier styles)

@@ -193,7 +193,11 @@ const config = {
 			},
 		},
 		{
-			files: ["scripts/**/*.{js,mjs}", "tests/e2e/.config/**/*.{js,mjs}"],
+			files: [
+				"scripts/**/*.{js,mjs}",
+				"tests/e2e/.config/**/*.{js,mjs}",
+				"i18n/helpers/**/*.{js,mjs}",
+			],
 			rules: {
 				"unicorn/filename-case": ["error", { case: "kebabCase" }],
 			},

@@ -27,6 +27,8 @@ tasks:
     sources:
       - "{{.APP_FOLDER}}/js/**/*.mjs"
       - "{{.APP_FOLDER}}/css/**/*.css"
+      - i18n/messages/**/*.json
+      - i18n/project.inlang/**/*.json
       - rolldown.config.mjs
     generates:
       - "{{.DIST_FOLDER}}/css/styles.min.css"
