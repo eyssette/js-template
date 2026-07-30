@@ -458,7 +458,7 @@ tasks:
   security:trivy:
     desc: Vérifie la sécurité du code avec Trivy
     cmds:
-      - trivy fs --exit-code 1 --severity HIGH,CRITICAL .
+      - trivy fs --exit-code 1 --include-dev-deps .
 
   perf:
     desc: Vérifie les performances d'une URL avec Lighthouse
