@@ -316,7 +316,7 @@ tasks:
     desc: Lint tous les fichiers .mjs avec Oxlint, en affichant toutes les erreurs, même les simples warnings
     silent: true
     cmds:
-      - npx oxlint --config oxlint.config.mjs
+      - npx oxlint --config oxlint.config.mjs --report-unused-disable-directives-severity "warn"
 
   compress:png:
     desc: Compresse les images PNG avec pngquant
