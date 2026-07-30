@@ -1,37 +1,39 @@
 # JS Template
 
-Un environnement de développement préconfiguré pour démarrer un projet JavaScript avec de bonnes pratiques.
+Ce dépôt vous propose un environnement de développement préconfiguré pour démarrer un projet JavaScript avec de bonnes pratiques et des outils modernes et performants.
+
+Tout est prêt pour coder, tester et compiler votre application dans les meilleurs conditions !
 
 ## Ce que ce template apporte
 
 ### Les fonctions principales
 
-Ce template propose un environnement de développement complet :
+### Un éditeur de code préconfiguré
 
-- Compilation avec Rolldown (JS + CSS optimisés et minifiés)
-- Tests unitaires avec Jasmine et couverture de code avec c8
-- Tests end-to-end avec Gherkin + CodeceptJS
-- Qualité de code avec Oxlint et Stylelint
-- Formatage automatique avec Oxfmt
-- Workflow de versioning et changelog automatisé avec Husky + Commitlint + Commitizen
-- Intégration continue dans Gitlab
-- Configuration automatique de l’éditeur VS Code / VSCodium
+Ce template est pensé pour être utilisé avec l’éditeur de code VSCode ou VSCodium, avec des extensions et une configuration prête à l'emploi, qui permet de :
 
-### Automatisation des tâches
+- **Vérifier la qualité** du code (_lint_) en temps réel,
+  - avec Oxlint pour le JS,
+  - Stylelint pour le CSS
+  - HTML-Validate pour le HTML,
+- **Formater** automatiquement le code avec Oxfmt au moment de la sauvegarde,
+- **Déboguer** son application grâce à un serveur de développement local préconfiguré, qui permet de lancer l’application, de voir les modifications en direct, d’inspecter les variables et l’exécution du code pas à pas.
+
+### Des tâches automatisées pour le développement et la maintenance
 
 Les tâches courantes sont automatisées avec [Task](https://taskfile.dev/) et permettent de :
 
-- Lancer un serveur de développement local avec rechargement automatique en cas de modifications du code
-- Lancer les tâches de test, de lint, de compilation et de montée de version
-- Vérifier les versions des dépendances (avec npm outdated) et la conformité du code à la version ECMAScript utilisée (avec es-check)
-- Vérifier l’accessibilité de l’application (avec pa11y-ci)
-- Mesurer les performances de l’application (avec lighthouse)
-- Compresser des images (avec pngquant, jpegoptim et svgo)
-- Vérifier la sécurité de l'application (avec npm audit, semgrep, bearer et trivy)
+- **Compiler** automatiquement le code avec Rolldown pour produire des fichiers JavaScript et CSS optimisés et minifiés.
+- **Tester** son code en local :
+  - en lançant des tests unitaires avec Jasmine,
+  - en mesurant la couverture de code avec c8.
+  - en lançant des tests end-to-end avec CodeceptJS, que l'on peut écrire de manière plus naturelle avec la syntaxe Gherkin.
+    - en vérifiant la conformité du code au standard ECMAScript utilisé
+- **Pousser** les modifications sur un ou plusieurs dépôts Git, avec vérification des messages de commits, de la qualité du code et des tests avant le push, calcul automatique de la version et génération du CHANGELOG (grâce à Husky, Commitlint et Commitizen).
+- **Déployer** l'application finale sur le web grâce à un pipeline préconfiguré pour Gitlab.
+- **Vérifier** l’accessibilité, les performances et la sécurité de l’application.
 
-Les tâches sont définies dans le fichier `Taskfile.yml`.
-
-Elles peuvent être lancées avec la commande `task <nom_de_la_tâche>` si Task est installé de manière globale sur votre machine (option recommandée), ou avec la commande `npx task <nom_de_la_tâche>`.
+Les tâches courantes sont définies dans le fichier `Taskfile.yml` et peuvent être lancées avec `task <nom_de_la_tâche>` si Task est installé globalement, ou avec `npx task <nom_de_la_tâche>`.
 
 ## Démarrage rapide
 
