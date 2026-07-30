@@ -117,8 +117,9 @@ Ces styles peuvent être répartis dans plusieurs fichiers : ils seront regroup�
 - `dist` : fichiers générés (build)
 - `features` : scénarios Gherkin pour les tests end-to-end
 - `scripts` : scripts pour les différentes tâches automatisées
-- `tests/unit` : tests unitaires avec Jasmine
-- `tests/e2e` : implémentation des scénarios end-to-end avec CodeceptJS
+- `tests` : dossier pour les tests
+  - `tests/unit` : tests unitaires avec Jasmine
+  - `tests/e2e` : implémentation des scénarios end-to-end avec CodeceptJS
 
 Les dossiers qui commencent par un point sont des dossiers de configuration
 
