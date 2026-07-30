@@ -33,7 +33,7 @@ Les tâches courantes sont automatisées avec [Task](https://taskfile.dev/) et p
 - **Déployer** l'application finale sur le web grâce à un pipeline préconfiguré pour [GitLab](https://about.gitlab.com/).
 - **Vérifier** l’accessibilité (avec [pa11y](https://pa11y.org/)), les performances (avec [Lighthouse](https://github.com/GoogleChrome/lighthouse#using-the-node-cli)) et la sécurité de l’application (avec [npm audit](https://docs.npmjs.com/cli/v9/commands/npm-audit), [Semgrep](https://github.com/semgrep/semgrep), [Bearer](https://www.bearer.com/) et [Trivy](https://github.com/aquasecurity/trivy)).
 
-Les tâches courantes sont définies dans le fichier `Taskfile.yml` et peuvent être lancées avec `task <nom_de_la_tâche>` si Task est installé globalement, ou avec `npx task <nom_de_la_tâche>`.
+Les tâches courantes sont définies dans le fichier `Taskfile.yml` et peuvent être lancées avec `task <nom_de_la_tâche>` si Task est installé globalement ([voir les instructions](https://taskfile.dev/installation/)), ou avec `npx task <nom_de_la_tâche>`.
 
 ## Démarrage rapide
 
