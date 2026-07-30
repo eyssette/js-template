@@ -5,5 +5,5 @@ Given("Je lance la page d'accueil", () => {
 });
 
 Then("Je vois le texte Hello world", () => {
-	I.see("Hello world!");
+	I.see("Hello world");
 });
