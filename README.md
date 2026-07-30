@@ -31,7 +31,7 @@ Les tâches courantes sont automatisées avec [Task](https://taskfile.dev/) et p
     - en vérifiant la conformité du code au standard ECMAScript utilisé
 - **Pousser** les modifications sur un ou plusieurs dépôts [Git](https://git-scm.com/), avec vérification des messages de commits, de la qualité du code et des tests avant le push, calcul automatique de la version et génération du CHANGELOG (grâce à [Husky](https://typicode.github.io/husky/), [Commitlint](https://commitlint.js.org/) et [Commitizen](https://commitizen-tools.github.io/commitizen/)).
 - **Déployer** l'application finale sur le web grâce à un pipeline préconfiguré pour [GitLab](https://about.gitlab.com/).
-- **Vérifier** l’accessibilité, les performances et la sécurité de l’application
+- **Vérifier** l’accessibilité (avec [pa11y](https://pa11y.org/)), les performances (avec [Lighthouse](https://github.com/GoogleChrome/lighthouse#using-the-node-cli)) et la sécurité de l’application (avec [npm audit](https://docs.npmjs.com/cli/v9/commands/npm-audit), [Semgrep](https://github.com/semgrep/semgrep), [Bearer](https://www.bearer.com/) et [Trivy](https://github.com/aquasecurity/trivy)).
 
 Les tâches courantes sont définies dans le fichier `Taskfile.yml` et peuvent être lancées avec `task <nom_de_la_tâche>` si Task est installé globalement, ou avec `npx task <nom_de_la_tâche>`.
 
