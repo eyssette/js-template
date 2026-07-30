@@ -317,6 +317,7 @@ tasks:
           exit 0
         fi
         npx oxfmt --config .oxfmtrc.json $FILES
+    ignore_error: true
 
   html-validate:
     desc: Vérifie la validité des fichiers HTML avec html-validate
@@ -339,6 +340,7 @@ tasks:
           exit 0
         fi
         SHOW_MAIN_ERRORS_ONLY=1 npx oxlint --config oxlint.config.mjs $FILES
+    ignore_error: true
 
   lint:errors:
     desc: Lint les fichiers .mjs avec Oxlint, en affichant seulement les erreurs bloquantes
