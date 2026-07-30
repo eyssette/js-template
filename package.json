@@ -1,7 +1,7 @@
 {
 	"name": "js-template",
 	"version": "3.2.2",
-	"description": "Un template pour un projet en Javascript fondé sur de bonnes pratiques de développement",
+	"description": "Environnement de développement JavaScript pré-configuré et optimisé.Éditeur de code qui vérifie la qualité du code, le formate automatiquement et facilite le débogage, Tâches automatisées pour compiler, tester, pousser, déployer et vérifier l’application.",
 	"keywords": [
 		"javascript",
 		"template"
