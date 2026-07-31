@@ -936,7 +936,7 @@ tasks:
 
           # On récupère la liste des commits mentionnés dans le diff du fichier CHANGELOG.md
           echo ""
-          echo "## Commits entre $TAG1 et $TAG2:"
+          echo "## DÉTAILS DES COMMITS (entre $TAG1 et $TAG2)"
           echo ""
           COMMITS=$(git log --pretty=format:"%H" "$TAG1".."$TAG2")
 
@@ -946,10 +946,17 @@ tasks:
               if git log -1 --pretty=format:"%s" "$COMMIT" | grep -qE "^bump" ; then
                 continue
               fi
-              COMMIT_MESSAGE=$(git log -1 --pretty=format:"%s" "$COMMIT")
-              echo "### $COMMIT_MESSAGE"
-              echo "Commit: $COMMIT"
+              COMMIT_HEADER=$(git log -1 --pretty=format:"%s" "$COMMIT")
+              COMMIT_BODY=$(git log -1 --pretty=format:"%b" "$COMMIT")
+              echo "### $COMMIT_HEADER"
+              echo "- Hash : $COMMIT"
+              if [ -n "$COMMIT_BODY" ]; then
+                echo ""
+                echo "$COMMIT_BODY"
+                echo ""
+              fi
               echo ""
+              echo "Fichiers modifiés:"
               # On récupère la liste des fichiers modifiés pour chaque commit
               FILES=$(git diff-tree --no-commit-id --name-only -r "$COMMIT")
               if [ -n "$FILES" ]; then
