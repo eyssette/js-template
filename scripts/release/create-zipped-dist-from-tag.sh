@@ -20,11 +20,6 @@ if ! git rev-parse -q --verify "refs/tags/$TAG" >/dev/null 2>&1; then
 	exit 1
 fi
 
-if [[ -n "$(git status --porcelain=v1 --untracked-files=no)" ]]; then
-	echo "❌ Arbre Git non propre. Commit/stash tes modifications suivies avant de lancer ce script."
-	exit 1
-fi
-
 if ! command -v npm >/dev/null 2>&1; then
 	echo "❌ npm est requis."
 	exit 1
