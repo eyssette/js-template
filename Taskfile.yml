@@ -616,31 +616,58 @@ tasks:
     desc: Récupère les changements entre deux tags
     silent: true
     cmds:
-      # S'il n'y a pas d'arguments passés à la tâche, on affiche un message d'erreur et on quitte avec un code de sortie 1
       - |
         bash -c '
-          if [ -z "{{.CLI_ARGS}}" ]; then
+          read -r TAG1 TAG2 EXTRA <<< "{{.CLI_ARGS}}"
+
+          if [ -z "$TAG1" ] || [ -z "$TAG2" ] || [ -n "$EXTRA" ]; then
             echo "❌ Usage: task get-changes:all -- <tag1> <tag2>"
             exit 1
           fi
+
+          echo "# Changements de release"
+          echo ""
+          echo "- Tag source: $TAG1"
+          echo "- Tag cible: $TAG2"
+          echo ""
           '
-      - cmd: task get-changes:main -- {{.CLI_ARGS}}
-      - cmd: task get-changes:diff -- {{.CLI_ARGS}}
+      - |
+        bash -c '
+          read -r TAG1 TAG2 _ <<< "{{.CLI_ARGS}}"
+          task get-changes:main -- "$TAG1" "$TAG2"
+        '
+      - |
+        bash -c '
+          read -r TAG1 TAG2 _ <<< "{{.CLI_ARGS}}"
+          task get-changes:diff -- "$TAG1" "$TAG2"
+        '
 
   get-changes:main:
     desc: Récupère les changements entre deux tags, en affichant seulement le diff du fichier CHANGELOG.md et la liste des fichiers modifiés, sans afficher le diff complet des fichiers modifiés
     silent: true
     cmds:
-      # S'il n'y a pas d'arguments passés à la tâche, on affiche un message d'erreur et on quitte avec un code de sortie 1
       - |
         bash -c '
-          if [ -z "{{.CLI_ARGS}}" ]; then
+          read -r TAG1 TAG2 EXTRA <<< "{{.CLI_ARGS}}"
+
+          if [ -z "$TAG1" ] || [ -z "$TAG2" ] || [ -n "$EXTRA" ]; then
             echo "❌ Usage: task get-changes:main -- <tag1> <tag2>"
             exit 1
           fi
+
+          echo "## Résumé"
+          echo ""
           '
-      - cmd: task get-changes:changelog -- {{.CLI_ARGS}}
-      - cmd: task get-changes:files -- {{.CLI_ARGS}}
+      - |
+        bash -c '
+          read -r TAG1 TAG2 _ <<< "{{.CLI_ARGS}}"
+          task get-changes:changelog -- "$TAG1" "$TAG2"
+        '
+      - |
+        bash -c '
+          read -r TAG1 TAG2 _ <<< "{{.CLI_ARGS}}"
+          task get-changes:files -- "$TAG1" "$TAG2"
+        '
 
   get-changes:changelog:
     desc: Récupère les changements entre deux tags
@@ -655,9 +682,14 @@ tasks:
             exit 1
           fi
 
-          echo "📌 Changements dans le fichier CHANGELOG.md entre les tags \"$TAG1\" et \"$TAG2\""
-          # On récupère les changements dans le fichier CHANGELOG.md en faisant un diff entre les deux tags
+          echo "### Changelog"
+          echo ""
+          echo "Diff Markdown de CHANGELOG.md entre $TAG1 et $TAG2:"
+          echo ""
+          printf "%s\n" "\`\`\`diff"
           git diff "$TAG1" "$TAG2" -- CHANGELOG.md
+          printf "%s\n" "\`\`\`"
+          echo ""
         '
 
   get-changes:files:
@@ -675,10 +707,20 @@ tasks:
             exit 1
           fi
 
-          echo "📌 Liste des fichiers importants modifiés entre les tags \"$TAG1\" et \"$TAG2\""
+          echo "### Fichiers modifiés"
+          echo ""
           # On récupère la liste des fichiers modifiés entre les deux tags en filtrant les fichiers avec une constante qui définit les fichiers à exclure
           EXCLUDE_FILES="{{.EXCLUDE_FILES}}"
-          git diff --name-only "$TAG1" "$TAG2" | grep -Ev "$EXCLUDE_FILES"
+          FILES=$(git diff --name-only "$TAG1" "$TAG2" | grep -Ev "$EXCLUDE_FILES" || true)
+
+          if [ -n "$FILES" ]; then
+            while IFS= read -r FILE; do
+              [ -n "$FILE" ] && echo "- $FILE"
+            done <<< "$FILES"
+          else
+            echo "- Aucun fichier important modifié"
+          fi
+          echo ""
         '
 
   get-changes:diff:
@@ -696,7 +738,8 @@ tasks:
             exit 1
           fi
 
-          echo "📌 Diff des fichiers importants modifiés entre les tags \"$TAG1\" et \"$TAG2\""
+          echo "## Diffs détaillés"
+          echo ""
           # On récupère le diff des fichiers modifiés entre les deux tags en excluant explicitement chaque fichier
           EXCLUDE_FILES="{{.EXCLUDE_FILES}}"
           EXCLUDES=()
@@ -706,5 +749,74 @@ tasks:
             EXCLUDES+=(":(exclude)$FILE")
           done
           IFS=$OLD_IFS
-          git diff "$TAG1" "$TAG2" -- . "${EXCLUDES[@]}"
+          FILES=$(git diff --name-only "$TAG1" "$TAG2" -- . "${EXCLUDES[@]}" || true)
+
+          if [ -z "$FILES" ]; then
+            echo "Aucun diff important à afficher."
+            exit 0
+          fi
+
+          while IFS= read -r FILE; do
+            [ -z "$FILE" ] && continue
+            echo "### $FILE"
+            echo ""
+            printf "%s\n" "\`\`\`diff"
+            git diff "$TAG1" "$TAG2" -- "$FILE"
+            printf "%s\n" "\`\`\`"
+            echo ""
+          done <<< "$FILES"
+        '
+
+  get-changes:changelog:with-files-changed:
+    desc: Récupère le diff du fichier CHANGELOG.md entre deux tags et la liste des fichiers modifiés pour chaque commit mentionné dans le diff du fichier CHANGELOG.md
+    silent: true
+    cmds:
+      - |
+        bash -c '
+          read -r TAG1 TAG2 EXTRA <<< "{{.CLI_ARGS}}"
+
+          if [ -z "$TAG1" ] || [ -z "$TAG2" ] || [ -n "$EXTRA" ]; then
+            echo "❌ Usage: task get-changes:changelog:with-files-changed -- <tag1> <tag2>"
+            exit 1
+          fi
+
+          echo "# CHANGEMENT ENTRE $TAG1 et $TAG2"
+          echo ""
+          echo "## Diff de CHANGELOG.md entre $TAG1 et $TAG2:"
+          echo ""
+          printf "%s\n" "\`\`\`diff"
+          git diff "$TAG1" "$TAG2" -- CHANGELOG.md
+          printf "%s\n" "\`\`\`"
+          echo ""
+
+          # On récupère la liste des commits mentionnés dans le diff du fichier CHANGELOG.md
+          echo ""
+          echo "## Commits entre $TAG1 et $TAG2:"
+          echo ""
+          COMMITS=$(git log --pretty=format:"%H" "$TAG1".."$TAG2")
+
+          if [ -n "$COMMITS" ]; then
+            for COMMIT in $COMMITS; do
+              # Si le commit est de type "bump", on ignore ce commit
+              if git log -1 --pretty=format:"%s" "$COMMIT" | grep -qE "^bump" ; then
+                continue
+              fi
+              COMMIT_MESSAGE=$(git log -1 --pretty=format:"%s" "$COMMIT")
+              echo "### $COMMIT_MESSAGE"
+              echo "Commit: $COMMIT"
+              echo ""
+              # On récupère la liste des fichiers modifiés pour chaque commit
+              FILES=$(git diff-tree --no-commit-id --name-only -r "$COMMIT")
+              if [ -n "$FILES" ]; then
+                while IFS= read -r FILE; do
+                  [ -n "$FILE" ] && echo "- $FILE"
+                done <<< "$FILES"
+              else
+                echo "- Aucun fichier modifié pour ce commit"
+              fi
+              echo ""
+            done
+          else
+            echo "Aucun commit trouvé entre les tags $TAG1 et $TAG2."
+          fi
         '
