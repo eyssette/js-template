@@ -56,13 +56,17 @@ tasks:
       - test -f "{{.APP_FOLDER}}/js/lib/paraglide/server.js"
       - test -f "{{.APP_FOLDER}}/js/lib/paraglide/messages/_index.js"
     method: timestamp
+    silent: true
     cmds:
       - npx paraglide-js compile --project ./i18n/project.inlang --outdir ./app/js/lib/paraglide --no-emit-ts-declarations --output-structure locale-modules
 
   dev:
     desc: Lance le serveur de développement avec Rolldown en mode watch
     deps: [npm:install, paraglide:compile]
+    silent: true
     cmds:
+      # On crée le fichier project_id pour éviter un message de WARN de ParaglideJS
+      - mkdir -p ./i18n/project.inlang && touch ./i18n/project.inlang/project_id
       - |
         bash -c '
           npx paraglide-js compile --project ./i18n/project.inlang --outdir ./app/js/lib/paraglide --no-emit-ts-declarations --output-structure locale-modules --watch &
@@ -81,8 +85,11 @@ tasks:
   debug:
     desc: Lance le serveur de développement avec Rolldown en mode watch et debug
     deps: [npm:install, paraglide:compile]
+    silent: true
     cmds:
       - task: dev:stop
+      # On crée le fichier project_id pour éviter un message de WARN de ParaglideJS
+      - mkdir -p ./i18n/project.inlang && touch ./i18n/project.inlang/project_id
       - |
         bash -c '
           npx paraglide-js compile --project ./i18n/project.inlang --outdir ./app/js/lib/paraglide --no-emit-ts-declarations --output-structure locale-modules --watch &

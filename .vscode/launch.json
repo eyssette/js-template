@@ -15,7 +15,11 @@
 			"sourceMapPathOverrides": {
 				"../app/*": "${workspaceFolder}/app/*",
 				"./*": "${workspaceFolder}/*"
-			}
+			},
+			"resolveSourceMapLocations": [
+				"${workspaceFolder}/**",
+				"!**/node_modules/**"
+			]
 		}
 	]
 }
