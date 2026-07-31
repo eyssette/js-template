@@ -1,3 +1,17 @@
+## 4.1.0 (2026-07-31)
+
+### Feat
+
+- **task**: tâches pour récupérer les changements entre deux tag
+
+### Fix
+
+- **debug**: améliorations pour le debug
+
+### Chore
+
+- **lint**: ordre des imports corrigé
+
 ## 4.0.1 (2026-07-31)
 
 ### Fix
