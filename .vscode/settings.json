@@ -11,7 +11,7 @@
 		"editor.defaultFormatter": "oxc.oxc-vscode"
 	},
 	"[markdown]": {
-		"editor.defaultFormatter": "oxc.oxc-vscode"
+		"editor.formatOnSave": false
 	},
 	"liveServer.settings.port": 5501,
 	"liveServer.settings.root": "/dist",
