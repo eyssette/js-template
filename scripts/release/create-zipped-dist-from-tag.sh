@@ -57,7 +57,10 @@ if ! npm --prefix "$WORKTREE_DIR" ci; then
 fi
 
 echo "🏗️ Build du tag $TAG..."
-npm --prefix "$WORKTREE_DIR" exec -- task build
+(
+	cd "$WORKTREE_DIR"
+	npm exec -- task build --force
+)
 
 if [[ ! -d "$WORKTREE_DIR/dist" ]]; then
 	echo "❌ Le dossier dist n'a pas ete généré par le build."
