@@ -629,3 +629,21 @@ tasks:
     silent: true
     cmds:
       - bash scripts/release/create-zipped-dist-from-tag.sh {{.CLI_ARGS}}
+
+  release-draft:
+    desc: "Crée un brouillon de release à partir de l'ancien tag et du nouveau tag (usage: task release-draft -- <old_tag> <new_tag>)"
+    vars:
+      APP_NAME: "JS-template"
+      VERSION:
+        # Le numéro de la version correspond au nouveau tag (deuxième argument de la tâche), sans le préfixe "v" si il est présent
+        sh: echo "{{.CLI_ARGS}}" | awk '{print $2}' | sed 's/^v//'
+      RELEASE_DATE:
+        # La date correspond à la date du commit correspondant au nouveau tag (deuxième argument de la tâche)
+        sh: echo "test"
+      WHAT_NEW: "…"
+      BUG_FIXES_AND_MINOR_CHANGES: "…"
+      CHANGELOG_URL: "https://forge.apps.education.fr/eyssette/js-template/-/blob/main/CHANGELOG.md"
+      ISSUES_URL: "https://forge.apps.education.fr/eyssette/js-template/-/work_items"
+    cmds:
+      # On change la variable VERSION, définie dans Taskfile pour qu'elle corresponde au nouveau tag, en retirant le préfixe "v" si il est présent
+      - bash scripts/release/create-release-draft.sh {{.APP_NAME}} {{.VERSION}} {{.RELEASE_DATE}} {{.WHAT_NEW}} {{.BUG_FIXES_AND_MINOR_CHANGES}} {{.CHANGELOG_URL}} {{.ISSUES_URL}} {{.CLI_ARGS}}
