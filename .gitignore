@@ -7,3 +7,4 @@ megalinter-reports/
 .mega-linter.yml
 .npm/
 .report/
+.release/

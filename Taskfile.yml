@@ -623,3 +623,9 @@ tasks:
     silent: true
     cmds:
       - bash scripts/release/get-changes-changelog-details.sh {{.CLI_ARGS}}
+
+  create-zipped-dist-from-tag:
+    desc: "Crée un fichier zip du dossier dist à partir des sources correspondant à un tag Git donné (usage: task create-zipped-dist-from-tag -- <tag>) et le place dans le dossier .release/dist"
+    silent: true
+    cmds:
+      - bash scripts/release/create-zipped-dist-from-tag.sh {{.CLI_ARGS}}
