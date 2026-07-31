@@ -2,35 +2,35 @@
 
 set -euo pipefail
 
-TAG_SOURCE="${1:-}"
-TAG_TARGET="${2:-}"
+TAG_OLD="${1:-}"
+TAG_NEW="${2:-}"
 EXTRA="${3:-}"
 
-if [[ -z "$TAG_SOURCE" || -n "$EXTRA" ]]; then
-  echo "❌ Usage: task get-changes:changelog -- <tag_source> [tag_cible]"
+if [[ -z "$TAG_OLD" || -n "$EXTRA" ]]; then
+  echo "❌ Usage: task get-changes:changelog -- <tag_OLD> [tag_cible]"
   exit 1
 fi
 
-if [[ -z "$TAG_TARGET" ]]; then
-  TAG_TARGET=$(sed -nE 's/^##[[:space:]]+([^[:space:]]+).*/\1/p' CHANGELOG.md | head -n 1)
-  if [[ -z "$TAG_TARGET" ]]; then
+if [[ -z "$TAG_NEW" ]]; then
+  TAG_NEW=$(sed -nE 's/^##[[:space:]]+([^[:space:]]+).*/\1/p' CHANGELOG.md | head -n 1)
+  if [[ -z "$TAG_NEW" ]]; then
     echo "❌ Impossible de déterminer le tag cible depuis CHANGELOG.md"
     exit 1
   fi
 fi
 
-if [[ "$TAG_SOURCE" == "$TAG_TARGET" ]]; then
+if [[ "$TAG_OLD" == "$TAG_NEW" ]]; then
   echo "❌ Le tag source et le tag cible doivent être différents"
   exit 1
 fi
 
-CHANGELOG_AT_TARGET=$(git show "$TAG_TARGET:CHANGELOG.md" 2>/dev/null || true)
+CHANGELOG_AT_TARGET=$(git show "$TAG_NEW:CHANGELOG.md" 2>/dev/null || true)
 if [[ -z "$CHANGELOG_AT_TARGET" ]]; then
-  echo "❌ Impossible de lire CHANGELOG.md au tag cible \"$TAG_TARGET\""
+  echo "❌ Impossible de lire CHANGELOG.md au tag cible \"$TAG_NEW\""
   exit 1
 fi
 
-SECTION=$(printf "%s\n" "$CHANGELOG_AT_TARGET" | awk -v source="$TAG_SOURCE" -v target="$TAG_TARGET" '
+SECTION=$(printf "%s\n" "$CHANGELOG_AT_TARGET" | awk -v source="$TAG_OLD" -v target="$TAG_NEW" '
   BEGIN {
     capture = 0
     found_target = 0
@@ -61,16 +61,16 @@ SECTION=$(printf "%s\n" "$CHANGELOG_AT_TARGET" | awk -v source="$TAG_SOURCE" -v 
 AWK_STATUS=$?
 
 if [[ "$AWK_STATUS" -eq 2 ]]; then
-  echo "❌ Le tag cible \"$TAG_TARGET\" est introuvable dans CHANGELOG.md"
+  echo "❌ Le tag cible \"$TAG_NEW\" est introuvable dans CHANGELOG.md"
   exit 1
 fi
 
 if [[ "$AWK_STATUS" -eq 3 ]]; then
-  echo "❌ Le tag source \"$TAG_SOURCE\" est introuvable dans CHANGELOG.md du tag cible \"$TAG_TARGET\""
+  echo "❌ Le tag source \"$TAG_OLD\" est introuvable dans CHANGELOG.md du tag cible \"$TAG_NEW\""
   exit 1
 fi
 
-echo "## CHANGELOG.md (entre $TAG_SOURCE et $TAG_TARGET)"
+echo "## CHANGELOG.md (entre $TAG_OLD et $TAG_NEW)"
 echo ""
 # Add one heading level for each markdown heading line.
 printf "%s\n" "$SECTION" | sed 's/^#/##/'

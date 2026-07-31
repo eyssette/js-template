@@ -2,18 +2,18 @@
 
 set -euo pipefail
 
-TAG_SOURCE="${1:-}"
-TAG_TARGET="${2:-}"
+TAG_OLD="${1:-}"
+TAG_NEW="${2:-}"
 EXTRA="${3:-}"
 
-if [[ -z "$TAG_SOURCE" || -z "$TAG_TARGET" || -n "$EXTRA" ]]; then
+if [[ -z "$TAG_OLD" || -z "$TAG_NEW" || -n "$EXTRA" ]]; then
   echo "❌ Usage: task get-changes:changelog:details -- <tag1> <tag2>"
   exit 1
 fi
 
 echo "# EVOLUTION DE L'APPLICATION"
 echo ""
-echo "Voici les changements entre les tags $TAG_SOURCE et $TAG_TARGET, avec :"
+echo "Voici les changements entre les tags $TAG_OLD et $TAG_NEW, avec :"
 echo "- Un extrait du fichier CHANGELOG.md entre ces deux tags"
 echo "- Le detail des commits concernés (avec la liste des fichiers modifies pour chaque commit)"
 echo ""
@@ -27,17 +27,17 @@ echo "----------------------------------------"
 echo ""
 echo ""
 
-bash scripts/release/get-changes-changelog.sh "$TAG_SOURCE" "$TAG_TARGET"
+bash scripts/release/get-changes-changelog.sh "$TAG_OLD" "$TAG_NEW"
 
 echo ""
 echo ""
 echo "----------------------------------------"
 echo ""
 echo ""
-echo "## DETAILS DES COMMITS (entre $TAG_SOURCE et $TAG_TARGET)"
+echo "## DETAILS DES COMMITS (entre $TAG_OLD et $TAG_NEW)"
 echo ""
 
-COMMIT_LOG=$(git log --format='__COMMIT__%H%n%s%n%b%n__FILES__' --name-only "$TAG_SOURCE".."$TAG_TARGET")
+COMMIT_LOG=$(git log --format='__COMMIT__%H%n%s%n%b%n__FILES__' --name-only "$TAG_OLD".."$TAG_NEW")
 
 if [[ -n "$COMMIT_LOG" ]]; then
   CURRENT_COMMIT=""
@@ -117,5 +117,5 @@ if [[ -n "$COMMIT_LOG" ]]; then
     fi
   fi
 else
-  echo "Aucun commit trouve entre les tags $TAG_SOURCE et $TAG_TARGET."
+  echo "Aucun commit trouve entre les tags $TAG_OLD et $TAG_NEW."
 fi
