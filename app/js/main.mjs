@@ -1,7 +1,7 @@
 // oxlint-disable import/no-unassigned-import import/no-relative-parent-imports
 import "../css/styles.css";
-import { getLocale } from "./lib/paraglide/runtime.js";
 import { capitalizeFirstLetter } from "./utils/strings.mjs";
+import { getLocale } from "./lib/paraglide/runtime.js";
 import { m } from "./lib/paraglide/messages.js";
 
 const currentLocale = getLocale();
