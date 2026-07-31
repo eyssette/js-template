@@ -808,9 +808,11 @@ tasks:
           fi
 
           echo ""
-          echo "# Extrait de CHANGELOG.md entre $TAG_SOURCE et $TAG_TARGET:"
+          echo "## CHANGELOG.md (entre $TAG_SOURCE et $TAG_TARGET)"
           echo ""
-          printf "%s\n" "$SECTION"
+          # On affiche la section du CHANGELOG.md entre les deux tags, en utilisant printf pour éviter que les backticks ne soient interprétés par le shell.
+          # On ajoute un "#" en tête de chaque ligne qui commence par "#" pour décaler les niveaux de titres Markdown.
+          printf "%s\n" "$SECTION" | sed 's/^#/##/'
           echo ""
         '
 
@@ -928,10 +930,22 @@ tasks:
             exit 1
           fi
 
-          echo "# CHANGEMENT ENTRE $TAG1 et $TAG2"
+          echo "# ÉVOLUTION DE L’APPLICATION"
           echo ""
-          # On utilise la tâche get-changes:changelog pour récupérer le diff du fichier CHANGELOG.md entre les deux tags
+          echo "Voici les changements entre les tags $TAG1 et $TAG2, avec :"
+          echo "- Un extrait du fichier CHANGELOG.md entre ces deux tags"
+          echo "- Le détail des commits concernés (avec la liste des fichiers modifiés pour chaque commit)"
+          echo ""
+          echo "Pour voir le détail d’un commit pour un fichier, utiliser la commande suivante :"
+          echo "\`git show \"<hash_du_commit>:<nom_du_fichier>\"\`"
+          echo ""
+          echo "Les commits de type \`feat\` et \`fix\` sont les plus importants"
+          echo ""
           task get-changes:changelog -- "$TAG1" "$TAG2"
+
+          # Séparation
+          echo ""
+          echo "----------------------------------------"
           echo ""
 
           # On récupère la liste des commits mentionnés dans le diff du fichier CHANGELOG.md
@@ -943,7 +957,7 @@ tasks:
           if [ -n "$COMMITS" ]; then
             for COMMIT in $COMMITS; do
               # Si le commit est de type "bump", on ignore ce commit
-              if git log -1 --pretty=format:"%s" "$COMMIT" | grep -qE "^bump" ; then
+              if git log -1 --pretty=format:"%s" "$COMMIT" | grep -qE "^bump|edit" ; then
                 continue
               fi
               COMMIT_HEADER=$(git log -1 --pretty=format:"%s" "$COMMIT")
