@@ -618,28 +618,61 @@ tasks:
     cmds:
       - |
         bash -c '
-          read -r TAG1 TAG2 EXTRA <<< "{{.CLI_ARGS}}"
+          read -r TAG_SOURCE TAG_TARGET EXTRA <<< "{{.CLI_ARGS}}"
 
-          if [ -z "$TAG1" ] || [ -z "$TAG2" ] || [ -n "$EXTRA" ]; then
-            echo "❌ Usage: task get-changes:all -- <tag1> <tag2>"
+          if [ -z "$TAG_SOURCE" ] || [ -n "$EXTRA" ]; then
+            echo "❌ Usage: task get-changes:all -- <tag_source> [tag_cible]"
+            exit 1
+          fi
+
+          if [ -z "$TAG_TARGET" ]; then
+            TAG_TARGET=$(sed -nE "s/^##[[:space:]]+([^[:space:]]+).*/\1/p" CHANGELOG.md | head -n 1)
+            if [ -z "$TAG_TARGET" ]; then
+              echo "❌ Impossible de déterminer le tag cible depuis CHANGELOG.md"
+              exit 1
+            fi
+          fi
+
+          if [ "$TAG_SOURCE" = "$TAG_TARGET" ]; then
+            echo "❌ Le tag source et le tag cible doivent être différents"
             exit 1
           fi
 
           echo "# Changements de release"
           echo ""
-          echo "- Tag source: $TAG1"
-          echo "- Tag cible: $TAG2"
+          echo "- Tag source: $TAG_SOURCE"
+          echo "- Tag cible: $TAG_TARGET"
           echo ""
           '
       - |
         bash -c '
-          read -r TAG1 TAG2 _ <<< "{{.CLI_ARGS}}"
-          task get-changes:main -- "$TAG1" "$TAG2"
+          read -r TAG_SOURCE TAG_TARGET EXTRA <<< "{{.CLI_ARGS}}"
+
+          if [ -z "$TAG_SOURCE" ] || [ -n "$EXTRA" ]; then
+            echo "❌ Usage: task get-changes:all -- <tag_source> [tag_cible]"
+            exit 1
+          fi
+
+          if [ -z "$TAG_TARGET" ]; then
+            TAG_TARGET=$(sed -nE "s/^##[[:space:]]+([^[:space:]]+).*/\1/p" CHANGELOG.md | head -n 1)
+          fi
+
+          task get-changes:main -- "$TAG_SOURCE" "$TAG_TARGET"
         '
       - |
         bash -c '
-          read -r TAG1 TAG2 _ <<< "{{.CLI_ARGS}}"
-          task get-changes:diff -- "$TAG1" "$TAG2"
+          read -r TAG_SOURCE TAG_TARGET EXTRA <<< "{{.CLI_ARGS}}"
+
+          if [ -z "$TAG_SOURCE" ] || [ -n "$EXTRA" ]; then
+            echo "❌ Usage: task get-changes:all -- <tag_source> [tag_cible]"
+            exit 1
+          fi
+
+          if [ -z "$TAG_TARGET" ]; then
+            TAG_TARGET=$(sed -nE "s/^##[[:space:]]+([^[:space:]]+).*/\1/p" CHANGELOG.md | head -n 1)
+          fi
+
+          task get-changes:diff -- "$TAG_SOURCE" "$TAG_TARGET"
         '
 
   get-changes:main:
@@ -648,10 +681,23 @@ tasks:
     cmds:
       - |
         bash -c '
-          read -r TAG1 TAG2 EXTRA <<< "{{.CLI_ARGS}}"
+          read -r TAG_SOURCE TAG_TARGET EXTRA <<< "{{.CLI_ARGS}}"
 
-          if [ -z "$TAG1" ] || [ -z "$TAG2" ] || [ -n "$EXTRA" ]; then
-            echo "❌ Usage: task get-changes:main -- <tag1> <tag2>"
+          if [ -z "$TAG_SOURCE" ] || [ -n "$EXTRA" ]; then
+            echo "❌ Usage: task get-changes:main -- <tag_source> [tag_cible]"
+            exit 1
+          fi
+
+          if [ -z "$TAG_TARGET" ]; then
+            TAG_TARGET=$(sed -nE "s/^##[[:space:]]+([^[:space:]]+).*/\1/p" CHANGELOG.md | head -n 1)
+            if [ -z "$TAG_TARGET" ]; then
+              echo "❌ Impossible de déterminer le tag cible depuis CHANGELOG.md"
+              exit 1
+            fi
+          fi
+
+          if [ "$TAG_SOURCE" = "$TAG_TARGET" ]; then
+            echo "❌ Le tag source et le tag cible doivent être différents"
             exit 1
           fi
 
@@ -660,13 +706,33 @@ tasks:
           '
       - |
         bash -c '
-          read -r TAG1 TAG2 _ <<< "{{.CLI_ARGS}}"
-          task get-changes:changelog -- "$TAG1" "$TAG2"
+          read -r TAG_SOURCE TAG_TARGET EXTRA <<< "{{.CLI_ARGS}}"
+
+          if [ -z "$TAG_SOURCE" ] || [ -n "$EXTRA" ]; then
+            echo "❌ Usage: task get-changes:main -- <tag_source> [tag_cible]"
+            exit 1
+          fi
+
+          if [ -z "$TAG_TARGET" ]; then
+            TAG_TARGET=$(sed -nE "s/^##[[:space:]]+([^[:space:]]+).*/\1/p" CHANGELOG.md | head -n 1)
+          fi
+
+          task get-changes:changelog -- "$TAG_SOURCE" "$TAG_TARGET"
         '
       - |
         bash -c '
-          read -r TAG1 TAG2 _ <<< "{{.CLI_ARGS}}"
-          task get-changes:files -- "$TAG1" "$TAG2"
+          read -r TAG_SOURCE TAG_TARGET EXTRA <<< "{{.CLI_ARGS}}"
+
+          if [ -z "$TAG_SOURCE" ] || [ -n "$EXTRA" ]; then
+            echo "❌ Usage: task get-changes:main -- <tag_source> [tag_cible]"
+            exit 1
+          fi
+
+          if [ -z "$TAG_TARGET" ]; then
+            TAG_TARGET=$(sed -nE "s/^##[[:space:]]+([^[:space:]]+).*/\1/p" CHANGELOG.md | head -n 1)
+          fi
+
+          task get-changes:files -- "$TAG_SOURCE" "$TAG_TARGET"
         '
 
   get-changes:changelog:
@@ -675,20 +741,76 @@ tasks:
     cmds:
       - |
         bash -c '
-          read -r TAG1 TAG2 EXTRA <<< "{{.CLI_ARGS}}"
+          read -r TAG_SOURCE TAG_TARGET EXTRA <<< "{{.CLI_ARGS}}"
 
-          if [ -z "$TAG1" ] || [ -z "$TAG2" ] || [ -n "$EXTRA" ]; then
-            echo "❌ Usage: task get-changes:changelog -- <tag1> <tag2>"
+          if [ -z "$TAG_SOURCE" ] || [ -n "$EXTRA" ]; then
+            echo "❌ Usage: task get-changes:changelog -- <tag_source> [tag_cible]"
             exit 1
           fi
 
-          echo "### Changelog"
+          if [ -z "$TAG_TARGET" ]; then
+            TAG_TARGET=$(sed -nE "s/^##[[:space:]]+([^[:space:]]+).*/\1/p" CHANGELOG.md | head -n 1)
+            if [ -z "$TAG_TARGET" ]; then
+              echo "❌ Impossible de déterminer le tag cible depuis CHANGELOG.md"
+              exit 1
+            fi
+          fi
+
+          if [ "$TAG_SOURCE" = "$TAG_TARGET" ]; then
+            echo "❌ Le tag source et le tag cible doivent être différents"
+            exit 1
+          fi
+
+          CHANGELOG_AT_TARGET=$(git show "$TAG_TARGET:CHANGELOG.md" 2>/dev/null || true)
+          if [ -z "$CHANGELOG_AT_TARGET" ]; then
+            echo "❌ Impossible de lire CHANGELOG.md au tag cible \"$TAG_TARGET\""
+            exit 1
+          fi
+
+          SECTION=$(printf "%s\n" "$CHANGELOG_AT_TARGET" | awk -v source="$TAG_SOURCE" -v target="$TAG_TARGET" "
+            BEGIN {
+              capture = 0
+              found_target = 0
+              found_source = 0
+            }
+            \$1 == \"##\" {
+              version = \$2
+              if (version == target) {
+                capture = 1
+                found_target = 1
+              } else if (version == source && capture == 1) {
+                found_source = 1
+                exit
+              }
+            }
+            capture == 1 {
+              print
+            }
+            END {
+              if (found_target == 0) {
+                exit 2
+              }
+              if (found_source == 0) {
+                exit 3
+              }
+            }
+          ")
+          AWK_STATUS=$?
+
+          if [ "$AWK_STATUS" -eq 2 ]; then
+            echo "❌ Le tag cible \"$TAG_TARGET\" est introuvable dans CHANGELOG.md"
+            exit 1
+          fi
+
+          if [ "$AWK_STATUS" -eq 3 ]; then
+            echo "❌ Le tag source \"$TAG_SOURCE\" est introuvable dans CHANGELOG.md du tag cible \"$TAG_TARGET\""
+            exit 1
+          fi
+
           echo ""
-          echo "Diff Markdown de CHANGELOG.md entre $TAG1 et $TAG2:"
+          echo "# Extrait de CHANGELOG.md entre $TAG_SOURCE et $TAG_TARGET:"
           echo ""
-          printf "%s\n" "\`\`\`diff"
-          git diff "$TAG1" "$TAG2" -- CHANGELOG.md
-          printf "%s\n" "\`\`\`"
+          printf "%s\n" "$SECTION"
           echo ""
         '
 
@@ -700,10 +822,23 @@ tasks:
     cmds:
       - |
         bash -c '
-          read -r TAG1 TAG2 EXTRA <<< "{{.CLI_ARGS}}"
+          read -r TAG_SOURCE TAG_TARGET EXTRA <<< "{{.CLI_ARGS}}"
 
-          if [ -z "$TAG1" ] || [ -z "$TAG2" ] || [ -n "$EXTRA" ]; then
-            echo "❌ Usage: task get-changes:files -- <tag1> <tag2>"
+          if [ -z "$TAG_SOURCE" ] || [ -n "$EXTRA" ]; then
+            echo "❌ Usage: task get-changes:files -- <tag_source> [tag_cible]"
+            exit 1
+          fi
+
+          if [ -z "$TAG_TARGET" ]; then
+            TAG_TARGET=$(sed -nE "s/^##[[:space:]]+([^[:space:]]+).*/\1/p" CHANGELOG.md | head -n 1)
+            if [ -z "$TAG_TARGET" ]; then
+              echo "❌ Impossible de déterminer le tag cible depuis CHANGELOG.md"
+              exit 1
+            fi
+          fi
+
+          if [ "$TAG_SOURCE" = "$TAG_TARGET" ]; then
+            echo "❌ Le tag source et le tag cible doivent être différents"
             exit 1
           fi
 
@@ -711,7 +846,7 @@ tasks:
           echo ""
           # On récupère la liste des fichiers modifiés entre les deux tags en filtrant les fichiers avec une constante qui définit les fichiers à exclure
           EXCLUDE_FILES="{{.EXCLUDE_FILES}}"
-          FILES=$(git diff --name-only "$TAG1" "$TAG2" | grep -Ev "$EXCLUDE_FILES" || true)
+          FILES=$(git diff --name-only "$TAG_SOURCE" "$TAG_TARGET" | grep -Ev "$EXCLUDE_FILES" || true)
 
           if [ -n "$FILES" ]; then
             while IFS= read -r FILE; do
@@ -731,10 +866,23 @@ tasks:
     cmds:
       - |
         bash -c '
-          read -r TAG1 TAG2 EXTRA <<< "{{.CLI_ARGS}}"
+          read -r TAG_SOURCE TAG_TARGET EXTRA <<< "{{.CLI_ARGS}}"
 
-          if [ -z "$TAG1" ] || [ -z "$TAG2" ] || [ -n "$EXTRA" ]; then
-            echo "❌ Usage: task get-changes:diff -- <tag1> <tag2>"
+          if [ -z "$TAG_SOURCE" ] || [ -n "$EXTRA" ]; then
+            echo "❌ Usage: task get-changes:diff -- <tag_source> [tag_cible]"
+            exit 1
+          fi
+
+          if [ -z "$TAG_TARGET" ]; then
+            TAG_TARGET=$(sed -nE "s/^##[[:space:]]+([^[:space:]]+).*/\1/p" CHANGELOG.md | head -n 1)
+            if [ -z "$TAG_TARGET" ]; then
+              echo "❌ Impossible de déterminer le tag cible depuis CHANGELOG.md"
+              exit 1
+            fi
+          fi
+
+          if [ "$TAG_SOURCE" = "$TAG_TARGET" ]; then
+            echo "❌ Le tag source et le tag cible doivent être différents"
             exit 1
           fi
 
@@ -749,7 +897,7 @@ tasks:
             EXCLUDES+=(":(exclude)$FILE")
           done
           IFS=$OLD_IFS
-          FILES=$(git diff --name-only "$TAG1" "$TAG2" -- . "${EXCLUDES[@]}" || true)
+          FILES=$(git diff --name-only "$TAG_SOURCE" "$TAG_TARGET" -- . "${EXCLUDES[@]}" || true)
 
           if [ -z "$FILES" ]; then
             echo "Aucun diff important à afficher."
@@ -761,7 +909,7 @@ tasks:
             echo "### $FILE"
             echo ""
             printf "%s\n" "\`\`\`diff"
-            git diff "$TAG1" "$TAG2" -- "$FILE"
+            git diff "$TAG_SOURCE" "$TAG_TARGET" -- "$FILE"
             printf "%s\n" "\`\`\`"
             echo ""
           done <<< "$FILES"
@@ -782,11 +930,8 @@ tasks:
 
           echo "# CHANGEMENT ENTRE $TAG1 et $TAG2"
           echo ""
-          echo "## Diff de CHANGELOG.md entre $TAG1 et $TAG2:"
-          echo ""
-          printf "%s\n" "\`\`\`diff"
-          git diff "$TAG1" "$TAG2" -- CHANGELOG.md
-          printf "%s\n" "\`\`\`"
+          # On utilise la tâche get-changes:changelog pour récupérer le diff du fichier CHANGELOG.md entre les deux tags
+          task get-changes:changelog -- "$TAG1" "$TAG2"
           echo ""
 
           # On récupère la liste des commits mentionnés dans le diff du fichier CHANGELOG.md
