@@ -611,3 +611,86 @@ tasks:
             echo "❌ Impossible d'ouvrir le rapport de visualisation du bundle automatiquement. Veuillez ouvrir le fichier .report/bundle-size/rollup-visualizer.html manuellement."
           fi
         silent: true
+
+  get-changes:
+    desc: Récupère les changements entre deux tags
+    silent: true
+    cmds:
+      # S'il n'y a pas d'arguments passés à la tâche, on affiche un message d'erreur et on quitte avec un code de sortie 1
+      - |
+        bash -c '
+          if [ -z "{{.CLI_ARGS}}" ]; then
+            echo "❌ Usage: task get-changes -- <tag1> <tag2>"
+            exit 1
+          fi
+          '
+      - cmd: task get-changes:changelog -- {{.CLI_ARGS}}
+      - cmd: task get-changes:files -- {{.CLI_ARGS}}
+      - cmd: task get-changes:diff -- {{.CLI_ARGS}}
+
+  get-changes:changelog:
+    desc: Récupère les changements entre deux tags
+    silent: true
+    cmds:
+      - |
+        bash -c '
+          read -r TAG1 TAG2 EXTRA <<< "{{.CLI_ARGS}}"
+
+          if [ -z "$TAG1" ] || [ -z "$TAG2" ] || [ -n "$EXTRA" ]; then
+            echo "❌ Usage: task get-changes-changelog -- <tag1> <tag2>"
+            exit 1
+          fi
+
+          echo "📌 Changements dans le fichier CHANGELOG.md entre les tags \"$TAG1\" et \"$TAG2\""
+          # On récupère les changements dans le fichier CHANGELOG.md en faisant un diff entre les deux tags
+          git diff "$TAG1" "$TAG2" -- CHANGELOG.md
+        '
+
+  get-changes:files:
+    desc: Récupère la liste des fichiers modifiés entre deux tags
+    silent: true
+    vars:
+      EXCLUDE_FILES: "CHANGELOG.md|README.md|package-lock.json|VERSION|.cz.toml"
+    cmds:
+      - |
+        bash -c '
+          read -r TAG1 TAG2 EXTRA <<< "{{.CLI_ARGS}}"
+
+          if [ -z "$TAG1" ] || [ -z "$TAG2" ] || [ -n "$EXTRA" ]; then
+            echo "❌ Usage: task get-changes-files -- <tag1> <tag2>"
+            exit 1
+          fi
+
+          echo "📌 Liste des fichiers importants modifiés entre les tags \"$TAG1\" et \"$TAG2\""
+          # On récupère la liste des fichiers modifiés entre les deux tags en filtrant les fichiers avec une constante qui définit les fichiers à exclure
+          EXCLUDE_FILES="{{.EXCLUDE_FILES}}"
+          git diff --name-only "$TAG1" "$TAG2" | grep -Ev "$EXCLUDE_FILES"
+        '
+
+  get-changes:diff:
+    desc: Récupère le diff des fichiers importants modifiés entre deux tags
+    silent: true
+    vars:
+      EXCLUDE_FILES: "CHANGELOG.md|README.md|package-lock.json|VERSION|.cz.toml"
+    cmds:
+      - |
+        bash -c '
+          read -r TAG1 TAG2 EXTRA <<< "{{.CLI_ARGS}}"
+
+          if [ -z "$TAG1" ] || [ -z "$TAG2" ] || [ -n "$EXTRA" ]; then
+            echo "❌ Usage: task get-changes-diff -- <tag1> <tag2>"
+            exit 1
+          fi
+
+          echo "📌 Diff des fichiers importants modifiés entre les tags \"$TAG1\" et \"$TAG2\""
+          # On récupère le diff des fichiers modifiés entre les deux tags en excluant explicitement chaque fichier
+          EXCLUDE_FILES="{{.EXCLUDE_FILES}}"
+          EXCLUDES=()
+          OLD_IFS=$IFS
+          IFS="|"
+          for FILE in $EXCLUDE_FILES; do
+            EXCLUDES+=(":(exclude)$FILE")
+          done
+          IFS=$OLD_IFS
+          git diff "$TAG1" "$TAG2" -- . "${EXCLUDES[@]}"
+        '
