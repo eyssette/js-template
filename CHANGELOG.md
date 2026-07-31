@@ -1,3 +1,19 @@
+## 4.0.1 (2026-07-31)
+
+### Fix
+
+- **i18n**: correctif pour l'exemple de la page d'accueil
+- **task**: ajout d'un "ignore_error" pour les tâches de format:staged et lint:staged
+- **i18n**: précisions pour les conditions d'exécutions de certaines tâches (pour être sûr que Paraglide s'exécute correctement)
+
+### Chore
+
+- **package**: pin de la version de Playwright (pour des raisons de compatibilité pour certains systèmes)
+
+### Docs
+
+- précision sur la gestion de l'internationalisation (i18n)
+
 ## 4.0.0 (2026-07-30)
 
 ### Feat
