@@ -612,7 +612,7 @@ tasks:
           fi
         silent: true
 
-  get-changes:
+  get-changes:all:
     desc: Récupère les changements entre deux tags
     silent: true
     cmds:
@@ -620,13 +620,27 @@ tasks:
       - |
         bash -c '
           if [ -z "{{.CLI_ARGS}}" ]; then
-            echo "❌ Usage: task get-changes -- <tag1> <tag2>"
+            echo "❌ Usage: task get-changes:all -- <tag1> <tag2>"
+            exit 1
+          fi
+          '
+      - cmd: task get-changes:main -- {{.CLI_ARGS}}
+      - cmd: task get-changes:diff -- {{.CLI_ARGS}}
+
+  get-changes:main:
+    desc: Récupère les changements entre deux tags, en affichant seulement le diff du fichier CHANGELOG.md et la liste des fichiers modifiés, sans afficher le diff complet des fichiers modifiés
+    silent: true
+    cmds:
+      # S'il n'y a pas d'arguments passés à la tâche, on affiche un message d'erreur et on quitte avec un code de sortie 1
+      - |
+        bash -c '
+          if [ -z "{{.CLI_ARGS}}" ]; then
+            echo "❌ Usage: task get-changes:main -- <tag1> <tag2>"
             exit 1
           fi
           '
       - cmd: task get-changes:changelog -- {{.CLI_ARGS}}
       - cmd: task get-changes:files -- {{.CLI_ARGS}}
-      - cmd: task get-changes:diff -- {{.CLI_ARGS}}
 
   get-changes:changelog:
     desc: Récupère les changements entre deux tags
