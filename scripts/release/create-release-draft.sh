@@ -7,28 +7,72 @@ set -euo pipefail
 APP_NAME="${1:-}"
 VERSION="${2:-}"
 RELEASE_DATE="${3:-}"
-WHAT_NEW="${4:-}"
-BUG_FIXES_AND_MINOR_CHANGES="${5:-}"
-CHANGELOG_URL="${6:-}"
-ISSUES_URL="${7:-}"
-TAG_OLD="${8:-}"
-TAG_NEW="${9:-}"
-EXTRA="${10:-}"
+CHANGELOG_URL="${4:-}"
+ISSUES_URL="${5:-}"
+TAG_OLD="${6:-}"
+TAG_NEW="${7:-}"
+EXTRA="${11:-}"
+
+if [[ ${8+x} ]]; then
+  WHAT_NEW="$8"
+else
+  WHAT_NEW='<!-- Indiquer ici les nouveautés et améliorations -->'
+fi
+
+if [[ ${9+x} ]]; then
+  BUG_FIXES_AND_MINOR_CHANGES="$9"
+else
+  BUG_FIXES_AND_MINOR_CHANGES='<!-- Indiquer ici les corrections de bugs et changements mineurs -->'
+fi
+
+if [[ ${10+x} ]]; then
+  BREAKING_CHANGES="${10}"
+else
+  BREAKING_CHANGES='<!-- Indiquer ici les changements majeurs -->'
+fi
 
 if [[ -z "$TAG_OLD" || -z "$TAG_NEW" || -n "$EXTRA" ]]; then
   echo "❌ Usage: task release-draft -- <old_tag> <new_tag>"
   exit 1
 fi
 
-# On récupère le contenu du fichier "release-template.md" et on remplace les placeholders, du type ${PLACEHOLDER} par les valeurs données en arguments du script : APP_NAME, VERSION, RELEASE_DATE, WHAT_NEW, BUG_FIXES_AND_MINOR_CHANGES, CHANGELOG_URL, ISSUES_URL
-RELEASE_DRAFT_CONTENT=$(cat scripts/release/release-template.md)
+# On interprète un sous-ensemble de Liquid suffisant pour ce template :
+# - les variables {{ NAME }}
+# - les blocs conditionnels {% if NAME %}...{% endif %}
+# Si WHAT_NEW n'existe pas, on met un commentaire pour indiquer à l'utilisateur de le remplir.
+# Si WHAT_NEW existe mais est vide, il reste vide pour ne pas afficher le bloc conditionnel.
+# Même logique pour BUG_FIXES_AND_MINOR_CHANGES et BREAKING_CHANGES.
+APP_NAME="$APP_NAME" \
+VERSION="$VERSION" \
+RELEASE_DATE="$RELEASE_DATE" \
+WHAT_NEW="$WHAT_NEW" \
+BUG_FIXES_AND_MINOR_CHANGES="$BUG_FIXES_AND_MINOR_CHANGES" \
+BREAKING_CHANGES="$BREAKING_CHANGES" \
+CHANGELOG_URL="$CHANGELOG_URL" \
+ISSUES_URL="$ISSUES_URL" \
+node <<'EOF'
+const fs = require('node:fs');
 
-RELEASE_DRAFT_CONTENT="${RELEASE_DRAFT_CONTENT//\$\{APP_NAME\}/$APP_NAME}"
-RELEASE_DRAFT_CONTENT="${RELEASE_DRAFT_CONTENT//\$\{VERSION\}/$VERSION}"
-RELEASE_DRAFT_CONTENT="${RELEASE_DRAFT_CONTENT//\$\{RELEASE_DATE\}/$RELEASE_DATE}"
-RELEASE_DRAFT_CONTENT="${RELEASE_DRAFT_CONTENT//\$\{WHAT_NEW\}/$WHAT_NEW}"
-RELEASE_DRAFT_CONTENT="${RELEASE_DRAFT_CONTENT//\$\{BUG_FIXES_AND_MINOR_CHANGES\}/$BUG_FIXES_AND_MINOR_CHANGES}"
-RELEASE_DRAFT_CONTENT="${RELEASE_DRAFT_CONTENT//\$\{CHANGELOG_URL\}/$CHANGELOG_URL}"
-RELEASE_DRAFT_CONTENT="${RELEASE_DRAFT_CONTENT//\$\{ISSUES_URL\}/$ISSUES_URL}"
+const data = {
+  APP_NAME: process.env.APP_NAME ?? '',
+  VERSION: process.env.VERSION ?? '',
+  RELEASE_DATE: process.env.RELEASE_DATE ?? '',
+  WHAT_NEW: process.env.WHAT_NEW ?? '',
+  BUG_FIXES_AND_MINOR_CHANGES: process.env.BUG_FIXES_AND_MINOR_CHANGES ?? '',
+  BREAKING_CHANGES: process.env.BREAKING_CHANGES ?? '',
+  CHANGELOG_URL: process.env.CHANGELOG_URL ?? '',
+  ISSUES_URL: process.env.ISSUES_URL ?? '',
+};
 
-echo "$RELEASE_DRAFT_CONTENT"
+let template = fs.readFileSync('scripts/release/release-template.md', 'utf8');
+
+template = template.replace(/\{%\s*if\s+([A-Z_][A-Z0-9_]*)\s*%\}([\s\S]*?)\{%\s*endif\s*%\}/g, (_match, key, block) => {
+  return data[key]?.trim() ? block : '';
+});
+
+template = template.replace(/\{\{\s*([A-Z_][A-Z0-9_]*)\s*\}\}/g, (_match, key) => {
+  return data[key] ?? '';
+});
+
+process.stdout.write(template);
+EOF
