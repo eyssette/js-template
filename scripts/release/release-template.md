@@ -30,9 +30,9 @@ Merci à toutes les personnes qui ont contribué à l'évolution de ce projet !
 Vous avez une idée, une suggestion ou vous avez rencontré un problème ?
 N'hésitez pas à partager vos retours et à faire des propositions !
 
-- 💬 [Signaler un bug ou faire une suggestion](https://forge.apps.education.fr/eyssette/js-template/-/work_items)
+- 💬 [Signaler un bug ou faire une suggestion]({{ ISSUES_URL }})
 
 ## 🔗 Plus d'informations
 
-- 📄 [Consulter le CHANGELOG complet](https://forge.apps.education.fr/eyssette/js-template/-/blob/main/CHANGELOG.md)
+- 📄 [Consulter le CHANGELOG complet]({{ CHANGELOG_URL }})
 
