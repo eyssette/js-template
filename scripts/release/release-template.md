@@ -4,6 +4,13 @@ _Publiée le {{ RELEASE_DATE }}_
 
 {{ APP_NAME }} passe en version **{{ VERSION }}** !
 
+
+{% if BREAKING_CHANGES %}
+## ⚠️ Attention : changements majeurs !
+
+{{ BREAKING_CHANGES }}
+
+{% endif %}
 {% if WHAT_NEW %}
 ## ✨ Nouveautés et améliorations
 
@@ -16,14 +23,8 @@ _Publiée le {{ RELEASE_DATE }}_
 {{ BUG_FIXES_AND_MINOR_CHANGES }}
 {% endif %}
 
-{% if BREAKING_CHANGES %}
-## ⚠️ Attention : changements importants !
 
-{{ BREAKING_CHANGES }}
-
-{% endif %}
-
-## 🙏 Remerciements
+## 🙏 Merci à vous !
 
 Merci à toutes les personnes qui ont contribué à l'évolution de ce projet !
 

@@ -28,7 +28,7 @@ fi
 if [[ ${10+x} ]]; then
   BREAKING_CHANGES="${10}"
 else
-  BREAKING_CHANGES='<!-- Indiquer ici les changements majeurs -->'
+  BREAKING_CHANGES='<!-- Indiquer ici les changements qui cassent la compatibilité avec les versions précédentes et demandent aux utilisateurs de faire attention lors de la mise à jour -->'
 fi
 
 if [[ -z "$TAG_OLD" || -z "$TAG_NEW" || -n "$EXTRA" ]]; then
