@@ -1,3 +1,29 @@
+## 4.2.0 (2026-08-01)
+
+### Feat
+
+- **task**: tâche pour créer un brouillon de note pour une release
+- **task**: création d'un zip du dossier dist compilé à partir des sources correspondant à un tag git donné
+
+### Fix
+
+- **task**: précisions sur les commandes git pour voir le détail d'un commit pour un fichier et le diff de ce commit pour un fichier
+- **task**: amélioration du template pour l'annonce d'une release
+- **IDE**: désactivation du formatage automatique du Markdown avec Oxfmt
+- **task**: correctif pour le build du dist correspondant à un tag dans le bon répertoire
+- **task**: suppression de la vérification de l'arbre git avant le build du dist correspondant à un tag
+- **task**: déplacement des scripts get-changes dans des fichiers à part (dossier "release") + optimisation
+- **task**: amélioration de la sortie des évolutions de l'application
+- **task**: amélioration de l'affichage de la liste des commits
+- **task**: get-changes peut être lancé avec un seul tag comme argument + extraction directe dans le CHANGELOG du contenu entre deux tags
+- **task**: amélioration de la sortie pour les tâches get-changes + ajout de la tâche get-changes:changelog:with-files-changed
+- **task**: distinction de get-changes:main et get-chances:diff + tâche générale get-changes:all
+
+### Chore
+
+- noms de variables plus claires pour les anciens tags et les nouveaux tags pour l'affichage des changement entre les deux
+- **task**: suppression de tâches inutiles
+
 ## 4.1.0 (2026-07-31)
 
 ### Feat
