@@ -1,3 +1,16 @@
+## 4.2.1 (2026-08-02)
+
+### Fix
+
+- **task**: script de création de l'annonce pour la release en JS
+- **task**: prise en compte de la variable TECHNICAL_DETAILS dans le template d'annonce d'une release + suppression des lignes vides en trop
+- **task**: amélioration du template pour les changements majeurs et la section de remerciement et invitation à contribution
+- **task**: oubli des variables ISSUES_URL et CHANGELOG_URL
+
+### Chore
+
+- ajout d'un mot autorisé pour cSpell
+
 ## 4.2.0 (2026-08-01)
 
 ### Feat
