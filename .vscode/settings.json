@@ -58,6 +58,7 @@
 		"oxlint",
 		"paraglide",
 		"pngquant",
+		"refactorisation",
 		"semgrep",
 		"Taskfile",
 		"trivy"
