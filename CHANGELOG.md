@@ -282,7 +282,7 @@
 
 - **task**: gestion du cas où les tests ne peuvent pas être lancés (possibilité de ne pas bloquer le push malgré tout)
 - **IDE**: suppression d'une extension qui ne fonctionnait pas bien (pour la coloration syntaxique dans les variables texte)
-- **build**: récupération des fichiers CSS importés, sans commenter puis décommenter le contenu de main.mjs
+- **build**: récupération des fichiers CSS importés, sans commenter puis dé-commenter le contenu de main.mjs
 
 ### Chore
 
@@ -338,7 +338,7 @@
 ### Fix
 
 - **build**: sécurisation de la récupération des fichiers CSS
-- **build**: config rollwodnwcorrigée pour permettre le rebuild en mode dev (avec prise en compte des fichiers CSS)
+- **build**: config Rolldown corrigée pour permettre le rebuild en mode dev (avec prise en compte des fichiers CSS)
 - **ecma**: cohérence version ECMA visée (2020)
 
 ### Chore
@@ -430,7 +430,7 @@
 
 ### Fix
 
-- **codceptJS**: mise à jour du fichier de configuration
+- **codeceptJS**: mise à jour du fichier de configuration
 - **vscode**: config debug avec vscode
 - **task**: ajout d'un dépôt remote
 
@@ -503,7 +503,7 @@
 
 ### Chore
 
-- suppression de la version minififiée des styles CSS dans "app"
+- suppression de la version minifiée des styles CSS dans "app"
 - ajout d'une tâche pour obtenir l'arborescence du répertoire
 
 ### Docs
