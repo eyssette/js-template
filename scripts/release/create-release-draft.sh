@@ -11,7 +11,7 @@ CHANGELOG_URL="${4:-}"
 ISSUES_URL="${5:-}"
 TAG_OLD="${6:-}"
 TAG_NEW="${7:-}"
-EXTRA="${11:-}"
+EXTRA="${12:-}"
 
 if [[ ${8+x} ]]; then
   WHAT_NEW="$8"
@@ -31,6 +31,14 @@ else
   BREAKING_CHANGES='<!-- Indiquer ici les changements qui cassent la compatibilité avec les versions précédentes et demandent aux utilisateurs de faire attention lors de la mise à jour -->'
 fi
 
+# PRise en compte des TECHNICAL_DETAILS
+
+if [[ ${11+x} ]]; then
+  TECHNICAL_DETAILS="${11}"
+else
+  TECHNICAL_DETAILS='<!-- Indiquer ici les éventuels détails techniques de la release -->'
+fi
+
 if [[ -z "$TAG_OLD" || -z "$TAG_NEW" || -n "$EXTRA" ]]; then
   echo "❌ Usage: task release-draft -- <old_tag> <new_tag>"
   exit 1
@@ -45,11 +53,12 @@ fi
 APP_NAME="$APP_NAME" \
 VERSION="$VERSION" \
 RELEASE_DATE="$RELEASE_DATE" \
+CHANGELOG_URL="$CHANGELOG_URL" \
+ISSUES_URL="$ISSUES_URL" \
 WHAT_NEW="$WHAT_NEW" \
 BUG_FIXES_AND_MINOR_CHANGES="$BUG_FIXES_AND_MINOR_CHANGES" \
 BREAKING_CHANGES="$BREAKING_CHANGES" \
-CHANGELOG_URL="$CHANGELOG_URL" \
-ISSUES_URL="$ISSUES_URL" \
+TECHNICAL_DETAILS="$TECHNICAL_DETAILS" \
 node <<'EOF'
 const fs = require('node:fs');
 
@@ -62,6 +71,7 @@ const data = {
   BREAKING_CHANGES: process.env.BREAKING_CHANGES ?? '',
   CHANGELOG_URL: process.env.CHANGELOG_URL ?? '',
   ISSUES_URL: process.env.ISSUES_URL ?? '',
+  TECHNICAL_DETAILS: process.env.TECHNICAL_DETAILS ?? '',
 };
 
 let template = fs.readFileSync('scripts/release/release-template.md', 'utf8');
@@ -73,6 +83,12 @@ template = template.replace(/\{%\s*if\s+([A-Z_][A-Z0-9_]*)\s*%\}([\s\S]*?)\{%\s*
 template = template.replace(/\{\{\s*([A-Z_][A-Z0-9_]*)\s*\}\}/g, (_match, key) => {
   return data[key] ?? '';
 });
+
+// Évite les lignes vides résiduelles quand des blocs "if" sont supprimés.
+template = template
+  .replace(/[ \t]+\n/g, '\n')
+  .replace(/\n{3,}/g, '\n\n')
+  .trimEnd() + '\n';
 
 process.stdout.write(template);
 EOF

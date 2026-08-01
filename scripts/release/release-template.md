@@ -34,6 +34,11 @@ N'hésitez pas à partager vos retours et à faire des propositions !
 - 💬 [Signaler un bug ou faire une suggestion]({{ ISSUES_URL }})
 
 ## 🔗 Plus d'informations
+{% if TECHNICAL_DETAILS %}
+
+**Détails techniques :**
+{{ TECHNICAL_DETAILS }}
+{% endif %}
 
 - 📄 [Consulter le CHANGELOG complet]({{ CHANGELOG_URL }})
 
