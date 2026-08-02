@@ -13,8 +13,9 @@ Objectif : proposer à l'utilisateur une roadmap courte, utile et priorisée, av
 
 ## Positionnement attendu
 
-- Ce prompt est destiné à un usage en mode `Plan` ou `Ask`, pas à une exécution automatique de changements.
-- Si le mode `Agent` est utilisé malgré tout, ne pas modifier de fichiers ni lancer d'actions de mise en oeuvre : rester dans une posture de conseil et de planification.
+- Rester dans une posture de conseil et de planification.
+- Écrire les propositions dans un document de synthèse : `.roadmap/DATE_OF_CREATION.md`, avec la date de création du document.
+- Ne pas modifier le code, les tests ou la documentation du projet.
 
 ## Sources obligatoires
 
