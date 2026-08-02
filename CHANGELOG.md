@@ -1,3 +1,13 @@
+## 5.0.1 (2026-08-02)
+
+### Fix
+
+- **ai**: écriture des propositions de roadmap dans un dossier .roadmap
+
+### Docs
+
+- explication pour l'utilisation des agents IA préconfigurés pour ce projet
+
 ## 5.0.0 (2026-08-02)
 
 ### Feat
