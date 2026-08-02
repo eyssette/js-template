@@ -644,4 +644,4 @@ tasks:
       ISSUES_URL: "https://forge.apps.education.fr/eyssette/js-template/-/work_items"
     cmds:
       # On change la variable VERSION, définie dans Taskfile pour qu'elle corresponde au nouveau tag, en retirant le préfixe "v" si il est présent
-      - node scripts/release/create-release-draft.mjs "{{.APP_NAME}}" "{{.VERSION}}" "{{.RELEASE_DATE}}" "{{.CHANGELOG_URL}}" "{{.ISSUES_URL}}" {{.CLI_ARGS}}
+      - node scripts/release/create-release-note-draft.mjs "{{.APP_NAME}}" "{{.VERSION}}" "{{.RELEASE_DATE}}" "{{.CHANGELOG_URL}}" "{{.ISSUES_URL}}" {{.CLI_ARGS}}
