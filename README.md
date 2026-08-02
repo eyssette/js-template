@@ -35,6 +35,36 @@ Les tâches courantes sont automatisées avec [Task](https://taskfile.dev/) et p
 
 Les tâches courantes sont définies dans le fichier `Taskfile.yml` et peuvent être lancées avec `task <nom_de_la_tâche>` si Task est installé globalement ([voir les instructions](https://taskfile.dev/installation/)), ou avec `npx task <nom_de_la_tâche>`.
 
+<!-- On va maintenant parler de l'utilisation possible de l'IA avec le fichier AGENTS.md qui sert de guide et les SKILLS dans le dossier .agents/skills/<skill_name> -->
+
+### Utilisation d'agents IA configurés pour le projet
+
+Le projet est configuré pour pouvoir être utilisé avec des agents IA.
+
+La convention `AGENTS.md` est suivie pour décrire les agents et leurs compétences (`SKILLS`) disponibles dans le projet.
+
+Si vous utilisez un agent IA qui n'est pas compatible avec cette convention, il suffit généralement de copier les fichiers de configuration en respectant la structure demandée de votre outil pour que l'agent puisse fonctionner correctement.
+
+Structure des fichiers de configuration pour les agents IA :
+- `AGENTS.md` : guide général pour l'utilisation des agents IA dans le projet
+  - C'est une sorte de `README.md` pour les agents IA, qui explique les conventions et les bonnes pratiques à utiliser dans ce projet.
+- `.agents/skills/<skill_name>` : dossier contenant les compétences (`SKILLS`) de l'agent IA, avec les prompts et les instructions nécessaires pour chaque compétence.
+
+Dans la plupart des outils d'agents IA, il est possible d'utiliser des commandes pour appeler ces SKILLS, en utilisant tout simplement le nom de la SKILL, qui correspond au nom du dossier dans `.agents/skills/<skill_name>`.
+
+Par exemple : `fix-this` pour corriger un bug, ou `roadmap` pour générer un plan d'évolution du projet.
+
+Les SKILLS disponibles sont les suivantes :
+- `fix-this` : corriger un bug dans le code
+- `refactor-this` : refactoriser le code pour l'améliorer
+- `optimize-this` : optimiser le code pour améliorer les performances
+- `unit-test` : générer des tests unitaires pour une fonction
+- `e2e-test` : générer des tests end-to-end pour une fonctionnalité
+- `documentation` : générer de la documentation technique ou utilisateur
+- `release-draft` : générer un brouillon de release pour le projet
+- `roadmap` : générer un plan d'évolution du projet
+
+
 ## Démarrage rapide
 
 ### 1) Prérequis
