@@ -3,7 +3,6 @@ name: "release-draft"
 description: "Créer un message d'annonce de release clair à partir de deux tags (ancien et nouveau), du changelog et du brouillon de release"
 argument-hint: "OLD_TAG NEW_TAG"
 agent: "agent"
-model: GPT-5 mini (copilot)
 ---
 
 Objectif: rédiger un message d'annonce de release en Markdown, agréable à lire et orienté utilisateur.
