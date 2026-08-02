@@ -25,7 +25,7 @@ Si la cible n'est pas claire, pose une seule question courte avant de modifier l
 1. Comprendre le comportement actuel de la fonction et ses dépendances directes.
 2. Définir une stratégie de refactor minimale : petits changements, sans modifier le comportement observable.
 3. Ajouter ou ajuster les tests unitaires nécessaires pour verrouiller le comportement avant/après.
-4. Appliquer le refactor en gardant des fonctions courtes, explicites et faiblement couplées.
+4. Appliquer le refactor en gardant des fonctions courtes, explicites et faiblement couplées. Rester le plus simple possible, sans introduire de complexité inutile.
 5. Modulariser le code en plusieurs fichiers si nécessaire, avec des imports/exports explicites.
 6. Vérifier que le comportement reste identique (hors amélioration explicitement demandée).
 7. Exécuter les validations du projet dans cet ordre :

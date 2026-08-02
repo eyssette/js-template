@@ -80,7 +80,6 @@ SKILLS you should know about:
 - `fix-this` : fix a bug
 - `refactor-this` : refactor code
 - `optimize-this` : optimize code
-- `simplify-this` : simplify code
 - `unit-test` : write unit test
 - `e2e-test` : write E2E test
 - `documentation` : write documentation
