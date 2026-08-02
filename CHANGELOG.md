@@ -1,3 +1,27 @@
+## 5.0.0 (2026-08-02)
+
+### Feat
+
+- **ai**: ajout d'une SKILL "roadmap"
+- **ai**: ajout d'une SKILL "documentation"
+- **ai**: ajout d'une SKILL "e2e-test"
+- **ai**: ajout d'une SKILL "unit-test"
+- **ai**: ajout d'une SKILL "optimize-this"
+- **ai**: ajout d'une SKILL "refactor-this"
+- **ai**: ajout d'une SKILL "fix-this"
+- **ai**: création du fichier AGENTS.md pour guider les IA
+- **ai**: ajout d'un prompt pour aider à rédiger l'annonce d'une nouvelle release
+
+### Fix
+
+- **ai**: suppression de la skill "simplify-this" => implémentation dans "refactor-this"
+- **ai**: migration vers la convention AGENTS.md pour la définition des SKILLS
+- **task**: simplification et amélioration des tâches pour préparer une release (récupération du changelog + création d'un brouillon pour la note de version)
+
+### Chore
+
+- ajout de mots autorisés pour cSpell
+
 ## 4.2.1 (2026-08-02)
 
 ### Fix
