@@ -14,7 +14,7 @@ Objectif : proposer à l'utilisateur une roadmap courte, utile et priorisée, av
 ## Positionnement attendu
 
 - Rester dans une posture de conseil et de planification.
-- Écrire les propositions dans un document de synthèse : `.roadmap/DATE_OF_CREATION.md`, avec la date de création du document.
+- Écrire les propositions dans un document de synthèse : `.roadmap/YYYY-MM-DD_HH-MM.md`, avec la date de création du document au format `YYYY-MM-DD_HH-MM`.
 - Ne pas modifier le code, les tests ou la documentation du projet.
 
 ## Sources obligatoires
