@@ -78,7 +78,7 @@ Il faut avoir installé sur votre machine :
 - [npm](https://www.npmjs.com/) (version 8 au minimum, version >=10 recommandée)
 
 <details>
-<summary>Recommandation : utiliser [Volta](https://www.voltajs.com/) pour gérer les versions de [Node.js](https://nodejs.org/) et [npm](https://www.npmjs.com/)</summary>
+<summary>Recommandation : utiliser Volta pour gérer les versions de Node.js et npm</summary>
 
 Quand on travaille avec [Node.js](https://nodejs.org/) et [npm](https://www.npmjs.com/), il est important d’utiliser les bonnes versions pour éviter les erreurs de compatibilité.
 
