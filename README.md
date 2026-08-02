@@ -1,8 +1,10 @@
 # JS Template
 
-Ce dépôt vous propose un environnement de développement préconfiguré pour démarrer un projet JavaScript avec de bonnes pratiques et des outils modernes et performants.
+JS Template est un environnement de développement JavaScript pré-configuré et optimisé pour bien démarrer un projet avec de bonnes pratiques et tous les outils nécessaires :
 
-Tout est prêt pour coder, tester et compiler votre application dans les meilleurs conditions !
+- Éditeur de code qui vérifie la qualité du code, le formate automatiquement et facilite le débogage,
+- Tâches automatisées pour compiler, tester, pousser, déployer et vérifier l’application.
+- Pré-configuration pour l'utilisation d'agents IA.
 
 ## Ce que ce template apporte
 
