@@ -78,6 +78,7 @@ For example, the skill for fixing a bug is in `.agents/skills/fix-this/SKILL.md`
 
 SKILLS you should know about:
 - `fix-this` : fix a bug
+- `review-this` : review code
 - `refactor-this` : refactor code
 - `optimize-this` : optimize code
 - `unit-test` : write unit test

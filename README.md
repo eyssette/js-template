@@ -58,6 +58,7 @@ Par exemple : `fix-this` pour corriger un bug, ou `roadmap` pour générer un pl
 
 Les SKILLS disponibles sont les suivantes :
 - `fix-this` : corriger un bug dans le code
+- `review-this` : générer une revue de code
 - `refactor-this` : refactoriser le code pour l'améliorer
 - `optimize-this` : optimiser le code pour améliorer les performances
 - `unit-test` : générer des tests unitaires pour une fonction
