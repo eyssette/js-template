@@ -335,7 +335,7 @@ tasks:
     desc: Lint les fichiers .mjs avec Oxlint, en affichant uniquement les erreurs principales
     silent: true
     cmds:
-      - SHOW_MAIN_ERRORS_ONLY=1 npx oxlint --config oxlint.config.mjs
+      - SHOW_MAIN_ERRORS_ONLY=1 npx oxlint --config oxlint.config.mjs . -f stylish
 
   lint:staged:
     desc: Lint uniquement les fichiers .mjs staged (pour le hook pre-commit)
@@ -346,20 +346,20 @@ tasks:
         if [ -z "$FILES" ]; then
           exit 0
         fi
-        SHOW_MAIN_ERRORS_ONLY=1 npx oxlint --config oxlint.config.mjs $FILES
+        SHOW_MAIN_ERRORS_ONLY=1 npx oxlint --config oxlint.config.mjs $FILES -f stylish
     ignore_error: true
 
   lint:errors:
     desc: Lint les fichiers .mjs avec Oxlint, en affichant seulement les erreurs bloquantes
     silent: true
     cmds:
-      - SHOW_MAIN_ERRORS_ONLY=1 npx oxlint --config oxlint.config.mjs --quiet
+      - SHOW_MAIN_ERRORS_ONLY=1 npx oxlint --config oxlint.config.mjs --quiet . -f stylish
 
   lint:all:
     desc: Lint tous les fichiers .mjs avec Oxlint, en affichant toutes les erreurs, même les simples warnings
     silent: true
     cmds:
-      - npx oxlint --config oxlint.config.mjs --report-unused-disable-directives-severity "warn"
+      - npx oxlint --config oxlint.config.mjs --report-unused-disable-directives-severity "warn" . -f stylish
 
   compress:png:
     desc: Compresse les images PNG avec pngquant
