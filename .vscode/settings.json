@@ -91,5 +91,8 @@
 	"html-validate.configFile": ".htmlvalidate.json",
 	"json.schemaDownload.trustedDomains": {
 		"https://inlang.com/schema/project-settings": true
+	},
+	"[shellscript]": {
+		"editor.defaultFormatter": "mkhl.shfmt"
 	}
 }
