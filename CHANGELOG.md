@@ -1,3 +1,24 @@
+## 5.1.0 (2026-08-03)
+
+### Feat
+
+- **ai**: ajout d'une SKILL "review-this" pour faire de la revue de code
+- **task**: ajout d'une tâche pour préparer une revue de code pour un fichier donné
+
+### Fix
+
+- **task**: amélioration du format de sortie des tâches de lint
+- **format**: formatage des scripts Shell avec une extension propre (pas avec Oxfmt)
+- **ai**: ajout de l'heure et des minutes dans la date de création d'une proposition de roadmap
+
+### Chore
+
+- tâche npm de visualisation de la taille du bundle renommée pour correspondre à la tâche dans Taskfile
+
+### Docs
+
+- meilleure description générale du projet
+
 ## 5.0.1 (2026-08-02)
 
 ### Fix
