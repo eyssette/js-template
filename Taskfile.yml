@@ -644,3 +644,9 @@ tasks:
       ISSUES_URL: "https://forge.apps.education.fr/eyssette/js-template/-/work_items"
     cmds:
       - node scripts/release/create-release-note-draft.mjs "{{.APP_NAME}}" "{{.VERSION}}" "{{.RELEASE_DATE}}" "{{.CHANGELOG_URL}}" "{{.ISSUES_URL}}" {{.CLI_ARGS}}
+
+  review:file:
+    desc: "Crée un rapport de revue de code pour un fichier donné (usage: task review:file -- <file_path>)"
+    silent: true
+    cmds:
+      - bash scripts/review/review-file.sh {{.CLI_ARGS}} {{.ECMA_VERSION}}
