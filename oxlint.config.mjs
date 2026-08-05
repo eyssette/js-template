@@ -209,6 +209,12 @@ const config = {
 				"unicorn/filename-case": ["error", { case: "kebabCase" }],
 			},
 		},
+		{
+			files: ["app/js/iifeFallback.js"],
+			rules: {
+				"import/unambiguous": "off",
+			},
+		},
 	],
 };
 

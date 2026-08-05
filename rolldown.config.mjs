@@ -50,44 +50,81 @@ async function getVisualizerPlugin() {
 
 // Configuration de la compilation avec Rolldown
 async function createBuildConfig() {
-	return {
-		input: mainJsFile,
-		output: {
-			file: distFolder + scriptMinJsFileName,
-			format: "iife",
-			sourcemap: true,
-			// En développement, on évite le mangle pour faciliter le débogage.
-			minify: debug ? false : { mangle: true },
+	return [
+		// Configuration de la compilation en IIFE (utilisé si le navigateur ne supporte pas les modules : ce qui est le cas notamment si l'application est ouverte en local dans un navigateur, sans serveur web)
+		{
+			input: mainJsFile,
+			output: {
+				file: distFolder + scriptMinJsFileName,
+				format: "iife",
+				sourcemap: true,
+				// En développement, on évite le mangle pour faciliter le débogage.
+				minify: debug ? false : { mangle: true },
+				strict: true,
+			},
+			transform: {
+				target: ECMA_VERSION,
+			},
+			plugins: [
+				// Importe des fichiers texte (comme les fichiers Markdown) en tant que chaînes de caractères dans le code JavaScript
+				// string({
+				// 	include: appFolder + "*.md",
+				// }),
+
+				// Supprime le contenu du dossier dist avant de compiler
+				del({ targets: "dist/*" }),
+
+				// Copie les fichiers du dossier app vers le dossier dist
+				copy({
+					targets: [{ src: [`${appFolder}**/*`], dest: distFolder }],
+					flatten: false,
+				}),
+
+				// Concatène et minifie les CSS (importés en JS + fichiers autonomes du dossier styles)
+				createMinifyStylesPlugin(minifyStylesPluginOptions),
+
+				// En mode développement, lance un serveur de développement et recharge la page automatiquement lorsqu'un fichier est modifié
+				development && serve({ contentBase: ["dist", "./"], open: !debug }),
+				development && livereload({ delay: 300 }),
+
+				// Génère un rapport de visualisation uniquement quand ANALYZE=true
+				await getVisualizerPlugin(),
+			],
 		},
-		transform: {
-			target: ECMA_VERSION,
+		// Configuration de la compilation en ESM au lieu de IIFE (pour avoir un bundle plus léger et plus moderne) : c'est la configuration utilisée par défaut si le navigateur supporte les modules (ce qui est le cas de tous les navigateurs modernes)
+		{
+			input: mainJsFile,
+			output: {
+				dir: `${distFolder}chunks`,
+				format: "esm",
+				sourcemap: true,
+				// En développement, on évite le mangle pour faciliter le débogage.
+				minify: debug ? false : { mangle: true },
+			},
+			transform: {
+				target: ECMA_VERSION,
+			},
+
+			// On a déjà minifié les CSS dans le bundle IIFE, donc on ne le fait pas dans le bundle ESM : on rajoute l'option cssAlreadyMinified : true
+			plugins: [
+				createMinifyStylesPlugin({
+					...minifyStylesPluginOptions,
+					cssAlreadyMinified: true,
+				}),
+			],
 		},
-		plugins: [
-			// Importe des fichiers texte (comme les fichiers Markdown) en tant que chaînes de caractères dans le code JavaScript
-			// string({
-			// 	include: appFolder + "*.md",
-			// }),
-
-			// Supprime le contenu du dossier dist avant de compiler
-			del({ targets: "dist/*" }),
-
-			// Copie les fichiers du dossier app vers le dossier dist
-			copy({
-				targets: [{ src: [`${appFolder}**/*`], dest: distFolder }],
-				flatten: false,
-			}),
-
-			// Concatène et minifie les CSS (importés en JS + fichiers autonomes du dossier styles)
-			createMinifyStylesPlugin(minifyStylesPluginOptions),
-
-			// En mode développement, lance un serveur de développement et recharge la page automatiquement lorsqu'un fichier est modifié
-			development && serve({ contentBase: ["dist", "./"], open: !debug }),
-			development && livereload({ delay: 300 }),
-
-			// Génère un rapport de visualisation uniquement quand ANALYZE=true
-			await getVisualizerPlugin(),
-		],
-	};
+		// Compilation du script de fallback qui permet de basculer sur le bundle IIFE si le navigateur ne supporte pas les modules
+		{
+			input: `${appFolder}js/iifeFallback.js`,
+			output: {
+				dir: `${distFolder}`,
+				format: "iife",
+				sourcemap: false,
+				minify: { mangle: true },
+				strict: true,
+			},
+		},
+	];
 }
 
 export default await createBuildConfig();

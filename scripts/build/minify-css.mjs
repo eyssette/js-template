@@ -271,6 +271,10 @@ export function createMinifyStylesPlugin(options) {
 			};
 		},
 		writeBundle() {
+			// Si on a option.cssAlreadyMinified, on ne minifie pas les CSS importés dans le JS principal.
+			if (options.cssAlreadyMinified) {
+				return;
+			}
 			if (importedCssFilesForBuild.length === 0) {
 				const safeMainJsAbsolutePath = ensurePathInsideRoot(
 					appRootPath,
