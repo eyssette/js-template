@@ -50,7 +50,8 @@
 		"rollup-plugin-livereload": "^2.0.5",
 		"rollup-plugin-serve": "^3.0.0",
 		"rollup-plugin-svelte": "^7.2.3",
-		"rollup-plugin-visualizer": "^7.0.1"
+		"rollup-plugin-visualizer": "^7.0.1",
+		"unplugin-raw": "^0.7.0"
 	},
 	"overrides": {
 		"axios": ">=1.19.0",

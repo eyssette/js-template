@@ -25,8 +25,7 @@ tasks:
     desc: Compile le projet avec Rolldown
     deps: [npm:install, paraglide:compile]
     sources:
-      - "{{.APP_FOLDER}}/js/**/*.mjs"
-      - "{{.APP_FOLDER}}/css/**/*.css"
+      - "{{.APP_FOLDER}}/**/*"
       - i18n/messages/**/*.json
       - i18n/project.inlang/**/*.json
       - rolldown.config.mjs
@@ -43,9 +42,10 @@ tasks:
     desc: Compile les fichiers de traduction Paraglide
     deps: [npm:install]
     sources:
-      - "{{.APP_FOLDER}}/js/**/*.mjs"
+      - "{{.APP_FOLDER}}/**/*"
       - i18n/messages/**/*.json
       - i18n/project.inlang/**/*.json
+      - rolldown.config.mjs
     generates:
       - "{{.APP_FOLDER}}/js/lib/paraglide/messages.js"
       - "{{.APP_FOLDER}}/js/lib/paraglide/runtime.js"
@@ -69,9 +69,11 @@ tasks:
       - mkdir -p ./i18n/project.inlang && touch ./i18n/project.inlang/project_id
       - |
         bash -c '
+          node ./scripts/build/watch-txt-files.mjs ./app ./app/js/main.mjs &
+          watch_txt_files_pid=$!
           npx paraglide-js compile --project ./i18n/project.inlang --outdir ./app/js/lib/paraglide --no-emit-ts-declarations --output-structure locale-modules --watch &
           paraglide_pid=$!
-          trap "kill \"$paraglide_pid\" 2>/dev/null" EXIT INT TERM
+          trap "kill \"$paraglide_pid\" \"$watch_txt_files_pid\" 2>/dev/null" EXIT INT TERM
           NODE_ENV=development npx rolldown --config --watch
         '
 
@@ -92,9 +94,11 @@ tasks:
       - mkdir -p ./i18n/project.inlang && touch ./i18n/project.inlang/project_id
       - |
         bash -c '
+          node ./scripts/build/watch-txt-files.mjs ./app ./app/js/main.mjs &
+          watch_txt_files_pid=$!
           npx paraglide-js compile --project ./i18n/project.inlang --outdir ./app/js/lib/paraglide --no-emit-ts-declarations --output-structure locale-modules --watch &
           paraglide_pid=$!
-          trap "kill \"$paraglide_pid\" 2>/dev/null" EXIT INT TERM
+          trap "kill \"$paraglide_pid\" \"$watch_txt_files_pid\" 2>/dev/null" EXIT INT TERM
           NODE_ENV=debug npx rolldown --config --watch
         '
 
