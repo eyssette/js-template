@@ -185,7 +185,8 @@ Le projet propose automatiquement des extensions utiles via `.vscode/extensions.
 - [OXC](https://marketplace.visualstudio.com/items?itemName=oxc.oxc-vscode) : Lint et formatage du code javascript avec [Oxlint](https://oxc.rs/docs/guide/usage/linter) et [Oxfmt](https://oxc.rs/docs/guide/usage/formatter)
 - [Stylelint](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint) : Vérification du CSS
 - [HTML-Validate](https://marketplace.visualstudio.com/items?itemName=html-validate.vscode-html-validate) : Vérification du HTML
-- [Cognitive Complexity Show](https://marketplace.visualstudio.com/items?itemName=ampcpmgp.cognitive-complexity-show) : Affiche la complexité cognitive des fonctions
+- [Svelte for VS Code](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode) : Gestion de la syntaxe Svelte pour les composants
+- [Cognitive Complexity Show](https://marketplace.visualstudio.com/items?itemName=ampcpmgp.cognitive-complexity-show) : Affichage de la complexité cognitive des fonctions
 - [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) et [Code Spell Checker French](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker-french) : Vérification orthographique en français pour les fichiers texte
 - [Cucumber Autocomplete](https://marketplace.visualstudio.com/items?itemName=alexkrechik.cucumberautocomplete) : Autocomplétion des steps [Cucumber](https://cucumber.io/) (pour décrire les features qui sont la base des tests end-to-end)
 
