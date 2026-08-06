@@ -1,3 +1,19 @@
+## 6.0.0 (2026-08-06)
+
+### Feat
+
+- **svelte**: configuration du build, du lint, du formatage et de l'IDE pour pouvoir utiliser des composants Svelte
+- **build**: double export IIFE + ESM - ESM par défaut, IIFE en cas d'échec
+
+### Fix
+
+- **package**: overrides de version pour éviter des vulnérabilités
+- **IDE**: correctif pour le mode DEBUG, qui fonctionne à nouveau
+
+### Chore
+
+- ajout d'une image favicon SVG par défaut pour la page d'exemple
+
 ## 5.1.0 (2026-08-03)
 
 ### Feat
