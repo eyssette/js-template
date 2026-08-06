@@ -1,3 +1,25 @@
+## 6.1.0 (2026-08-06)
+
+### Feat
+
+- **build**: import possible du contenu de fichiers textes dans des variables JS + distinction de types de configuration (dev / prod) pour Rolldown
+
+### Fix
+
+- **task**: la tâche de vérification ECMA du build doit d'abord vérifier que la tâche de build a été effectuée
+- **HTML**: le script de fallback est placé avant le script type module, pour éviter un blocage en mode local sans serveur
+- **ai**: ajout d'un paragraphe sur l'intégration possible de composants Svelte dans AGENTS.md
+
+### Docs
+
+- explication sur l'import du contenu d'un fichier texte dans une variable javascript avec unplugin-raw
+- ajout de la référence à l'extension pour Svelte
+- explication pour l'utilisation de composants Svelte
+
+### Perf
+
+- ajout de l'attribut "defer" pour le script de fallback à la version iife
+
 ## 6.0.0 (2026-08-06)
 
 ### Feat
