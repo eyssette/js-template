@@ -102,6 +102,16 @@ Before running one of these commands, read the corresponding skill file if it ex
   - In all cases, explain to the user what you are doing and why.
 - `npx task lint` covers JS (Oxlint), CSS (Stylelint), and HTML (HTML-Validate) together; use `npx task lint:all` to also see non-blocking warnings before considering a task complete.
 
+## Svelte Components
+
+To manage increasing complexity, especially when advanced reactivity or complex state management is required, the application supports the integration of Svelte components. 
+
+Implementation Guidelines:
+- Naming convention:
+  - Use PascalCase for component names (e.g., `ComponentName.svelte`).
+  - Define the custom element name in `kebab-case` using `<svelte:options customElement="component-name" />`.
+- Use Svelte 5 syntax: leverage `$props` to define component properties, `$state`, `$derived`, `$effect` to manage fine-grained reactivity efficiently,`$host` to access the host element (e.g., for event dispatching).
+
 ## Internationalization
 
 - Use ParaGlideJS for user-facing text — never hardcode user-facing strings.
