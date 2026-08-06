@@ -1,7 +1,7 @@
 ---
-description: "Refactoriser une fonction JavaScript de manière sûre, testée et conforme aux conventions AGENTS.md."
+description: "Refactoriser une fonction JavaScript pour améliorer sa lisibilité, sa maintenabilité et sa testabilité"
 name: "refactor-this"
-argument-hint: "Sélectionne la fonction à refactoriser et décris si tu le souhaites le problème concret à corriger (complexité, duplication, lisibilité, effets de bord)"
+argument-hint: "<fonction à refactoriser> [type de problème à corriger]"
 agent: "agent"
 ---
 

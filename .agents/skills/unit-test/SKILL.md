@@ -1,7 +1,7 @@
 ---
-description: "Créer un test unitaire Jasmine pour une fonction JavaScript sélectionnée, conforme aux conventions AGENTS.md et aux exemples du dépôt."
+description: "Créer un test unitaire Jasmine pour une fonction JavaScript sélectionnée"
 name: "unit-test"
-argument-hint: "Sélectionne la fonction cible et décris, si besoin, le comportement à couvrir ou le cas à reproduire"
+argument-hint: "<fonction à tester>"
 agent: "agent"
 ---
 

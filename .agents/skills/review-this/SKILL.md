@@ -1,7 +1,7 @@
 ---
-description: "Réaliser une revue de code du code sélectionné, orientée risques, qualité et tests, en respectant AGENTS.md et les bonnes pratiques de code review."
+description: "Réaliser une revue de code du code sélectionné, en respectant AGENTS.md et les bonnes pratiques"
 name: "review-this"
-argument-hint: "Sélectionne le code à reviewer et précise le contexte si besoin (objectif, bug suspecté, contraintes)"
+argument-hint: "<code à analyser>>"
 agent: "agent"
 ---
 

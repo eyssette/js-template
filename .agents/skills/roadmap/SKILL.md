@@ -1,7 +1,7 @@
 ---
 description: "Proposer une roadmap courte et priorisée, fondée sur le README.md et le CHANGELOG.md, avec des idées de fonctionnalités et d'améliorations à discuter avec l'utilisateur."
 name: "roadmap"
-argument-hint: "Décris si besoin l'angle souhaité pour la roadmap (fonctionnalités, qualité, DX, documentation, tests, performance)"
+argument-hint: "[angle ou horizon souhaité]"
 agent: "agent"
 ---
 

@@ -1,7 +1,7 @@
 ---
-description: "Optimiser une fonction JavaScript de manière sûre, mesurée et conforme aux conventions AGENTS.md."
+description: "Optimiser une fonction JavaScript"
 name: "optimize-this"
-argument-hint: "Sélectionne la fonction à optimiser et décris le problème visé (performance, allocations, rendu, appels inutiles)"
+argument-hint: "<fonction à optimiser> [symptôme observé ou gains attendus]"
 agent: "agent"
 ---
 

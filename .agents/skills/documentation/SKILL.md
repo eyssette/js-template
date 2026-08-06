@@ -1,7 +1,7 @@
 ---
-description: "Rédiger de la documentation technique ou utilisateur, conforme aux conventions AGENTS.md, avec un choix initial explicite du type de documentation attendu."
+description: "Rédiger de la documentation technique ou utilisateur"
 name: "documentation"
-argument-hint: "Décris ce que tu veux documenter, puis précise si besoin le public visé, le fichier concerné ou le message à rédiger"
+argument-hint: "<sujet> <public>"
 agent: "agent"
 ---
 
@@ -15,8 +15,8 @@ Objectif : produire une documentation utile, concise et adaptée à son public, 
 
 Commence toujours par demander explicitement à l'utilisateur ce qu'il veut produire :
 
-- `Documentation de fonction dans le code` : destinée aux développeurs, avec un angle technique
-- `Message ou section de documentation utilisateur` : destinée aux utilisateurs, avec un angle usage, bénéfice et contexte
+- `Documentation technique` : destinée aux développeurs pour comprendre le code, ses fonctions, ses paramètres et son fonctionnement interne
+- `Documentation utilisateur` : destinée aux utilisateurs, avec un angle usage, bénéfice et contexte
 
 Si l'utilisateur n'a pas déjà répondu clairement à ce choix, pose une question courte avant toute modification ou rédaction.
 

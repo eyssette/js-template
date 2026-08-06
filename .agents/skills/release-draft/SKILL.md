@@ -1,7 +1,7 @@
 ---
+description: "Créer un brouillon de message d'annonce de release clair à partir de l'ancien tag de la dernière release et du nouveau tag de la release à créer"
 name: "release-draft"
-description: "Créer un message d'annonce de release clair à partir de deux tags (ancien et nouveau), du changelog et du brouillon de release"
-argument-hint: "OLD_TAG NEW_TAG"
+argument-hint: "<OLD_TAG> <NEW_TAG>"
 agent: "agent"
 ---
 

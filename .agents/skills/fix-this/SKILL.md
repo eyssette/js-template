@@ -1,7 +1,7 @@
 ---
-description: "Corriger un bug JavaScript dans ce dépôt avec une approche test-first, lint propre et conformité aux conventions AGENTS.md."
+description: "Corriger un bug JavaScript"
 name: "fix-this"
-argument-hint: "Décris le bug (symptômes, contexte, fichiers concernés, résultat attendu)"
+argument-hint: "<description précise du bug>"
 agent: "agent"
 ---
 

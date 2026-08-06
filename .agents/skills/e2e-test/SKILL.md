@@ -1,7 +1,7 @@
 ---
-description: "Créer un test end-to-end Gherkin et ses step definitions CodeceptJS, conformes aux conventions AGENTS.md et orientés parcours utilisateur."
+description: "Créer un test end-to-end Gherkin et ses step definitions CodeceptJS"
 name: "e2e-test"
-argument-hint: "Décris le parcours utilisateur à couvrir, la page ou fonctionnalité concernée, et si besoin le bug ou le comportement attendu"
+argument-hint: "<scénario> | <fonctionnalité attendue>| <bug qui ne doit pas apparaître>"
 agent: "agent"
 ---
 
