@@ -155,9 +155,12 @@ Le fichier principal est `app/js/main.mjs`. C’est le point d’entrée de l’
 
 Ces styles peuvent être répartis dans plusieurs fichiers : ils seront regroupés automatiquement en un seul ensemble, dans l’ordre des imports, puis minifiés par l’outil de build.
 
-La gestion de l'internationalisation (i18n) est assurée par [ParaGlideJS](https://paraglidejs.com/), qui est déjà préconfiguré dans le projet.
+La gestion de l'internationalisation (i18n) est assurée automatiquement par [ParaGlideJS](https://paraglidejs.com/), qui est déjà préconfiguré dans le projet.
 Les fichiers de traduction sont dans le dossier `i18n/messages`.
 Le fichier `js/main.mjs` montre un exemple simple d'utilisation de ParaGlideJS pour traduire du texte dans l'application. Pour plus d'informations sur l'utilisation de ParaGlideJS, consulter la [documentation](https://paraglidejs.com/basics).
+
+On peut aussi, grâce au plugin [unplugin-raw](https://github.com/unplugin/unplugin-raw/), gérer des textes plus longs en les important dans le javascript (plutôt que d'utiliser des variables difficiles à lire et à maintenir) : voir l'exemple dans `app/js/main.js`.
+Dans ce cas, il faut gérer l'internationalisation manuellement.
 
 ## Structure du projet
 
