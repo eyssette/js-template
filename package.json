@@ -31,7 +31,7 @@
 		"@commitlint/config-conventional": "^21.2.0",
 		"@e18e/eslint-plugin": "^0.5.1",
 		"@go-task/cli": "^3.52.0",
-		"@inlang/paraglide-js": "^2.23.0",
+		"@inlang/paraglide-js": "^2.23.1",
 		"@stylistic/eslint-plugin": "^5.10.0",
 		"codeceptjs": "^4.1.0",
 		"es-check": "^9.6.4",
@@ -49,6 +49,7 @@
 		"rollup-plugin-delete": "^3.0.2",
 		"rollup-plugin-livereload": "^2.0.5",
 		"rollup-plugin-serve": "^3.0.0",
+		"rollup-plugin-svelte": "^7.2.3",
 		"rollup-plugin-visualizer": "^7.0.1"
 	},
 	"overrides": {

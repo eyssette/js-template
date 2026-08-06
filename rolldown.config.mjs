@@ -8,6 +8,7 @@ import del from "rollup-plugin-delete";
 import livereload from "rollup-plugin-livereload";
 import path from "node:path";
 import serve from "rollup-plugin-serve";
+import svelte from "rollup-plugin-svelte";
 
 // Version ECMAScript utilisée pour la compilation
 const ECMA_VERSION = "es2020";
@@ -61,6 +62,7 @@ async function createBuildConfig() {
 				// En développement, on évite le mangle pour faciliter le débogage.
 				minify: debug ? false : { mangle: true },
 				strict: true,
+				comments: false,
 			},
 			transform: {
 				target: ECMA_VERSION,
@@ -78,6 +80,12 @@ async function createBuildConfig() {
 				copy({
 					targets: [{ src: [`${appFolder}**/*`], dest: distFolder }],
 					flatten: false,
+				}),
+
+				svelte({
+					compilerOptions: {
+						customElement: true,
+					},
 				}),
 
 				// Concatène et minifie les CSS (importés en JS + fichiers autonomes du dossier styles)
@@ -100,13 +108,18 @@ async function createBuildConfig() {
 				sourcemap: true,
 				// En développement, on évite le mangle pour faciliter le débogage.
 				minify: debug ? false : { mangle: true },
+				comments: false,
 			},
 			transform: {
 				target: ECMA_VERSION,
 			},
-
 			// On a déjà minifié les CSS dans le bundle IIFE, donc on ne le fait pas dans le bundle ESM : on rajoute l'option cssAlreadyMinified : true
 			plugins: [
+				svelte({
+					compilerOptions: {
+						customElement: true,
+					},
+				}),
 				createMinifyStylesPlugin({
 					...minifyStylesPluginOptions,
 					cssAlreadyMinified: true,

@@ -167,10 +167,22 @@ const config = {
 	},
 
 	overrides: [
+		// Configuration de base pour tous les fichiers Javascript dans le dossier "app"
 		{
 			files: ["app/**/*.{js,mjs}"],
 			rules: appFolderOverridesRules,
 			env: { [ECMA_VERSION]: true, browser: true },
+		},
+		// Override pour les fichiers Svelte qui définissent des composants web
+		{
+			files: ["app/**/*.svelte"],
+			rules: {
+				"import/unambiguous": "off",
+				"unicorn/filename-case": ["error", { case: "pascalCase" }],
+				"eslint/no-undef": "off",
+				"eslint/no-unused-vars": "off",
+				"eslint/prefer-const": "off",
+			},
 		},
 		// Override pour les tests :
 		// - les fichiers tests e2e sont en snake_case (on rajoute un override ensuite pour les fichiers de tests unitaires qui sont en kebab-case)
