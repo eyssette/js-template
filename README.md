@@ -5,6 +5,7 @@ JS Template est un environnement de développement JavaScript pré-configuré et
 - Éditeur de code qui vérifie la qualité du code, le formate automatiquement et facilite le débogage,
 - Tâches automatisées pour compiler, tester, pousser, déployer et vérifier l’application.
 - Pré-configuration pour l'utilisation d'agents IA.
+- Intégration possible de composants Svelte pour gérer l'interface utilisateur de manière plus efficace et réactive.
 
 ## Ce que ce template apporte
 
@@ -67,6 +68,16 @@ Les SKILLS disponibles sont les suivantes :
 - `release-draft` : générer un brouillon de release pour le projet
 - `roadmap` : générer un plan d'évolution du projet
 
+
+### Intégration possible de composants Svelte
+
+[Svelte](https://svelte.dev/) est un framework JavaScript moderne qui permet de créer des interfaces utilisateur réactives et très performantes, avec une syntaxe simple et intuitive.
+
+Il est possible d'intégrer des composants Svelte dans ce projet : ils sont automatiquement compilés sous la forme de composants Web (Web Components), qui peuvent être utilisés dans le code JavaScript ou HTML de l'application.
+
+Pour une première explication, voir les fichiers `app/js/components/DemoSvelte.svelte` et `app/js/main.mjs`, qui montrent un exemple simple d'utilisation d'un composant Svelte dans l'application.
+
+Pour apprendre à utiliser Svelte de manière plus approfondie, vous pouvez consulter la [documentation de Svelte](https://sveltefr.dev/tutorial/svelte/welcome-to-svelte)
 
 ## Démarrage rapide
 
