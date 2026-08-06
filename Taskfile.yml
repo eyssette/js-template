@@ -294,6 +294,8 @@ tasks:
     sources:
       - "{{.DIST_FOLDER}}/script.min.js"
       - Taskfile.yml
+    deps:
+      - task: build
     cmds:
       - npx es-check {{.ECMA_VERSION}} "{{.DIST_FOLDER}}/script.min.js"
 
