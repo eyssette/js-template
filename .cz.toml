@@ -8,6 +8,8 @@ changelog_incremental = true
 version_files = ["VERSION", "package.json:version"]
 pre_bump_hooks = "npx task build"
 use_shortcuts = true
+template = "scripts/bump/CHANGELOG.md.j2"
+extras = { "commit_url" = "https://forge.apps.education.fr/eyssette/js-template/-/commit/" }
 [tool.commitizen.customize]
 message_template = "{{change_type}}{% if scope %}({{scope}}){% endif %}{% if breaking %}!{% endif %}: {{message}}"
 commit_parser = '^((?P<change_type>feat|fix|refactor|perf|style|test|ci|build|doc|docs|chore|BREAKING CHANGE)(?:\((?P<scope>[^()\r\n]*)\)|\()?(?P<breaking>!)?|\w+!):\s(?P<message>.*)?'
