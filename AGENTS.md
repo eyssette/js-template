@@ -48,6 +48,7 @@ Always use `npx task <name>` (do not assume `task` is installed globally).
 - Check ECMAScript compatibility of source: `npx task ecma:source`
 - Check ECMAScript compatibility of build output: `npx task ecma:dist`
 - Unit test coverage report: `npx task coverage`
+- Review a file : `npx task review:file -- <file_path>`
 
 ⚠️ If `task <name>` fails with "command not found" or similar, check `Taskfile.yml` for the exact task name before assuming a different command — do not invent substitute commands.
 
