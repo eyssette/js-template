@@ -47,11 +47,15 @@
 		"ecma",
 		"eyssette",
 		"firefox",
+		"firstname",
+		"github",
 		"gitlab",
 		"Gitlab",
 		"inlang",
+		"inplace",
 		"jpegoptim",
 		"lightningcss",
+		"linux",
 		"megalinter",
 		"Modulariser",
 		"oxfmt",
@@ -65,7 +69,8 @@
 		"rolldown",
 		"semgrep",
 		"Taskfile",
-		"trivy"
+		"trivy",
+		"versionnement"
 	],
 	"cSpell.ignorePaths": [
 		"package-lock.json",
