@@ -103,13 +103,21 @@ Je vous recommande donc d'installer [Volta](https://www.voltajs.com/) sur votre 
 
 </details>
 
-### 2) Installer les dépendances
+### 2) Initialiser le projet
+
+Il faut d'abord récupérer le template sur votre machine, soit avec `git clone` soit en le téléchargeant sous forme d'archive ZIP.
+
+Il faut ensuite dès le début lancer la commande d'initialisation pour configurer le projet avec vos informations personnelles et les paramètres du projet.
 
 À la racine du projet, lancer dans un terminal la commande suivante :
 
 ```bash
-npm install
+bash init.sh
 ```
+
+Le script d'initialisation va vous poser plusieurs questions pour configurer le projet, puis il va installer les dépendances pour que vous puissiez commencer à coder.
+
+Attention : il faut lancer la tâche d'initialisation avant de commencer à coder, sinon le projet ne sera pas correctement configuré ! Et ensuite, il ne faut plus l'utiliser.
 
 ### 3) Développer et tester
 
