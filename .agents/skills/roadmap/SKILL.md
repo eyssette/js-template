@@ -21,10 +21,11 @@ Objectif : proposer à l'utilisateur une roadmap courte, utile et priorisée, av
 
 Pour construire la roadmap, s'appuyer d'abord sur :
 
-- `README.md` pour comprendre la promesse, les capacités actuelles, les usages visés et les angles déjà documentés
+- `.plan/VISION.md` si le projet en a déjà un, pour comprendre la vision globale et les objectifs à long terme
+- `README.md` pour comprendre le descriptif du projet tel qu'il est présenté aux utilisateurs et aux développeurs
 - `CHANGELOG.md` pour identifier les évolutions récentes, les axes déjà travaillés et les zones encore peu développées
 
-Ne pas proposer une roadmap à partir d'hypothèses vagues si ces deux sources n'ont pas été lues.
+Ne pas proposer une roadmap à partir d'hypothèses vagues si ces sources n'ont pas été lues.
 
 ## Entrée
 
@@ -37,13 +38,14 @@ Si aucun angle n'est donné, produire une roadmap générale, équilibrée entre
 
 ## Procédure obligatoire
 
-1. Lire le `README.md` pour comprendre ce que le projet promet déjà.
-2. Lire le `CHANGELOG.md` pour repérer les thèmes déjà traités récemment.
-3. Identifier les opportunités réalistes qui complètent l'existant, au lieu de répéter ce qui est déjà bien couvert.
-4. Sélectionner un nombre limité de propositions.
-5. Classer ces propositions par priorité ou par horizon, en restant simple.
-6. Expliquer chaque proposition avec un angle concret : intérêt, impact attendu, et raison de la priorité.
-7. Finir par une ou deux questions ciblées si un arbitrage produit ou technique serait utile.
+1. Lire le fichier `.plan/VISION.md` si disponible, pour comprendre la vision et les objectifs du projet.
+2. Lire le `README.md` pour comprendre le projet tel qu'il est présenté aux utilisateurs et aux développeurs, et identifier les axes déjà couverts.
+3. Lire le `CHANGELOG.md` pour repérer les thèmes déjà traités récemment.
+4. Identifier les opportunités réalistes qui complètent l'existant, au lieu de répéter ce qui est déjà bien couvert.
+5. Sélectionner un nombre limité de propositions.
+6. Classer ces propositions par priorité ou par horizon, en restant simple.
+7. Expliquer chaque proposition avec un angle concret : intérêt, impact attendu, et raison de la priorité.
+8. Finir par une ou deux questions ciblées si un arbitrage produit ou technique serait utile.
 
 ## Limite de volume
 
