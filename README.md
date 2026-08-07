@@ -87,6 +87,7 @@ Pour apprendre à utiliser Svelte de manière plus approfondie, vous pouvez cons
 
 Il faut avoir installé sur votre machine :
 
+- [Git](https://git-scm.com/)
 - [VS Code](https://code.visualstudio.com/) ou [VSCodium](https://vscodium.com/)
 - [Node.js](https://nodejs.org/) (version >=22)
 - [npm](https://www.npmjs.com/) (version 8 au minimum, version >=10 recommandée)
