@@ -1,3 +1,16 @@
+## 6.2.0 (2026-08-07)
+
+### Feat
+
+- **ai**: ajout d'une SKILL "code"
+- **ai**: ajout d'une SKILL "think-and-plan"
+
+### Fix
+
+- **ai**: référence à VISION.md dans la SKILL "roadmap"
+- **ai**: ajout de la tâche de review dans la liste des tâches disponibles
+- **ai**: amélioration des sections "description" + "argument-hint" pour les SKILLS
+
 ## 6.1.0 (2026-08-06)
 
 ### Feat
