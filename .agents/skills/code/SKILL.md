@@ -21,6 +21,7 @@ agent: "agent"
 
 - Code source JS/CSS : `app/js` et `app/css`.
 - Point d'entrée : `app/js/main.mjs` (importe les autres modules JS et le CSS principal).
+- Architecture modulaire et structure claire, de préférence par dossier/fonctionnalité, ou MVC si cela est pertinent (à faire valider par l'utilisateur si le projet n'a pas encore de structure claire).
 - Composants Svelte : de préférence `app/js/components/*.svelte`, mais demander à l'utilisateur si un autre emplacement est souhaité.
 - Traductions : `i18n/messages`.
 - Ne jamais éditer `dist` à la main (généré par le build).
