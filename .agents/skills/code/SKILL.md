@@ -42,13 +42,29 @@ agent: "agent"
 - **Complexité cognitive faible** : préférer les retours anticipés (early return) aux imbrications profondes ; éviter les conditions complexes non nommées (extraire dans une variable/fonction au nom explicite).
 - **Nommage** : anglais pour le code (fonctions, variables), français pour les commentaires et la documentation (sauf demande contraire de l'utilisateur).
 
-## 3. Internationalisation (ParaGlideJS)
+## 3. Bonnes pratiques générales
+
+- Avant d'écrire du nouveau code, rechercher si l'existant peut être réutilisé et respecter les conventions déjà présentes dans le projet.
+- Viser la performance, la lisibilité, la maintenabilité et la testabilité du code.
+- Documenter de manière simple les fonctions (pas de JSdoc complexe), en français sauf demande contraire de l'utilisateur, et sans excès ou précisions inutiles. Pas de commentaire inline, après une ligne de code. Commentaire uniquement pour décrire la fonction avant son code, ou pour expliquer un point technique complexe ou la structure de la fonction (avant chaque étape importante de traitement).
+- Ne pas ajouter de dépendance, d'abstraction ou de complexité sans nécessité démontrée ; privilégier les solutions natives et simples.
+- Ne jamais utiliser des CDN, des scripts externes ou des librairies non gérées par le projet, sauf demande explicite de l'utilisateur.
+- Ne jamais utiliser des polices ou des ressources externes non gérées par le projet, sauf demande explicite de l'utilisateur.
+- Ne jamais refactoriser du code hors périmètre de la tâche : signaler les améliorations possibles sans les appliquer.
+- Éviter les effets de bord inutiles : limiter les variables globales, rendre les dépendances explicites et préférer les fonctions pures quand cela reste simple.
+- Gérer explicitement les erreurs : ne jamais masquer une erreur avec un `catch` vide et ne pas ignorer silencieusement un cas invalide.
+- Ne jamais faire confiance aux données externes : valider les entrées publiques et éviter les injections (`innerHTML`, `eval`, etc.).
+- Éviter les valeurs magiques.
+- Ne pas exporter une fonction ou créer une API publique si elle n'est pas nécessaire.
+- DOM : Limiter les accès répétés et les mises à jours successives du DOM, éviter les sélections identiques plusieurs fois dans une même fonction.
+
+## 4. Internationalisation (ParaGlideJS)
 
 - Ne jamais coder en dur un texte visible par l'utilisateur.
 - Utiliser les messages ParaGlideJS existants dans `i18n/messages` ; en ajouter/mettre à jour si un nouveau texte est nécessaire, dans toutes les langues déjà présentes.
 - Cas particulier `unplugin-raw` (textes longs importés bruts dans le JS) : dans ce cas précis (pour de la documentation, ou un tutoriel, à l'intérieur de l'application par exemple), l'i18n est gérée manuellement — le signaler explicitement à l'utilisateur si ce mécanisme est utilisé.
 
-## 4. Composants Svelte (optionnel)
+## 5. Composants Svelte (optionnel)
 
 À utiliser uniquement quand une réactivité fine ou une gestion d'état non triviale le justifie — pas par défaut pour du HTML/CSS/JS simple (KISS).
 
@@ -58,7 +74,7 @@ agent: "agent"
 - Le composant reste responsable de sa vue/réactivité ; la logique métier réutilisable hors-UI va dans un module JS classique (séparation des responsabilités).
 - Charger le composant via import dynamique s'il n'est pas utilisé systématiquement (cf. §2).
 
-## 5. Tests
+## 6. Tests
 
 - Avertir l'utilisateur avant d'ajouter une fonction que des tests seront nécessaires.
 - Ne jamais modifier un test existant juste pour le faire passer : un test doit refléter le comportement réel attendu.
@@ -67,14 +83,14 @@ agent: "agent"
 - Comportement utilisateur nouveau/modifié → scénario Gherkin dans `features` + step definitions dans `tests/e2e/step_definitions` (CodeceptJS), dans le style des scénarios existants.
 - Itération rapide sur un seul scénario e2e : le tagger `@CURRENT` et lancer `npx task tests:e2e:current`.
 
-## 6. Lint
+## 7. Lint
 
 - Ne jamais désactiver une règle de lint (inline, par fichier, ou globale dans `oxlint.config.mjs`).
   - Règle en erreur → corriger le code.
   - Règle en avertissement → essayer d'abord de corriger le code ; si ce n'est pas raisonnable, demander à l'utilisateur s'il veut la désactiver, en expliquant pourquoi.
 - `npx task lint` affiche les erreurs bloquantes. `npx task lint:all` affiche en plus les avertissements non bloquants.
 
-## 7. Séquence de fin de tâche (obligatoire)
+## 8. Séquence de fin de tâche (obligatoire)
 
 Avant de considérer une tâche de code terminée, exécuter dans cet ordre :
 
@@ -85,9 +101,9 @@ Avant de considérer une tâche de code terminée, exécuter dans cet ordre :
 
 Ne pas exécuter `npx task push`, `npx task bump`, `git push`, ni `git commit --no-verify` sans demande explicite de l'utilisateur dans le tour de conversation en cours, avec un avertissement clair sur l'effet de la commande (push multi-dépôts, montée de version, contournement des hooks).
 
-## 8. Commit (si demandé)
+## 9. Commit (seulement si demandé)
 
-- Ne pas committer sans validation explicite de l'utilisateur.
+- Ne pas committer sans demande explicite de l'utilisateur. Par défaut, l'utilisateur gère lui-même les commits et le push.
 - Conventional Commits, scope obligatoire pour `feat`/`fix`.
 - Message de commit en français, concis, orienté utilisateur.
 - Ne pas contourner les hooks Husky ; si un hook échoue, corriger le point signalé plutôt que de forcer.
