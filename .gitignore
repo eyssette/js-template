@@ -10,3 +10,4 @@ megalinter-reports/
 .release/
 .roadmap/
 .plan/
+.init/
