@@ -60,9 +60,9 @@ important() {
 confirm() {
 	# Demande une confirmation à l'utilisateur (o/N)
 	local prompt="${1:-Voulez-vous continuer ?}"
-	local reponse
-	read -r -p "$prompt [o/N] " reponse
-	case "$reponse" in
+	local response
+	read -r -p "$prompt [o/N] " response
+	case "$response" in
 	[oOyY]*) return 0 ;;
 	*) return 1 ;;
 	esac
@@ -70,14 +70,14 @@ confirm() {
 
 step() {
 	# Affiche une étape, explique l'action, et demande confirmation sauf si le troisième argument est "skip-confirm"
-	local titre="$1" explication="$2" skipconfirm="${3:-ask-user}"
+	local titre="$1" explication="$2" skipConfirm="${3:-ask-user}"
 	echo ""
 	important "------------------------------------------------------------"
 	important "▶ $titre"
 	echo "$explication"
 	important "------------------------------------------------------------"
 	echo ""
-	if [ "$skipconfirm" == "skip-confirm" ]; then
+	if [ "$skipConfirm" == "skip-confirm" ]; then
 		return 0
 	fi
 	if ! confirm "Confirmer cette étape ?"; then
@@ -291,7 +291,8 @@ fi
 if step "Configuration de l'URL du dépôt principal" "L'URL du dépôt principal de votre application doit remplacer l'URL du template"; then
 
 	if [ -f "${PROJECT_DIR}/.cz.toml" ]; then
-		sed_inplace -E "s#^([[:space:]]*commit_url[[:space:]]*=[[:space:]]*\"[^\"]*)${TEMPLATE_URL}([^\"]*\".*)#\1${REPO_URL}\2#" "${PROJECT_DIR}/.cz.toml"
+		NEW_COMMIT_URL="${REPO_URL}/-/commit/"
+		sed_inplace -E "s#([^}]*commit_url[^=]*=[[:space:]]*\")[^\"]*(\"[^}]*)#\1${NEW_COMMIT_URL}\2#" "${PROJECT_DIR}/.cz.toml"
 		rm -f "${PROJECT_DIR}/.cz.toml.bak"
 		success ".cz.toml (extras.commit_url) mis à jour."
 	fi
@@ -304,6 +305,7 @@ if step "Configuration de l'URL du dépôt principal" "L'URL du dépôt principa
 fi
 
 if [ -f "${PROJECT_DIR}/Taskfile.yml" ]; then
+	echo ""
 	if confirm "Souhaitez-vous utiliser un autre dépôt (remote) en plus du dépôt principal ?"; then
 		read -r -p "Nom de ce dépôt (remote) : " EXTRA_REMOTE
 		sed_inplace "s/forge, github/origin, ${EXTRA_REMOTE}/g" "${PROJECT_DIR}/Taskfile.yml"
@@ -332,26 +334,29 @@ fi
 
 # GIT :
 # - Vérification que git est installée : sinon proposer l'installation de git et bloquer le script tant que git n'est pas installé
-if ! command -v git >/dev/null 2>&1; then
-	warn "git n'est pas installé sur votre machine."
-	case "$OS" in
-	linux)
-		info "Procédure d'installation : https://git-scm.com/install/linux"
-		;;
-	macos)
-		info "Procédure d'installation : https://git-scm.com/install/mac"
-		;;
-	windows)
-		info "Procédure d'installation : https://git-scm.com/install/windows"
-		;;
-	*)
-		info "Consultez https://git-scm.com/install/ pour installer git."
-		;;
-	esac
-	error "Le script ne peut pas continuer sans git. Installez git puis relancez le script."
-	exit 1
+if step "Vérification de l'installation de git" "Le script va vérifier que git est installé sur votre machine."; then
+	# Vérification que git est installé
+	if ! command -v git >/dev/null 2>&1; then
+		warn "git n'est pas installé sur votre machine."
+		case "$OS" in
+		linux)
+			info "Procédure d'installation : https://git-scm.com/install/linux"
+			;;
+		macos)
+			info "Procédure d'installation : https://git-scm.com/install/mac"
+			;;
+		windows)
+			info "Procédure d'installation : https://git-scm.com/install/windows"
+			;;
+		*)
+			info "Consultez https://git-scm.com/install/ pour installer git."
+			;;
+		esac
+		error "Le script ne peut pas continuer sans git. Installez git puis relancez le script."
+		exit 1
+	fi
+	success "git est installé ($(git --version))."
 fi
-success "git est installé ($(git --version))."
 
 # - initialisation d'un nouveau dépôt git avec une branche principale nommée "main"
 if step "Initialisation du dépôt git" "Un nouveau dépôt git est créé avec pour branche principale \"main\"."; then
@@ -359,7 +364,7 @@ if step "Initialisation du dépôt git" "Un nouveau dépôt git est créé avec 
 	success "Dépôt git initialisé (branche main)."
 
 	# - création d'un commit initial avec le message "feat(init): initialisation du projet à partir du template {{template_name}}"
-	if step "Création du commit initial" "Le premier commit permet d'initialiser le projet à partir du template." "skip-confirm"; then
+	if step "Création du commit initial" "Le premier commit permet d'initialiser le projet à partir du template."; then
 		if [ -z "$(git -C "$PROJECT_DIR" config --get user.name || true)" ]; then
 			read -r -p "Nom git à utiliser pour ce dépôt (user.name) : " GIT_USER_NAME
 			git -C "$PROJECT_DIR" config user.name "$GIT_USER_NAME"
@@ -374,13 +379,13 @@ if step "Initialisation du dépôt git" "Un nouveau dépôt git est créé avec 
 	fi
 
 	# - création d'un tag initial nommé "0.0.0"
-	if step "Création du tag initial" "Le tag 0.0.0 marque le point de départ du versionnement du projet." "skip-confirm"; then
+	if step "Création du tag initial" "Le tag 0.0.0 marque le point de départ du versionnement du projet."; then
 		git -C "$PROJECT_DIR" tag "0.0.0"
 		success "Tag 0.0.0 créé."
 	fi
 
 	# - configuration d'un remote nommé "origin" pointant vers l'URL du dépôt principal
-	if step "Configuration du remote git" "Le remote \"origin\" est configuré pour pointer vers l'URL du dépôt principal." "skip-confirm"; then
+	if step "Configuration du remote git" "Le remote \"origin\" est configuré pour pointer vers l'URL du dépôt principal."; then
 		# On demande à l'utilisateur s'il se connecte en HTTPS (par défaut) ou en SSH à son dépôt en ligne, pour savoir quelle URL utiliser pour le remote "origin"
 		if confirm "Avez-vous configuré une connexion SSH avec votre dépôt en ligne ?"; then
 			REPO_URL_SSH="$(echo "$REPO_URL" | sed -E 's#https://([^/]+)/([^/]+)/([^/]+)#git@\1:\2/\3.git#')"
@@ -396,12 +401,15 @@ if step "Initialisation du dépôt git" "Un nouveau dépôt git est créé avec 
 fi
 
 # Vérifier que Node (version >22) et npm sont installés : sinon proposer l'installation et bloquer le script tant que Node et npm ne sont pas installés
-if ! command -v node >/dev/null 2>&1 || ! command -v npm >/dev/null 2>&1; then
-	warn "Node.js (>22) et/ou npm ne sont pas installés."
-	info "Procédure d'installation de Node.js (npm est inclus) : https://nodejs.org/fr/download"
-	info "Vous pouvez aussi utiliser Volta pour gérer les versions de Node.js et npm : https://volta.sh/"
-	error "Le script ne peut pas continuer sans Node.js (>22) et npm. Installez-les puis relancez le script."
-	exit 1
+if step "Vérification de l'installation de Node.js et npm" "Le script va vérifier que Node.js (>22) et npm sont installés sur votre machine."; then
+	# Vérification que Node.js et npm sont installés
+	if ! command -v node >/dev/null 2>&1 || ! command -v npm >/dev/null 2>&1; then
+		warn "Node.js (>22) et/ou npm ne sont pas installés."
+		info "Procédure d'installation de Node.js (npm est inclus) : https://nodejs.org/fr/download"
+		info "Vous pouvez aussi utiliser Volta pour gérer les versions de Node.js et npm : https://volta.sh/"
+		error "Le script ne peut pas continuer sans Node.js (>22) et npm. Installez-les puis relancez le script."
+		exit 1
+	fi
 fi
 
 NODE_MAJOR="$(node -v | sed -E 's/^v([0-9]+).*/\1/')"
@@ -443,3 +451,4 @@ info "Pour aller plus loin, consultez la documentation et le guide d'onboarding 
 echo ""
 success "Initialisation du projet terminée !"
 log "Fin de l'initialisation du projet."
+echo ""
