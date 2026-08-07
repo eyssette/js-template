@@ -656,3 +656,9 @@ tasks:
     silent: true
     cmds:
       - bash scripts/review/review-file.sh {{.CLI_ARGS}} {{.ECMA_VERSION}}
+
+  get-commit-hash:
+    desc: "Récupère le hash du commit correspondant à un message"
+    silent: true
+    cmds:
+      - python3 scripts/bump/get_commit_hash.py "{{.CLI_ARGS}}"
