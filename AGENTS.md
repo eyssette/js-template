@@ -79,6 +79,7 @@ For example, the skill for fixing a bug is in `.agents/skills/fix-this/SKILL.md`
 
 SKILLS you should know about:
 - `think-and-plan` : help the user clarify their vision and plan for a new application or feature
+- `code` : write code following the project's conventions
 - `fix-this` : fix a bug
 - `review-this` : review code
 - `refactor-this` : refactor code

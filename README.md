@@ -59,6 +59,7 @@ Par exemple : `fix-this` pour corriger un bug, ou `roadmap` pour générer un pl
 
 Les SKILLS disponibles sont les suivantes :
 - `think-and-plan` : aider à la réflexion et à la planification d'une nouvelle application ou d'une nouvelle fonctionnalité
+- `code` : écrire du code en respectant les conventions du projet
 - `fix-this` : corriger un bug dans le code
 - `review-this` : générer une revue de code
 - `refactor-this` : refactoriser le code pour l'améliorer
