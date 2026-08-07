@@ -77,6 +77,7 @@ Structure: `.agents/skills/<skill>/SKILL.md` where `<skill>` is the name of the 
 For example, the skill for fixing a bug is in `.agents/skills/fix-this/SKILL.md` and is used by the `/fix-this` command.
 
 SKILLS you should know about:
+- `think-and-plan` : help the user clarify their vision and plan for a new application or feature
 - `fix-this` : fix a bug
 - `review-this` : review code
 - `refactor-this` : refactor code

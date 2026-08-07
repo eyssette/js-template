@@ -58,6 +58,7 @@ Dans la plupart des outils d'agents IA, il est possible d'utiliser des commandes
 Par exemple : `fix-this` pour corriger un bug, ou `roadmap` pour générer un plan d'évolution du projet.
 
 Les SKILLS disponibles sont les suivantes :
+- `think-and-plan` : aider à la réflexion et à la planification d'une nouvelle application ou d'une nouvelle fonctionnalité
 - `fix-this` : corriger un bug dans le code
 - `review-this` : générer une revue de code
 - `refactor-this` : refactoriser le code pour l'améliorer
