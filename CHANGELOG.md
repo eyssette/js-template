@@ -1,3 +1,11 @@
+## 6.2.1 (2026-08-07)
+
+### Fix
+
+- **bump**: ajout automatique dans le CHANGELOG du hash et du lien vers le commit correspondant à chaque modification [(67a8483)](https://forge.apps.education.fr/eyssette/js-template/-/commit/67a8483fb7093d07a583b724c1f4bb157c19956f)
+- **ai**: précision sur les bonnes pratiques générales pour la SKILL "code" [(c73c5a4)](https://forge.apps.education.fr/eyssette/js-template/-/commit/c73c5a42c33fce3f697bf6e79148a3ab2d41b4c6)
+- **ai**: ajout d'un point sur l'architecture générale du code dans la SKILL "code" [(a7a1c09)](https://forge.apps.education.fr/eyssette/js-template/-/commit/a7a1c0980e3432e4e381e4dd33a80ada9b88d617)
+
 ## 6.2.0 (2026-08-07)
 
 ### Feat
