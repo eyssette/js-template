@@ -1,3 +1,20 @@
+## 6.3.0 (2026-08-08)
+
+### Feat
+
+- **init**: script d'initialisation d'un projet à partir du template [(5596393)](https://forge.apps.education.fr/eyssette/js-template/-/commit/5596393c4f1c6be76478454c36a51df8460cad1f)
+
+### Chore
+
+- **task**: variable MAIN_REPO_URL et déplacement de la variable APP_NAME dans le fichier de tâche pour simplifier la gestion de l'initialisation d'un nouveau projet à partir du template [(5d75202)](https://forge.apps.education.fr/eyssette/js-template/-/commit/5d752028c9d162b935f4cfbf61dce5ac13718c33)
+- description du script d'initialisation d'un projet à partir du template [(8ad58c5)](https://forge.apps.education.fr/eyssette/js-template/-/commit/8ad58c59fba11d698ab7d1657d8b6601b798890d)
+- **changelog**: mise à jour du CHANGELOG avec les liens vers chaque commit [(0582378)](https://forge.apps.education.fr/eyssette/js-template/-/commit/0582378140b190d6799a244d08917785e7a4e2a6)
+- **task**: ajout d'une tâche pour obtenir le hash d'un commit à partir du message du commit [(b02d812)](https://forge.apps.education.fr/eyssette/js-template/-/commit/b02d8128634a86e5df6a393f22f7278d924bb01b)
+
+### Docs
+
+- précision d'un prérequis (git) [(a35f4f0)](https://forge.apps.education.fr/eyssette/js-template/-/commit/a35f4f04a92a797aca067b12ea5890f3db037422)
+
 ## 6.2.1 (2026-08-07)
 
 ### Fix
