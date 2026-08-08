@@ -1,5 +1,5 @@
 ---
-description: "Rédiger de la documentation technique ou utilisateur"
+description: "Rédiger de la documentation technique ou utilisateur. À utiliser pour commencer une fonction ou un script, pour expliquer comment un module fonctionne, pour créer un tutoriel, une notice d'utilisation, ou compléter le README."
 name: "documentation"
 argument-hint: "<sujet> <public>"
 agent: "agent"

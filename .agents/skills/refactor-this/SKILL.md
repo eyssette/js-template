@@ -1,5 +1,5 @@
 ---
-description: "Refactoriser une fonction JavaScript pour améliorer sa lisibilité, sa maintenabilité et sa testabilité"
+description: "Refactoriser une fonction JavaScript pour améliorer sa lisibilité, sa maintenabilité et sa testabilité. À utiliser pour réorganiser un code sans en changer le comportement. Par exemple : « nettoie ce code », « rends cette fonction plus claire », « simplifie ce script » ou « réécris ce bloc pour qu'il soit plus propre », « réorganise en plusieurs fonctions », « ce code est trop complexe, trop long »."
 name: "refactor-this"
 argument-hint: "<fonction à refactoriser> [type de problème à corriger]"
 agent: "agent"

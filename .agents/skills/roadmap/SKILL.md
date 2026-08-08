@@ -1,5 +1,5 @@
 ---
-description: "Proposer une roadmap courte et priorisée, fondée sur le README.md et le CHANGELOG.md, avec des idées de fonctionnalités et d'améliorations à discuter avec l'utilisateur."
+description: "Proposer une roadmap courte et priorisée, fondée sur le README.md et le CHANGELOG.md, avec des idées de fonctionnalités et d'améliorations à discuter avec l'utilisateur. À utiliser pour planifier les prochaines étapes de développement d'un projet. Par exemple : « quelles sont les prochaines étapes ? », « suggère des améliorations pour ce projet », « prépare un plan d'action » ou « propose des idées de nouvelles fonctionnalités »."
 name: "roadmap"
 argument-hint: "[angle ou horizon souhaité]"
 agent: "agent"

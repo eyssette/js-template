@@ -1,5 +1,5 @@
 ---
-description: "Créer un test unitaire Jasmine pour une fonction JavaScript sélectionnée"
+description: "Créer un test unitaire Jasmine pour une fonction JavaScript sélectionnée. À utiliser pour assurer la fiabilité et la validation d'un morceau de code. Par exemple : « écris un test pour cette fonction », « génère un spec Jasmine pour ce code » ou « crée une suite de tests unitaires pour ce script »"
 name: "unit-test"
 argument-hint: "<fonction à tester>"
 agent: "agent"

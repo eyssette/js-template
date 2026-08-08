@@ -1,5 +1,5 @@
 ---
-description: "Optimiser une fonction JavaScript"
+description: "Optimiser une fonction JavaScript. À utiliser pour améliorer la performance, la rapidité ou la consommation de ressources d'un code, pour que l'application s'exécute plus vite et demande moins de mémoire, tout en conservant le même comportement observable."
 name: "optimize-this"
 argument-hint: "<fonction à optimiser> [symptôme observé ou gains attendus]"
 agent: "agent"

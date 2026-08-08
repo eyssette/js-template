@@ -1,6 +1,6 @@
 ---
 name: "think-and-plan"
-description: "Accompagner la réflexion et la planification d'une nouvelle application ou d'une nouvelle fonctionnalité, en proposant un plan d'action clair et priorisé."
+description: "Accompagner la réflexion et la planification d'une nouvelle application ou d'une nouvelle fonctionnalité, en proposant un plan d'action clair et priorisé. À utiliser pour structurer un projet ou définir une stratégie de développement. Par exemple : « je veux créer une application », « je veux ajouter une fonctionnalité »"
 argument-hint: "<horizon souhaité>"
 agent: "agent"
 ---

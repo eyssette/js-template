@@ -1,6 +1,6 @@
 ---
 name: "code"
-description: "Écrire du code pour implémenter une fonctionnalité en respectant les bonnes pratiques et les conventions du projet."
+description: "Écrire du code pour implémenter une fonctionnalité en respectant les bonnes pratiques et les conventions du projet. À utiliser lorsque l'utilisateur demande de créer une application, une fonction, un module, un composant"
 argument-hint: "<plan d'action ou fonctionnalité à implémenter>"
 agent: "agent"
 ---

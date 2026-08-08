@@ -1,5 +1,5 @@
 ---
-description: "Réaliser une revue de code du code sélectionné, en respectant AGENTS.md et les bonnes pratiques"
+description: "Réaliser une revue de code du code sélectionné, en respectant AGENTS.md et les bonnes pratiques. À utiliser pour analyser la qualité, la sécurité ou la conformité d'un bloc de code. Par exemple : « critique ce code », « vérifie si mon script est propre », « analyse ce commit », « analyse cette proposition de modification », « examine cette branche » ou « donne-moi ton avis sur cette implémentation »."
 name: "review-this"
 argument-hint: "<code à analyser>>"
 agent: "agent"

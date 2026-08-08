@@ -1,5 +1,5 @@
 ---
-description: "Corriger un bug JavaScript"
+description: "Corriger un bug JavaScript. À utiliser pour identifier, résoudre des erreurs ou des comportements inattendus dans du code JS, réparer des fonctions ou des modules, et s'assurer que le code fonctionne comme prévu."
 name: "fix-this"
 argument-hint: "<description précise du bug>"
 agent: "agent"

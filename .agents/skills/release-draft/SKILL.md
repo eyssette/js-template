@@ -1,5 +1,5 @@
 ---
-description: "Créer un brouillon de message d'annonce de release clair à partir de l'ancien tag de la dernière release et du nouveau tag de la release à créer"
+description: "Créer un brouillon de message d'annonce de release clair à partir de l'ancien tag de la dernière release et du nouveau tag de la release à créer. À utiliser pour rédiger un résumé de mise à jour entre deux versions, à des fins de communication des dernières nouveautés de l'application. Par exemple : « prépare l'annonce de la version 2.0 »"
 name: "release-draft"
 argument-hint: "<OLD_TAG> <NEW_TAG>"
 agent: "agent"
