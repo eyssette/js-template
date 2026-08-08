@@ -7,19 +7,19 @@ agent: "agent"
 
 # Think and Plan
 
-Objectif : transformer une idée encore floue en deux livrables clairs, stockés dans `.plan/` à la racine du projet :
+Objectif : transformer une idée encore floue en un livrable clair, stocké dans `.plan/` à la racine du projet :
 
-1. **`VISION.md`** — la vision produit stable (objectif, public cible, périmètre)
-2. **`plan-YYYY-MM-DD-<timestamp_unix>.md`** — le plan d'action du moment, avec des étapes en cases à cocher
+1. Si le fichier n'existe pas, création de **`.plan/VISION.md`** — la vision produit stable (objectif, public cible, périmètre)
+2. Création de **`.plan/plan-YYYY-MM-DD-<timestamp_unix>.md`** — le plan d'action du moment, avec des étapes en cases à cocher
 
 Le cœur de cette skill n'est pas de remplir un template le plus vite possible, mais de **penser avec l'utilisateur** : poser des questions, proposer des options, challenger les choix flous ou contradictoires, et ne rien figer sans validation. Un plan produit sans avoir vraiment compris le besoin est pire qu'inutile : il donne une fausse impression de clarté.
 
 ## Vue d'ensemble du déroulé
 
-1. Vérifier si `.plan/VISION.md` existe déjà → si oui, s'en servir de base plutôt que repartir de zéro
-2. Vérifier si `AGENTS.md` existe → en extraire les contraintes techniques
+1. IMPORTANT : Vérifier si `.plan/VISION.md` existe déjà → si oui, s'en servir de base plutôt que repartir de zéro
+2. Extraire les contraintes techniques du fichier `AGENTS.md`
 3. Construire ou consolider la vision avec l'utilisateur, par la discussion : il faut challenger l'utilisateur et faire un brainstorming pour clarifier l'objectif, le public cible, les fonctionnalités principales et ce qui est hors périmètre
-4. Écrire `.plan/VISION.md`
+4. Écrire `.plan/VISION.md` s'il n'existe pas, ou le mettre à jour si nécessaire (en discutant avec l'utilisateur, et en faisant valider les changements par l'utilisateur)
 5. Réfléchir à un plan d'action concret, avec l'utilisateur, en découpant le projet en grandes étapes et sous-tâches actionnables
 6. Écrire `.plan/plan-YYYY-MM-DD-<timestamp_unix>.md`
 
@@ -27,7 +27,7 @@ Ces étapes sont décrites dans l'ordre logique, mais rien n'empêche d'aller-re
 
 ## Étape 1 — Reprendre l'existant
 
-Avant de poser la moindre question, regarder si `.plan/VISION.md` existe déjà dans le projet.
+IMPORTANT : Avant de poser la moindre question, regarder si `.plan/VISION.md` existe déjà dans le projet.
 
 - **S'il existe** : le lire et s'en servir de socle. Ne pas repartir de zéro. Présenter à l'utilisateur un résumé rapide de ce qui est déjà défini, et demander si ça reste valable ou si quelque chose a changé, plutôt que de reposer toutes les questions depuis le début. L'objectif est de faire avancer la réflexion, pas de la répéter.
 - **S'il n'existe pas** : passer à l'étape 2 puis 3.
@@ -38,7 +38,7 @@ Regarder aussi s'il existe déjà des fichiers `plan-*.md` dans `.plan/` : s'il 
 
 Chercher un fichier `AGENTS.md` à la racine du projet (ou à l'endroit indiqué par l'utilisateur) et le lire s'il existe.
 
-Ces contraintes techniques (stack, conventions, limites) ne vont pas dans `VISION.md`, qui reste un document produit. Elles servent surtout à l'étape 5, pour que le plan d'action proposé soit réaliste et cohérent avec l'existant — inutile de proposer une étape qui contredit une contrainte connue.
+Ces contraintes techniques (stack, conventions, limites) ne vont pas dans `.plan/VISION.md`, qui reste un document produit. Elles servent surtout à l'étape 5, pour que le plan d'action proposé soit réaliste et cohérent avec l'existant — inutile de proposer une étape qui contredit une contrainte connue.
 
 ## Étape 3 — Construire la vision avec l'utilisateur
 
@@ -55,11 +55,13 @@ Ne pas hésiter à proposer des options concrètes plutôt que de poser des ques
 
 Une fois que la vision semble stable, la reformuler en une version synthétique et demander confirmation explicite avant de l'écrire dans le fichier.
 
-Ne jamais écrire `VISION.md` sans validation de l'utilisateur.
+Ne jamais écrire `.plan/VISION.md` sans validation de l'utilisateur.
 
-## Étape 4 — Écrire VISION.md
+## Étape 4 — Écrire `.plan/VISION.md` s'il n'existe pas, ou le mettre à jour si nécessaire
 
-Créer (ou mettre à jour) `.plan/VISION.md`. Structure indicative — l'adapter si le projet a des besoins particuliers, sans complexifier inutilement :
+Si le fichier n'existe pas, créer `.plan/VISION.md`, ou le mettre à jour si besoin.
+
+Structure indicative — l'adapter si le projet a des besoins particuliers, sans complexifier inutilement :
 
 ```markdown
 # Vision - [Nom du projet]
@@ -83,7 +85,7 @@ Ce que l'application ne cherche pas à faire (au moins pour l'instant) :
 [Renvoi au fichier AGENTS.md]
 ```
 
-Si `VISION.md` existait déjà et qu'on le met à jour, ne pas écraser silencieusement des sections encore valables : ne modifier que ce qui a changé.
+Si `.plan/VISION.md` existait déjà et qu'on le met à jour, ne pas écraser silencieusement des sections encore valables : ne modifier que ce qui a changé, et toujours après discussion et validation par l'utilisateur.
 
 ## Étape 5 — Réfléchir au plan d'action
 
@@ -108,6 +110,14 @@ Structure indicative :
 ## Résumé
 [1-3 phrases : ce que ce plan vise à accomplir, en lien avec VISION.md]
 
+## L'essentiel à faire
+- [Point d'attention 1 ou fonctionnalité essentielle 1]
+- [Point d'attention 2 ou fonctionnalité essentielle 2]
+
+## Hors périmètre
+- [Point hors périmètre 1]
+- [Point hors périmètre 2]
+
 ## [Grande étape 1]
 - [ ] Sous-tâche concrète
 - [ ] Sous-tâche concrète
@@ -117,7 +127,7 @@ Structure indicative :
 - [ ] Sous-tâche concrète
 ```
 
-Le nombre de grandes étapes et de sous-tâches dépend entièrement du projet — ne pas forcer un nombre fixe. L'important est que chaque case à cocher soit assez concrète pour qu'on sache reconnaître qu'elle est terminée.
+Le nombre de points d'attention, fonctionnalités essentielles, grandes étapes et de sous-tâches dépend entièrement du projet — ne pas forcer un nombre fixe. L'important est que chaque case à cocher soit assez concrète pour qu'on sache reconnaître qu'elle est terminée.
 
 Une fois le fichier écrit, le signaler à l'utilisateur avec son chemin, et rester disponible pour l'ajuster si en le relisant quelque chose cloche.
 
