@@ -50,6 +50,7 @@ const baseRules = {
 		"warn",
 		{ max: 150, skipComments: true, skipBlankLines: true },
 	],
+	"eslint/max-statements": ["warn", { max: 20 }],
 	"oxc/no-rest-spread-properties": "off",
 	"oxc/no-async-await": "off",
 	"oxc/no-barrel-file": ["error", { threshold: 0 }],
@@ -222,7 +223,7 @@ const config = {
 			},
 		},
 		{
-			files: ["app/js/iifeFallback.js"],
+			files: ["app/js/iifeFallback.js", "app/sw.js"],
 			rules: {
 				"import/unambiguous": "off",
 			},
