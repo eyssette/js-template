@@ -1,3 +1,27 @@
+## 7.0.0 (2026-08-15)
+
+### Feat
+
+- **pwa**: ajout d'un manifeste et d'un service worker pour que l'application fonctionne en mode PWA (Progressive Web App) hors ligne [(1afc4ce)](https://forge.apps.education.fr/eyssette/js-template/-/commit/1afc4ce30da1c89163a8a7467bfc699f1061de6d)
+
+### Fix
+
+- **lint**: désactivation de eslint/init-declarations et eslint/no-undefined [(f0282b0)](https://forge.apps.education.fr/eyssette/js-template/-/commit/f0282b02d586fe8d9514970e89eb00ed6b2b4510)
+- **build**: watch des fichiers html + webmanifest (pour le serveur de développement) [(6712625)](https://forge.apps.education.fr/eyssette/js-template/-/commit/67126250b70d454f4d9fa97874192dd96cc33666)
+- **lint**: eslint/max-statements moins strict (limite à 20) [(9fe7f63)](https://forge.apps.education.fr/eyssette/js-template/-/commit/9fe7f63bcb467eb01a0d335105fadd4863fec722)
+- **ai**: précisions pour bien vérifier que VISION.md existe avant de chercher à créer ce fichier [(2513ae2)](https://forge.apps.education.fr/eyssette/js-template/-/commit/2513ae2dcd97fba4e70e1da2fe18f05f7bfa6de0)
+- **ai**: précision de la description pour la SKILL "think and plan" [(cae9c5d)](https://forge.apps.education.fr/eyssette/js-template/-/commit/cae9c5d9441b9e2e07a68ef45ea5c96bfbac9508)
+- **ai**: description des SKILLS plus précise [(63f01db)](https://forge.apps.education.fr/eyssette/js-template/-/commit/63f01db28c94b45135c017ea258f9b064c743fe9)
+- **init**: correctif pour le changement de l'URL du dépôt dans .cz.toml + amélioration de l'affichage de certaines étapes [(c8c5a24)](https://forge.apps.education.fr/eyssette/js-template/-/commit/c8c5a24479dbd8ddbeb9b4d0900919c99bd62c04)
+
+### Chore
+
+- ajout de mots autorisés pour cSpell [(dd66766)](https://forge.apps.education.fr/eyssette/js-template/-/commit/dd66766f72ec75474be5411ec6957b1e6201d47f)
+
+### Docs
+
+- **init**: explications pour l'initialisation du projet [(8005845)](https://forge.apps.education.fr/eyssette/js-template/-/commit/80058455b7003d5b30aafa0969aa4bc9795eab95)
+
 ## 6.3.0 (2026-08-08)
 
 ### Feat
