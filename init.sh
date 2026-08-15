@@ -260,7 +260,7 @@ if step "Renommage du projet" "Le nom \"$TEMPLATE_NAME\" va être remplacé par 
 	fi
 fi
 
-# - changement du numéro de version par 0.0.0 dans les fichiers : VERSION (le fichier ne contient que le numéro de version), package.json (champ : "version"), package-lock.json (champ : "version"), .cz.toml (champ : version)
+# - changement du numéro de version par 0.0.0 dans les fichiers : VERSION (le fichier ne contient que le numéro de version), package.json (champ : "version"), package-lock.json (champ : "version"), .cz.toml (champ : version), app/sw.js (constante APP_VERSION)
 if step "Réinitialisation du numéro de version à 0.0.0" "Les fichiers VERSION, package.json, package-lock.json et .cz.toml contiennent le numéro de version du template ; il doit repartir à 0.0.0."; then
 	NEW_VERSION="0.0.0"
 
@@ -284,6 +284,12 @@ if step "Réinitialisation du numéro de version à 0.0.0" "Les fichiers VERSION
 		sed_inplace -E "s/^([[:space:]]*version[[:space:]]*=[[:space:]]*)\"[^\"]*\"/\1\"${NEW_VERSION}\"/" "${PROJECT_DIR}/.cz.toml"
 		rm -f "${PROJECT_DIR}/.cz.toml.bak"
 		success ".cz.toml (version) mis à jour."
+	fi
+
+	if [ -f "${PROJECT_DIR}/app/sw.js" ]; then
+		sed_inplace -E "s/^([[:space:]]*const[[:space:]]+APP_VERSION[[:space:]]*=[[:space:]]*)\"[^\"]*\"/\1\"${NEW_VERSION}\"/" "${PROJECT_DIR}/app/sw.js"
+		rm -f "${PROJECT_DIR}/app/sw.js.bak"
+		success "app/sw.js (APP_VERSION) mis à jour."
 	fi
 fi
 

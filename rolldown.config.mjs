@@ -138,6 +138,18 @@ const iifeFallbackConfig = {
 	},
 };
 
+// Compilation du service worker (sw.js)
+const swConfig = {
+	input: `${appFolder}sw.js`,
+	output: {
+		file: `${distFolder}sw.js`,
+		format: "iife",
+		sourcemap: false,
+		minify: { mangle: true },
+		strict: true,
+	},
+};
+
 const getConfigBasedOnEnvironment = async () => {
 	const esmConfig = await getEsmConfig();
 	if (development) {
@@ -145,8 +157,9 @@ const getConfigBasedOnEnvironment = async () => {
 		return [esmConfig, iifeFallbackConfig];
 	}
 	// Sinon, on compile dans les deux formats (ESM et IIFE) pour que l'application fonctionne sur tous les navigateurs
+	// Et on compile aussi le service worker pour que l'application fonctionne hors ligne et pour le caching des ressources (mode PWA : Progressive Web App)
 	const iifeConfig = await getIifeConfig();
-	return [esmConfig, iifeConfig, iifeFallbackConfig];
+	return [esmConfig, iifeConfig, iifeFallbackConfig, swConfig];
 };
 
 // Configuration de la compilation avec Rolldown
