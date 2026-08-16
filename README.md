@@ -81,7 +81,7 @@ Pour une première explication, voir les fichiers `app/js/components/DemoSvelte.
 
 Pour apprendre à utiliser Svelte de manière plus approfondie, vous pouvez consulter la [documentation de Svelte](https://sveltefr.dev/tutorial/svelte/welcome-to-svelte)
 
-## Démarrage rapide
+## Comment utiliser ce template ?
 
 ### 1) Prérequis
 
@@ -119,7 +119,17 @@ Le script d'initialisation va vous poser plusieurs questions pour configurer le 
 
 Attention : il faut lancer la tâche d'initialisation avant de commencer à coder, sinon le projet ne sera pas correctement configuré ! Et ensuite, il ne faut plus l'utiliser.
 
-### 3) Développer et tester
+### 3) Installer les extensions recommandées pour l'éditeur
+
+Ce projet est configuré pour être utilisé avec l’éditeur de code [VS Code](https://code.visualstudio.com/) ou [VSCodium](https://vscodium.com/).
+
+Plusieurs extensions sont recommandées pour vérifier la qualité du code, le formater automatiquement et faciliter le débogage.
+
+Une notification devrait apparaître dans l’éditeur pour proposer d’installer automatiquement les extensions recommandées.
+
+Si ce n’est pas le cas, il faut aller dans le menu `Extensions` de l’éditeur, puis cliquer sur le filtre `Recommended` ou bien taper `@recommended` dans la barre de recherche pour voir les extensions recommandées et les installer.
+
+### 4) Développer et tester
 
 Coder dans `app/js` et `app/css`, puis lancer la commande suivante pour compiler et surveiller les changements, dans un serveur de développement local :
 
