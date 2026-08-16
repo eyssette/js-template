@@ -6,6 +6,7 @@ JS Template est un environnement de développement JavaScript pré-configuré et
 - Tâches automatisées pour compiler, tester, pousser, déployer et vérifier l’application.
 - Pré-configuration pour l'utilisation d'agents IA.
 - Intégration possible de composants Svelte pour gérer l'interface utilisateur de manière plus efficace et réactive.
+- Gestion de l'internationalisation (i18n) et du mode PWA (Progressive Web App) qui permet d'installer l'application (sur mobile ou sur ordinateur) et de l'utiliser hors ligne.
 
 ## Ce que ce template apporte
 
@@ -80,6 +81,12 @@ Il est possible d'intégrer des composants Svelte dans ce projet : ils sont auto
 Pour une première explication, voir les fichiers `app/js/components/DemoSvelte.svelte` et `app/js/main.mjs`, qui montrent un exemple simple d'utilisation d'un composant Svelte dans l'application.
 
 Pour apprendre à utiliser Svelte de manière plus approfondie, vous pouvez consulter la [documentation de Svelte](https://sveltefr.dev/tutorial/svelte/welcome-to-svelte)
+
+### Gestion de l'internationalisation (i18n) et du mode PWA (Progressive Web App)
+
+Ce projet intègre automatiquement la gestion de l'internationalisation (i18n), grâce à [ParaGlideJS](https://paraglidejs.com/). Cela permet d'avoir une application disponible dans plusieurs langues, en utilisant des fichiers de traduction séparés.
+
+Le template est également pré-configuré pour le mode PWA (Progressive Web App), ce qui permettra d'installer l'application sur un appareil mobile ou un ordinateur, et de l'utiliser hors ligne.
 
 ## Comment utiliser ce template ?
 
@@ -183,9 +190,15 @@ Le fichier `js/main.mjs` montre un exemple simple d'utilisation de ParaGlideJS p
 On peut aussi, grâce au plugin [unplugin-raw](https://github.com/unplugin/unplugin-raw/), gérer des textes plus longs en les important dans le javascript (plutôt que d'utiliser des variables difficiles à lire et à maintenir) : voir l'exemple dans `app/js/main.js`.
 Dans ce cas, il faut gérer l'internationalisation manuellement.
 
+L'application est pré-configurée pour le mode PWA (Progressive Web App). Pour l'adapter à votre projet, il faudra modifier les icônes et le fichier `manifest.webmanifest` dans le dossier `app/pwa`.
+Le service worker (`app/sw.js`) est déjà pré-configuré pour gérer le cache des fichiers de l'application, afin de permettre son utilisation hors ligne, mais vous pouvez le modifier pour l'adapter à vos besoins.
+
 ## Structure du projet
 
 - `app` : code source de l'application
+  - `app/js` : code JavaScript
+  - `app/css` : code CSS
+  - `app/pwa` : fichiers pour le mode PWA (Progressive Web App)
 - `dist` : fichiers générés (build)
 - `features` : scénarios Gherkin pour les tests end-to-end
 - `i18n` : fichiers pour l’internationalisation (i18n)
