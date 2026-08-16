@@ -1,6 +1,6 @@
 # {{project_name}}
 
-<TODO: ajouter une description du projet>
+{{project_description}}
 
 ## Crédits
 

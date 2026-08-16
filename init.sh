@@ -223,13 +223,14 @@ if step "Génération du README.md" "Un README.md est généré à partir de REA
 		cp "$README_TEMPLATE" "${PROJECT_DIR}/README.md"
 		sed_inplace \
 			-e "s/{{project_name}}/${RAW_PROJECT_NAME}/g" \
+			-e "s/{{project_description}}/${PROJECT_DESCRIPTION}/g" \
+			-e "s/{{user_name}}/${USER_NAME}/g" \
+			-e "s/{{user_firstname}}/${USER_FIRSTNAME}/g" \
+			-e "s#{{repo_url}}#${REPO_URL}#g" \
 			-e "s/{{template_name}}/${TEMPLATE_NAME}/g" \
 			-e "s/{{template_creator_firstname}}/${TEMPLATE_CREATOR_FIRSTNAME}/g" \
 			-e "s/{{template_creator_name}}/${TEMPLATE_CREATOR_NAME}/g" \
 			-e "s#{{template_url}}#${TEMPLATE_URL}#g" \
-			-e "s/{{user_name}}/${USER_NAME}/g" \
-			-e "s/{{user_firstname}}/${USER_FIRSTNAME}/g" \
-			-e "s#{{repo_url}}#${REPO_URL}#g" \
 			"${PROJECT_DIR}/README.md"
 		rm -f "${PROJECT_DIR}/README.md.bak"
 		success "README.md généré à partir de README-template.md."
