@@ -514,4 +514,4 @@ task security
 
 ## Licence
 
-Ce projet est sous licence libre MIT.
+[JS-template](https://forge.apps.education.fr/eyssette/js-template) est un projet créé par [Cédric Eyssette](https://eyssette.forge.apps.education.fr), et diffusé sous licence libre MIT.
