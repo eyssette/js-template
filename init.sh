@@ -14,12 +14,14 @@ TEMPLATE_NAME="js-template"
 TEMPLATE_URL="https://forge.apps.education.fr/eyssette/js-template"
 TEMPLATE_CREATOR_FIRSTNAME="Cédric"
 TEMPLATE_CREATOR_NAME="Eyssette"
+TEMPLATE_DESCRIPTION = "Environnement de développement JavaScript pré-configuré et optimisé.Éditeur de code qui vérifie la qualité du code, le formate automatiquement et facilite le débogage, Tâches automatisées pour compiler, tester, pousser, déployer et vérifier l’application. Pré-configuration pour agents IA avec des SKILLS déjà définis. Gestion de l'internationalisation et du mode PWA (Progressive Web App) pour utilisation hors ligne."
 
 ## Variables qui seront à renseigner par l'utilisateur lors de l'initialisation du projet
 RAW_PROJECT_NAME=""
 REPO_URL=""
 USER_FIRSTNAME=""
 USER_NAME=""
+PROJECT_DESCRIPTION=""
 
 PROJECT_DIR="$(pwd)"
 INIT_DIR="${PROJECT_DIR}/.init"
@@ -184,13 +186,15 @@ if step "Personnalisation du projet" "Le script va maintenant personnaliser le p
 	warn "Attention, il ne faut plus simplement confirmer"
 	warn "Renseignez bien les informations demandées !"
 	echo ""
+	# - On demande à l'utilisateur le nom du projet
 	echo "1. Nom du projet"
 	read -r -p "Quel est le nom de votre projet ? " RAW_PROJECT_NAME
 	echo ""
+	# - On demande à l'utilisateur l'URL du dépôt principal de son projet
 	echo "2. URL de votre projet sur la Forge"
 	info "Format attendu : https://forge.apps.education.fr/<group>/<project>"
 	read -r -p "Quelle est l'URL de votre projet ? : " REPO_URL
-	# Normalisation : minuscules, espaces -> tirets, suppression des caractères spéciaux
+	# (normalisation : minuscules, espaces -> tirets, suppression des caractères spéciaux)
 	NORMALIZED_PROJECT_NAME="$(echo "$RAW_PROJECT_NAME" |
 		tr '[:upper:]' '[:lower:]' |
 		tr ' ' '-' |
@@ -202,9 +206,13 @@ if step "Personnalisation du projet" "Le script va maintenant personnaliser le p
 	fi
 	info "Nom du projet normalisé : $NORMALIZED_PROJECT_NAME"
 	echo ""
+	# - On demande à l'utilisateur son prénom et nom
 	echo "3. Votre prénom et nom (pour l'auteur du projet)"
 	read -r -p "Votre prénom : " USER_FIRSTNAME
 	read -r -p "Votre nom : " USER_NAME
+	# - On demande à l'utilisateur la description de son projet (sur une seule ligne)
+	echo "4. Description de votre projet"
+	read -r -p "Décrivez brièvement votre projet : " PROJECT_DESCRIPTION
 fi
 
 # CREATION :
@@ -232,31 +240,79 @@ fi
 
 # CHANGEMENT :
 
-# - Demande à l'utilisateur du nom du projet et changement du nom "TEMPLATE_NAME" par le nom du projet dans les fichiers : package.json et package-lock.json (champ "name" : sans espaces, sans majuscules, sans caractères spéciaux), Taskfile.yml (seulement dans le champ : APP_NAME ; ne pas modifier les autres occurrences), /scripts/release/create-zipped-dist-from-tag.sh (champ : ZIP_NAME).
+# - changement du nom "TEMPLATE_NAME" par le nom du projet
 if step "Renommage du projet" "Le nom \"$TEMPLATE_NAME\" va être remplacé par le nom réel de votre projet."; then
 
+	# - Changement du nom du projet dans le package.json (champ : "name") : sans espaces, sans majuscules, sans caractères spéciaux
 	if [ -f "${PROJECT_DIR}/package.json" ]; then
 		sed_inplace -E "s/(\"name\"[[:space:]]*:[[:space:]]*)\"[^\"]*\"/\1\"${NORMALIZED_PROJECT_NAME}\"/" "${PROJECT_DIR}/package.json"
 		rm -f "${PROJECT_DIR}/package.json.bak"
 		success "package.json (name) mis à jour."
 	fi
 
+	# - Changement du nom du projet dans le package-lock.json (champ : "name") : sans espaces, sans majuscules, sans caractères spéciaux
 	if [ -f "${PROJECT_DIR}/package-lock.json" ]; then
 		replace_first_occurrence "${PROJECT_DIR}/package-lock.json" '"name"[[:space:]]*:' "  \"name\": \"${NORMALIZED_PROJECT_NAME}\","
 		success "package-lock.json (name racine) mis à jour."
 	fi
 
+	# - Changement du nom du projet dans le Taskfile.yml (seulement dans le champ : APP_NAME)
 	if [ -f "${PROJECT_DIR}/Taskfile.yml" ]; then
 		sed_inplace -E "s/^([[:space:]]*APP_NAME[[:space:]]*:[[:space:]]*).*/\1\"${RAW_PROJECT_NAME}\"/" "${PROJECT_DIR}/Taskfile.yml"
 		rm -f "${PROJECT_DIR}/Taskfile.yml.bak"
 		success "Taskfile.yml (APP_NAME) mis à jour."
 	fi
 
+	# - Changement du nom du projet dans le script de création d'archive : scripts/release/create-zipped-dist-from-tag.sh (champ : ZIP_NAME)
 	ZIP_SCRIPT="${PROJECT_DIR}/scripts/release/create-zipped-dist-from-tag.sh"
 	if [ -f "$ZIP_SCRIPT" ]; then
 		sed_inplace -E "s/^([[:space:]]*ZIP_NAME[[:space:]]*=[[:space:]]*).*/\1\"${NORMALIZED_PROJECT_NAME}\"/" "$ZIP_SCRIPT"
 		rm -f "${ZIP_SCRIPT}.bak"
 		success "create-zipped-dist-from-tag.sh (ZIP_NAME) mis à jour."
+	fi
+
+	# - Changement du nom du projet dans le index.html : app/index.html (balise <title>)
+	if [ -f "${PROJECT_DIR}/app/index.html" ]; then
+		sed_inplace -E "s#(<title>)[^<]*(</title>)#\1${RAW_PROJECT_NAME}\2#" "${PROJECT_DIR}/app/index.html"
+		rm -f "${PROJECT_DIR}/app/index.html.bak"
+		success "app/index.html (balise <title>) mis à jour."
+	fi
+
+	# - Changement du nom du projet dans le manifest : app/pwa/manifest.webmanifest (champs : "name" et "short_name")
+	if [ -f "${PROJECT_DIR}/app/pwa/manifest.webmanifest" ]; then
+		sed_inplace -E "s/(\"name\"[[:space:]]*:[[:space:]]*)\"[^\"]*\"/\1\"${NORMALIZED_PROJECT_NAME}\"/" "${PROJECT_DIR}/app/pwa/manifest.webmanifest"
+		sed_inplace -E "s/(\"short_name\"[[:space:]]*:[[:space:]]*)\"[^\"]*\"/\1\"${NORMALIZED_PROJECT_NAME}\"/" "${PROJECT_DIR}/app/pwa/manifest.webmanifest"
+		rm -f "${PROJECT_DIR}/app/pwa/manifest.webmanifest.bak"
+		success "manifest.webmanifest mis à jour."
+	fi
+
+	# - Changement du nom du projet dans le service worker : app/sw.js (constante APP_NAME)
+	if [ -f "${PROJECT_DIR}/app/sw.js" ]; then
+		sed_inplace -E "s/^([[:space:]]*const[[:space:]]+APP_NAME[[:space:]]*=[[:space:]]*)\"[^\"]*\"/\1\"${NORMALIZED_PROJECT_NAME}\"/" "${PROJECT_DIR}/app/sw.js"
+		rm -f "${PROJECT_DIR}/app/sw.js.bak"
+		success "app/sw.js (APP_NAME) mis à jour."
+	fi
+fi
+
+# - Changement de la description du projet : dans index.html (balise <meta name="description">), dans package.json (champ : "description"), dans manifest.webmanifest (champ : "description")
+if step "Mise à jour de la description du projet" "La description du projet est mise à jour dans index.html, package.json et manifest.webmanifest."; then
+	# - Changement de la description dans le fichier index.html (balise <meta name="description">)
+	if [ -f "${PROJECT_DIR}/app/index.html" ]; then
+		sed_inplace -E "s#(<meta[[:space:]]+name=\"description\"[[:space:]]+content=\")[^\"]*(\"[[:space:]]*/?>)#\1${PROJECT_DESCRIPTION}\2#" "${PROJECT_DIR}/app/index.html"
+		rm -f "${PROJECT_DIR}/app/index.html.bak"
+		success "app/index.html (balise <meta name=\"description\">) mis à jour."
+	fi
+	# - Changement de la description dans le fichier package.json (champ : "description")
+	if [ -f "${PROJECT_DIR}/package.json" ]; then
+		sed_inplace -E "s/(\"description\"[[:space:]]*:[[:space:]]*)\"[^\"]*\"/\1\"${PROJECT_DESCRIPTION}\"/" "${PROJECT_DIR}/package.json"
+		rm -f "${PROJECT_DIR}/package.json.bak"
+		success "package.json (description) mis à jour."
+	fi
+	# - Changement de la description dans le fichier manifest.webmanifest (champ : "description")
+	if [ -f "${PROJECT_DIR}/app/pwa/manifest.webmanifest" ]; then
+		sed_inplace -E "s/(\"description\"[[:space:]]*:[[:space:]]*)\"[^\"]*\"/\1\"${PROJECT_DESCRIPTION}\"/" "${PROJECT_DIR}/app/pwa/manifest.webmanifest"
+		rm -f "${PROJECT_DIR}/app/pwa/manifest.webmanifest.bak"
+		success "manifest.webmanifest (description) mis à jour."
 	fi
 fi
 
@@ -293,7 +349,7 @@ if step "Réinitialisation du numéro de version à 0.0.0" "Les fichiers VERSION
 	fi
 fi
 
-# - Demande à l'utilisateur de l'URL du dépôt principal (on indique à l'utilisateur la forme que doit avoir l'URL du template : https://forge.apps.education.fr/<group>/<project> ) et on remplace "TEMPLATE_URL" par l'URL du dépôt principal dans les fichiers :.cz.toml (champ : extras.commit_url), Taskfile.yml (champ : MAIN_REPO_URL)
+# - On remplace "TEMPLATE_URL" par l'URL du dépôt principal dans les fichiers :.cz.toml (champ : extras.commit_url), Taskfile.yml (champ : MAIN_REPO_URL)
 if step "Configuration de l'URL du dépôt principal" "L'URL du dépôt principal de votre application doit remplacer l'URL du template"; then
 
 	if [ -f "${PROJECT_DIR}/.cz.toml" ]; then
@@ -322,19 +378,28 @@ if [ -f "${PROJECT_DIR}/Taskfile.yml" ]; then
 	success "Taskfile.yml (remotes) mis à jour."
 fi
 
-# - Demande à l'utilisateur son prénom, puis son nom. On remplace le nom "USER_NAME" par le nom de l'utilisateur dans les fichiers : LICENSE, et prénom nom "USER_FIRSTNAME USER_NAME" par le prénom et nom de l'utilisateur dans les fichiers : package.json (champ : author).
+# - On remplace le nom "USER_NAME" par le nom de l'utilisateur dans les fichiers : LICENSE, et prénom nom "USER_FIRSTNAME USER_NAME" par le prénom et nom de l'utilisateur dans les fichiers : package.json (champ : author).
 if step "Renseignement de l'auteur du projet" "Remplacement du prénom et nom de l'auteur du template par votre prénom et votre nom"; then
 
+	# - Changement du nom de l'auteur dans le fichier LICENSE (champ : auteur)
 	if [ -f "${PROJECT_DIR}/LICENSE" ]; then
 		sed_inplace "s/${TEMPLATE_CREATOR_NAME}/${USER_NAME}/g" "${PROJECT_DIR}/LICENSE"
 		rm -f "${PROJECT_DIR}/LICENSE.bak"
 		success "LICENSE (auteur) mis à jour."
 	fi
 
+	# - Changement du nom de l'auteur dans le fichier package.json (champ : author)
 	if [ -f "${PROJECT_DIR}/package.json" ]; then
 		sed_inplace "s/${TEMPLATE_CREATOR_FIRSTNAME} ${TEMPLATE_CREATOR_NAME}/${USER_FIRSTNAME} ${USER_NAME}/g" "${PROJECT_DIR}/package.json"
 		rm -f "${PROJECT_DIR}/package.json.bak"
 		success "package.json (author) mis à jour."
+	fi
+
+	# - Changement du nom de l'auteur dans le fichier index.html (balise <meta name="author">)
+	if [ -f "${PROJECT_DIR}/app/index.html" ]; then
+		sed_inplace "s/${TEMPLATE_CREATOR_FIRSTNAME} ${TEMPLATE_CREATOR_NAME}/${USER_FIRSTNAME} ${USER_NAME}/g" "${PROJECT_DIR}/app/index.html"
+		rm -f "${PROJECT_DIR}/app/index.html.bak"
+		success "app/index.html (balise <meta name=\"author\">) mis à jour."
 	fi
 fi
 
