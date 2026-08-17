@@ -1,3 +1,11 @@
+## 7.0.2 (2026-08-17)
+
+### Fix
+
+- **lint**: désactivation de la règle eslint/logical-assignment-operators [(f9331db)](https://forge.apps.education.fr/eyssette/js-template/-/commit/f9331db9794a94f80e58757a1efb82d4799d6180)
+- **task**: ajout d'une tâche pour lancer un serveur de développement avec le service worker, pour pouvoir vérifier ou déboguer son fonctionnement [(a54897e)](https://forge.apps.education.fr/eyssette/js-template/-/commit/a54897e4cfb845a6cc2799642c5bd68d0a0ae6c8)
+- **build**: version ECMA imposée aussi pour le script de fallback iife et pour le service-worker [(8b40c5f)](https://forge.apps.education.fr/eyssette/js-template/-/commit/8b40c5f410f9efb7dcdfd48d6ab4146bbe05a223)
+
 ## 7.0.1 (2026-08-17)
 
 ### Fix
