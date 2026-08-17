@@ -56,6 +56,7 @@ const baseRules = {
 	"eslint/max-statements": ["warn", { max: 20 }],
 	"eslint/init-declarations": "off",
 	"eslint/no-undefined": "off",
+	"eslint/logical-assignment-operators": "off",
 	"oxc/no-rest-spread-properties": "off",
 	"oxc/no-async-await": "off",
 	"oxc/no-barrel-file": ["error", { threshold: 0 }],
