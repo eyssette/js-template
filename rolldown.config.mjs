@@ -136,6 +136,9 @@ const iifeFallbackConfig = {
 		minify: { mangle: true },
 		strict: true,
 	},
+	transform: {
+		target: ECMA_VERSION,
+	},
 };
 
 // Compilation du service worker (sw.mjs)
@@ -147,6 +150,9 @@ const swConfig = {
 		sourcemap: false,
 		minify: { mangle: true },
 		strict: true,
+	},
+	transform: {
+		target: ECMA_VERSION,
 	},
 };
 
