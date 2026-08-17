@@ -34,6 +34,9 @@ const baseRules = {
 	"import/no-named-export": "off",
 	"import/no-default-export": "off",
 	"import/prefer-default-export": "off",
+	"import/no-relative-parent-imports": "off",
+	"import/group-exports": "off",
+	"import/exports-last": "off",
 	"eslint/no-undef": "error",
 	"eslint/no-unused-vars": [
 		"error",
@@ -147,7 +150,6 @@ const testFolderOverridesRules = {
 	"eslint/max-statements": "off",
 	"eslint/max-lines": "off",
 	"import/unambiguous": "off",
-	"import/no-relative-parent-imports": "off",
 };
 
 // CONFIGURATION D'OXLINT
@@ -225,7 +227,7 @@ const config = {
 			},
 		},
 		{
-			files: ["app/js/iifeFallback.js", "app/sw.js"],
+			files: ["app/js/iifeFallback.js", "app/sw.mjs"],
 			rules: {
 				"import/unambiguous": "off",
 			},

@@ -1,4 +1,4 @@
-// oxlint-disable import/no-unassigned-import import/no-relative-parent-imports
+// oxlint-disable import/no-unassigned-import
 
 // Import du fichier CSS principal de l'application
 // On peut en mettre plusieurs : ils seront concaténés et minifiés dans le bundle final
