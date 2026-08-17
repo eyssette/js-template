@@ -1,3 +1,22 @@
+## 7.0.1 (2026-08-17)
+
+### Fix
+
+- **lint**: désactivation de certaines règles pour les imports (no-relative-parent-imports, group-exports, exports-last) [(4cd8ec8)](https://forge.apps.education.fr/eyssette/js-template/-/commit/4cd8ec87f78438f3fca34d6d1692a8c1ca27456f)
+- **init**: ajout de la description, demandée lors de l'initialisation, dans le README [(a14f42c)](https://forge.apps.education.fr/eyssette/js-template/-/commit/a14f42c0fb787afab83b4e07ca6fa1e7775a7059)
+- **init**: initialisation de la description de l'application + gestion du nom du projet dans index.html, manifest.webmanifest et sw.js [(47d2f72)](https://forge.apps.education.fr/eyssette/js-template/-/commit/47d2f72c9ccb9d692399f65ff7b856fb068d2432)
+
+### Chore
+
+- **sw**: modularisation du service worker [(0b91a48)](https://forge.apps.education.fr/eyssette/js-template/-/commit/0b91a483f7e5f463111dac0fda812588c2f7f001)
+- uniformisation de la description du projet [(8c8268f)](https://forge.apps.education.fr/eyssette/js-template/-/commit/8c8268faada4ec1ab8602dedf7b10ab7857fbf42)
+
+### Docs
+
+- ajout auteur à la fin du README [(d8a320e)](https://forge.apps.education.fr/eyssette/js-template/-/commit/d8a320ed15d7286c5cd35e577b5a71cbd3c73b73)
+- précisions sur l'internationalisation + le mode PWA [(bc5ac54)](https://forge.apps.education.fr/eyssette/js-template/-/commit/bc5ac542ac04718862c15a0dd4a47533aee9d7cd)
+- ajout de l'étape d'installation des extensions recommandées pour l'IDE + renommage de la partie qui explique comment utiliser le template [(dfd9d00)](https://forge.apps.education.fr/eyssette/js-template/-/commit/dfd9d005390c5ec8f83471b1ba06c60015cb3545)
+
 ## 7.0.0 (2026-08-15)
 
 ### Feat
