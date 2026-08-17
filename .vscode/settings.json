@@ -70,6 +70,7 @@
 		"semgrep",
 		"Taskfile",
 		"trivy",
+		"unplugin",
 		"versionnement"
 	],
 	"cSpell.ignorePaths": [
