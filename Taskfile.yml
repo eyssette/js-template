@@ -31,11 +31,15 @@ tasks:
       - i18n/messages/**/*.json
       - i18n/project.inlang/**/*.json
       - rolldown.config.mjs
+      - Taskfile.yml
     generates:
+      - "{{.DIST_FOLDER}}/chunks/main.js"
       - "{{.DIST_FOLDER}}/css/styles.min.css"
       - "{{.DIST_FOLDER}}/script.min.js"
       - "{{.DIST_FOLDER}}/script.min.js.map"
       - "{{.DIST_FOLDER}}/index.html"
+      - "{{.DIST_FOLDER}}/iifeFallback.js"
+      - "{{.DIST_FOLDER}}/sw.js"
     method: timestamp
     cmds:
       - npx rolldown --config
@@ -85,6 +89,23 @@ tasks:
       - debug:stop
     cmds:
       - bash -c 'kill $(lsof -ti :{{.PORT_DEV_SERVER}}) 2>/dev/null' || true
+
+  dev:sw:
+    desc: Lance le serveur de développement avec le service worker
+    deps: [npm:install, paraglide:compile]
+    silent: true
+    cmds:
+      # On crée le fichier project_id pour éviter un message de WARN de ParaglideJS
+      - mkdir -p ./i18n/project.inlang && touch ./i18n/project.inlang/project_id
+      - |
+        bash -c '
+          node ./scripts/build/watch-txt-files.mjs ./app ./app/js/main.mjs &
+          watch_txt_files_pid=$!
+          npx paraglide-js compile --project ./i18n/project.inlang --outdir ./app/js/lib/paraglide --no-emit-ts-declarations --output-structure locale-modules --watch &
+          paraglide_pid=$!
+          trap "kill \"$paraglide_pid\" \"$watch_txt_files_pid\" 2>/dev/null" EXIT INT TERM
+          NODE_ENV=developmentWithServiceWorker npx rolldown --config --watch
+          '
 
   debug:
     desc: Lance le serveur de développement avec Rolldown en mode watch et debug

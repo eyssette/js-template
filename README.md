@@ -233,6 +233,10 @@ Un fichier de configuration pour debugger l’application avec [VS Code](https:/
 
 Il permet de lancer l’application dans le navigateur web intégré et de déboguer le code JavaScript, avec des points d’arrêt (breakpoints), qui permettent l’inspection des variables et l’exécution pas à pas du code.
 
+Par défaut, le serveur de développement n'inclut pas le service worker qui permet de faire fonctionner l'application en mode PWA (Progressive Web App).
+
+Si on souhaite vérifier ou déboguer le mode PWA, pour être sûr que l'application fonctionne bien hors ligne, on peut utiliser la tâche `task dev:sw` pour ouvrir un serveur de développement avec le service worker.
+
 ### Tâches prêtes à l'emploi
 
 - Tâche build par défaut : `Build`

@@ -6,6 +6,7 @@ import { createMinifyStylesPlugin } from "./scripts/build/minify-css.mjs";
 import del from "rollup-plugin-delete";
 import livereload from "rollup-plugin-livereload";
 import path from "node:path";
+import { replacePlugin } from "rolldown/plugins";
 import serve from "rollup-plugin-serve";
 import svelte from "rollup-plugin-svelte";
 
@@ -28,10 +29,19 @@ const minifyStylesPluginOptions = {
 	distStylesFolder: cssFolder,
 };
 
+process.env.NODE_ENV = process.env.NODE_ENV || "production";
+
 const development =
 	process.env.NODE_ENV &&
-	(process.env.NODE_ENV === "development" || process.env.NODE_ENV === "debug");
+	(process.env.NODE_ENV === "development" ||
+		process.env.NODE_ENV === "debug" ||
+		process.env.NODE_ENV === "developmentWithServiceWorker");
 const debug = development && process.env.NODE_ENV === "debug";
+const developmentWithServiceWorker =
+	process.env.NODE_ENV &&
+	process.env.NODE_ENV === "developmentWithServiceWorker";
+
+const PORT_DEV_SERVER = developmentWithServiceWorker ? 20_002 : 10_001;
 
 const analyze = String(process.env.ANALYZE).toLowerCase() === "true";
 
@@ -81,9 +91,18 @@ const getEsmConfig = async () => ({
 			},
 		}),
 		await createMinifyStylesPlugin(minifyStylesPluginOptions),
+
+		replacePlugin({
+			"process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+		}),
 		// En mode développement, lance un serveur de développement et recharge la page automatiquement lorsqu'un fichier est modifié
-		development && serve({ contentBase: [distFolder, "./"], open: !debug }),
-		development && livereload({ delay: 300 }),
+		development &&
+			serve({
+				port: PORT_DEV_SERVER,
+				contentBase: [distFolder, "./"],
+				open: !debug,
+			}),
+		development && livereload({ port: PORT_DEV_SERVER, delay: 300 }),
 
 		await getVisualizerPlugin(),
 	],
@@ -120,9 +139,18 @@ const getIifeConfig = async () => ({
 			cssAlreadyMinified: true,
 		}),
 
+		replacePlugin({
+			"process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+		}),
+
 		// En mode développement, lance un serveur de développement et recharge la page automatiquement lorsqu'un fichier est modifié
-		development && serve({ contentBase: [distFolder, "./"], open: !debug }),
-		development && livereload({ delay: 300 }),
+		development &&
+			serve({
+				port: PORT_DEV_SERVER,
+				contentBase: [distFolder, "./"],
+				open: !debug,
+			}),
+		development && livereload({ port: PORT_DEV_SERVER, delay: 300 }),
 	],
 });
 
@@ -158,13 +186,15 @@ const swConfig = {
 
 const getConfigBasedOnEnvironment = async () => {
 	const esmConfig = await getEsmConfig();
-	if (development) {
-		// En mode développement, on compile seulement en ESM pour que le rechargement de la page fonctionne correctement
+	const iifeConfig = await getIifeConfig();
+
+	if (development && !developmentWithServiceWorker) {
+		// En mode développement (et sans le mode service worker), on compile seulement en ESM pour que le rechargement de la page fonctionne correctement
 		return [esmConfig, iifeFallbackConfig];
 	}
-	// Sinon, on compile dans les deux formats (ESM et IIFE) pour que l'application fonctionne sur tous les navigateurs
-	// Et on compile aussi le service worker pour que l'application fonctionne hors ligne et pour le caching des ressources (mode PWA : Progressive Web App)
-	const iifeConfig = await getIifeConfig();
+
+	// Sinon, on compile dans les deux formats (ESM et IIFE) pour que l'application fonctionne sur tous les navigateurs, et on compile aussi le service worker [pour que l'application fonctionne hors ligne et pour le caching des ressources (mode PWA : Progressive Web App)]
+
 	return [esmConfig, iifeConfig, iifeFallbackConfig, swConfig];
 };
 
