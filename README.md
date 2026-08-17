@@ -191,7 +191,7 @@ On peut aussi, grâce au plugin [unplugin-raw](https://github.com/unplugin/unplu
 Dans ce cas, il faut gérer l'internationalisation manuellement.
 
 L'application est pré-configurée pour le mode PWA (Progressive Web App). Pour l'adapter à votre projet, il faudra modifier les icônes et le fichier `manifest.webmanifest` dans le dossier `app/pwa`.
-Le service worker (`app/sw.js`) est déjà pré-configuré pour gérer le cache des fichiers de l'application, afin de permettre son utilisation hors ligne, mais vous pouvez le modifier pour l'adapter à vos besoins.
+Le service worker (`app/sw.mjs`) est déjà pré-configuré pour gérer le cache des fichiers de l'application, afin de permettre son utilisation hors ligne, mais vous pouvez le modifier pour l'adapter à vos besoins.
 
 ## Structure du projet
 

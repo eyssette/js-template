@@ -138,9 +138,9 @@ const iifeFallbackConfig = {
 	},
 };
 
-// Compilation du service worker (sw.js)
+// Compilation du service worker (sw.mjs)
 const swConfig = {
-	input: `${appFolder}sw.js`,
+	input: `${appFolder}sw.mjs`,
 	output: {
 		file: `${distFolder}sw.js`,
 		format: "iife",
