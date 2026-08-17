@@ -103,5 +103,6 @@
 	},
 	"svelte.plugin.svelte.compilerWarnings": {
 		"options_missing_custom_element": "ignore"
-	}
+	},
+	"stylelint.configFile": "stylelint.config.mjs"
 }

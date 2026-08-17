@@ -51,6 +51,7 @@
 		"rollup-plugin-serve": "^3.0.0",
 		"rollup-plugin-svelte": "^7.2.3",
 		"rollup-plugin-visualizer": "^7.0.1",
+		"stylelint-config-standard": "^40.0.0",
 		"unplugin-raw": "^0.7.0"
 	},
 	"overrides": {
