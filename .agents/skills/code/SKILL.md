@@ -41,6 +41,8 @@ agent: "agent"
 - **Compatibilité ECMAScript** : rester compatible avec `ECMA_VERSION` défini dans `rolldown.config.mjs` / `Taskfile.yml` / `oxlint.config.mjs`. En cas de doute sur une syntaxe récente, lancer `npx task ecma:source` après écriture.
 - **Complexité cognitive faible** : préférer les retours anticipés (early return) aux imbrications profondes ; éviter les conditions complexes non nommées (extraire dans une variable/fonction au nom explicite).
 - **Nommage** : anglais pour le code (fonctions, variables), français pour les commentaires et la documentation (sauf demande contraire de l'utilisateur).
+- **Gestion des événements** : Toujours utiliser des écouteurs d'événements (addEventListener), dans les fichiers JavaScript, plutôt que des attributs HTML (ex: onclick, onchange …).
+- **Architecture CSS** : ne jamais utiliser du CSS inline, ou alors seulement très rarement, quand ce serait complexifier de faire autrement. Les styles doivent être intégrés dans `app/css/style.css` ou dans un fichier dédié importé via `app/js/main.mjs`. Avant toute création de style, consulter `.plan/DESIGN.md` ; si ce fichier est absent, suggérer sa création via la SKILL `/design-md`. Utiliser la SKILL `/css` pour créer ou vérifier le style CSS produit.
 
 ## 3. Accessibilité et sécurité
 
