@@ -1,4 +1,4 @@
-// 4. DÉTECTION DES OVERRIDES (stratégies forcées par un header ou un paramètre d'URL)
+// DÉTECTION DES OVERRIDES (stratégies forcées par un header ou un paramètre d'URL)
 
 import { STRATEGIES, STRATEGY_HEADER, STRATEGY_PARAM } from "../swConfig.mjs";
 

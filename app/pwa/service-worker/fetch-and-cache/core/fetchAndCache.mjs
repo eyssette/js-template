@@ -1,5 +1,3 @@
-// 3. HELPERS
-
 import { DEFAULT_TIMEOUT_MS } from "../../swConfig.mjs";
 import { cacheNetworkResponse } from "../helpers/cacheNetworkResponse.mjs";
 import { getNetworkResponse } from "../helpers/getNetworkResponse.mjs";
