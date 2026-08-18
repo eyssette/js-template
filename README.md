@@ -195,6 +195,21 @@ Dans ce cas, il faut gérer l'internationalisation manuellement.
 L'application est pré-configurée pour le mode PWA (Progressive Web App). Pour l'adapter à votre projet, il faudra modifier les icônes et le fichier `manifest.webmanifest` dans le dossier `app/pwa`.
 Le service worker (`app/sw.mjs`) est déjà pré-configuré pour gérer le cache des fichiers de l'application, afin de permettre son utilisation hors ligne, mais vous pouvez le modifier pour l'adapter à vos besoins.
 
+<details><summary>Personnalisation des fichiers pour le mode PWA</summary>
+
+À faire en priorité :
+- `app/pwa/manifest.webmanifest` : nom de l'application et description (sauf si vous avez déjà utilisé le script d'initialisation `init.sh`), couleurs et liens vers les icônes si vous changez le nom.
+- Les icônes du dossier `app/pwa` : il y a 4 icônes à personnaliser 
+- `app/pwa/service-worker/swConfig.mjs` : vérifier que vous n'avez pas besoin d'ajouter d'autres fichiers en cache pour le mode hors ligne.
+  - `CRITICAL_PRECACHE_URLS` : fichiers essentiels à mettre en cache pour que l'application fonctionne hors ligne.
+  - `NON_CRITICAL_PRECACHE_URLS` : fichiers non essentiels, mais qu'il est préférable de mettre en cache dès le début pour améliorer l'expérience utilisateur hors ligne.
+
+D'autres paramètres de configuration du service worker sont disponibles dans le fichier `app/pwa/service-worker/swConfig.mjs`, mais il n'est pas nécessaire de les modifier pour un usage standard.
+
+**Usage avancé** : vous avez également la possibilité de forcer, dans votre code javascript, l'utilisation d'un type de cache spécifique pour certaines requêtes, soit en ajoutant un paramètre d'URL `?cache_strategy=STRATEGY`, soit en ajoutant un header `X-Cache-Strategy: STRATEGY` dans la requête.
+
+</details>
+
 ## Structure du projet
 
 - `app` : code source de l'application
