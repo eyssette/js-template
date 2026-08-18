@@ -1,4 +1,4 @@
-// oxlint-disable import/no-nodejs-modules import/group-exports no-continue unicorn/no-null prefer-destructuring require-unicode-regexp
+// oxlint-disable import/no-nodejs-modules no-continue unicorn/no-null prefer-destructuring require-unicode-regexp
 // Utilitaires pour manipuler des chemins de fichiers de façon sécurisée
 // (protection contre les traversées de répertoire, chemins absolus non désirés, etc.)
 

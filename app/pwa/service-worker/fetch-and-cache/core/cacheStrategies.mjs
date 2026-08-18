@@ -56,7 +56,6 @@ export async function staleWhileRevalidate(event, request) {
 	const networkPromise = fetchAndCache(request, STATIC_ASSETS_CACHE, { event });
 
 	if (cached) {
-		// oxlint-disable-next-line promise/prefer-await-to-then
 		event.waitUntil(
 			// oxlint-disable-next-line promise/prefer-await-to-then
 			networkPromise.catch(() => {
