@@ -1,6 +1,6 @@
 {
 	"name": "js-template",
-	"version": "8.0.0",
+	"version": "8.0.1",
 	"description": "Environnement de développement JavaScript pré-configuré et optimisé.Éditeur de code qui vérifie la qualité du code, le formate automatiquement et facilite le débogage, Tâches automatisées pour compiler, tester, pousser, déployer et vérifier l’application. Pré-configuration pour agents IA avec des SKILLS déjà définis. Gestion de l'internationalisation et du mode PWA (Progressive Web App) pour utilisation hors ligne.",
 	"keywords": [
 		"javascript",

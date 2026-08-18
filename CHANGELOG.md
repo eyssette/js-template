@@ -1,3 +1,21 @@
+## 8.0.1 (2026-08-18)
+
+### Fix
+
+- **lint**: message d'erreurs du service worker que dans le mode développement (avec service worker) [(7482450)](https://forge.apps.education.fr/eyssette/js-template/-/commit/74824500fe882f6c2a251e1bebef9e5606fba0be)
+- **security**: override de version pour un package pour éviter une vulnérabilité [(8e2dd5d)](https://forge.apps.education.fr/eyssette/js-template/-/commit/8e2dd5dbbe8e58b07eceaaaee5c2331589b33fb6)
+
+### Chore
+
+- **sw**: déplacement de constantes pour garder dans swConfig seulement des constantes qui peuvent vraiment être personnalisée [(005ddec)](https://forge.apps.education.fr/eyssette/js-template/-/commit/005ddece7ea69875f578b0b81dd66e7a60bd8dc7)
+
+### Docs
+
+- **readme**: précisions sur l'intérêt et la configuration des linters [(61d7f42)](https://forge.apps.education.fr/eyssette/js-template/-/commit/61d7f428d00a3b5b6c7af09bf84be4ce3cb7ec4e)
+- **readme**: descriptif général plus précis [(39c6342)](https://forge.apps.education.fr/eyssette/js-template/-/commit/39c634209c7d1d13ed9495eb8ca568373e3db232)
+- précision pour la personnalisation des fichiers pour le mode PWA [(a393609)](https://forge.apps.education.fr/eyssette/js-template/-/commit/a393609948669b10742a35941193056c0dc84cdf)
+- ajout de la référence aux skills "css" et "design-md" dans le README et le fichier AGENTS.md [(ac1b8f4)](https://forge.apps.education.fr/eyssette/js-template/-/commit/ac1b8f4fcf9544a68c82d55c154eaf3e636fd0a4)
+
 ## 8.0.0 (2026-08-18)
 
 ### Feat
