@@ -78,17 +78,19 @@ Structure: `.agents/skills/<skill>/SKILL.md` where `<skill>` is the name of the 
 For example, the skill for fixing a bug is in `.agents/skills/fix-this/SKILL.md` and is used by the `/fix-this` command.
 
 SKILLS you should know about:
-- `think-and-plan` : help the user clarify their vision and plan for a new application or feature
-- `code` : write code following the project's conventions
-- `fix-this` : fix a bug
-- `review-this` : review code
-- `refactor-this` : refactor code
-- `optimize-this` : optimize code
-- `unit-test` : write unit test
-- `e2e-test` : write E2E test
-- `documentation` : write documentation
-- `release-draft` : write a release draft
-- `roadmap` : suggest a roadmap (features, improvements, refactors, etc.)
+- `code`: write code following the project's conventions
+- `css`: write or check CSS code
+- `design-md`: write or improve a DESIGN.md file that defines the application's design
+- `documentation`: write documentation
+- `e2e-test`: write E2E test
+- `fix-this`: fix a bug
+- `optimize-this`: optimize code
+- `refactor-this`: refactor code
+- `release-draft`: write a release draft
+- `review-this`: review code
+- `roadmap`: suggest a roadmap (features, improvements, refactors, etc.)
+- `think-and-plan`: help the user clarify their vision and plan for a new application or feature
+- `unit-test`: write unit test
 
 Before running one of these commands, read the corresponding skill file if it exists. If no skill file exists yet, fall back to the general rules in this document.
 

@@ -59,17 +59,19 @@ Dans la plupart des outils d'agents IA, il est possible d'utiliser des commandes
 Par exemple : `fix-this` pour corriger un bug, ou `roadmap` pour générer un plan d'évolution du projet.
 
 Les SKILLS disponibles sont les suivantes :
-- `think-and-plan` : aider à la réflexion et à la planification d'une nouvelle application ou d'une nouvelle fonctionnalité
 - `code` : écrire du code en respectant les conventions du projet
-- `fix-this` : corriger un bug dans le code
-- `review-this` : générer une revue de code
-- `refactor-this` : refactoriser le code pour l'améliorer
-- `optimize-this` : optimiser le code pour améliorer les performances
-- `unit-test` : générer des tests unitaires pour une fonction
-- `e2e-test` : générer des tests end-to-end pour une fonctionnalité
+- `css` : écrire ou vérifier du code CSS
+- `design-md` : écrire ou améliorer un fichier DESIGN.md qui définit le design de l'application
 - `documentation` : générer de la documentation technique ou utilisateur
+- `e2e-test` : générer des tests end-to-end pour une fonctionnalité
+- `fix-this` : corriger un bug dans le code
+- `optimize-this` : optimiser le code pour améliorer les performances
+- `refactor-this` : refactoriser le code pour l'améliorer
 - `release-draft` : générer un brouillon de release pour le projet
+- `review-this` : générer une revue de code
 - `roadmap` : générer un plan d'évolution du projet
+- `think-and-plan` : aider à la réflexion et à la planification d'une nouvelle application ou d'une nouvelle fonctionnalité
+- `unit-test` : générer des tests unitaires pour une fonction
 
 
 ### Intégration possible de composants Svelte
