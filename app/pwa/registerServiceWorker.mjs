@@ -1,7 +1,7 @@
 const environment = process.env.NODE_ENV;
 
 const useServiceWorker =
-	environment === "developmentWithServiceWorker" ||
+	environment === "development-with-service-worker" ||
 	environment === "production";
 
 export async function registerServiceWorker() {
@@ -12,7 +12,7 @@ export async function registerServiceWorker() {
 			});
 			return registration;
 		} catch (error) {
-			if (environment === "developmentWithServiceWorker") {
+			if (environment === "development-with-service-worker") {
 				console.error("SW registration failed:", error);
 			}
 		}

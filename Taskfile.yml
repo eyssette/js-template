@@ -104,7 +104,7 @@ tasks:
           npx paraglide-js compile --project ./i18n/project.inlang --outdir ./app/js/lib/paraglide --no-emit-ts-declarations --output-structure locale-modules --watch &
           paraglide_pid=$!
           trap "kill \"$paraglide_pid\" \"$watch_txt_files_pid\" 2>/dev/null" EXIT INT TERM
-          NODE_ENV=developmentWithServiceWorker npx rolldown --config --watch
+          NODE_ENV=development-with-service-worker npx rolldown --config --watch
           '
 
   debug:

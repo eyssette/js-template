@@ -47,7 +47,7 @@ export async function cacheNetworkResponse(
 			await cache.put(request, responseClone);
 			await trimCache(targetCacheName, maxEntries);
 		} catch (error) {
-			if (process.env.NODE_ENV === "developmentWithServiceWorker") {
+			if (process.env.NODE_ENV === "development-with-service-worker") {
 				console.error(
 					`Erreur d'écriture dans le cache (${targetCacheName}) :`,
 					error,

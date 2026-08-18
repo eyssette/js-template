@@ -23,7 +23,7 @@ export async function precacheNonCriticalUrls(cache, urls) {
 		}),
 	);
 
-	if (process.env.NODE_ENV === "developmentWithServiceWorker") {
+	if (process.env.NODE_ENV === "development-with-service-worker") {
 		for (const [index, result] of results.entries()) {
 			if (result.status === "rejected") {
 				console.error(

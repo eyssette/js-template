@@ -35,11 +35,11 @@ const development =
 	process.env.NODE_ENV &&
 	(process.env.NODE_ENV === "development" ||
 		process.env.NODE_ENV === "debug" ||
-		process.env.NODE_ENV === "developmentWithServiceWorker");
+		process.env.NODE_ENV === "development-with-service-worker");
 const debug = development && process.env.NODE_ENV === "debug";
 const developmentWithServiceWorker =
 	process.env.NODE_ENV &&
-	process.env.NODE_ENV === "developmentWithServiceWorker";
+	process.env.NODE_ENV === "development-with-service-worker";
 
 const PORT_DEV_SERVER = developmentWithServiceWorker ? 20_002 : 10_001;
 
@@ -142,15 +142,6 @@ const getIifeConfig = async () => ({
 		replacePlugin({
 			"process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
 		}),
-
-		// En mode développement, lance un serveur de développement et recharge la page automatiquement lorsqu'un fichier est modifié
-		development &&
-			serve({
-				port: PORT_DEV_SERVER,
-				contentBase: [distFolder, "./"],
-				open: !debug,
-			}),
-		development && livereload({ port: PORT_DEV_SERVER, delay: 300 }),
 	],
 });
 
