@@ -26,6 +26,24 @@ Ce template est pensé pour être utilisé avec l’éditeur de code [VS Code](h
 - **Formater** automatiquement le code avec [Oxfmt](https://oxc.rs/docs/guide/usage/formatter) au moment de la sauvegarde,
 - **Déboguer** son application grâce à un serveur de développement local préconfiguré, qui permet de lancer l’application, de voir les modifications en direct, d’inspecter les variables et l’exécution du code pas à pas.
 
+<details><summary>Plus de détails sur la vérification de la qualité du code (les _linters_)</summary>
+
+Les _linters_ sont des outils qui analysent le code source pour détecter les erreurs, les incohérences et les mauvaises pratiques. Ils permettent de maintenir un code propre, lisible et conforme aux standards.
+
+Dans VSCode / VSCodium, vous pourrez voir les erreurs de lint dans le panneau de problèmes, et les erreurs les plus graves sont également soulignées directement dans le code.
+
+Les règles par défaut sont plutôt exigeantes et forcent à respecter de bonnes pratiques.
+
+L'intérêt des linters est aussi d'apprendre à produire du code de meilleure qualité. Pour des agents IA, les linters apportent aussi des indications précises sur les erreurs à corriger, ce qui permet aux agents de se focaliser sur les corrections à apporter plutôt que de chercher à comprendre ce qui ne va pas.
+
+Si on veut changer les règles de lint, on peut soit les désactiver pour une ligne ou un fichier spécifique en faisant, dans VSCode / VSCodium, un clic droit sur l'erreur : il faut alors choisir "Désactiver la règle pour cette ligne" ou "Désactiver la règle pour ce fichier".
+On peut aussi changer les règles de lint pour tous les fichiers dans les fichiers de configuration d'[Oxlint](https://oxc.rs/docs/guide/usage/linter) : `oxlint.config.mjs`, de [Stylelint](https://stylelint.io/) : `stylelint.config.mjs` et d'[HTML-Validate](https://html-validate.org/) : `.htmlvalidate.json`.
+
+Attention, il n'est pas recommandé de désactiver les règles de lint, sauf si on est sûr de ce que l'on fait et que l'on a une bonne raison de le faire.
+
+</details>
+
+
 ### Des tâches automatisées pour le développement et la maintenance
 
 Les tâches courantes sont automatisées avec [Task](https://taskfile.dev/) et permettent de :
