@@ -23,13 +23,14 @@ export async function precacheNonCriticalUrls(cache, urls) {
 		}),
 	);
 
-	for (const [index, result] of results.entries()) {
-		if (result.status === "rejected") {
-			// oxlint-disable-next-line no-console
-			console.error(
-				`Précache optionnel échoué pour ${urls[index]} :`,
-				result.reason,
-			);
+	if (process.env.NODE_ENV === "developmentWithServiceWorker") {
+		for (const [index, result] of results.entries()) {
+			if (result.status === "rejected") {
+				console.error(
+					`Précache optionnel échoué pour ${urls[index]} :`,
+					result.reason,
+				);
+			}
 		}
 	}
 }

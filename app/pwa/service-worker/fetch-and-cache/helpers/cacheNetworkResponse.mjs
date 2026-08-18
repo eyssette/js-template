@@ -47,11 +47,12 @@ export async function cacheNetworkResponse(
 			await cache.put(request, responseClone);
 			await trimCache(targetCacheName, maxEntries);
 		} catch (error) {
-			// oxlint-disable-next-line no-console
-			console.error(
-				`Erreur d'écriture dans le cache (${targetCacheName}) :`,
-				error,
-			);
+			if (process.env.NODE_ENV === "developmentWithServiceWorker") {
+				console.error(
+					`Erreur d'écriture dans le cache (${targetCacheName}) :`,
+					error,
+				);
+			}
 		}
 	};
 

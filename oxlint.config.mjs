@@ -228,9 +228,11 @@ const config = {
 			},
 		},
 		{
-			files: ["app/js/iifeFallback.js", "app/sw.mjs"],
+			files: ["app/js/iifeFallback.js", "app/sw.mjs", "app/pwa/**/*.{mjs}"],
+			env: { builtin: true, browser: true, node: true },
 			rules: {
 				"import/unambiguous": "off",
+				"eslint/no-console": "off",
 			},
 		},
 	],

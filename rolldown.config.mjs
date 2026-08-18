@@ -182,6 +182,11 @@ const swConfig = {
 	transform: {
 		target: ECMA_VERSION,
 	},
+	plugins: [
+		replacePlugin({
+			"process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+		}),
+	],
 };
 
 const getConfigBasedOnEnvironment = async () => {

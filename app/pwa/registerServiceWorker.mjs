@@ -1,4 +1,3 @@
-// oxlint-disable-next-line no-undef
 const environment = process.env.NODE_ENV;
 
 const useServiceWorker =
@@ -13,8 +12,9 @@ export async function registerServiceWorker() {
 			});
 			return registration;
 		} catch (error) {
-			// oxlint-disable-next-line no-console
-			console.error("SW registration failed:", error);
+			if (environment === "developmentWithServiceWorker") {
+				console.error("SW registration failed:", error);
+			}
 		}
 	}
 }

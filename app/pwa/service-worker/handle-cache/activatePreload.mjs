@@ -3,11 +3,12 @@ export async function activatePreload() {
 		try {
 			await globalThis.registration.navigationPreload.enable();
 		} catch (error) {
-			// oxlint-disable-next-line no-console
-			console.error(
-				"Erreur lors de l'activation du préchargement de la navigation :",
-				error,
-			);
+			if (process.env.NODE_ENV === "developmentWithServiceWorker") {
+				console.error(
+					"Erreur lors de l'activation du préchargement de la navigation :",
+					error,
+				);
+			}
 		}
 	}
 }
