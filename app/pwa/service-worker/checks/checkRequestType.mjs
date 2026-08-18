@@ -5,6 +5,7 @@ import {
 	NON_CRITICAL_PRECACHE_URLS,
 	STATIC_ASSETS_EXTENSIONS,
 } from "../swConfig.mjs";
+import { resolveAppUrl } from "../helpers/url.mjs";
 
 const PRECACHE_URLS = [
 	...CRITICAL_PRECACHE_URLS,
@@ -12,7 +13,7 @@ const PRECACHE_URLS = [
 ];
 
 const PRECACHE_URL_SET = new Set(
-	PRECACHE_URLS.map((url) => new URL(url, globalThis.location.origin).href),
+	PRECACHE_URLS.map((url) => resolveAppUrl(url)),
 );
 
 export function isPrecachedRequest(request) {

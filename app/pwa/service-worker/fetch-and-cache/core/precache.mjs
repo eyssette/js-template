@@ -6,13 +6,14 @@ import {
 } from "../../swConfig.mjs";
 import { CORE_CACHE } from "./cacheTypes.mjs";
 import { isCacheableResponse } from "../../checks/checkIfCacheable.mjs";
+import { resolveAppUrl } from "../../helpers/url.mjs";
 
 // Met en cache un lot de ressources de manière tolérante aux échecs
 // individuels : chaque échec est loggé mais ne fait pas échouer les autres.
 export async function precacheNonCriticalUrls(cache, urls) {
 	const results = await Promise.allSettled(
 		urls.map(async (url) => {
-			const request = new Request(url, { cache: "reload" });
+			const request = new Request(resolveAppUrl(url), { cache: "reload" });
 			const response = await fetch(request);
 			if (!isCacheableResponse(response)) {
 				throw new Error(

@@ -10,6 +10,7 @@ import {
 import { DEFAULT_TIMEOUT_MS, OFFLINE_URL } from "../../swConfig.mjs";
 import { fetchAndCache } from "./fetchAndCache.mjs";
 import { isNavigationRequest } from "../../checks/checkRequestType.mjs";
+import { resolveAppUrl } from "../../helpers/url.mjs";
 
 // Récupère la réponse d'un cache opaque (cross-origin) si elle existe
 async function matchOpaqueCache(request) {
@@ -95,22 +96,23 @@ async function navigationFallback(request) {
 		return cachedPage;
 	}
 
-	// On regarde si la requête correspond directement à une URL précachée (ex: "/" ou "/index.html").
+	// On regarde si la requête correspond directement à une URL précachée (ex: "./" ou "index.html").
 	const coreCache = await caches.open(CORE_CACHE);
 	const corePage = await coreCache.match(request);
 	if (corePage) {
 		return corePage;
 	}
 
-	// On revient sur la page d'accueil de l'application ("/" ou "/index.html") si elle a été précachée correctement
+	// On revient sur la page d'accueil de l'application si elle a été précachée correctement.
 	const appShell =
-		(await coreCache.match("/index.html")) || (await coreCache.match("/"));
+		(await coreCache.match(resolveAppUrl("index.html"))) ||
+		(await coreCache.match(resolveAppUrl("./")));
 	if (appShell) {
 		return appShell;
 	}
 
 	// En dernier recours, on affiche la page offline générique.
-	const offlinePage = await coreCache.match(OFFLINE_URL);
+	const offlinePage = await coreCache.match(resolveAppUrl(OFFLINE_URL));
 	if (offlinePage) {
 		return offlinePage;
 	}

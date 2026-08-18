@@ -13,26 +13,26 @@ export const SW_VERSION = "0";
 export const UPDATE_SERVICE_WORKER_WITH_POST_MESSAGE = false;
 
 // Page affichée quand la navigation échoue complètement
-export const OFFLINE_URL = "/pwa/offline.html";
+export const OFFLINE_URL = "pwa/offline.html";
 
 // Fichiers à mettre en cache dès l'installation
 export const CRITICAL_PRECACHE_URLS = [
-	"/",
-	"/index.html",
+	"./",
+	"index.html",
 	OFFLINE_URL,
-	"/css/styles.min.css",
-	"/chunks/main.js",
-	"/iifeFallback.js",
-	"/script.min.js",
+	"css/styles.min.css",
+	"chunks/main.js",
+	"iifeFallback.js",
+	"script.min.js",
 ];
 
 export const NON_CRITICAL_PRECACHE_URLS = [
-	"/favicon.svg",
-	"/pwa/manifest.webmanifest",
-	"/pwa/icon-192x192.png",
-	"/pwa/icon-512x512.png",
-	"/pwa/maskable-icon-192x192.png",
-	"/pwa/maskable-icon-512x512.png",
+	"favicon.svg",
+	"pwa/manifest.webmanifest",
+	"pwa/icon-192x192.png",
+	"pwa/icon-512x512.png",
+	"pwa/maskable-icon-192x192.png",
+	"pwa/maskable-icon-512x512.png",
 ];
 
 // Extensions considérées comme "assets statiques" → stale-while-revalidate
