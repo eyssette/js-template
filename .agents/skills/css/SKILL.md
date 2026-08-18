@@ -9,22 +9,29 @@ agent: "agent"
 
 L'objectif est de **produire** ou de **vérifier** du CSS donné en entrée.
 
+## IMPORTANT : Workflow
+
+### 1/ Vérification de la présence d'un design de référence
 Il faut d'abord vérifier s'il existe un fichier `.plan/DESIGN.md` dans le projet.
 - Si oui, il faut demander à l'utilisateur s'il veut l'utiliser comme référence pour la vérification du CSS.
 - Si non, il faut demander à l'utilisateur s'il veut d'abord créer un fichier `.plan/DESIGN.md` avant de continuer, et utiliser alors la skill `design-md` pour générer un plan de design initial.
 
+### 2/ Tâche à identifier : produire ou vérifier du CSS
 Ensuite, il faut voir si l'utilisateur veut **produire** du CSS ou **vérifier** du CSS existant.
 
-S'il faut **produire** du CSS :
+### 3/ Workflow pour chaque tâche
+
+#### Cas 1 : S'il faut **produire** du CSS
 - écrire le CSS en respectant les règles de bonnes pratiques ci-dessous,
   - écrire en priorité le CSS dans le fichier `app/css/style.css`
   - s'il faut découper le CSS, créer un fichier par composant/layout dans `app/css/components/` ou `app/css/layouts/` et importer chaque fichier à la suite au début de `app/js/main.js`.
-- vérifier la compatibilité la Baseline 2020, avec le script fourni.
+- vérifier la compatibilité la Baseline 2020, avec le script python fourni (`check_baseline_css.py` dans `references/scripts/`).
 
-S'il faut **vérifier** du CSS existant :
+#### Cas 2 : S'il faut **vérifier** du CSS existant :
 - vérifier que les règles de bonnes pratiques ci-dessous sont respectées,
-- vérifier la compatibilité la Baseline 2020, avec le script fourni.
-- En cas de problèmes :
+- vérifier la compatibilité la Baseline 2020, avec le script python fourni (`check_baseline_css.py` dans `references/scripts/`).
+- écrire un rapport de vérification détaillé, avec les problèmes détectés et les solutions possibles dans un fichier. `.report/css-audit/YYYY-MM-DD-HHMMSS.md` (où `YYYY-MM-DD-HHMMSS` est la date et l'heure de l'audit).
+- en cas de problèmes :
   - Si les problèmes sont simples, proposer des corrections directes.
   - Si les problèmes sont nombreux ou complexes, proposer un plan de correction étape par étape et demander à l'utilisateur s'il veut corriger ou ignorer chaque problème, en avançant petit à petit et sous le contrôle de l'utilisateur.
 
