@@ -3,12 +3,11 @@
 import {
 	CORE_CACHE,
 	DATA_CACHE,
-	DEFAULT_TIMEOUT_MS,
 	DYNAMIC_CACHE,
-	OFFLINE_URL,
 	OPAQUE_CACHE,
 	STATIC_ASSETS_CACHE,
-} from "../../swConfig.mjs";
+} from "./cacheTypes.mjs";
+import { DEFAULT_TIMEOUT_MS, OFFLINE_URL } from "../../swConfig.mjs";
 import { fetchAndCache } from "./fetchAndCache.mjs";
 import { isNavigationRequest } from "../../checks/checkRequestType.mjs";
 

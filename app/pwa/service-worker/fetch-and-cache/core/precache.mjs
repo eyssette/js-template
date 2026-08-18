@@ -1,10 +1,10 @@
 // PRECACHE
 
 import {
-	CORE_CACHE,
 	CRITICAL_PRECACHE_URLS,
 	NON_CRITICAL_PRECACHE_URLS,
 } from "../../swConfig.mjs";
+import { CORE_CACHE } from "./cacheTypes.mjs";
 import { isCacheableResponse } from "../../checks/checkIfCacheable.mjs";
 
 // Met en cache un lot de ressources de manière tolérante aux échecs

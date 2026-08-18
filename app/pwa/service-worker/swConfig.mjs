@@ -4,33 +4,13 @@
 export const APP_NAME = "js-template";
 // Le numéro de version est automatiquement mis à jour lors d'un bump de version.
 // NE PAS MODIFIER MANUELLEMENT
-const APP_VERSION = "8.0.0";
+export const APP_VERSION = "8.0.0";
 // On peut forcer manuellement le service worker à se réinstaller et à recharger les caches en changeant la version ci-dessous.
-const SW_VERSION = "0";
+export const SW_VERSION = "0";
 
 // Par défaut, le service worker se met à jour automatiquement quand une nouvelle version est disponible.
 // C'est plus propre normalement de le faire via l'API "postMessage", mais il faut dans ce cas_là le gérer manuellement dans l'application et envoyer un message avec le type "SKIP_WAITING" pour forcer le service worker à se mettre à jour.
 export const UPDATE_SERVICE_WORKER_WITH_POST_MESSAGE = false;
-
-// On distingue 5 caches
-// - CORE_CACHE : pour les fichiers essentiels de l'application (cache-first)
-// - STATIC_ASSETS_CACHE : pour les assets statiques (stale-while-revalidate)
-// - DATA_CACHE : pour les fichiers de données (stale-while-revalidate)
-// - DYNAMIC_CACHE : pour les données téléchargées depuis le réseau (network-first)
-// - OPAQUE_CACHE : pour les ressources opaques (cross-origin)
-export const CORE_CACHE = `${APP_NAME}-core-${APP_VERSION}-${SW_VERSION}`;
-export const STATIC_ASSETS_CACHE = `${APP_NAME}-assets-${APP_VERSION}-${SW_VERSION}`;
-export const DATA_CACHE = `${APP_NAME}-data-${APP_VERSION}-${SW_VERSION}`;
-export const DYNAMIC_CACHE = `${APP_NAME}-dynamic-${APP_VERSION}-${SW_VERSION}`;
-export const OPAQUE_CACHE = `${APP_NAME}-opaque-${APP_VERSION}-${SW_VERSION}`;
-
-export const CURRENT_CACHES = new Set([
-	CORE_CACHE,
-	STATIC_ASSETS_CACHE,
-	DATA_CACHE,
-	DYNAMIC_CACHE,
-	OPAQUE_CACHE,
-]);
 
 // Page affichée quand la navigation échoue complètement
 export const OFFLINE_URL = "/pwa/offline.html";
@@ -53,11 +33,6 @@ export const NON_CRITICAL_PRECACHE_URLS = [
 	"/pwa/icon-512x512.png",
 	"/pwa/maskable-icon-192x192.png",
 	"/pwa/maskable-icon-512x512.png",
-];
-
-export const PRECACHE_URLS = [
-	...CRITICAL_PRECACHE_URLS,
-	...NON_CRITICAL_PRECACHE_URLS,
 ];
 
 // Extensions considérées comme "assets statiques" → stale-while-revalidate

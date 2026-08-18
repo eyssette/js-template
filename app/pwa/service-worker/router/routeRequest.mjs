@@ -8,7 +8,10 @@
 // On peut forcer une stratégie particulière pour une requête donnée en ajoutant un header HTTP `X-Cache-Strategy` ou un paramètre d'URL `cache_strategy` avec l'une des valeurs suivantes : `cache-first`, `stale-while-revalidate`, `network-first`.
 // Ce forçage ne peut s'appliquer qu'aux ressources non-HTML (images, JS, CSS, données JSON...) afin d'éviter de casser le fonctionnement hors-ligne des navigations HTML (pages web).
 
-import { DATA_CACHE, DYNAMIC_CACHE } from "../swConfig.mjs";
+import {
+	DATA_CACHE,
+	DYNAMIC_CACHE,
+} from "../fetch-and-cache/core/cacheTypes.mjs";
 import {
 	cacheFirst,
 	networkFirst,

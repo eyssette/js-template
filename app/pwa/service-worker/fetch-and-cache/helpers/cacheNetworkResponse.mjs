@@ -1,10 +1,6 @@
 // Met en cache la réponse réseau si elle est éligible (ni exclue, ni non cacheable).
 
-import {
-	CACHE_MAX_ENTRIES,
-	MAX_OPAQUE_ENTRIES,
-	OPAQUE_CACHE,
-} from "../../swConfig.mjs";
+import { CACHE_MAX_ENTRIES, MAX_OPAQUE_ENTRIES } from "../../swConfig.mjs";
 import {
 	hasNoStoreDirective,
 	isCacheableResponse,
@@ -16,6 +12,7 @@ import {
 	isPartialResponse,
 	isTooLarge,
 } from "../../checks/checkResponseType.mjs";
+import { OPAQUE_CACHE } from "../core/cacheTypes.mjs";
 import { isRangeRequest } from "../../checks/checkRequestType.mjs";
 import { trimCache } from "../../handle-cache/trimCache.mjs";
 

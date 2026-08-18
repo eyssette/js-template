@@ -1,4 +1,5 @@
-import { APP_NAME, CURRENT_CACHES } from "../swConfig.mjs";
+import { APP_NAME } from "../swConfig.mjs";
+import { CURRENT_CACHES } from "../fetch-and-cache/core/cacheTypes.mjs";
 
 // Supprime les caches d'une version précédente du service worker.
 export async function removePreviousCaches() {
