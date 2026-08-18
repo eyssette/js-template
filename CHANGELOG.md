@@ -1,3 +1,15 @@
+## 8.0.2 (2026-08-18)
+
+### Fix
+
+- **pwa**: gestion du mode PWA pour un déploiement dans un sous-domaine [(2927460)](https://forge.apps.education.fr/eyssette/js-template/-/commit/292746018545ccd86eb01351e2876aa9c67ae050)
+- **ai**: amélioration de la SKILL "css" - workflow plus précis et rapport de vérification à écrire dans .report [(9e4c02a)](https://forge.apps.education.fr/eyssette/js-template/-/commit/9e4c02a38f1e98c00fada8e3207c7a4a2dab7144)
+
+### Chore
+
+- **task**: ajout d'une tâche pour arrêter le serveur de développement avec le service worker [(7bff171)](https://forge.apps.education.fr/eyssette/js-template/-/commit/7bff1710b0c1deb71c9d3e83747df8abb445f333)
+- renommage de l'environnement de développement avec le service worker [(417c03f)](https://forge.apps.education.fr/eyssette/js-template/-/commit/417c03f1a847de35a5bd5e980b79d8a95a3b424e)
+
 ## 8.0.1 (2026-08-18)
 
 ### Fix
