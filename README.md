@@ -4,9 +4,12 @@ JS Template est un environnement de développement JavaScript pré-configuré et
 
 - Éditeur de code qui vérifie la qualité du code, le formate automatiquement et facilite le débogage,
 - Tâches automatisées pour compiler, tester, pousser, déployer et vérifier l’application.
-- Pré-configuration pour l'utilisation d'agents IA.
-- Intégration possible de composants Svelte pour gérer l'interface utilisateur de manière plus efficace et réactive.
-- Gestion de l'internationalisation (i18n) et du mode PWA (Progressive Web App) qui permet d'installer l'application (sur mobile ou sur ordinateur) et de l'utiliser hors ligne.
+- Pré-configuration pour l'utilisation d'agents IA avec des compétences (`SKILLS`) pré-définies pour le projet, qui permettent d'écrire du code, de générer des tests, de corriger des bugs, de générer de la documentation, etc.
+- Intégration possible de composants Svelte pour gérer l'interface utilisateur de manière plus efficace et réactive pour des projets plus complexes.
+- Gestion de l'internationalisation (i18n) pour que l'application puisse être utilisée dans plusieurs langues, avec des fichiers de traduction séparés.
+- Mode PWA (Progressive Web App) préconfiguré, ce qui permet d'installer l'application (sur mobile ou sur ordinateur) et de l'utiliser hors ligne.
+
+Les outils utilisés sont tous des logiciels libres, modernes et performants, afin d'avoir un environnement de développement agréable et efficace, qui permet de se concentrer sur le code plutôt que sur la configuration.
 
 ## Ce que ce template apporte
 
