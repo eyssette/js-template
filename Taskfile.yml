@@ -10,6 +10,7 @@ vars:
   TEST_FOLDER: "tests"
   FEATURES_FOLDER: "features"
   PORT_DEV_SERVER: 10001
+  PORT_DEV_SERVER_WITH_SW: 20002
   PORT_TESTS_SERVER: 8888
   CURRENT_E2E_TEST: "@CURRENT"
   REPORT_DIR: ".report"
@@ -106,6 +107,11 @@ tasks:
           trap "kill \"$paraglide_pid\" \"$watch_txt_files_pid\" 2>/dev/null" EXIT INT TERM
           NODE_ENV=development-with-service-worker npx rolldown --config --watch
           '
+
+  dev:sw:stop:
+    desc: Arrête le serveur de développement avec le service worker
+    cmds:
+      - bash -c 'kill $(lsof -ti :{{.PORT_DEV_SERVER_WITH_SW}}) 2>/dev/null' || true
 
   debug:
     desc: Lance le serveur de développement avec Rolldown en mode watch et debug
