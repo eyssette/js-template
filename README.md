@@ -11,9 +11,7 @@ JS Template est un environnement de développement JavaScript pré-configuré et
 
 Les outils utilisés sont tous des logiciels libres, modernes et performants, afin d'avoir un environnement de développement agréable et efficace, qui permet de se concentrer sur le code plutôt que sur la configuration.
 
-## Ce que ce template apporte
-
-### Les fonctions principales
+## Ce que ce template apporte (les fonctionnalités principales)
 
 ### Un éditeur de code préconfiguré
 
@@ -62,7 +60,7 @@ Les tâches courantes sont définies dans le fichier `Taskfile.yml` et peuvent �
 
 <!-- On va maintenant parler de l'utilisation possible de l'IA avec le fichier AGENTS.md qui sert de guide et les SKILLS dans le dossier .agents/skills/<skill_name> -->
 
-### Utilisation d'agents IA configurés pour le projet
+### Utilisation possible d'agents IA configurés pour le projet
 
 Le projet est configuré pour pouvoir être utilisé avec des agents IA.
 
