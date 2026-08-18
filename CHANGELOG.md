@@ -1,3 +1,22 @@
+## 8.0.0 (2026-08-18)
+
+### Feat
+
+- **ai**: ajout d'une SKILL "css" pour écrire ou vérifier du CSS [(5fbb648)](https://forge.apps.education.fr/eyssette/js-template/-/commit/5fbb64832e0af1e983af2b5416fb8d9d84e203ca)
+- **ai**: ajout d'une SKILL "design-md" pour créer un fichier DESIGN.md qui définit la charte graphique de son application [(50de4a7)](https://forge.apps.education.fr/eyssette/js-template/-/commit/50de4a77992fd0212d81601c568921f537e4bfcc)
+
+### Fix
+
+- **lint**: configuration de Stylelint [(54315ab)](https://forge.apps.education.fr/eyssette/js-template/-/commit/54315aba3463e1d0574d576e7ed3f171306cd9a4)
+- **ai**: précisions sur la gestion des événements et le CSS dans la SKILL "code" [(b5e2788)](https://forge.apps.education.fr/eyssette/js-template/-/commit/b5e27888a30d7f2da09bec83f276527416165dbb)
+- **ai**: précisions dans la SKILL `code` pour l'accessibilité et la sécurité du code produit [(104f965)](https://forge.apps.education.fr/eyssette/js-template/-/commit/104f96589559dfde293340fab74bc6c021e071be)
+
+### Chore
+
+- ajout de mots autorisés pour cSpell [(82f1855)](https://forge.apps.education.fr/eyssette/js-template/-/commit/82f185531e56df264706efd0f70ffb50fce2d5d9)
+- **lint**: lint du fichier styles.css [(3ca79de)](https://forge.apps.education.fr/eyssette/js-template/-/commit/3ca79def36eed98069093ff8f5267db176dcc09e)
+- ajout d'un mot autorisé pour cSpell [(42473ec)](https://forge.apps.education.fr/eyssette/js-template/-/commit/42473ec40dde9cc29d6fb7323f6033dc936c108d)
+
 ## 7.0.2 (2026-08-17)
 
 ### Fix
