@@ -5,17 +5,19 @@ argument-hint: "<OLD_TAG> <NEW_TAG>"
 agent: "agent"
 ---
 
-Objectif: rédiger un message d'annonce de release en Markdown, agréable à lire et orienté utilisateur.
+## Objectif
+Rédiger un message d'annonce de release en Markdown, agréable à lire et orienté utilisateur.
 
-Entrée attendue:
+## Entrée attendue
 - Deux tags Git: `OLD_TAG` et `NEW_TAG`.
 - Si en plus des deux tags, il y a un troisième argument "template", cela signifie que la release concerne le template et non pas une application créée à partir du template. Dans ce cas, tout ce qui concerne l'environnement de développement est important.
 
-Sortie attendue:
+## Sortie attendue
 - Un message d'annonce de release en Markdown, prêt à publier, structuré et lisible, dans un fichier `.release/note/NEW_TAG.md`.
 - Indique le chemin du fichier créé.
+- Demande à l'utilisateur s'il souhaite aussi créer une archive de l'application compilée pour la version `NEW_TAG`. Si oui, lance la commande `task create-zipped-dist-from-tag -- NEW_TAG` et informe l'utilisateur du chemin de l'archive créée (`.release/dist/NEW_TAG.zip`).
 
-Comportement:
+## Comportement
 
 1. Vérifie si `OLD_TAG` et `NEW_TAG` sont fournis.
 2. Si au moins un tag manque, demande explicitement:
@@ -57,9 +59,10 @@ Comportement:
    - Les termes techniques (noms de fonctions, d'API, de flags CLI, de fichiers) ne sont pas traduits littéralement.
    - Le ton reste factuel, sans exagération.
 8. Écris le fichier `.release/note/NEW_TAG.md`, puis affiche dans la conversation le chemin du fichier.
+9. Demande à l'utilisateur s'il souhaite créer une archive de l'application compilée pour la version `NEW_TAG`. Si oui, lance la commande nécessaire et informe l'utilisateur du chemin de l'archive créée.
 
-Contraintes de rédaction:
-- tu dois respecter la structure du template de release fourni par la commande `task release-draft -- OLD_TAG NEW_TAG` : ne pas ajouter de section supplémentaire, ne supprimer une section que si elle est vide.
+## Contraintes de rédaction
+- Tu dois respecter la structure du template de release fourni par la commande `task release-draft -- OLD_TAG NEW_TAG` : ne pas ajouter de section supplémentaire, ne supprimer une section que si elle est vide.
 - La sortie finale doit toujours être en français, à l'exception des termes techniques (API, flags, noms de fonctions, noms de fichiers) qui restent dans leur forme originale.
 - Le ton doit être informatif, mais rester agréable et engageant, sans être enjolivé, et sans exagération.
 - Utilise le Markdown pour structurer, sans abuser du gras et de l'italique.
@@ -68,5 +71,5 @@ Contraintes de rédaction:
 - Les phrases doivent être compréhensibles par un utilisateur qui n'est pas forcément un expert technique, mais qui a un minimum de connaissances sur le projet et son fonctionnement.
 - Le contenu d'ensemble doit rester globalement concis (mais suffisamment détaillé pour que l'utilisateur comprenne les changements).
 
-Gestion des erreurs:
+## Gestion des erreurs
 - Si une commande (`git`, `task ...`) échoue ou ne retourne pas de résultat exploitable, arrête-toi et informe clairement l'utilisateur de l'erreur rencontrée, sans tenter de deviner ou d'inventer le contenu manquant.
