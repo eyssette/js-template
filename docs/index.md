@@ -62,6 +62,10 @@ Le template utilise une convention standard pour les messages de commit, afin de
 Quand l'application évolue, on peut faire une montée de version. Le template calcule automatiquement le nouveau numéro de version et génère le CHANGELOG à partir de l'historique des commits.
 :::
 
+:::success Génération d'un site de documentation
+Vous pouvez écrire la documentation de votre projet dans des fichiers Markdown dans le dossier `docs/`, et le template génère automatiquement un site web de documentation à partir de ces fichiers.
+:::
+
 #### Tout ce qu'il faut pour travailler avec des agents IA
 
 :::success Des conventions pour guider les agents IA
@@ -111,6 +115,10 @@ Les tests unitaires sont exécutés avec [Jasmine](https://jasmine.github.io) et
 
 :::technique Commits, gestion des versions et génération automatique du CHANGELOG
 [**Husky**](https://github.com/typicode/husky) et [**Commitlint**](https://github.com/conventional-changelog/commitlint) imposent des messages de commit au format *Conventional Commits* avant chaque commit, et [**Commitizen**](https://github.com/commitizen/cz-cli) génère automatiquement le `CHANGELOG.md` à partir de l'historique quand on fait une montée de version.
+:::
+
+:::technique Génération d'un site de documentation
+Le template utilise [Markpage](https://markpage.forge.apps.education.fr) pour générer le site de documentation à partir des fichiers Markdown.
 :::
 
 #### Tout ce qu'il faut pour travailler avec des agents IA
