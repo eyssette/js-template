@@ -114,7 +114,7 @@ Les tests unitaires sont exécutés avec [Jasmine](https://jasmine.github.io) et
 :::
 
 :::technique Commits, gestion des versions et génération automatique du CHANGELOG
-[**Husky**](https://github.com/typicode/husky) et [**Commitlint**](https://github.com/conventional-changelog/commitlint) imposent des messages de commit au format *Conventional Commits* avant chaque commit, et [**Commitizen**](https://github.com/commitizen/cz-cli) génère automatiquement le `CHANGELOG.md` à partir de l'historique quand on fait une montée de version.
+[Husky](https://github.com/typicode/husky) et [Commitlint](https://github.com/conventional-changelog/commitlint) imposent des messages de commit au format *Conventional Commits* avant chaque commit, et [Commitizen](https://github.com/commitizen/cz-cli) génère automatiquement le `CHANGELOG.md` à partir de l'historique quand on fait une montée de version.
 :::
 
 :::technique Génération d'un site de documentation
