@@ -1,3 +1,24 @@
+## 9.0.0 (2026-08-21)
+
+### Feat
+
+- **documentation-website**: génération automatique d'un site de documentation pour le projet [(8f98f5b)](https://forge.apps.education.fr/eyssette/js-template/-/commit/8f98f5bed09980181e7007b7042e73e0ef082059)
+
+### Fix
+
+- **ci**: job "build-docs" dans le stage "build" [(42b7c3d)](https://forge.apps.education.fr/eyssette/js-template/-/commit/42b7c3d27e5165a14e76b90d765c45e8bd0719e5)
+- **ci**: correctif pour le build de la doc dans le pipeline [(c36a17b)](https://forge.apps.education.fr/eyssette/js-template/-/commit/c36a17b684411b1ff5624ea2529e661b4812da1c)
+- **ai**: amélioration de la SKILL"release-draft" (proposition de créer l'archive "dist" correspondant au tag) [(ea4f04f)](https://forge.apps.education.fr/eyssette/js-template/-/commit/ea4f04f171f50270fb1f9334fe2fe4b72be6f973)
+
+### Docs
+
+- simplification du README [(6b74467)](https://forge.apps.education.fr/eyssette/js-template/-/commit/6b74467cc398fbce61f5609218f9fcbbd0d1eed9)
+- ajout de la référence à la génération du site de documentation (avec Markpage) [(4fbc744)](https://forge.apps.education.fr/eyssette/js-template/-/commit/4fbc744bf0d2ba6002cc89ab6e29bca59622d229)
+- ajout des liens vers les outils et logiciels utilisés dans la partie de présentation des fonctionnalités principales [(550f13c)](https://forge.apps.education.fr/eyssette/js-template/-/commit/550f13c46ba850e65b92150423e178ffc1dbb8aa)
+- simplification du README (renvoi à la documentation plus complète) [(7a0148c)](https://forge.apps.education.fr/eyssette/js-template/-/commit/7a0148ca8e8a7b3ef52009c26bacdaf0e8006474)
+- ajout d'une documentation plus explicite et mieux organisée [(563dcbc)](https://forge.apps.education.fr/eyssette/js-template/-/commit/563dcbc2d5a1e73b7282c229eceeac1bb87747d0)
+- amélioration de quelques titres [(af27621)](https://forge.apps.education.fr/eyssette/js-template/-/commit/af27621a724c86e5cb744508d502600f15ef35a0)
+
 ## 8.0.2 (2026-08-18)
 
 ### Fix
