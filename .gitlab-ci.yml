@@ -102,6 +102,7 @@ ecma-dist:
 docs:
   stage: docs
   interruptible: false
+  allow_failure: true
   # Cache pour les dépendances npm spécifiques à la génération de la documentation
   cache:
     - key: docs-npm-cache
@@ -118,7 +119,7 @@ docs:
     - cd docs
     # 1. Sauvegarde des fichiers source de la documentation
     - mkdir -p .my_content
-    - cp -r . .my_content
+    - cp -r * .my_content
     # 2. Téléchargement et extraction de l'application Markpage
     - mkdir -p doc_build
     - wget https://forge.apps.education.fr/markpage/markpage.forge.apps.education.fr/-/archive/main/markpage.forge.apps.education.fr-main.tar.bz2 -O markpage.tar.bz2
@@ -144,9 +145,6 @@ compress:
   needs:
     - job: build
       artifacts: true
-    - job: docs
-      artifacts: true
-      optional: true
   script:
     # Installation de gzip et brotli pour la compression des fichiers
     - apk add --no-cache gzip brotli
