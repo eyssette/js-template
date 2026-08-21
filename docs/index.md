@@ -80,37 +80,37 @@ Le template est pré-configuré pour être utilisé avec des agents IA, avec des
 #### Tout ce qu'il faut pour développer une application web moderne
 
 :::technique Qualité du code vérifiée en continue et formatage automatique
-L'environnement s'appuie sur **Oxlint** pour le linting JavaScript (analyse statique rapide écrite en Rust), **Stylelint** pour le CSS et **HTML-Validate** pour le HTML. Le formatage est assuré par **Oxfmt** (également en Rust), configuré pour s'exécuter automatiquement à chaque sauvegarde dans VS Code / VSCodium.
+L'environnement s'appuie sur [Oxlint](https://oxc.rs/docs/guide/usage/linter) pour le linting JavaScript (analyse statique rapide écrite en Rust), [Stylelint](https://stylelint.io) pour le CSS et [HTML-Validate](https://github.com/validator/validator) pour le HTML. Le formatage est assuré par [Oxfmt](https://oxc.rs/docs/guide/usage/formatter) (également en Rust), configuré pour s'exécuter automatiquement à chaque sauvegarde dans VS Code / VSCodium.
 :::
 
 :::technique Internationalisation (i18n)
-La couche de traduction est gérée par **ParaGlideJS** avec des fichiers de messages dans `i18n/messages`. Pour les longs textes statiques, le plugin **unplugin-raw** permet d'importer directement des fichiers bruts (`.txt`, `.html`, etc.) dans le JavaScript, ce qui facilite la maintenance.
+La couche de traduction est gérée par [ParaGlideJS](https://github.com/paraglidejs/paraglide-js) avec des fichiers de messages dans `i18n/messages`. Pour les longs textes statiques, le plugin [unplugin-raw](https://github.com/antfu/unplugin-raw) permet d'importer directement des fichiers bruts (`.txt`, `.html`, etc.) dans le JavaScript, ce qui facilite la maintenance.
 :::
 
 :::technique Mode PWA (Progressive Web App)
-Un **Service Worker** préconfiguré (`app/sw.mjs`) et un fichier `manifest.webmanifest` sont fournis. Le script de service worker utilise différentes stratégies de cache selon le type de ressources, et il est paramétrable via `swConfig.mjs` pour adapter les URLs à mettre en cache.
+Un [Service Worker](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Performance) préconfiguré (`app/sw.mjs`) et un fichier `manifest.webmanifest` sont fournis. Le script de service worker utilise différentes stratégies de cache selon le type de ressources, et il est paramétrable via `swConfig.mjs` pour adapter les URLs à mettre en cache.
 :::
 
 :::technique Intégration de composants Svelte
-Les composants **Svelte** (fichiers `.svelte`) sont compilés par _Rolldown_ en _Web Components standard_. Ils peuvent ainsi être utilisés directement dans le code HTML/JavaScript de l'application sans framework additionnel, ce qui permet d'enrichir progressivement l'interface avec des composants réactifs.
+Les composants [Svelte](https://svelte.dev) (fichiers `.svelte`) sont compilés par _Rolldown_ en _Web Components standard_. Ils peuvent ainsi être utilisés directement dans le code HTML/JavaScript de l'application sans framework additionnel, ce qui permet d'enrichir progressivement l'interface avec des composants réactifs.
 :::
 
 #### Tout ce qu'il faut pour déployer et gérer son projet
 
 :::technique Compilation rapide et application automatiquement optimisée
-Le bundler **Rolldown** (successeur de Rollup écrit en Rust et beaucoup plus rapide) produit des fichiers JavaScript et CSS optimisés et minifiés.
+Le bundler [Rolldown](https://github.com/rolldown/rolldown) (successeur de Rollup écrit en Rust et beaucoup plus rapide) produit des fichiers JavaScript et CSS optimisés et minifiés.
 :::
 
 :::technique Outils de tests intégrés
-Les tests unitaires sont exécutés avec **Jasmine** et leur couverture est mesurée par **c8**. Les tests end-to-end reposent sur **CodeceptJS** et peuvent être rédigés en langage naturel via la syntaxe **Gherkin** (fichiers `.feature`), ce qui facilite la description des parcours utilisateurs.
+Les tests unitaires sont exécutés avec [Jasmine](https://jasmine.github.io) et leur couverture est mesurée par [c8](https://github.com/bcoe/c8). Les tests end-to-end reposent sur [CodeceptJS](https://codecept.io) et peuvent être rédigés en langage naturel via la syntaxe [Gherkin](https://github.com/cucumber/cucumber/wiki/Gherkin) (fichiers `.feature`), ce qui facilite la description des parcours utilisateurs.
 :::
 
 :::technique Automatisation des tâches courantes
-**Taskfile** (Task) centralise l'ensemble des scripts du projet dans un fichier `Taskfile.yml` (format YAML). Il permet de lancer en une commande (`task <nom>`) des actions comme le serveur de développement (`dev`), la compilation (`build`), l'exécution des tests (`tests`), la vérification de sécurité (`security`), la mesure de performances (`perf`), etc.
+[Taskfile](https://taskfile.dev) (Task) centralise l'ensemble des scripts du projet dans un fichier `Taskfile.yml` (format YAML). Il permet de lancer en une commande (`task <nom>`) des actions comme le serveur de développement (`dev`), la compilation (`build`), l'exécution des tests (`tests`), la vérification de sécurité (`security`), la mesure de performances (`perf`), etc.
 :::
 
 :::technique Commits, gestion des versions et génération automatique du CHANGELOG
-**Husky** et **Commitlint** imposent des messages de commit au format *Conventional Commits* avant chaque commit, et **Commitizen** génère automatiquement le `CHANGELOG.md` à partir de l'historique quand on fait une montée de version.
+[**Husky**](https://github.com/typicode/husky) et [**Commitlint**](https://github.com/conventional-changelog/commitlint) imposent des messages de commit au format *Conventional Commits* avant chaque commit, et [**Commitizen**](https://github.com/commitizen/cz-cli) génère automatiquement le `CHANGELOG.md` à partir de l'historique quand on fait une montée de version.
 :::
 
 #### Tout ce qu'il faut pour travailler avec des agents IA

@@ -15,7 +15,7 @@ La documentation complète pour utiliser ce template est disponible ici : [docum
 L'éditeur de code est configuré pour vérifier en continu la qualité du code (repérer les erreurs, les incohérences et les mauvaises pratiques) et le formater automatiquement à chaque sauvegarde. 
 
 <details><summary>Détails techniques</summary>
-L'environnement s'appuie sur **Oxlint** pour le linting JavaScript (analyse statique rapide écrite en Rust), **Stylelint** pour le CSS et **HTML-Validate** pour le HTML. Le formatage est assuré par **Oxfmt** (également en Rust), configuré pour s'exécuter automatiquement à chaque sauvegarde dans VS Code / VSCodium.
+L'environnement s'appuie sur <a href="https://oxc.rs/docs/guide/usage/linter">Oxlint</a> pour le linting JavaScript (analyse statique rapide écrite en Rust), <a href="https://stylelint.io/">Stylelint</a> pour le CSS et <a href="https://html-validate.org/">HTML-Validate</a> pour le HTML. Le formatage est assuré par <a href="https://oxc.rs/docs/guide/usage/formatter">Oxfmt</a> (également en Rust), configuré pour s'exécuter automatiquement à chaque sauvegarde dans VS Code / VSCodium.
 </details>
 
 
@@ -25,7 +25,7 @@ Votre application peut ainsi être traduite dans plusieurs langues, avec un syst
 
 
 <details><summary>Détails techniques</summary>
-La couche de traduction est gérée par **ParaGlideJS** avec des fichiers de messages dans `i18n/messages`. Pour les longs textes statiques, le plugin **unplugin-raw** permet d'importer directement des fichiers bruts (`.txt`, `.html`, etc.) dans le JavaScript, ce qui facilite la maintenance.
+La couche de traduction est gérée par <a href="https://paraglidejs.com/">ParaGlideJS</a> avec des fichiers de messages dans `i18n/messages`. Pour les longs textes statiques, le plugin <a href="https://github.com/unplugin/unplugin-raw/">unplugin-raw</a> permet d'importer directement des fichiers bruts (`.txt`, `.html`, etc.) dans le JavaScript, ce qui facilite la maintenance.
 </details>
 
 
@@ -33,7 +33,7 @@ La couche de traduction est gérée par **ParaGlideJS** avec des fichiers de mes
 Le template est pré-configuré pour le mode PWA, ce qui permet à l'application d'être installée sur un appareil et de fonctionner hors ligne, avec un système de mise en cache des fichiers.
 
 <details><summary>Détails techniques</summary>
-Un **Service Worker** préconfiguré (`app/sw.mjs`) et un fichier `manifest.webmanifest` sont fournis. Le script de service worker utilise différentes stratégies de cache selon le type de ressources, et il est paramétrable via `swConfig.mjs` pour adapter les URLs à mettre en cache.
+Un <a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API">Service Worker</a> préconfiguré (`app/sw.mjs`) et un fichier `manifest.webmanifest` sont fournis. Le script de service worker utilise différentes stratégies de cache selon le type de ressources, et il est paramétrable via `swConfig.mjs` pour adapter les URLs à mettre en cache.
 </details>
 
 
@@ -41,7 +41,7 @@ Un **Service Worker** préconfiguré (`app/sw.mjs`) et un fichier `manifest.webm
 Si votre projet est un peu plus complexe et nécessite des interfaces plus riches, vous pouvez intégrer des composants Svelte, qui permettent de créer des interfaces réactives et performantes avec une syntaxe simple.
 
 <details><summary>Détails techniques</summary>
-Les composants **Svelte** (fichiers `.svelte`) sont compilés par _Rolldown_ en _Web Components standard_. Ils peuvent ainsi être utilisés directement dans le code HTML/JavaScript de l'application sans framework additionnel, ce qui permet d'enrichir progressivement l'interface avec des composants réactifs.
+Les composants <a href="https://svelte.dev/">Svelte</a> (fichiers `.svelte`) sont compilés par _Rolldown_ en _Web Components standard_. Ils peuvent ainsi être utilisés directement dans le code HTML/JavaScript de l'application sans framework additionnel, ce qui permet d'enrichir progressivement l'interface avec des composants réactifs.
 </details>
 
 
@@ -51,7 +51,7 @@ Les composants **Svelte** (fichiers `.svelte`) sont compilés par _Rolldown_ en 
 Le code est compilé et optimisé automatiquement pour produire une application finale légère et performante, avec un temps de compilation minimale.
 
 <details><summary>Détails techniques</summary>
-Le bundler **Rolldown** (successeur de Rollup écrit en Rust et beaucoup plus rapide) produit des fichiers JavaScript et CSS optimisés et minifiés.
+Le bundler <a href="https://rolldown.rs/">Rolldown</a> (successeur de Rollup écrit en Rust et beaucoup plus rapide) produit des fichiers JavaScript et CSS optimisés et minifiés.
 </details>
 
 
@@ -59,7 +59,7 @@ Le bundler **Rolldown** (successeur de Rollup écrit en Rust et beaucoup plus ra
 L'environnement est pré-configuré pour pouvoir exécuter des tests unitaires (qui vérifient chaque fonction séparément) et des tests _end-to-end_ (qui simulent le parcours d'un utilisateur). Un rapport indique quelles parties du code sont bien couvertes par ces tests.
 
 <details><summary>Détails techniques</summary>
-Les tests unitaires sont exécutés avec **Jasmine** et leur couverture est mesurée par **c8**. Les tests end-to-end reposent sur **CodeceptJS** et peuvent être rédigés en langage naturel via la syntaxe **Gherkin** (fichiers `.feature`), ce qui facilite la description des parcours utilisateurs.
+Les tests unitaires sont exécutés avec <a href="https://jasmine.github.io/">Jasmine</a> et leur couverture est mesurée par <a href="https://github.com/bcoe/c8">c8</a>. Les tests end-to-end reposent sur <a href="https://codecept.io/">CodeceptJS</a> et peuvent être rédigés en langage naturel via la syntaxe <a href="https://cucumber.io/docs/gherkin/">Gherkin</a> (fichiers `.feature`), ce qui facilite la description des parcours utilisateurs.
 </details>
 
 
@@ -67,7 +67,7 @@ Les tests unitaires sont exécutés avec **Jasmine** et leur couverture est mesu
 Des scripts automatisés permettent de lancer toutes les tâches courantes (serveur de développement, compilation, tests, push, déploiement, vérifications d'accessibilité, de sécurité et de performances) avec un simple commande.
 
 <details><summary>Détails techniques</summary>
-**Taskfile** (Task) centralise l'ensemble des scripts du projet dans un fichier `Taskfile.yml` (format YAML). Il permet de lancer en une commande (`task <nom>`) des actions comme le serveur de développement (`dev`), la compilation (`build`), l'exécution des tests (`tests`), la vérification de sécurité (`security`), la mesure de performances (`perf`), etc.
+<a href="https://taskfile.dev/">Taskfile</a> (Task) centralise l'ensemble des scripts du projet dans un fichier `Taskfile.yml` (format YAML). Il permet de lancer en une commande (`task <nom>`) des actions comme le serveur de développement (`dev`), la compilation (`build`), l'exécution des tests (`tests`), la vérification de sécurité (`security`), la mesure de performances (`perf`), etc.
 </details>
 
 
@@ -76,7 +76,14 @@ Le template utilise une convention standard pour les messages de commit, afin de
 Quand l'application évolue, on peut faire une montée de version. Le template calcule automatiquement le nouveau numéro de version et génère le CHANGELOG à partir de l'historique des commits.
 
 <details><summary>Détails techniques</summary>
-**Husky** et **Commitlint** imposent des messages de commit au format *Conventional Commits* avant chaque commit, et **Commitizen** génère automatiquement le `CHANGELOG.md` à partir de l'historique quand on fait une montée de version.
+<a href="https://typicode.github.io/husky/">Husky</a> et <a href="https://commitlint.js.org/">Commitlint</a> imposent des messages de commit au format *Conventional Commits* avant chaque commit, et <a href="https://commitizen-tools.github.io/commitizen/">Commitizen</a> génère automatiquement le `CHANGELOG.md` à partir de l'historique quand on fait une montée de version.
+</details>
+
+**Génération d'un site de documentation**
+Vous pouvez écrire la documentation de votre projet dans des fichiers Markdown dans le dossier `docs/`, et le template génère automatiquement un site web de documentation à partir de ces fichiers.
+
+<details><summary>Détails techniques</summary>
+Le template utilise <a href="https://markpage.forge.apps.education.fr">Markpage</a> pour générer le site de documentation à partir des fichiers Markdown.
 </details>
 
 
