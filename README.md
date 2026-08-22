@@ -6,6 +6,10 @@ JS Template est un **environnement de développement JavaScript** pré-configur�
 
 La documentation complète pour utiliser ce template est disponible ici : [documentation de JS Template](https://eyssette.forge.apps.education.fr/js-template/docs)
 
+Il est fortement recommandé de lire la documentation avant de commencer à utiliser le template, notamment pour comprendre comment initialiser correctement votre projet et comment utiliser les outils intégrés.
+
+Pour toute question, n'hésitez pas à laisser un ticket sur le [dépôt principal](https://forge.apps.education.fr/eyssette/js-template/-/work_items).
+
 ## Fonctionnalités principales
 
 ### Tout ce qu'il faut pour développer une application web moderne
