@@ -1,3 +1,11 @@
+## 9.0.1 (2026-08-22)
+
+### Fix
+
+- **hook**: le hook precommit fait maintenant échouer le commit s'il y a des erreurs majeures de lint [(607ab65)](https://forge.apps.education.fr/eyssette/js-template/-/commit/607ab65061660843f2f1ab3bf022a422e728ec2c)
+- **hook**: le hook precommit vérifie seulement le formatage, mais ne fait pas de formatage automatique [(b2f8898)](https://forge.apps.education.fr/eyssette/js-template/-/commit/b2f88988e85cdfc57be53e02651bc54e40be5d8a)
+- **init**: correction du script d'initialisation (bug remplacement de la description + ajout de l'URL git du nouveau repo) [(cecae17)](https://forge.apps.education.fr/eyssette/js-template/-/commit/cecae1798483b7dabc4f6b07ed58720dea138362)
+
 ## 9.0.0 (2026-08-21)
 
 ### Feat
