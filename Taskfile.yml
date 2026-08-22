@@ -349,8 +349,8 @@ tasks:
     cmds:
       - npx oxfmt --config .oxfmtrc.json --check .
 
-  format:staged:
-    desc: Formate uniquement les fichiers staged (pour le hook pre-commit)
+  format:check:staged:
+    desc: Vérifie le format des fichiers staged avec Oxfmt (pour le hook pre-commit)
     silent: true
     cmds:
       - |
@@ -358,8 +358,7 @@ tasks:
         if [ -z "$FILES" ]; then
           exit 0
         fi
-        npx oxfmt --config .oxfmtrc.json $FILES
-    ignore_error: true
+        npx oxfmt --config .oxfmtrc.json --check $FILES
 
   html-validate:
     desc: Vérifie la validité des fichiers HTML avec html-validate
