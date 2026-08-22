@@ -381,7 +381,6 @@ tasks:
           exit 0
         fi
         SHOW_MAIN_ERRORS_ONLY=1 npx oxlint --config oxlint.config.mjs $FILES -f stylish
-    ignore_error: true
 
   lint:errors:
     desc: Lint les fichiers .mjs avec Oxlint, en affichant seulement les erreurs bloquantes
