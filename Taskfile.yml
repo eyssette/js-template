@@ -358,7 +358,7 @@ tasks:
         if [ -z "$FILES" ]; then
           exit 0
         fi
-        npx oxfmt --config .oxfmtrc.json --check $FILES
+        npx oxfmt --config .oxfmtrc.json --check $FILES --no-error-on-unmatched-pattern
 
   html-validate:
     desc: Vérifie la validité des fichiers HTML avec html-validate
