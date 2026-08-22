@@ -1,3 +1,13 @@
+## 9.0.2 (2026-08-22)
+
+### Fix
+
+- **hook**: dans le hook pre-commit, Oxfmt ne doit pas renvoyer d'erreur s'il n'y a aucun fichier à formater (en raison des règles de configuration) [(9408547)](https://forge.apps.education.fr/eyssette/js-template/-/commit/9408547ff76d9515a88a2dbb08bf6839e55a80d9)
+
+### Docs
+
+- section "remerciements" mise à part [(afa390e)](https://forge.apps.education.fr/eyssette/js-template/-/commit/afa390e5fbe9a3adfbd1facc82ab00784f6a3113)
+
 ## 9.0.1 (2026-08-22)
 
 ### Fix
