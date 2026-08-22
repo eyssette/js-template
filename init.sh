@@ -14,7 +14,7 @@ TEMPLATE_NAME="js-template"
 TEMPLATE_URL="https://forge.apps.education.fr/eyssette/js-template"
 TEMPLATE_CREATOR_FIRSTNAME="Cédric"
 TEMPLATE_CREATOR_NAME="Eyssette"
-TEMPLATE_DESCRIPTION = "Environnement de développement JavaScript pré-configuré et optimisé.Éditeur de code qui vérifie la qualité du code, le formate automatiquement et facilite le débogage, Tâches automatisées pour compiler, tester, pousser, déployer et vérifier l’application. Pré-configuration pour agents IA avec des SKILLS déjà définis. Gestion de l'internationalisation et du mode PWA (Progressive Web App) pour utilisation hors ligne."
+TEMPLATE_DESCRIPTION="Environnement de développement JavaScript pré-configuré et optimisé.Éditeur de code qui vérifie la qualité du code, le formate automatiquement et facilite le débogage, Tâches automatisées pour compiler, tester, pousser, déployer et vérifier l’application. Pré-configuration pour agents IA avec des SKILLS déjà définis. Gestion de l'internationalisation et du mode PWA (Progressive Web App) pour utilisation hors ligne."
 
 ## Variables qui seront à renseigner par l'utilisateur lors de l'initialisation du projet
 RAW_PROJECT_NAME=""
@@ -110,6 +110,25 @@ replace_first_occurrence() {
         !done && $0 ~ pat { print repl; done=1; next }
         { print }
     ' "$file" >"$tmp" && mv "$tmp" "$file"
+}
+
+replace_literal_in_file() {
+	# Remplace toutes les occurrences exactes d'une chaîne, sans interprétation regex.
+	local file="$1" search="$2" replacement="$3"
+	local tmp
+	tmp="$(mktemp)"
+	awk -v search="$search" -v replacement="$replacement" '
+	function replace_all(text, needle, value,    pos, result, prefix) {
+		result = ""
+		while ((pos = index(text, needle)) > 0) {
+			prefix = substr(text, 1, pos - 1)
+			result = result prefix value
+			text = substr(text, pos + length(needle))
+		}
+		return result text
+	}
+	{ print replace_all($0, search, replacement) }
+	' "$file" >"$tmp" && mv "$tmp" "$file"
 }
 
 sed_inplace() {
@@ -221,17 +240,15 @@ if step "Génération du README.md" "Un README.md est généré à partir de REA
 	README_TEMPLATE="${PROJECT_DIR}/scripts/init/README-template.md"
 	if [ -f "$README_TEMPLATE" ]; then
 		cp "$README_TEMPLATE" "${PROJECT_DIR}/README.md"
-		sed_inplace \
-			-e "s/{{project_name}}/${RAW_PROJECT_NAME}/g" \
-			-e "s/{{project_description}}/${PROJECT_DESCRIPTION}/g" \
-			-e "s/{{user_name}}/${USER_NAME}/g" \
-			-e "s/{{user_firstname}}/${USER_FIRSTNAME}/g" \
-			-e "s#{{repo_url}}#${REPO_URL}#g" \
-			-e "s/{{template_name}}/${TEMPLATE_NAME}/g" \
-			-e "s/{{template_creator_firstname}}/${TEMPLATE_CREATOR_FIRSTNAME}/g" \
-			-e "s/{{template_creator_name}}/${TEMPLATE_CREATOR_NAME}/g" \
-			-e "s#{{template_url}}#${TEMPLATE_URL}#g" \
-			"${PROJECT_DIR}/README.md"
+		replace_literal_in_file "${PROJECT_DIR}/README.md" "{{project_name}}" "$RAW_PROJECT_NAME"
+		replace_literal_in_file "${PROJECT_DIR}/README.md" "{{project_description}}" "$PROJECT_DESCRIPTION"
+		replace_literal_in_file "${PROJECT_DIR}/README.md" "{{user_name}}" "$USER_NAME"
+		replace_literal_in_file "${PROJECT_DIR}/README.md" "{{user_firstname}}" "$USER_FIRSTNAME"
+		replace_literal_in_file "${PROJECT_DIR}/README.md" "{{repo_url}}" "$REPO_URL"
+		replace_literal_in_file "${PROJECT_DIR}/README.md" "{{template_name}}" "$TEMPLATE_NAME"
+		replace_literal_in_file "${PROJECT_DIR}/README.md" "{{template_creator_firstname}}" "$TEMPLATE_CREATOR_FIRSTNAME"
+		replace_literal_in_file "${PROJECT_DIR}/README.md" "{{template_creator_name}}" "$TEMPLATE_CREATOR_NAME"
+		replace_literal_in_file "${PROJECT_DIR}/README.md" "{{template_url}}" "$TEMPLATE_URL"
 		rm -f "${PROJECT_DIR}/README.md.bak"
 		success "README.md généré à partir de README-template.md."
 	else
@@ -297,21 +314,21 @@ fi
 
 # - Changement de la description du projet : dans index.html (balise <meta name="description">), dans package.json (champ : "description"), dans manifest.webmanifest (champ : "description")
 if step "Mise à jour de la description du projet" "La description du projet est mise à jour dans index.html, package.json et manifest.webmanifest."; then
-	# - Changement de la description dans le fichier index.html (balise <meta name="description">)
+	# - Changement de la description dans le fichier index.html
 	if [ -f "${PROJECT_DIR}/app/index.html" ]; then
-		sed_inplace -E "s#(<meta[[:space:]]+name=\"description\"[[:space:]]+content=\")[^\"]*(\"[[:space:]]*/?>)#\1${PROJECT_DESCRIPTION}\2#" "${PROJECT_DIR}/app/index.html"
+		sed_inplace "s/${TEMPLATE_DESCRIPTION}/${PROJECT_DESCRIPTION}/g" "${PROJECT_DIR}/app/index.html"
 		rm -f "${PROJECT_DIR}/app/index.html.bak"
-		success "app/index.html (balise <meta name=\"description\">) mis à jour."
+		success "app/index.html (balise <meta name=\"description\">) mis à jour"
 	fi
 	# - Changement de la description dans le fichier package.json (champ : "description")
 	if [ -f "${PROJECT_DIR}/package.json" ]; then
-		sed_inplace -E "s/(\"description\"[[:space:]]*:[[:space:]]*)\"[^\"]*\"/\1\"${PROJECT_DESCRIPTION}\"/" "${PROJECT_DIR}/package.json"
+		sed_inplace "s/${TEMPLATE_DESCRIPTION}/${PROJECT_DESCRIPTION}/g" "${PROJECT_DIR}/package.json"
 		rm -f "${PROJECT_DIR}/package.json.bak"
 		success "package.json (description) mis à jour."
 	fi
 	# - Changement de la description dans le fichier manifest.webmanifest (champ : "description")
 	if [ -f "${PROJECT_DIR}/app/pwa/manifest.webmanifest" ]; then
-		sed_inplace -E "s/(\"description\"[[:space:]]*:[[:space:]]*)\"[^\"]*\"/\1\"${PROJECT_DESCRIPTION}\"/" "${PROJECT_DIR}/app/pwa/manifest.webmanifest"
+		sed_inplace "s/${TEMPLATE_DESCRIPTION}/${PROJECT_DESCRIPTION}/g" "${PROJECT_DIR}/app/pwa/manifest.webmanifest"
 		rm -f "${PROJECT_DIR}/app/pwa/manifest.webmanifest.bak"
 		success "manifest.webmanifest (description) mis à jour."
 	fi
@@ -355,7 +372,7 @@ if step "Configuration de l'URL du dépôt principal" "L'URL du dépôt principa
 
 	if [ -f "${PROJECT_DIR}/.cz.toml" ]; then
 		NEW_COMMIT_URL="${REPO_URL}/-/commit/"
-		sed_inplace -E "s#([^}]*commit_url[^=]*=[[:space:]]*\")[^\"]*(\"[^}]*)#\1${NEW_COMMIT_URL}\2#" "${PROJECT_DIR}/.cz.toml"
+		replace_literal_in_file "${PROJECT_DIR}/.cz.toml" "$TEMPLATE_URL" "$NEW_COMMIT_URL"
 		rm -f "${PROJECT_DIR}/.cz.toml.bak"
 		success ".cz.toml (extras.commit_url) mis à jour."
 	fi
@@ -365,15 +382,25 @@ if step "Configuration de l'URL du dépôt principal" "L'URL du dépôt principa
 		rm -f "${PROJECT_DIR}/Taskfile.yml.bak"
 		success "Taskfile.yml (MAIN_REPO_URL) mis à jour."
 	fi
+
+	# on change aussi l'URL du dépôt GIT dans package.json
+	GIT_TEMPLATE_URL="$(echo "$TEMPLATE_URL" | sed -E 's#https://([^/]+)/([^/]+)/([^/]+)#git@\1:\2/\3.git#')"
+	GIT_REPO_URL="$(echo "$REPO_URL" | sed -E 's#https://([^/]+)/([^/]+)/([^/]+)#git@\1:\2/\3.git#')"
+	if [ -f "${PROJECT_DIR}/package.json" ]; then
+		replace_literal_in_file "${PROJECT_DIR}/package.json" "$GIT_TEMPLATE_URL" "$GIT_REPO_URL"
+		rm -f "${PROJECT_DIR}/package.json.bak"
+		success "package.json (repository.url) mis à jour."
+	fi
+
 fi
 
 if [ -f "${PROJECT_DIR}/Taskfile.yml" ]; then
 	echo ""
 	if confirm "Souhaitez-vous utiliser un autre dépôt (remote) en plus du dépôt principal ?"; then
 		read -r -p "Nom de ce dépôt (remote) : " EXTRA_REMOTE
-		sed_inplace "s/forge, github/origin, ${EXTRA_REMOTE}/g" "${PROJECT_DIR}/Taskfile.yml"
+		replace_literal_in_file "${PROJECT_DIR}/Taskfile.yml" "forge, github" "origin, ${EXTRA_REMOTE}"
 	else
-		sed_inplace "s/forge, github/origin/g" "${PROJECT_DIR}/Taskfile.yml"
+		replace_literal_in_file "${PROJECT_DIR}/Taskfile.yml" "forge, github" "origin"
 	fi
 	rm -f "${PROJECT_DIR}/Taskfile.yml.bak"
 	success "Taskfile.yml (remotes) mis à jour."
@@ -384,21 +411,21 @@ if step "Renseignement de l'auteur du projet" "Remplacement du prénom et nom de
 
 	# - Changement du nom de l'auteur dans le fichier LICENSE (champ : auteur)
 	if [ -f "${PROJECT_DIR}/LICENSE" ]; then
-		sed_inplace "s/${TEMPLATE_CREATOR_NAME}/${USER_NAME}/g" "${PROJECT_DIR}/LICENSE"
+		replace_literal_in_file "${PROJECT_DIR}/LICENSE" "${TEMPLATE_CREATOR_NAME}" "$USER_NAME"
 		rm -f "${PROJECT_DIR}/LICENSE.bak"
 		success "LICENSE (auteur) mis à jour."
 	fi
 
 	# - Changement du nom de l'auteur dans le fichier package.json (champ : author)
 	if [ -f "${PROJECT_DIR}/package.json" ]; then
-		sed_inplace "s/${TEMPLATE_CREATOR_FIRSTNAME} ${TEMPLATE_CREATOR_NAME}/${USER_FIRSTNAME} ${USER_NAME}/g" "${PROJECT_DIR}/package.json"
+		replace_literal_in_file "${PROJECT_DIR}/package.json" "${TEMPLATE_CREATOR_FIRSTNAME} ${TEMPLATE_CREATOR_NAME}" "${USER_FIRSTNAME} ${USER_NAME}"
 		rm -f "${PROJECT_DIR}/package.json.bak"
 		success "package.json (author) mis à jour."
 	fi
 
 	# - Changement du nom de l'auteur dans le fichier index.html (balise <meta name="author">)
 	if [ -f "${PROJECT_DIR}/app/index.html" ]; then
-		sed_inplace "s/${TEMPLATE_CREATOR_FIRSTNAME} ${TEMPLATE_CREATOR_NAME}/${USER_FIRSTNAME} ${USER_NAME}/g" "${PROJECT_DIR}/app/index.html"
+		replace_literal_in_file "${PROJECT_DIR}/app/index.html" "${TEMPLATE_CREATOR_FIRSTNAME} ${TEMPLATE_CREATOR_NAME}" "${USER_FIRSTNAME} ${USER_NAME}"
 		rm -f "${PROJECT_DIR}/app/index.html.bak"
 		success "app/index.html (balise <meta name=\"author\">) mis à jour."
 	fi
