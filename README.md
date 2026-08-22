@@ -37,11 +37,14 @@ Tous les outils utilisés dans ce template sont des logiciels libres, et la plup
 Consultez la documentation pour plus de détails techniques sur le fonctionnement du template et la manière de l'utiliser: [documentation de JS Template](https://eyssette.forge.apps.education.fr/js-template/docs)
 
 
-## Crédits et licence
-
+## Licence
 
 [JS-template](https://forge.apps.education.fr/eyssette/js-template) est un projet créé par [Cédric Eyssette](https://eyssette.forge.apps.education.fr), et diffusé sous licence libre MIT.
 
 Il repose sur de nombreux logiciels libres, référencés dans la documentation.
 
-Merci à Thomas Sanson, de l'Incubateur de l'Éducation nationale, pour ses nombreux conseils !
+## Remerciements
+
+Merci à : 
+- Thomas Sanson, de l'Incubateur de l'Éducation nationale, pour ses nombreux conseils sur un autre projet ([ChatMD](https://forge.apps.education.fr/chatmd/chatmd.forge.apps.education.fr), qui ont permis à celui-ci d'exister !
+- Gilles Cormi, pour avoir permis de corriger et améliorer le script d'initialisation et le hook de pré-commit.
