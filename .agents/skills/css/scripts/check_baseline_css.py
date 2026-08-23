@@ -34,6 +34,7 @@ import re
 import sys
 from pathlib import Path
 
+BASE_DIR = Path.cwd().resolve()
 DATA_PATH = Path(__file__).parent.parent / "references" / "baseline_2020_data.json"
 
 # The web-features dataset sometimes bundles a handful of rare/late-added
@@ -259,11 +260,17 @@ def main():
             css_text = sys.stdin.read()
             label = "<stdin>"
         else:
-            path = Path(filename)
-            if not path.exists():
+            requested_path = Path(filename).resolve()
+
+            if not requested_path.is_relative_to(BASE_DIR):
+                print(f"error: access denied to path: {filename}", file=sys.stderr)
+                sys.exit(2)
+
+            if not requested_path.exists():
                 print(f"error: file not found: {filename}", file=sys.stderr)
                 sys.exit(2)
-            css_text = path.read_text(encoding="utf-8", errors="replace")
+            
+            css_text = requested_path.read_text(encoding="utf-8", errors="replace")
             label = filename
 
         findings = analyze(css_text, data)
