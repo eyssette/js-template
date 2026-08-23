@@ -108,7 +108,7 @@ build-docs:
   cache:
     - key: docs-npm-cache
       paths:
-        - docs/doc_build/.npm
+        - docs/markpage/.npm
       policy: pull-push
   # On vérifie d'abord si le fichier docs/.deploy-docs-with-markpage existe
   rules:
@@ -119,26 +119,41 @@ build-docs:
   script:
     - cd docs
     # 1. Sauvegarde des fichiers source de la documentation
-    - mkdir -p .my_content
-    - cp -r * .my_content
+    - mkdir -p .docs_source
+    - cp -r * .docs_source
     # 2. Téléchargement et extraction de l'application Markpage
-    - mkdir -p doc_build
+    - mkdir -p markpage
     - wget https://forge.apps.education.fr/markpage/markpage.forge.apps.education.fr/-/archive/main/markpage.forge.apps.education.fr-main.tar.bz2 -O markpage.tar.bz2
-    - tar -xjf markpage.tar.bz2 --strip-components=1 -C doc_build
+    - tar -xjf markpage.tar.bz2 --strip-components=1 -C markpage
     # 3. Copie des fichiers sources de la documentation dans l'application Markpage (pour remplacer les fichiers par défaut)
-    - cp -r .my_content/* doc_build/
+    # S'il y a un dossier "app" dans markpage, on copie le contenu de .docs_source dans markpage/app, sinon on copie le contenu de .docs_source dans markpage
+    - |
+      if [ -d "markpage/app" ]; then
+        cp -r .docs_source/* markpage/app/
+      else
+        cp -r .docs_source/* markpage/
+      fi
     # 4. Construction du site de documentation
-    - cd doc_build
+    - cd markpage
     - npm ci --cache .npm --prefer-offline --no-audit
     - npm run build
-    # 5. Nettoyage des fichiers inutiles pour ne garder que les fichiers nécessaires à la documentation
-    - rm -rf node_modules .git .gitignore
-    - find . -type f ! -name "*.html" ! -name "*.htm" ! -name "*.css" ! -name "*.js" ! -name "*.map" ! -name "*.md" ! -name "*.ico" ! -name "*.png" ! -name "*.jpg" ! -name "*.jpeg" ! -name "*.gif" ! -name "*.svg" ! -name "*.woff" ! -name "*.woff2" ! -name "*.ttf" ! -name "*.eot" -delete
-    - find . -type d -empty -delete
+    # 5. On crée le dossier de sortie pour la documentation générée
+    - mkdir -p ../website
+    # Si un dossier "dist" existe dans la documentation générée (nouvelle version de Markpage), on met tout le contenu de dist dans le dossier de sortie, sinon (ancienne version de Markpage) on met tout le contenu du dossier markpage
+    - |
+      if [ -d "dist" ]; then
+        cp -r dist/* ../website/
+      else
+        # On supprime les dossiers et fichiers inutiles pour ne garder que les fichiers de documentation
+        rm -rf node_modules .git .gitignore
+        find . -type f ! -name "*.html" ! -name "*.htm" ! -name "*.css" ! -name "*.js" ! -name "*.map" ! -name "*.md" ! -name "*.ico" ! -name "*.png" ! -name "*.jpg" ! -name "*.jpeg" ! -name "*.gif" ! -name "*.svg" ! -name "*.woff" ! -name "*.woff2" ! -name "*.ttf" ! -name "*.eot" -delete
+        find . -type d -empty -delete
+        cp -r . ../website/
+      fi
     - cd ../..
   artifacts:
     paths:
-      - docs/doc_build/
+      - docs/website/
     expire_in: 1 day
 
 compress:
@@ -153,9 +168,9 @@ compress:
     # Installation de gzip et brotli pour la compression des fichiers
     - apk add --no-cache gzip brotli
     # Si la documentation a été générée, on la copie dans le dossier de distribution
-    - if [ -d "docs/doc_build" ]; then
+    - if [ -d "docs/website" ]; then
       mkdir -p $DIST_FOLDER/docs;
-      cp -r docs/doc_build/* $DIST_FOLDER/docs/;
+      cp -r docs/website/* $DIST_FOLDER/docs/;
       fi
     # Compression des fichiers avec gzip et brotli
     - sh scripts/deploy/compress-assets.sh "$DIST_FOLDER" "$FILES_TO_COMPRESS"
