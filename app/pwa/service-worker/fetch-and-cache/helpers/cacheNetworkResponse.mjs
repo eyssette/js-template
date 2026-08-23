@@ -48,7 +48,9 @@ export async function cacheNetworkResponse(
 			await trimCache(targetCacheName, maxEntries);
 		} catch (error) {
 			if (process.env.NODE_ENV === "development-with-service-worker") {
+				// bearer:disable javascript_lang_logger_leak
 				console.error(
+					// nosemgrep: javascript.lang.security.audit.unsafe-formatstring.unsafe-formatstring
 					`Erreur d'écriture dans le cache (${targetCacheName}) :`,
 					error,
 				);

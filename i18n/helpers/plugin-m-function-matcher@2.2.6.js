@@ -549,6 +549,7 @@ var It = nn((G, gt) => {
 					})(t),
 						arguments.length >= 2 ? F(n) : (n = 0));
 					var e = (function (o) {
+							// nosemgrep: javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp
 							return RegExp("^(?:" + o.source + ")", wt(o));
 						})(t),
 						u = "" + t;

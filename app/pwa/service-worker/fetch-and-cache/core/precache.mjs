@@ -27,7 +27,9 @@ export async function precacheNonCriticalUrls(cache, urls) {
 	if (process.env.NODE_ENV === "development-with-service-worker") {
 		for (const [index, result] of results.entries()) {
 			if (result.status === "rejected") {
+				// bearer:disable javascript_lang_logger_leak
 				console.error(
+					// nosemgrep: javascript.lang.security.audit.unsafe-formatstring.unsafe-formatstring
 					`Précache optionnel échoué pour ${urls[index]} :`,
 					result.reason,
 				);

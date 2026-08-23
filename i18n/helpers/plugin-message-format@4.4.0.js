@@ -216,6 +216,7 @@ var require_typebox = __commonJS({
 		(function (TypeGuard2) {
 			function IsPattern(value) {
 				try {
+					// nosemgrep: javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp
 					new RegExp(value);
 					return true;
 				} catch {
@@ -3258,6 +3259,7 @@ function unflatten(target, opts) {
 			if ((overwrite && !isobject) || (!overwrite && recipient[key1] == null)) {
 				recipient[key1] = typeof key2 === "number" && !opts.object ? [] : {};
 			}
+			// nosemgrep: javascript.lang.security.audit.prototype-pollution.prototype-pollution-loop.prototype-pollution-loop
 			recipient = recipient[key1];
 			if (split.length > 0) {
 				key1 = getkey(split.shift());

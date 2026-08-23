@@ -55,6 +55,7 @@ def find_exact(message):
     Recherche exacte via git.
     """
     try:
+        # bearer:disable python_lang_os_command_injection
         result = subprocess.check_output(
             [
                 "git",

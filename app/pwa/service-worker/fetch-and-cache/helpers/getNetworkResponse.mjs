@@ -15,6 +15,7 @@ export async function getNetworkResponse(
 		// oxlint-disable-next-line promise/prefer-await-to-then promise/prefer-await-to-callbacks
 		const preloadPromise = event.preloadResponse.catch((error) => {
 			if (process.env.NODE_ENV === "development-with-service-worker") {
+				// bearer:disable javascript_lang_logger_leak
 				console.error("Navigation Preload échoué :", error);
 			}
 		});

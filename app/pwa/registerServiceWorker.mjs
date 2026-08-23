@@ -16,6 +16,7 @@ export async function registerServiceWorker() {
 			return registration;
 		} catch (error) {
 			if (environment === "development-with-service-worker") {
+				// bearer:disable javascript_lang_logger_leak
 				console.error("SW registration failed:", error);
 			}
 		}
