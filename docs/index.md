@@ -88,11 +88,11 @@ L'environnement s'appuie sur [Oxlint](https://oxc.rs/docs/guide/usage/linter) po
 :::
 
 :::technique Internationalisation (i18n)
-La couche de traduction est gérée par [ParaGlideJS](https://github.com/paraglidejs/paraglide-js) avec des fichiers de messages dans `i18n/messages`. Pour les longs textes statiques, le plugin [unplugin-raw](https://github.com/antfu/unplugin-raw) permet d'importer directement des fichiers bruts (`.txt`, `.html`, etc.) dans le JavaScript, ce qui facilite la maintenance.
+La couche de traduction est gérée par [ParaGlideJS](https://paraglidejs.com/) avec des fichiers de messages dans `i18n/messages`. Pour les longs textes statiques, le plugin [unplugin-raw](https://github.com/unplugin/unplugin-raw) permet d'importer directement des fichiers bruts (`.txt`, `.html`, etc.) dans le JavaScript, ce qui facilite la maintenance.
 :::
 
 :::technique Mode PWA (Progressive Web App)
-Un [Service Worker](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Performance) préconfiguré (`app/sw.mjs`) et un fichier `manifest.webmanifest` sont fournis. Le script de service worker utilise différentes stratégies de cache selon le type de ressources, et il est paramétrable via `swConfig.mjs` pour adapter les URLs à mettre en cache.
+Un [Service Worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) préconfiguré (`app/sw.mjs`) et un fichier `manifest.webmanifest` sont fournis. Le script de service worker utilise différentes stratégies de cache selon le type de ressources, et il est paramétrable via `swConfig.mjs` pour adapter les URLs à mettre en cache.
 :::
 
 :::technique Intégration de composants Svelte

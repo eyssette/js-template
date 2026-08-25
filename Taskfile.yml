@@ -484,7 +484,7 @@ tasks:
           echo "Le serveur de développement est déjà ouvert. Lancement de la tâche \"a11y:check\"..."
           if [ -n "$ARGS" ]; then
             task a11y:check -- "$ARGS"
-          else 
+          else
             task a11y:check
           fi
         else
@@ -609,7 +609,7 @@ tasks:
             task lighthouse:"$MODE" -- "http://localhost:{{.PORT_DEV_SERVER}}$URL"
           else
             task lighthouse:"$MODE" -- "$URL"
-          fi 
+          fi
         else
           echo "❌ Argument invalide pour la tâche \"lighthouse\". Veuillez indiquer soit \"desktop\" soit \"mobile\" comme argument."
           exit 1
