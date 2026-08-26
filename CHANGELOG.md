@@ -1,3 +1,21 @@
+## 9.0.3 (2026-08-26)
+
+### Fix
+
+- **task**: ajout de la tâche build dans la tâche push pour éviter que les tests Ecma (vérification conformité du build) ne fonctionnent pas [(22e1ee7)](https://forge.apps.education.fr/eyssette/js-template/-/commit/22e1ee7f65235db52b55a9a25a1778afafd17732)
+- **ci**: pipeline modifié pour que la génération de la documentation avec Markpage accepte les futurs changements dans l'application [(d639234)](https://forge.apps.education.fr/eyssette/js-template/-/commit/d639234c0ac97d4e45ded38b48fa89c81a615907)
+- **security**: correctif pour sécuriser un script utilisé par la SKILL css [(122b272)](https://forge.apps.education.fr/eyssette/js-template/-/commit/122b27272021d0af01d03b73f9490e793b2d735d)
+
+### Chore
+
+- page hors ligne pour le mode PWA améliorée [(2e68622)](https://forge.apps.education.fr/eyssette/js-template/-/commit/2e68622e067a15f98228fbeed059eeaa06ca26c9)
+- suppression de 2 paquets maintenant inutiles (jsdom, globals) [(8334dc1)](https://forge.apps.education.fr/eyssette/js-template/-/commit/8334dc1a15eabe9cfa123d4ce217325856c9c80c)
+- **security**: ignore de certaines lignes pour Bearer et Semgrep [(a56191e)](https://forge.apps.education.fr/eyssette/js-template/-/commit/a56191e937c859be93f6ccaa7d063c807f61c91c)
+
+### Docs
+
+- ajout d'un warning pour rappeler l'importance de lire la documentation et de la possibilité de laisser un ticket pour toute question [(25d9893)](https://forge.apps.education.fr/eyssette/js-template/-/commit/25d98936e925fd832c6f7cb8791cca20fc6d5321)
+
 ## 9.0.2 (2026-08-22)
 
 ### Fix
