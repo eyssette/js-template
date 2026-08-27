@@ -306,7 +306,7 @@ if step "Renommage du projet" "Le nom \"$TEMPLATE_NAME\" va être remplacé par 
 
 	# - Changement du nom du projet dans le service worker : app/pwa/service-worker/swConfig.mjs (constante APP_NAME)
 	if [ -f "${PROJECT_DIR}/app/pwa/service-worker/swConfig.mjs" ]; then
-		sed_inplace -E "s/^([[:space:]]*const[[:space:]]+APP_NAME[[:space:]]*=[[:space:]]*)\"[^\"]*\"/\1\"${NORMALIZED_PROJECT_NAME}\"/" "${PROJECT_DIR}/app/pwa/service-worker/swConfig.mjs"
+		sed_inplace -E "s/^(export[[:space:]]+const[[:space:]]+APP_NAME[[:space:]]*=[[:space:]]*)\"[^\"]*\"/\1\"${RAW_PROJECT_NAME}\"/" "${PROJECT_DIR}/app/pwa/service-worker/swConfig.mjs"
 		rm -f "${PROJECT_DIR}/app/pwa/service-worker/swConfig.mjs.bak"
 		success "app/pwa/service-worker/swConfig.mjs (APP_NAME) mis à jour."
 	fi
@@ -361,7 +361,7 @@ if step "Réinitialisation du numéro de version à 0.0.0" "Les fichiers VERSION
 	fi
 
 	if [ -f "${PROJECT_DIR}/app/pwa/service-worker/swConfig.mjs" ]; then
-		sed_inplace -E "s/^([[:space:]]*const[[:space:]]+APP_VERSION[[:space:]]*=[[:space:]]*)\"[^\"]*\"/\1\"${NEW_VERSION}\"/" "${PROJECT_DIR}/app/pwa/service-worker/swConfig.mjs"
+		sed_inplace -E "s/^(export[[:space:]]+const[[:space:]]+APP_VERSION[[:space:]]*=[[:space:]]*)\"[^\"]*\"/\1\"${NEW_VERSION}\"/" "${PROJECT_DIR}/app/pwa/service-worker/swConfig.mjs"
 		rm -f "${PROJECT_DIR}/app/pwa/service-worker/swConfig.mjs.bak"
 		success "app/pwa/service-worker/swConfig.mjs (APP_VERSION) mis à jour."
 	fi
