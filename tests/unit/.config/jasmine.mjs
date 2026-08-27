@@ -1,7 +1,7 @@
 const config = {
 	spec_dir: "tests/unit",
 	spec_files: ["**/*[sS]pec.?(m)js"],
-	helpers: ["helpers/**/*.?(m)js"],
+	helpers: ["tests/unit/.config/helpers.mjs"],
 	env: {
 		stopSpecOnExpectationFailure: false,
 		random: true,
