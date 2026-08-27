@@ -1,5 +1,5 @@
 ---
-description: "Refactoriser une fonction JavaScript pour améliorer sa lisibilité, sa maintenabilité et sa testabilité. À utiliser pour réorganiser un code sans en changer le comportement. Par exemple : « nettoie ce code », « rends cette fonction plus claire », « simplifie ce script » ou « réécris ce bloc pour qu'il soit plus propre », « réorganise en plusieurs fonctions », « ce code est trop complexe, trop long »."
+description: "Refactoriser une fonction ou un module JavaScript pour améliorer sa lisibilité, sa maintenabilité et sa testabilité. À utiliser pour réorganiser un code sans en changer le comportement. Par exemple : « nettoie ce code », « rends cette fonction plus claire », « simplifie ce script » ou « réécris ce bloc pour qu'il soit plus propre », « réorganise en plusieurs fonctions », « ce code est trop complexe, trop long »."
 name: "refactor-this"
 argument-hint: "<fonction à refactoriser> [type de problème à corriger]"
 agent: "agent"
@@ -14,7 +14,7 @@ Objectif : améliorer la lisibilité, la maintenabilité et la testabilité d'un
 ## Entrée
 
 Prends l'argument utilisateur comme source principale :
-- fonction cible (nom, fichier, extrait)
+- fonction ou module complet cible (nom, fichier, extrait)
 - problème concret à corriger (complexité, duplication, lisibilité, effets de bord)
 - résultat attendu
 
@@ -22,17 +22,17 @@ Si la cible n'est pas claire, pose une seule question courte avant de modifier l
 
 ## Procédure obligatoire
 
-1. Comprendre le comportement actuel de la fonction et ses dépendances directes.
-2. Définir une stratégie de refactor minimale : petits changements, sans modifier le comportement observable.
-3. Ajouter ou ajuster les tests unitaires nécessaires pour verrouiller le comportement avant/après.
-4. Appliquer le refactor en gardant des fonctions courtes, explicites et faiblement couplées. Rester le plus simple possible, sans introduire de complexité inutile.
-5. Modulariser le code en plusieurs fichiers si nécessaire, avec des imports/exports explicites.
-6. Vérifier que le comportement reste identique (hors amélioration explicitement demandée).
-7. Exécuter les validations du projet dans cet ordre :
+1. Comprendre le comportement actuel de la fonction ou du module et ses dépendances directes.
+2. Définir une stratégie de refactor par étapes et surtout sans modifier le comportement observable.
+3. Appliquer le refactor en gardant des fonctions courtes, explicites et faiblement couplées. Rester le plus simple possible, sans introduire de complexité inutile. Pas plus de 150 lignes de code par module et idéalement, moins de 80 lignes. Continuer à refactoriser jusqu'à ce que le code soit clair et compréhensible. Ajouter des commentaires, en français, si nécessaire pour clarifier le comportement.
+4. Modulariser le code en plusieurs fichiers si nécessaire, avec des imports/exports explicites. Organise les modules avec des noms clairs et cohérents. Évite les dépendances circulaires. Organise les fichiers avec des sous-dossiers et une structure claire et logique. Évite les noms génériques comme `utils` ou `helpers` : préfère des noms explicites et cohérents avec le projet.
+5. Vérifier que le comportement reste identique (hors amélioration explicitement demandée).
+6. Exécuter les validations du projet dans cet ordre :
 	- `npx task lint:all`
 	- `npx task tests:unit`
 	- `npx task ecma:source` si la syntaxe touchée peut impacter la compatibilité
-8. Résumer : ce qui a été simplifié, garanties apportées par les tests, risques restants.
+7. Résumer : ce qui a été simplifié.
+8. Proposer d'ajouter des tests unitaires si le refactor a introduit de nouvelles fonctions ou modules.
 
 ## Bonnes pratiques de refactorisation JavaScript
 
@@ -59,8 +59,6 @@ Si la cible n'est pas claire, pose une seule question courte avant de modifier l
 - Fournir un résumé concis avec :
 	- la stratégie de refactor
 	- les fichiers modifiés
-	- les tests ajoutés/modifiés
-	- les validations exécutées
 
 ## Rappels de style
 
