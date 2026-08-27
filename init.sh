@@ -60,7 +60,21 @@ important() {
 }
 
 confirm() {
-	# Demande une confirmation à l'utilisateur (o/N)
+	# Demande une confirmation à l'utilisateur (O/n)
+	# Si l'utilisateur appuie sur Entrée, la réponse par défaut est "O" (oui)
+	local prompt="${1:-Voulez-vous continuer ?}"
+	local response
+	read -r -p "$prompt [O/n] " response
+	case "$response" in
+	"" | [oOyY]*) return 0 ;;
+	*) return 1 ;;
+	esac
+}
+
+secure_confirm() {
+	# Demande une confirmation explicite à l'utilisateur (o/N)
+	# Si l'utilisateur appuie sur Entrée, la réponse par défaut est "N" (non)
+	# => l'utilisateur doit taper explicitement "o" ou "O" pour confirmer
 	local prompt="${1:-Voulez-vous continuer ?}"
 	local response
 	read -r -p "$prompt [o/N] " response
@@ -72,16 +86,30 @@ confirm() {
 
 step() {
 	# Affiche une étape, explique l'action, et demande confirmation sauf si le troisième argument est "skip-confirm"
-	local titre="$1" explication="$2" skipConfirm="${3:-ask-user}"
+	local titre="$1" explication="$2" confirmOption="${3:-ask-user}"
 	echo ""
 	important "------------------------------------------------------------"
 	important "▶ $titre"
 	echo "$explication"
 	important "------------------------------------------------------------"
 	echo ""
-	if [ "$skipConfirm" == "skip-confirm" ]; then
+	# Si l'option est "skip-confirm", on ne demande pas de confirmation et on continue
+	if [ "$confirmOption" == "skip-confirm" ]; then
 		return 0
 	fi
+	# Si l'option est "secure-confirm", on demande une confirmation explicite (o/N)
+	if [ "$confirmOption" == "secure-confirm" ]; then
+		if ! secure_confirm "Confirmer cette étape ?"; then
+			echo "Étape ignorée par l'utilisateur : $titre"
+			warn "Le script ne peut pas continuer sans cette étape."
+			echo "Vérifiez bien que vous avez compris ce que fait cette étape avant de relancer le script."
+			log "SKIPPED: $titre"
+			# Dans ce cas, on quitte le script
+			exit 1
+		fi
+		return 0
+	fi
+	# Sinon, on demande une confirmation classique (O/n)
 	if ! confirm "Confirmer cette étape ?"; then
 		warn "Étape ignorée par l'utilisateur : $titre"
 		log "SKIPPED: $titre"
@@ -157,7 +185,7 @@ echo "C'est un script d'initialisation pour créer un nouveau projet"
 warn "Il faut le lancer une seule fois, au tout début du projet"
 echo "Ne lancez pas ce script si vous avez déjà commencé à faire des modifications"
 echo ""
-if ! confirm "Voulez-vous continuer ?"; then
+if ! secure_confirm "Voulez-vous continuer ?"; then
 	echo "Abandon à la demande de l'utilisateur."
 	exit 0
 fi
@@ -170,7 +198,7 @@ log "Début de l'initialisation du projet dans $PROJECT_DIR"
 # SUPPRESSIONS :
 
 # 1. Suppression du dossier .git s'il existe
-if step "Suppression du dossier .git" "Le dossier .git contient l'historique du template ; il doit être supprimé pour repartir sur un dépôt vierge."; then
+if step "Suppression du dossier .git" "Le dossier .git contient l'historique du template ; il doit être supprimé pour repartir sur un dépôt vierge." "secure-confirm"; then
 	if [ -d "${PROJECT_DIR}/.git" ]; then
 		rm -rf "${PROJECT_DIR}/.git"
 		success "Dossier .git supprimé."
