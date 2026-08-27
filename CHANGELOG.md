@@ -1,3 +1,20 @@
+## 9.0.4 (2026-08-28)
+
+### Fix
+
+- **init**: distinction de deux types de confirmations (confirmation explicite nécessaire vs. oui par défaut quand on tape "Entrée") [(28f4c4d)](https://forge.apps.education.fr/eyssette/js-template/-/commit/28f4c4d9bfad0513b7969e5cef73df7ac38ce84f)
+- **init**: remplacement du nom du projet et de la version dans le service worker [(4759cc9)](https://forge.apps.education.fr/eyssette/js-template/-/commit/4759cc9edb09d6d199e31fc02187de2141ddd3ca)
+- **ai**: amélioration de la SKILL "refactor-this" pour qu'elle prenne en compte la refactorisation d'un module entier et modularise mieux [(4c1cebc)](https://forge.apps.education.fr/eyssette/js-template/-/commit/4c1cebccf00560615ff04504729371dd6b378c48)
+- **task**: ajout de la tâche build avant les tests ECMA dans la tâche bump [(c7d7099)](https://forge.apps.education.fr/eyssette/js-template/-/commit/c7d70998d1db5deb7f5abea8f49a3f6d9f576f90)
+
+### Chore
+
+- **package**: ajout d'une autorisation "allowScript" pour fsevent [(3bca2e3)](https://forge.apps.education.fr/eyssette/js-template/-/commit/3bca2e3ae7d92ba6654837caf5dbbda8020887c9)
+
+### Test
+
+- **config**: configuration des éventuels helpers pour Jasmine [(4feba56)](https://forge.apps.education.fr/eyssette/js-template/-/commit/4feba5660949501a5963400402497f06f5bca1e8)
+
 ## 9.0.3 (2026-08-26)
 
 ### Fix
