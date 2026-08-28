@@ -1,4 +1,4 @@
-// oxlint-disable import/no-unassigned-import
+// oxlint-disable import/no-unassigned-import sort-imports
 
 // Import du fichier CSS principal de l'application
 // On peut en mettre plusieurs : ils seront concaténés et minifiés dans le bundle final
@@ -14,17 +14,14 @@ import { capitalizeFirstLetter } from "./utils/strings.mjs";
 import constantFromFile from "./txt/demo.md?raw";
 
 // Gestion de la localisation (i18n) avec Paraglide
-import { getLocale } from "./lib/paraglide/runtime.js";
 import { m } from "./lib/paraglide/messages.js";
+import { setLanguage } from "./utils/lang.mjs";
 
 // Gestion du service worker pour que l'application fonctionne hors ligne et pour le caching des ressources (PWA : Progressive Web App)
 import { registerServiceWorker } from "../pwa/registerServiceWorker.mjs";
 
+setLanguage();
 registerServiceWorker();
-
-// Définition de la langue du document en fonction de la locale actuelle
-const currentLocale = getLocale();
-document.documentElement.lang = currentLocale;
 
 const mainElement = document.querySelector("main");
 const message = m.welcome();
