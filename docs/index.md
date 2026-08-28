@@ -343,7 +343,22 @@ Pour changer une règle globalement, modifier `oxlint.config.mjs` (JS), `styleli
 
 #### Gérer l'internationalisation (i18n)
 
-**Internationalisation (i18n)** : la gestion des traductions est assurée automatiquement par [ParaGlideJS](https://paraglidejs.com/), déjà préconfiguré. Les fichiers de traduction se trouvent dans `i18n/messages`, et `app/js/main.mjs` montre un exemple d'utilisation ([documentation de ParaGlideJS](https://paraglidejs.com/basics)).
+**Internationalisation (i18n)** : la gestion des traductions est assurée automatiquement par [ParaGlideJS](https://paraglidejs.com/), déjà préconfiguré.
+
+On définit les langues supportées dans `i18n/project.inlang/settings.json` en changeant la valeur de `"locales": ["fr", "en"]` pour ajouter ou supprimer des langues.
+Le français est la langue par défaut, mais on peut changer la valeur de `"baseLocale"` si nécessaire.
+
+On crée un fichier de traduction pour chaque langue dans `i18n/messages`, par exemple `fr.json` pour le français et `en.json` pour l'anglais.
+Chaque fichier contient les traductions au format JSON, avec des clés qui restent identiques dans tous les fichiers de traduction. On ne peut pas utiliser du texte multi-ligne dans les fichiers de traduction, mais on peut utiliser des sauts de ligne avec `\n`.
+
+Pour utiliser les traductions dans le code JavaScript, on importe la fonction `m` depuis `./lib/paraglide/messages.js` (avec le bon chemin pour retrouver le fichier à partir du module) et on l'utilise avec la clé de traduction correspondante. Par exemple :
+
+```javascript
+import { m } from "./lib/paraglide/messages.js";
+const message = m.welcome(); // Récupère la traduction de la clé "welcome" dans la langue actuelle
+```
+
+Il est conseillé de définir la langue au départ dans le fichier `app/js/main.mjs` en utilisant la fonction `setLanguage` à importer depuis `apps/js/utils/lang.mjs`.
 
 Pour les textes plus longs, le plugin [unplugin-raw](https://github.com/unplugin/unplugin-raw/) permet de les importer directement dans le JavaScript plutôt que dans des variables peu lisibles (exemple dans `app/js/main.js`). Dans ce cas, l'internationalisation doit être gérée manuellement.
 
