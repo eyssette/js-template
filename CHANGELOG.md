@@ -1,3 +1,14 @@
+## 9.0.5 (2026-08-28)
+
+### Fix
+
+- **i18n**: distinction de trois manière de choisir la langue (par choix explicite de l'utilisateur, par la langue du navigateur, par la langue par défaut de l'application) + export de fonction pour définir la langue via le localStorage [(a344564)](https://forge.apps.education.fr/eyssette/js-template/-/commit/a34456476e2ee4879ab8b7cc2ccc06b92fb8f153)
+- **i18n**: modularisation et amélioration de la fonction pour définir la langue au départ [(5344403)](https://forge.apps.education.fr/eyssette/js-template/-/commit/53444032053ac14cfe1909aa1c0a4d3d576d6465)
+
+### Docs
+
+- **i18n**: explications plus précises pour la gestion de l'internationalisation avec Paraglide [(d782f9a)](https://forge.apps.education.fr/eyssette/js-template/-/commit/d782f9afb48102c0e14f4fbb4f28c2a13ad0d965)
+
 ## 9.0.4 (2026-08-28)
 
 ### Fix
