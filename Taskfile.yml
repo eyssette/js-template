@@ -147,7 +147,8 @@ tasks:
       GIT_REPO_NAMES: [forge, github]
     cmds:
       - task: lint
-      - npx task build --force
+      - rm -rf {{.DIST_FOLDER}}
+      - task: build
       - task: tests
       - for: { var: GIT_REPO_NAMES }
         cmd: git push {{.ITEM}} && git push {{.ITEM}} --tags
@@ -279,7 +280,8 @@ tasks:
       - CHANGELOG.md
     cmds:
       - task: lint
-      - npx task build --force
+      - rm -rf {{.DIST_FOLDER}}
+      - task: build
       - task: tests
       - cz bump
 
