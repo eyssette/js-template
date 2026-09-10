@@ -249,8 +249,15 @@ tasks:
     sources:
       - "{{.APP_FOLDER}}/js/**/*.mjs"
       - "{{.TEST_FOLDER}}/unit/**/*.mjs"
+    silent: true
     cmds:
-      - npx jasmine --config='tests/unit/.config/jasmine.mjs'
+      - |
+        if find tests/unit -type f -name '*.spec.mjs' | grep -q .; then
+          npx jasmine --config='tests/unit/.config/jasmine.mjs'
+        else
+          echo "⚠️  Aucun test unitaire n'a été trouvé dans le dossier tests/unit"
+          echo "(Non bloquant, mais la bonne pratique est d'en avoir pour garantir la qualité du code)"
+        fi
 
   tests:coverage:
     desc: Génère un rapport de couverture de code avec c8 et Jasmine
