@@ -1,3 +1,13 @@
+## 9.0.6 (2026-10-15)
+
+### Fix
+
+- **task**: tâche ecma-dist lance une tâche de build de script.min.js si le fichier n'existe pas [(180e1fb)](https://forge.apps.education.fr/eyssette/js-template/-/commit/180e1fbbe736b5a45e10ec7dc9da509b85677a49)
+- **task**: on ne bloque pas le processus de build s'il n'y a pas de tests unitaires [(176f208)](https://forge.apps.education.fr/eyssette/js-template/-/commit/176f208f2967efd22b8ec435e5a4c63e46cc0a5e)
+- **test**: simplification du test e2e de base [(43f9888)](https://forge.apps.education.fr/eyssette/js-template/-/commit/43f9888efac2afe5087bae32aa074d91c202c8c5)
+- **task**: au lieu de forcer la tâche "build", on supprime le dossier Dist pour forcer la régénération du build, sans forcer la tâche npm-install [(ace1e4e)](https://forge.apps.education.fr/eyssette/js-template/-/commit/ace1e4e837e9bd29df3d4b3f73006767128696d0)
+- **task**: on force la "task build" dans les tâches de push et de bump [(56b1e7a)](https://forge.apps.education.fr/eyssette/js-template/-/commit/56b1e7a3cbbf423d856283f81347861e7ed00690)
+
 ## 9.0.5 (2026-08-28)
 
 ### Fix
