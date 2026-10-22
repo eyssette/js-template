@@ -33,7 +33,7 @@ Si la fonction cible ou le comportement attendu n'est pas assez clair, pose une 
 5. Si aucun fichier de test pertinent n'existe, en créer un dans `tests/unit` en miroir raisonnable du fichier source.
 6. Vérifier que le test reflète le vrai comportement attendu, sans adapter artificiellement l'assertion pour faire passer une implémentation incorrecte.
 7. Exécuter les validations du projet dans cet ordre :
-	- `npx task lint:all`
+	- `npx task lint:file:all -- <chemin_du_fichier>` pour les fichiers touchés
 	- `npx task tests:unit`
 	- `npx task ecma:source` si la syntaxe touchée peut impacter la compatibilité
 8. Résumer : comportement couvert, fichiers modifiés, validations exécutées, lacunes restantes.

@@ -42,8 +42,9 @@ Always use `npx task <name>` (do not assume `task` is installed globally).
 - Unit tests only: `npx task tests:unit`
 - E2E tests only: `npx task tests:e2e`
 - E2E tests tagged @CURRENT only (fast iteration on one scenario): `npx task tests:e2e:current`
-- Lint (blocking errors only): `npx task lint`
-- Lint (all issues, including warnings): `npx task lint:all`
+- Lint a file: `npx task lint:file:all -- <file_path>`
+- Lint all files: `npx task lint:all`
+- Lint all files (major issues only): `npx task lint`
 - HTML validation: `npx task html-validate`
 - Check ECMAScript compatibility of source: `npx task ecma:source`
 - Check ECMAScript compatibility of build output: `npx task ecma:dist`
@@ -99,13 +100,14 @@ Before running one of these commands, read the corresponding skill file if it ex
 
 - Write modular JavaScript with explicit imports/exports.
 - Keep functions small, testable, and low in cognitive complexity.
-- Maintain compatibility with the project's ECMAScript target (see `ECMA_VERSION` in `rolldown.config.mjs`, `Taskfile.yml`, and `oxlint.config.mjs`).
+- Maintain compatibility with the project's ECMAScript target (see `ECMA_VERSION` in `rolldown.config.mjs`, `Taskfile.yml`, and `oxlint.config.mjs`) :
+  - run `npx task ecma:source` to check source code
+- Lint the files you touch with `npx task lint:file:all -- <file_path>` and fix any errors or warnings reported.
 - If you encounter a lint rule (inline, per-file, or globally in `oxlint.config.mjs`) :
   - Do not disable it.
   - If it's an ERROR rule, fix the underlying code
   - If it's a WARNING rule, consider whether the code can be improved to satisfy the rule : if not, ask the user whether they want to disable it.
   - In all cases, explain to the user what you are doing and why.
-- `npx task lint` covers JS (Oxlint), CSS (Stylelint), and HTML (HTML-Validate) together; use `npx task lint:all` to also see non-blocking warnings before considering a task complete.
 
 ## Svelte Components
 

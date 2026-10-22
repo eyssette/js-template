@@ -28,7 +28,7 @@ Si une information critique manque, pose une question courte avant de modifier l
 3. Appliquer le correctif minimal dans le code existant (pas de refactor hors sujet).
 4. Vérifier que le test de reproduction passe.
 5. Exécuter les validations du projet dans cet ordre :
-	- `npx task lint:all`
+	- `npx task lint:file:all -- <chemin_du_fichier>` pour les fichiers touchés
 	- `npx task tests:unit`
 	- `npx task ecma:source` si la syntaxe touchée peut impacter la compatibilité
 6. Résumer : cause racine, correctif, tests ajoutés/modifiés, risques restants.

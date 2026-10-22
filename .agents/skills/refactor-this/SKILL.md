@@ -28,7 +28,7 @@ Si la cible n'est pas claire, pose une seule question courte avant de modifier l
 4. Modulariser le code en plusieurs fichiers si nécessaire, avec des imports/exports explicites. Organise les modules avec des noms clairs et cohérents. Évite les dépendances circulaires. Organise les fichiers avec des sous-dossiers et une structure claire et logique. Évite les noms génériques comme `utils` ou `helpers` : préfère des noms explicites et cohérents avec le projet.
 5. Vérifier que le comportement reste identique (hors amélioration explicitement demandée).
 6. Exécuter les validations du projet dans cet ordre :
-	- `npx task lint:all`
+	- `npx task lint:file:all -- <chemin_du_fichier>` pour les fichiers touchés
 	- `npx task tests:unit`
 	- `npx task ecma:source` si la syntaxe touchée peut impacter la compatibilité
 7. Résumer : ce qui a été simplifié.

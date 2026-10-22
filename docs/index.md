@@ -411,17 +411,24 @@ On peut faire plusieurs types de tests et vérifications sur le code, pour s'ass
 
 La vérification du code est assurée automatiquement et en continu, avec affichage des erreurs dans l'éditeur. Mais on peut aussi lancer une vérification complète à tout moment.
 
+Pour voir uniquement les erreurs bloquantes dans le code source, utiliser la commande :
+
+```bash
+task lint
+```
+
 Pour voir toutes les erreurs et incohérences dans le code, utiliser la commande :
 
 ```bash
 task lint:all
 ```
 
-Pour voir uniquement les erreurs bloquantes dans le code source, utiliser la commande :
+Pour voir toutes les erreurs et incohérences dans un fichier spécifique, utiliser la commande :
 
 ```bash
-task lint:source
+task lint:all --/chemin/vers/fichier
 ```
+
 
 #### Taille des modules
 

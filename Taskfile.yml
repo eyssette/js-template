@@ -413,6 +413,18 @@ tasks:
     cmds:
       - npx oxlint --config oxlint.config.mjs --report-unused-disable-directives-severity "warn" . -f stylish
 
+  lint:file:
+    desc: "Lint un fichier .mjs donné avec Oxlint, en affichant uniquement les erreurs principales (usage: task lint:file -- <file_path>)"
+    silent: true
+    cmds:
+      - SHOW_MAIN_ERRORS_ONLY=1 npx oxlint --config oxlint.config.mjs "{{.CLI_ARGS}}" -f stylish
+
+  lint:file:all:
+    desc: "Lint un fichier .mjs donné avec Oxlint, en affichant toutes les erreurs, même les simples warnings (usage: task lint:file:all -- <file_path>)"
+    silent: true
+    cmds:
+      - npx oxlint --config oxlint.config.mjs --report-unused-disable-directives-severity "warn" "{{.CLI_ARGS}}" -f stylish
+
   compress:png:
     desc: Compresse les images PNG avec pngquant
     cmds:

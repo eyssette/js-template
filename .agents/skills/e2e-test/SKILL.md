@@ -31,7 +31,7 @@ Si le parcours ou le résultat attendu n'est pas assez clair, pose une seule que
 6. Si le scénario sert à itérer localement sur un seul cas, ajouter le tag `@CURRENT` pendant l'itération.
 7. Vérifier que le scénario décrit une intention utilisateur et non des détails DOM, CSS ou implémentation interne.
 8. Exécuter les validations du projet dans cet ordre :
-	- `npx task lint:all`
+	- `npx task lint:file:all -- <chemin_du_fichier>` pour les fichiers touchés
 	- `npx task tests:e2e:current` si un scénario `@CURRENT` a été préparé
 	- sinon `npx task tests:e2e`
 9. Résumer : parcours couvert, fichiers créés/modifiés, steps ajoutées ou réutilisées, validations exécutées.

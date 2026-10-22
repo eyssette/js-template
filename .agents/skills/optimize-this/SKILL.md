@@ -28,7 +28,7 @@ Si la cible ou le gain recherché n'est pas clair, pose une seule question court
 4. Appliquer l'optimisation sans dégrader inutilement la lisibilité ni introduire de complexité accidentelle.
 5. Vérifier que le comportement reste identique.
 6. Exécuter les validations du projet dans cet ordre :
-	- `npx task lint:all`
+	- `npx task lint:file:all -- <chemin_du_fichier>` pour les fichiers touchés
 	- `npx task tests:unit`
 	- `npx task ecma:source` si la syntaxe touchée peut impacter la compatibilité
 7. Résumer : coût ciblé, optimisation appliquée, compromis éventuels, validations exécutées.

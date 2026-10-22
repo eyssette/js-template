@@ -81,7 +81,6 @@ Quand l'utilisateur choisit `Message ou section de documentation utilisateur` :
 
 - Relire le texte produit pour supprimer la paraphrase, les répétitions et les détails inutiles.
 - Vérifier que le contenu répond bien au public choisi au début.
-- Si un fichier du dépôt a été modifié, exécuter `npx task lint:all` si la modification peut être concernée par les validations documentaires ou HTML du projet.
 
 ## Format de sortie attendu
 

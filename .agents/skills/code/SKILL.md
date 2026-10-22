@@ -92,10 +92,11 @@ agent: "agent"
 
 ## 8. Lint
 
+- Lint les fichiers touchés d'abord avec `npx task lint:file -- <chemin_du_fichier>` et corriger absolument les erreurs ou avertissements signalés.
+- Lint les fichiers touchés ensuite avec `npx task lint:file:all -- <chemin_du_fichier>` et corriger les erreurs ou avertissements signalés (sauf si cela complique inutilement le code ou si l'utilisateur demande de ne pas le faire).
 - Ne jamais désactiver une règle de lint (inline, par fichier, ou globale dans `oxlint.config.mjs`).
   - Règle en erreur → corriger le code.
   - Règle en avertissement → essayer d'abord de corriger le code ; si ce n'est pas raisonnable, demander à l'utilisateur s'il veut la désactiver, en expliquant pourquoi.
-- `npx task lint` affiche les erreurs bloquantes. `npx task lint:all` affiche en plus les avertissements non bloquants.
 
 ## 9. Séquence de fin de tâche (obligatoire)
 
