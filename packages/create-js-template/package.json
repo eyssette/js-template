@@ -1,0 +1,18 @@
+{
+	"name": "create-js-template",
+	"version": "1.0.0",
+	"description": "CLI d'initialisation du template js-template (usage : npm create js-template)",
+	"bin": {
+		"create-js-template": "./bin/create-js-template.mjs"
+	},
+	"files": [
+		"bin"
+	],
+	"type": "module",
+	"dependencies": {
+		"prompts": "^2.4.2"
+	},
+	"engines": {
+		"node": ">=22"
+	}
+}

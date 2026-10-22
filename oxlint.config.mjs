@@ -235,6 +235,16 @@ const config = {
 				"eslint/no-console": "off",
 			},
 		},
+		{
+			files: ["packages/create-js-template/**/*.{js,mjs}"],
+			env: { builtin: true, browser: true, node: true },
+			rules: {
+				"eslint/no-console": "off",
+				"unicorn/filename-case": ["error", { case: "kebabCase" }],
+				"import/no-nodejs-modules": "off",
+				"unicorn/no-process-exit": "off",
+			},
+		},
 	],
 };
 
