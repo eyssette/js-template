@@ -1,6 +1,6 @@
 {
 	"name": "@eyssette/js-template",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "CLI d'initialisation du template js-template (usage : npm create js-template)",
 	"bin": {
 		"create-js-template": "./bin/create-js-template.mjs"

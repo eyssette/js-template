@@ -5,21 +5,21 @@ import {
 	loadState,
 	runStep,
 	saveState,
-} from "../modules/project/state.mjs";
+} from "./modules/project/state.mjs";
 import {
 	configureRemote,
 	initGitRepository,
 	installDependencies,
-} from "../modules/steps/init-git-repository.mjs";
-import { askProjectInfo } from "../modules/steps/ask-project-info.mjs";
-import { buildProjectInfo } from "../modules/project/project-info.mjs";
-import { checkSystemDependencies } from "../modules/steps/check-system-dependencies.mjs";
-import { cleanup } from "../modules/steps/cleanup.mjs";
-import { customizeProjectFiles } from "../modules/steps/customize-project-files.mjs";
-import { downloadTemplate } from "../modules/steps/download-template.mjs";
-import { generateReadme } from "../modules/steps/generate-readme.mjs";
-import { printSummary } from "../modules/steps/print-summary.mjs";
-import { resolveTargetDir } from "../modules/steps/check-target.mjs";
+} from "./modules/steps/init-git-repository.mjs";
+import { askProjectInfo } from "./modules/steps/ask-project-info.mjs";
+import { buildProjectInfo } from "./modules/project/project-info.mjs";
+import { checkSystemDependencies } from "./modules/steps/check-system-dependencies.mjs";
+import { cleanup } from "./modules/steps/cleanup.mjs";
+import { customizeProjectFiles } from "./modules/steps/customize-project-files.mjs";
+import { downloadTemplate } from "./modules/steps/download-template.mjs";
+import { generateReadme } from "./modules/steps/generate-readme.mjs";
+import { printSummary } from "./modules/steps/print-summary.mjs";
+import { resolveTargetDir } from "./modules/steps/check-target.mjs";
 
 const targetDir = resolveTargetDir();
 const state = loadState(targetDir);
