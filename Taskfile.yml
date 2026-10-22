@@ -43,6 +43,8 @@ tasks:
       - "{{.DIST_FOLDER}}/sw.js"
     method: timestamp
     cmds:
+      # On coupe le serveur de développement, afin d'éviter d'avoir le service worker (compilé par la tâche de build) dans le cache du navigateur quand on est en mode développement
+      - task: dev:stop
       - npx rolldown --config
 
   paraglide:compile:
