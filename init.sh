@@ -15,6 +15,7 @@ TEMPLATE_URL="https://forge.apps.education.fr/eyssette/js-template"
 TEMPLATE_CREATOR_FIRSTNAME="Cédric"
 TEMPLATE_CREATOR_NAME="Eyssette"
 TEMPLATE_DESCRIPTION="Environnement de développement JavaScript pré-configuré et optimisé.Éditeur de code qui vérifie la qualité du code, le formate automatiquement et facilite le débogage, Tâches automatisées pour compiler, tester, pousser, déployer et vérifier l’application. Pré-configuration pour agents IA avec des SKILLS déjà définis. Gestion de l'internationalisation et du mode PWA (Progressive Web App) pour utilisation hors ligne."
+TEMPLATE_HASH_FIRST_COMMIT="679fdff65fc5115dbf85b32dd0b93c13ced6084e"
 
 ## Variables qui seront à renseigner par l'utilisateur lors de l'initialisation du projet
 RAW_PROJECT_NAME=""
@@ -197,13 +198,26 @@ log "Début de l'initialisation du projet dans $PROJECT_DIR"
 
 # SUPPRESSIONS :
 
-# 1. Suppression du dossier .git s'il existe
-if step "Suppression du dossier .git" "Le dossier .git contient l'historique du template ; il doit être supprimé pour repartir sur un dépôt vierge." "secure-confirm"; then
-	if [ -d "${PROJECT_DIR}/.git" ]; then
-		rm -rf "${PROJECT_DIR}/.git"
-		success "Dossier .git supprimé."
-	else
-		info "Aucun dossier .git trouvé, rien à supprimer."
+# 1. Suppression du dossier .git si ce dossier correspond à l'historique du template (on ne veut pas garder l'historique du template dans le nouveau projet)
+
+## On récupère d'abord le hash du premier commit du dépôt git actuel
+ACTUAL_FIRST_COMMIT_HASH="$(git -C "$PROJECT_DIR" rev-list --max-parents=0 HEAD 2>/dev/null || true)"
+
+## SHOULD_REMOVE_GIT_FOLDER est égal à true si le hash du premier commit correspond au hash du premier commit du template, car cela signifie que l'utilisateur est encore dans le template et qu'il faut supprimer le dossier .git pour repartir sur un dépôt vierge.
+
+SHOULD_REMOVE_GIT_FOLDER=false
+if [ "$ACTUAL_FIRST_COMMIT_HASH" = "$TEMPLATE_HASH_FIRST_COMMIT" ]; then
+	SHOULD_REMOVE_GIT_FOLDER=true
+fi
+
+if [ "$SHOULD_REMOVE_GIT_FOLDER" = true ]; then
+	if step "Suppression du dossier .git" "Le dossier .git contient l'historique du template ; il doit être supprimé pour repartir sur un dépôt vierge." "secure-confirm"; then
+		if [ -d "${PROJECT_DIR}/.git" ]; then
+			rm -rf "${PROJECT_DIR}/.git"
+			success "Dossier .git supprimé."
+		else
+			info "Aucun dossier .git trouvé, rien à supprimer."
+		fi
 	fi
 fi
 
@@ -485,10 +499,15 @@ if step "Vérification de l'installation de git" "Le script va vérifier que git
 	success "git est installé ($(git --version))."
 fi
 
-# - initialisation d'un nouveau dépôt git avec une branche principale nommée "main"
-if step "Initialisation du dépôt git" "Un nouveau dépôt git est créé avec pour branche principale \"main\"."; then
-	git -C "$PROJECT_DIR" init -b main
-	success "Dépôt git initialisé (branche main)."
+# - initialisation d'un nouveau dépôt git avec une branche principale nommée "main" (seulement si on était dans le template, sinon on ne touche pas au dépôt git existant)
+
+if step "Initialisation du dépôt git" "Initialisation du projet avec le template"; then
+
+	# - si on avait supprimé le dossier .git (car on était dans le template), on réinitialise un dépôt git avec une branche principale nommée "main"
+	if [ "$SHOULD_REMOVE_GIT_FOLDER" = true ]; then
+		git -C "$PROJECT_DIR" init -b main
+		success "Dépôt git initialisé (branche main)."
+	fi
 
 	# - création d'un commit initial avec le message "feat(init): initialisation du projet à partir du template {{template_name}}"
 	if step "Création du commit initial" "Le premier commit permet d'initialiser le projet à partir du template."; then
