@@ -1,7 +1,7 @@
 {
-	"name": "@eyssette/js-template",
+	"name": "@eyssette/create-js-template",
 	"version": "1.0.1",
-	"description": "CLI d'initialisation du template js-template (usage : npm create js-template)",
+	"description": "CLI d'initialisation du template js-template (usage : npm create @eyssette/js-template)",
 	"bin": {
 		"create-js-template": "./bin/create-js-template.mjs"
 	},
@@ -10,7 +10,6 @@
 	],
 	"type": "module",
 	"dependencies": {
-		"@eyssette/js-template": "^1.0.0",
 		"prompts": "^2.4.2"
 	},
 	"engines": {
