@@ -91,6 +91,7 @@
 		"semgrep",
 		"tabindex",
 		"Taskfile",
+		"toplevel",
 		"trivy",
 		"unitless",
 		"unplugin",
