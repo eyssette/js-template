@@ -157,24 +157,23 @@ Avant de commencer, il faut avoir installé sur sa machine :
 
 ### 1\. Initialiser le projet
 
-Récupérer le template, avec `git clone` ou en téléchargeant l'archive ZIP.
+Sur la Forge, créez un nouveau projet vide et décochez la case "Initialiser le dépôt avec un README".
 
-Lancer le script d'initialisation, à la racine du projet :
+Sur votre ordinateur, créez un nouveau dossier pour votre projet, puis ouvrir un terminal dans ce dossier et lancer la commande suivante :
 
 ```bash
-bash init.sh
+npm create @eyssette/js-template .
 ```
 
 Ce script pose quelques questions pour configurer le projet avec vos informations personnelles et vos paramètres, puis installe les dépendances.
 
 :::warning Lancer ce script au tout début, une seule fois !
 
-Sans ce script, vous êtes encore dans le template et non pas dans votre projet personnalisé.
-
-Ce script doit être lancé une seule fois, avant de commencer à coder.
+Ce script ne doit être lancé qu'une seule fois, à la création du projet.
 
 Il ne faut plus le relancer ensuite.
 :::
+
 
 ### 2\. Installer les extensions recommandées pour l'éditeur
 
@@ -216,6 +215,7 @@ Si ce n’est pas le cas, il faut aller dans le menu `Extensions` de l’éditeu
 ├── features/         # Scénarios Gherkin pour les tests end-to-end
 ├── i18n/             # Fichiers pour l’internationalisation (i18n)
 ├── node_modules/     # Dépendances Node.js (installées par npm)
+├── packages/         # Packages NPM pour l'initialisation du projet
 ├── scripts/          # Scripts pour les tâches automatisées
 └── tests/
     ├── unit/         # Tests unitaires avec Jasmine
@@ -272,7 +272,6 @@ Taskfile.yml               # Tâches automatisées avec Task
 .
 CHANGELOG.md           # Historique des changements du projet
 CONTRIBUTING.md        # Guide pour contribuer au projet
-init.sh                # Script d'initialisation du projet
 LICENSE                # Licence du projet
 README.md              # Présentation du projet
 VERSION                # Version actuelle du projet
@@ -369,7 +368,7 @@ Pour les textes plus longs, le plugin [unplugin-raw](https://github.com/unplugin
 :::details Personnaliser le mode PWA
 À faire en priorité :
 
-- `app/pwa/manifest.webmanifest` : nom et description de l'application (déjà fait si `init.sh` a été utilisé), couleurs, liens vers les icônes.
+- `app/pwa/manifest.webmanifest` : nom et description de l'application (configurés lors de l'initialisation), couleurs, liens vers les icônes.
 - Les 4 icônes du dossier `app/pwa`.
 - `app/pwa/service-worker/swConfig.mjs` : vérifier les fichiers à mettre en cache pour le mode hors ligne :
   - `CRITICAL_PRECACHE_URLS` : fichiers essentiels au fonctionnement hors ligne,
@@ -577,7 +576,7 @@ task push
 
 Avant de pousser les modifications, plusieurs vérifications sont effectuées automatiquement via des hooks Husky et des tâches automatisées : vérification de la qualité du code (`task lint:all`), conformité au standard ECMAScript ciblé (`task ecma`), exécution des tests unitaires (`task test:unit`) et end-to-end (`task test:e2e`).
 
-Le push se fait sur les dépôts Git configurés (variable `GIT_REPO_NAMES` dans `Taskfile.yml`), et qui ont été initialisés lors de l'exécution du script `init.sh`.
+Le push se fait sur les dépôts Git configurés (variable `GIT_REPO_NAMES` dans `Taskfile.yml`), et par défaut sur le dépôt `origin` défini lors de l'initialisation du projet. On peut ajouter d'autres dépôts Git si nécessaire, si on veut aussi pousser ses modifications sur plusieurs forges en même temps.
 
 #### Compilation et déploiement automatisés
 
