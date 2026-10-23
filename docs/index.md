@@ -162,7 +162,7 @@ Sur la Forge, créez un nouveau projet vide et décochez la case "Initialiser le
 Sur votre ordinateur, créez un nouveau dossier pour votre projet, puis ouvrir un terminal dans ce dossier et lancer la commande suivante :
 
 ```bash
-npm create @eyssette/js-template .
+npm create @eyssette/js-template@latest .
 ```
 
 Ce script pose quelques questions pour configurer le projet avec vos informations personnelles et vos paramètres, puis installe les dépendances.
