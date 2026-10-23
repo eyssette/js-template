@@ -49,7 +49,6 @@ tasks:
 
   paraglide:compile:
     desc: Compile les fichiers de traduction Paraglide
-    deps: [npm:install]
     sources:
       - "{{.APP_FOLDER}}/**/*"
       - i18n/messages/**/*.json
