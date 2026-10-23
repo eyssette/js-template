@@ -30,10 +30,11 @@ if ! command -v zip >/dev/null 2>&1; then
 	exit 1
 fi
 
+APP_NAME="js-template"
 ROOT_DIR="$(git rev-parse --show-toplevel)"
 RELEASE_DIR="$ROOT_DIR/.release/dist"
 SAFE_TAG="${TAG//\//-}"
-ZIP_NAME="js-template-dist@${SAFE_TAG}.zip"
+ZIP_NAME="$APP_NAME-dist@${SAFE_TAG}.zip"
 ZIP_PATH="$RELEASE_DIR/$ZIP_NAME"
 WORKTREE_PARENT="$ROOT_DIR/.release/.tmp"
 WORKTREE_DIR="$WORKTREE_PARENT/worktree-$SAFE_TAG-$$"

@@ -3,7 +3,7 @@
 version: "3"
 
 vars:
-  APP_NAME: "JS-template"
+  APP_NAME: "js-template"
   MAIN_REPO_URL: "https://forge.apps.education.fr/eyssette/js-template"
   APP_FOLDER: "app"
   DIST_FOLDER: "dist"

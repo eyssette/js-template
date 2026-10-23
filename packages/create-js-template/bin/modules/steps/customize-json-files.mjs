@@ -41,4 +41,13 @@ export function customizeJsonFiles(targetDir, project) {
 		name: project.normalizedName,
 		version: "0.0.0",
 	}));
+
+	updateJsonFile(
+		path.resolve(targetDir, "app/pwa/manifest.webmanifest"),
+		(manifest) => ({
+			...manifest,
+			name: project.projectName,
+			short_name: project.projectName,
+		}),
+	);
 }

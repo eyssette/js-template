@@ -8,6 +8,9 @@ function checkGit() {
 		console.error(
 			"❌ Git n'est pas installé. Veuillez l'installer avant de continuer.",
 		);
+		console.error(
+			"Pour l'installer, consultez la documentation officielle : https://git-scm.com/install/",
+		);
 		process.exit(1);
 	}
 }
@@ -29,6 +32,9 @@ function checkNode() {
 	} catch {
 		console.error(
 			"❌ Node.js ou npm n'est pas installé. Veuillez les installer avant de continuer.",
+		);
+		console.error(
+			"Pour l'installer, consultez la documentation officielle : https://nodejs.org/fr/download",
 		);
 		process.exit(1);
 	}

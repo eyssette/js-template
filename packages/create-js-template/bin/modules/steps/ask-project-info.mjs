@@ -4,7 +4,11 @@ import prompts from "prompts";
 export function askProjectInfo() {
 	return prompts([
 		{ type: "text", name: "projectName", message: "Nom du projet ?" },
-		{ type: "text", name: "repoUrl", message: "URL du dépôt (forge) ?" },
+		{
+			type: "text",
+			name: "repoUrl",
+			message: "URL du dépôt (https://forge.apps.education.fr/...) ?",
+		},
 		{ type: "text", name: "authorFirstname", message: "Votre prénom ?" },
 		{ type: "text", name: "authorName", message: "Votre nom ?" },
 		{ type: "text", name: "description", message: "Description du projet ?" },

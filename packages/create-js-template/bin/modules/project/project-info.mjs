@@ -18,6 +18,10 @@ export function buildProjectInfo(answers) {
 			.toLowerCase()
 			.trim()
 			.replaceAll(/\s+/gu, "-")
+			// On remplace les accents par leur équivalent non accentué
+			.normalize("NFD")
+			.replaceAll(/[\u0300-\u036F]/gu, "")
+			// On garde uniquement les caractères autorisés dans un nom de projet npm
 			.replaceAll(/[^a-z0-9._-]/gu, ""),
 		authorFullname: `${answers.authorFirstname} ${answers.authorName}`,
 		templateAuthorFullname: `${TEMPLATE.creatorFirstname} ${TEMPLATE.creatorName}`,

@@ -323,12 +323,12 @@ if step "Renommage du projet" "Le nom \"$TEMPLATE_NAME\" va être remplacé par 
 		success "Taskfile.yml (APP_NAME) mis à jour."
 	fi
 
-	# - Changement du nom du projet dans le script de création d'archive : scripts/release/create-zipped-dist-from-tag.sh (champ : ZIP_NAME)
+	# - Changement du nom du projet dans le script de création d'archive : scripts/release/create-zipped-dist-from-tag.sh (champ : APP_NAME)
 	ZIP_SCRIPT="${PROJECT_DIR}/scripts/release/create-zipped-dist-from-tag.sh"
 	if [ -f "$ZIP_SCRIPT" ]; then
-		sed_inplace -E "s/^([[:space:]]*ZIP_NAME[[:space:]]*=[[:space:]]*).*/\1\"${NORMALIZED_PROJECT_NAME}\"/" "$ZIP_SCRIPT"
+		sed_inplace -E "s/^([[:space:]]*APP_NAME[[:space:]]*=[[:space:]]*).*/\1\"${NORMALIZED_PROJECT_NAME}\"/" "$ZIP_SCRIPT"
 		rm -f "${ZIP_SCRIPT}.bak"
-		success "create-zipped-dist-from-tag.sh (ZIP_NAME) mis à jour."
+		success "create-zipped-dist-from-tag.sh (APP_NAME) mis à jour."
 	fi
 
 	# - Changement du nom du projet dans le index.html : app/index.html (balise <title>)

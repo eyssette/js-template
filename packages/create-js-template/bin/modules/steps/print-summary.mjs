@@ -1,5 +1,10 @@
+import { checkTaskfileInstallation } from "./install-taskfile.mjs";
+
 export function printSummary(projectName, targetDir) {
 	console.log(`\n✅ Projet "${projectName}" prêt dans ${targetDir}`);
+
+	checkTaskfileInstallation();
+
 	console.log(
 		"\n⚠️  N'oubliez pas de choisir une licence pour votre projet et d'adapter le fichier LICENSE en conséquence.",
 	);

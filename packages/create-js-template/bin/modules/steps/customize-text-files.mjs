@@ -40,14 +40,19 @@ export function customizeTextFiles(targetDir, project) {
 
 	replaceInTextFile(path.resolve(targetDir, "Taskfile.yml"), [
 		[TEMPLATE.repoUrl, project.repoUrl],
-		[TEMPLATE.name, project.projectName],
+		[`APP_NAME: "${TEMPLATE.name}"`, `APP_NAME: "${project.normalizedName}"`],
 		["forge, github", "origin"],
 	]);
 
 	replaceInTextFile(
 		path.resolve(targetDir, "scripts/release/create-zipped-dist-from-tag.sh"),
-		[[`ZIP_NAME="${TEMPLATE.name}"`, `ZIP_NAME="${project.normalizedName}"`]],
+		[[`APP_NAME="${TEMPLATE.name}"`, `APP_NAME="${project.normalizedName}"`]],
 	);
+
+	const currentYear = new Date().getFullYear();
+	replaceInTextFile(path.resolve(targetDir, "LICENSE"), [
+		[`2025 ${TEMPLATE.creatorName}`, `${currentYear} ${project.authorName}`],
+	]);
 
 	writeFileSync(path.resolve(targetDir, "VERSION"), "0.0.0");
 }
