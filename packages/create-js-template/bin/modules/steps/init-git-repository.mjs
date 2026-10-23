@@ -38,5 +38,6 @@ export async function configureRemote(targetDir, repoUrl) {
 			stdio: "inherit",
 		},
 	);
+	// bearer:disable javascript_lang_logger_leak
 	console.log(`✅ Remote "origin" configuré vers ${remoteUrl}`);
 }

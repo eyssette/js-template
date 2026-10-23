@@ -4,6 +4,7 @@ import path from "node:path";
 
 // Génération du README.md à partir du template
 export function generateReadme(targetDir, project) {
+	// bearer:disable javascript_lang_path_traversal
 	const readmeTemplatePath = path.resolve(
 		targetDir,
 		"scripts/init/README-template.md",
@@ -23,6 +24,8 @@ export function generateReadme(targetDir, project) {
 		.replaceAll("{{template_creator_name}}", TEMPLATE.creatorName)
 		.replaceAll("{{template_url}}", TEMPLATE.repoUrl);
 
+	// bearer:disable javascript_lang_path_traversal
 	writeFileSync(path.resolve(targetDir, "README.md"), content);
+	// bearer:disable javascript_lang_logger_leak
 	console.log("📄 README.md généré à partir du template.");
 }

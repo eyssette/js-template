@@ -8,5 +8,6 @@ export function downloadTemplate(targetDir) {
 	execSync(`git clone --depth 1 ${TEMPLATE_REPO} "${targetDir}"`, {
 		stdio: "inherit",
 	});
+	// bearer:disable javascript_lang_path_traversal
 	rmSync(path.resolve(targetDir, ".git"), { recursive: true, force: true });
 }

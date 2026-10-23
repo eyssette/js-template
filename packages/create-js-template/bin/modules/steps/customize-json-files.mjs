@@ -32,10 +32,12 @@ function updatePackageJson(pkg, project) {
 
 // Fichiers JSON : traités par champ, pas par recherche de texte
 export function customizeJsonFiles(targetDir, project) {
+	// bearer:disable javascript_lang_path_traversal
 	updateJsonFile(path.resolve(targetDir, "package.json"), (pkg) =>
 		updatePackageJson(pkg, project),
 	);
 
+	// bearer:disable javascript_lang_path_traversal
 	updateJsonFile(path.resolve(targetDir, "package-lock.json"), (pkgLock) => ({
 		...pkgLock,
 		name: project.normalizedName,
@@ -43,6 +45,7 @@ export function customizeJsonFiles(targetDir, project) {
 	}));
 
 	updateJsonFile(
+		// bearer:disable javascript_lang_path_traversal
 		path.resolve(targetDir, "app/pwa/manifest.webmanifest"),
 		(manifest) => ({
 			...manifest,

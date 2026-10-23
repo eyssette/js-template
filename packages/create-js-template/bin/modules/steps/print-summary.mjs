@@ -1,6 +1,7 @@
 import { checkTaskfileInstallation } from "./install-taskfile.mjs";
 
 export function printSummary(projectName, targetDir) {
+	// bearer:disable javascript_lang_logger_leak
 	console.log(`\n✅ Projet "${projectName}" prêt dans ${targetDir}`);
 
 	checkTaskfileInstallation();

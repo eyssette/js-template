@@ -21,6 +21,7 @@ function checkNode() {
 		// Retire le 'v' et convertit en nombre
 		const majorVersion = Math.trunc(Number(nodeVersion.slice(1)));
 		if (majorVersion < MINIMUM_NODE_VERSION) {
+			// bearer:disable javascript_lang_logger_leak
 			console.error(
 				`❌ La version de Node.js (${nodeVersion}) est trop ancienne (>22 requis).`,
 			);

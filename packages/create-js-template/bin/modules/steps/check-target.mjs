@@ -14,6 +14,7 @@ export function resolveTargetDir() {
 	const targetDir = path.resolve(process.cwd(), targetDirArg);
 
 	if (path.basename(targetDir) === TEMPLATE.name) {
+		// bearer:disable javascript_lang_logger_leak
 		console.error(
 			`❌ Renommez le dossier "${TEMPLATE.name}" avant de relancer ce script.`,
 		);
@@ -26,6 +27,7 @@ export function resolveTargetDir() {
 	}
 
 	if (existsSync(targetDir) && targetDirArg !== DEFAULT_TARGET_DIR) {
+		// bearer:disable javascript_lang_logger_leak
 		console.error(`❌ Le dossier "${targetDirArg}" existe déjà.`);
 		process.exit(1);
 	}

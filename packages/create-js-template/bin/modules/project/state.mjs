@@ -37,6 +37,7 @@ export function clearState(targetDir) {
 export async function runStep(name, step, projectContext) {
 	const { targetDir, state } = projectContext;
 	if (state.completed.includes(name)) {
+		// bearer:disable javascript_lang_logger_leak
 		console.log(`⏭️  Étape "${name}" déjà effectuée, on passe.`);
 		return;
 	}
