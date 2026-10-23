@@ -1,3 +1,34 @@
+## 10.0.0 (2026-10-23)
+
+### Feat
+
+- **init**: initialisation du dépôt à partir d'un script Node lancé via npm create [(a6b477c)](https://forge.apps.education.fr/eyssette/js-template/-/commit/a6b477c2bfd4b93dab20245df27e1e1603ff536d)
+- **skill**: ajout d'une tâche d'amélioration du fichier AGENTS.md [(60e50e8)](https://forge.apps.education.fr/eyssette/js-template/-/commit/60e50e8436d3579544463eef64757a813b447040)
+
+### Fix
+
+- **security**: correctifs de sécurité [(4cf448f)](https://forge.apps.education.fr/eyssette/js-template/-/commit/4cf448fd5ef53a472c7efcf95939a8b969bc6ffb)
+- **init**: correctif pour le changement de la description dans les fichiers index.html et manifest.webmanifest + normalisation de la description [(c3f2009)](https://forge.apps.education.fr/eyssette/js-template/-/commit/c3f20092e3487b78fe7fda11f0ba681cefbeb128)
+- **task**: pas besoin de faire dépendre la tâche de compilation paraglide de la tâche npm:install [(5d7c41a)](https://forge.apps.education.fr/eyssette/js-template/-/commit/5d7c41acdd73e311c9169f3d6ab4edd4f16dfe4e)
+- **init**: correctifs pour le script d'initialisation afin d'avoir une correspondance entre le nouveau script Node et l'ancien script bash [(2a5a49a)](https://forge.apps.education.fr/eyssette/js-template/-/commit/2a5a49a9587d56b1822a7733380372f9aebbe75d)
+- **init**: fix du nom du package pour que la commande `npm create @eyssette/js-template` fonctionne [(1c9a142)](https://forge.apps.education.fr/eyssette/js-template/-/commit/1c9a1426ec968bb25576539544460ff63f09ff9e)
+- **init**: modules pour create-js-template dans le dossier "bin" [(16f1b2d)](https://forge.apps.education.fr/eyssette/js-template/-/commit/16f1b2db031d44ae07f441699c1a6fe996aaea8a)
+- **init**: scope pour le nom du package de création du template [(0688ffa)](https://forge.apps.education.fr/eyssette/js-template/-/commit/0688ffa0b422f403e984be8710aa3f7b5f1ac68d)
+- **init**: suppression du  dossier .git seulement si on est parti d'un git clone du template [(8d61621)](https://forge.apps.education.fr/eyssette/js-template/-/commit/8d61621f1108ff98798305da9f0b332fdbc49bdd)
+- **task**: tâche de lint ajoutée pour linter un fichier spécifique [(7385a5c)](https://forge.apps.education.fr/eyssette/js-template/-/commit/7385a5c8f267da0a6892e3fa1512d36482923ca5)
+- **task**: si on lance la tâche build, on arrête le serveur de développement [(f3aeb29)](https://forge.apps.education.fr/eyssette/js-template/-/commit/f3aeb291df6672ff3e4a327b4bab7dfd1a68e1f1)
+- **task**: task build forcé si le fichier script.min.js n'existe pas [(9bc7887)](https://forge.apps.education.fr/eyssette/js-template/-/commit/9bc788797afd0c853f626f1d9615ff5203efabaa)
+
+### Chore
+
+- **init**: suppression de l'ancien script d'initialisation en bash (remplacé par le script Node) [(cb66767)](https://forge.apps.education.fr/eyssette/js-template/-/commit/cb667672fb655e06ff58961c2167346448f3c94c)
+- **init**: update version du script d'initialisation [(fe37934)](https://forge.apps.education.fr/eyssette/js-template/-/commit/fe37934d91d084d0208f8b36eb24808ef25f7daa)
+
+### Docs
+
+- **init**: commande pour utiliser toujours la dernière version du script d'initialisation [(64e3e10)](https://forge.apps.education.fr/eyssette/js-template/-/commit/64e3e10b6c4b6c5fb9e5c523a9980c4769158ef1)
+- **init**: explications pour le nouveau script d'initialisation Node [(0e7643f)](https://forge.apps.education.fr/eyssette/js-template/-/commit/0e7643f29dd62f720a6fb4692ce2788dacf01ee0)
+
 ## 9.0.6 (2026-10-15)
 
 ### Fix
