@@ -718,9 +718,3 @@ tasks:
     silent: true
     cmds:
       - python3 scripts/bump/get_commit_hash.py "{{.CLI_ARGS}}"
-
-  init:
-    desc: "Initialise la création d'un nouveau projet à partir de ce template"
-    silent: true
-    cmds:
-      - bash scripts/init/init.sh
