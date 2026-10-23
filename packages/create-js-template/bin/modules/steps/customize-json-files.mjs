@@ -16,7 +16,7 @@ function updatePackageJson(pkg, project) {
 	return {
 		...pkg,
 		name: project.normalizedName,
-		description: project.description,
+		description: project.normalizedDescription,
 		version: "0.0.0",
 		author: project.authorFullname,
 		...(pkg.repository
@@ -48,6 +48,7 @@ export function customizeJsonFiles(targetDir, project) {
 			...manifest,
 			name: project.projectName,
 			short_name: project.projectName,
+			description: project.normalizedDescription,
 		}),
 	);
 }

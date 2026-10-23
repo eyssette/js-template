@@ -25,5 +25,8 @@ export function buildProjectInfo(answers) {
 			.replaceAll(/[^a-z0-9._-]/gu, ""),
 		authorFullname: `${answers.authorFirstname} ${answers.authorName}`,
 		templateAuthorFullname: `${TEMPLATE.creatorFirstname} ${TEMPLATE.creatorName}`,
+		normalizedDescription:
+			// On remplace juste les éventuels guillemets droits par des guillemets typographiques pour éviter les problèmes d'échappement dans les fichiers JSON
+			answers.description.replaceAll(/"/gu, "”"),
 	};
 }

@@ -15,7 +15,7 @@ export function customizeTextFiles(targetDir, project) {
 			`<title>${TEMPLATE.name}</title>`,
 			`<title>${project.projectName}</title>`,
 		],
-		[TEMPLATE.description, project.description],
+		[TEMPLATE.description, project.normalizedDescription],
 		[project.templateAuthorFullname, project.authorFullname],
 	]);
 

@@ -14,7 +14,7 @@ export function generateReadme(targetDir, project) {
 
 	const content = readFileSync(readmeTemplatePath, "utf8")
 		.replaceAll("{{project_name}}", project.projectName)
-		.replaceAll("{{project_description}}", project.description)
+		.replaceAll("{{project_description}}", project.normalizedDescription)
 		.replaceAll("{{user_name}}", project.authorName)
 		.replaceAll("{{user_firstname}}", project.authorFirstname)
 		.replaceAll("{{repo_url}}", project.repoUrl)

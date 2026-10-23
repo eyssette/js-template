@@ -12,7 +12,7 @@ export const MINIMUM_NODE_VERSION = 22;
 export const TEMPLATE = {
 	name: "js-template",
 	description:
-		"Environnement de développement JavaScript pré-configuré et optimisé.Éditeur de code qui vérifie la qualité du code, le formate automatiquement et facilite le débogage, Tâches automatisées pour compiler, tester, pousser, déployer et vérifier l’application. Pré-configuration pour agents IA avec des SKILLS déjà définis. Gestion de l'internationalisation et du mode PWA (Progressive Web App) pour utilisation hors ligne.",
+		"Environnement de développement JavaScript pré-configuré et optimisé. Éditeur de code qui vérifie la qualité du code, le formate automatiquement et facilite le débogage, Tâches automatisées pour compiler, tester, pousser, déployer et vérifier l’application. Pré-configuration pour agents IA avec des SKILLS déjà définis. Gestion de l'internationalisation et du mode PWA (Progressive Web App) pour utilisation hors ligne.",
 	creatorFirstname: "Cédric",
 	creatorName: "Eyssette",
 	repoUrl: "https://forge.apps.education.fr/eyssette/js-template",
