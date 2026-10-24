@@ -1,3 +1,17 @@
+## 10.1.0 (2026-10-25)
+
+### Feat
+
+- **ci**: configuration du déploiement pour Github [(ca7d86a)](https://forge.apps.education.fr/eyssette/js-template/-/commit/ca7d86a8ebb46e1615c2fad172864a03669400e6)
+
+### Fix
+
+- **task**: task format:check avant task:bump [(dc7badc)](https://forge.apps.education.fr/eyssette/js-template/-/commit/dc7badcf5ce08b4129e00e6cf9e9c8518aacc534)
+
+### Chore
+
+- **task**: définition des remotes git au début du fichier plutôt que dans la tâche "push" [(efac0ca)](https://forge.apps.education.fr/eyssette/js-template/-/commit/efac0ca02a25d6c89ae48df7a45ae782935118f1)
+
 ## 10.0.0 (2026-10-23)
 
 ### Feat
