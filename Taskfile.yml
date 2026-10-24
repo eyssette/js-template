@@ -15,6 +15,7 @@ vars:
   CURRENT_E2E_TEST: "@CURRENT"
   REPORT_DIR: ".report"
   ECMA_VERSION: "es2020"
+  GIT_REMOTES: [forge, github]
 
 tasks:
   build:
@@ -144,14 +145,12 @@ tasks:
 
   push:
     desc: Pousse le code sur les dépôts Git
-    vars:
-      GIT_REPO_NAMES: [forge, github]
     cmds:
       - task: lint
       - rm -rf {{.DIST_FOLDER}}
       - task: build
       - task: tests
-      - for: { var: GIT_REPO_NAMES }
+      - for: { var: GIT_REMOTES }
         cmd: git push {{.ITEM}} && git push {{.ITEM}} --tags
 
   tag:
