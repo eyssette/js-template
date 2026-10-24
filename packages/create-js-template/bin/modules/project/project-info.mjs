@@ -27,6 +27,6 @@ export function buildProjectInfo(answers) {
 		templateAuthorFullname: `${TEMPLATE.creatorFirstname} ${TEMPLATE.creatorName}`,
 		normalizedDescription:
 			// On remplace juste les éventuels guillemets droits par des guillemets typographiques pour éviter les problèmes d'échappement dans les fichiers JSON
-			answers.description.replaceAll(/"/gu, "”"),
+			answers.description.replaceAll('"', "”"),
 	};
 }
