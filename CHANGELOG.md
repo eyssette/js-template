@@ -1,3 +1,14 @@
+## 10.1.1 (2026-10-25)
+
+### Fix
+
+- **ai**: améliorations pour les agents [(b132ef1)](https://forge.apps.education.fr/eyssette/js-template/-/commit/b132ef1243f54b9c540443c1dc76acc202a5203a)
+- **task**: ajout d'une tâche de formatage d'un fichier précis [(6254bdc)](https://forge.apps.education.fr/eyssette/js-template/-/commit/6254bdc1613ba1022c722afca2590c0ad8ec49a5)
+- **ai**: ajout des règles de nommage des fichiers dans AGENTS.md [(9e904bc)](https://forge.apps.education.fr/eyssette/js-template/-/commit/9e904bc449f2cbe3102ca4bfc43f7d5266db2c55)
+- **lint**: camelCase pour les fichiers de test unitaires (comme pour les fichiers JS testés) [(ffff413)](https://forge.apps.education.fr/eyssette/js-template/-/commit/ffff413af17751411925e92b4a67e4a705fb07c9)
+- **ai**: petites précisions dans le fichier AGENTS.md [(7b6090c)](https://forge.apps.education.fr/eyssette/js-template/-/commit/7b6090c56e805e3b122d3f7851c59f7cd65a0aa9)
+- **task**: tâche générale de compression des images (mauvaise syntaxe de lancement corrigée) [(0d6353f)](https://forge.apps.education.fr/eyssette/js-template/-/commit/0d6353f429fb7a7cd0afd180cb04e43620bf68a8)
+
 ## 10.1.0 (2026-10-25)
 
 ### Feat
