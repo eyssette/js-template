@@ -469,9 +469,9 @@ tasks:
   compress:images:
     desc: Compresse les images PNG, JPG et SVG
     cmds:
-      - compress:svg
-      - compress:png
-      - compress:jpg
+      - task: compress:svg
+      - task: compress:png
+      - task: compress:jpg
 
   tree:
     desc: Affiche l'arborescence du projet
