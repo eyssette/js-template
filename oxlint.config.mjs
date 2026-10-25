@@ -191,7 +191,7 @@ const config = {
 			},
 		},
 		// Override pour les tests :
-		// - les fichiers tests e2e sont en snake_case (on rajoute un override ensuite pour les fichiers de tests unitaires qui sont en kebab-case)
+		// - les fichiers tests e2e sont en snake_case (on rajoute un override ensuite pour les fichiers de tests unitaires qui sont en camelCase)
 		// - on ajoute les variables globales de CodeceptJS et Gherkin
 		// - on ajoute l'environnement Node et Jasmine
 		// - on ne se contraint pas à rester en ES2020
@@ -220,11 +220,11 @@ const config = {
 				"unicorn/filename-case": ["error", { case: "kebabCase" }],
 			},
 		},
-		// Override pour les tests unitaires (fichiers .spec.mjs) car on veut que les noms de fichiers soient en kebab-case, comme pour les fichiers Javascript correspondants.
+		// Override pour les tests unitaires (fichiers .spec.mjs) car on veut que les noms de fichiers soient en camelCase, comme pour les fichiers Javascript correspondants.
 		{
 			files: ["tests/unit/**/*.{js, mjs}"],
 			rules: {
-				"unicorn/filename-case": ["error", { case: "kebabCase" }],
+				"unicorn/filename-case": ["error", { case: "camelCase" }],
 			},
 		},
 		{
