@@ -21,10 +21,10 @@ name: "Agent Guidelines"
 - `docs` : documentation
 - `features` : Gherkin scenarios for e2e tests
 - `i18n/messages` : translation files (ParaGlideJS)
+- `packages/create-js-template` : script to create a new project from js-template (removed after project creation)
 - `scripts` : automation scripts backing Taskfile tasks
 - `tests/unit` : unit tests (Jasmine)
 - `tests/e2e/step_definitions` : e2e step implementations (CodeceptJS)
-
 
 ## Working style
 
@@ -105,15 +105,23 @@ Before running one of these commands, read the corresponding skill file if it ex
 
 - Write modular JavaScript with explicit imports/exports.
 - Keep functions small, testable, and low in cognitive complexity.
+- Do not add libraries or dependencies without user approval.
 - Use English for code (functions, variables, classes, etc.) and French for comments and documentation.
-- Maintain compatibility with the project's ECMAScript target (see `ECMA_VERSION` in `rolldown.config.mjs`, `Taskfile.yml`, and `oxlint.config.mjs`) :
+- Maintain compatibility with the project's ECMAScript target (see `ECMA_VERSION` in `rolldown.config.mjs`) :
   - run `npx task ecma:source` to check source code
+- Run `npx task format:file -- <file_path>` to format files you touch
 - Lint the files you touch with `npx task lint:file:all -- <file_path>` and fix any errors or warnings reported.
 - If you encounter a lint rule (inline, per-file, or globally in `oxlint.config.mjs`) :
   - Do not disable it.
   - If it's an ERROR rule, fix the underlying code
   - If it's a WARNING rule, consider whether the code can be improved to satisfy the rule : if not, ask the user whether they want to disable it.
   - In all cases, explain to the user what you are doing and why.
+
+## UI/UX Design
+
+- By default, use a simple, clean, and modern design. Avoid unnecessary complexity or visual clutter.
+- The design should be responsive and accessible, following WCAG 2.1 guidelines.
+- The application should be intuitive, very fast and easy to use, with clear navigation.
 
 ## Naming conventions
 
@@ -141,14 +149,14 @@ Implementation Guidelines:
 
 ## Testing and validation
 
-- Do not add a function without warning the user that it will require unit tests and/or E2E scenarios.
+- If you add or change logic, incite the user to add or update unit tests in `tests/unit` and/or E2E scenarios in `features`.
 - Do not change unit tests or E2E scenarios just to make them pass — they must reflect the actual behavior of the code.
 - For bug fixes, write a test that reproduces the bug before fixing it, then confirm it passes.
 - Add or update unit tests for logic changes in `tests/unit`.
 - Add or update E2E scenarios in `features` : write Gherkin scenarios for new or changed behaviors. Keep scenarios clear, concise, and user-oriented. Use the style of existing scenarios as a reference.
 - Add or update step definitions in `tests/e2e/step_definitions` when behavior changes.
 - Before considering a change finished, run in this order:
-  1. `npx task format`
+  1. `npx task format:file -- <file_path>` for each file you touched
   2. `npx task lint:file:all -- <file_path>` for each file you touched
   3. `npx task tests:unit` if you touched logic that has unit tests
   4. `npx task ecma:source` if you touched syntax that might not be supported

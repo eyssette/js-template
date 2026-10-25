@@ -38,7 +38,7 @@ agent: "agent"
 - **Pas de mutation cachée** : privilégier les fonctions pures quand c'est raisonnable ; documenter clairement toute mutation d'un paramètre si elle est nécessaire.
 - **Imports dynamiques pour les plugins/fonctionnalités optionnelles** : tout module chargé conditionnellement (plugin, fonctionnalité activable, code lourd non utilisé au démarrage) doit être importé via `import()` dynamique, jamais en `import` statique en tête de fichier. Cela inclut les composants Svelte non utilisés systématiquement.
 - **Pas de top-level await** : tout `await` doit être à l'intérieur d'une fonction asynchrone (`async function`). Ne jamais faire de `await` au niveau racine d'un module, y compris pour un `import()` dynamique.
-- **Compatibilité ECMAScript** : rester compatible avec `ECMA_VERSION` défini dans `rolldown.config.mjs` / `Taskfile.yml` / `oxlint.config.mjs`. En cas de doute sur une syntaxe récente, lancer `npx task ecma:source` après écriture.
+- **Compatibilité ECMAScript** : rester compatible avec `ECMA_VERSION` défini dans `rolldown.config.mjs`. En cas de doute sur une syntaxe récente, lancer `npx task ecma:source` après écriture.
 - **Complexité cognitive faible** : préférer les retours anticipés (early return) aux imbrications profondes ; éviter les conditions complexes non nommées (extraire dans une variable/fonction au nom explicite).
 - **Nommage** : anglais pour le code (fonctions, variables), français pour les commentaires et la documentation (sauf demande contraire de l'utilisateur).
 - **Gestion des événements** : Toujours utiliser des écouteurs d'événements (addEventListener), dans les fichiers JavaScript, plutôt que des attributs HTML (ex: onclick, onchange …).

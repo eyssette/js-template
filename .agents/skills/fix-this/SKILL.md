@@ -35,7 +35,7 @@ Si une information critique manque, pose une question courte avant de modifier l
 
 ## Qualité du code
 
-- Suivre les bonnes pratiques modernes, en restant compatible avec la version ECMAScript cible du projet (voir `ECMA_VERSION` dans `rolldown.config.mjs`, `Taskfile.yml`, et `oxlint.config.mjs`).
+- Suivre les bonnes pratiques modernes, en restant compatible avec la version ECMAScript cible du projet (voir `ECMA_VERSION` dans `rolldown.config.mjs`).
 - Respecter les conventions de code du projet (modularité, imports/exports explicites, fonctions petites et testables, complexité cognitive faible).
 - En javascript, éviter au maximum les fonctions qui peuvent avoir des effets de bord ou dépendre de l'état global. Préférer les fonctions pures et les structures de données immuables.
 - Documenter les fonctions et classes avec des commentaires clairs et concis, en français, sauf demande contraire.
