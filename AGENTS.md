@@ -1,9 +1,9 @@
 ---
 description: "General Rules to Follow : coding, tests, build, lint, i18n, docs, release notes, and commit conventions."
-name: "Developer Guidelines"
+name: "Agent Guidelines"
 ---
 
-# Developer Guidelines
+# Agent Guidelines
 
 ## Stack and runtime
 
@@ -56,7 +56,7 @@ Always use `npx task <name>` (do not assume `task` is installed globally).
 - Unit test coverage report: `npx task coverage`
 - Review a file : `npx task review:file -- <file_path>`
 
-⚠️ If `task <name>` fails with "command not found" or similar, check `Taskfile.yml` for the exact task name before assuming a different command — do not invent substitute commands.
+⚠️ If `npx task <name>` fails with "command not found" or similar, check `Taskfile.yml` for the exact task name before assuming a different command — do not invent substitute commands.
 
 ## Commands requiring explicit user approval — never run autonomously
 
@@ -105,6 +105,7 @@ Before running one of these commands, read the corresponding skill file if it ex
 
 - Write modular JavaScript with explicit imports/exports.
 - Keep functions small, testable, and low in cognitive complexity.
+- Use English for code (functions, variables, classes, etc.) and French for comments and documentation.
 - Maintain compatibility with the project's ECMAScript target (see `ECMA_VERSION` in `rolldown.config.mjs`, `Taskfile.yml`, and `oxlint.config.mjs`) :
   - run `npx task ecma:source` to check source code
 - Lint the files you touch with `npx task lint:file:all -- <file_path>` and fix any errors or warnings reported.
@@ -113,6 +114,15 @@ Before running one of these commands, read the corresponding skill file if it ex
   - If it's an ERROR rule, fix the underlying code
   - If it's a WARNING rule, consider whether the code can be improved to satisfy the rule : if not, ask the user whether they want to disable it.
   - In all cases, explain to the user what you are doing and why.
+
+## Naming conventions
+
+- JavaScript files use `camelCase` by default.
+- Svelte component files in `app/js/components` use `PascalCase`.
+- Files in `features` use `snake_case`
+- Files in `tests/e2e` use `snake_case`, except files in `tests/e2e/.config`, which use `kebab-case`.
+- Unit test files in `tests/unit` use `camelCase`, matching the JavaScript files they test.
+- Files in `scripts`, `i18n/helpers`, and `packages/create-js-template` use `kebab-case`.
 
 ## Svelte Components
 
