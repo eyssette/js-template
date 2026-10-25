@@ -362,6 +362,12 @@ tasks:
     cmds:
       - npx oxfmt --config .oxfmtrc.json .
 
+  format:file:
+    desc: "Formate un fichier donné avec Oxfmt (usage: task format:file -- <file_path>)"
+    silent: true
+    cmds:
+      - npx oxfmt --config .oxfmtrc.json "{{.CLI_ARGS}}"
+
   format:check:
     desc: Vérifie le format des fichiers avec Oxfmt
     cmds:
