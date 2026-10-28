@@ -1,8 +1,7 @@
 ---
-description: "Créer un test end-to-end Gherkin et ses step definitions CodeceptJS. À utiliser pour automatiser des scénarios de bout en bout qui simulent un parcours utilisateur réel, pour vérifier le comportement attendu et s'assurer que l'interface fonctionne correctement."
+description: "Créer un test end-to-end Gherkin et ses step definitions CodeceptJS pour couvrir un parcours utilisateur réel. À utiliser quand l'utilisateur demande d'écrire un test E2E, d'ajouter un scénario ou des features Gherkin, de couvrir une fonctionnalité de reproduire un bug ou de vérifier un comportement attendu de l'interface."
 name: "e2e-test"
-argument-hint: "<scénario> | <fonctionnalité attendue>| <bug qui ne doit pas apparaître>"
-agent: "agent"
+argument-hint: "<scénario> | <fonctionnalité attendue> | <bug qui ne doit pas apparaître>"
 ---
 
 # E2E Test

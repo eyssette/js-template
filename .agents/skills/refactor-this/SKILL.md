@@ -2,7 +2,6 @@
 description: "Refactoriser une fonction ou un module JavaScript pour améliorer sa lisibilité, sa maintenabilité et sa testabilité. À utiliser pour réorganiser un code sans en changer le comportement. Par exemple : « nettoie ce code », « rends cette fonction plus claire », « simplifie ce script » ou « réécris ce bloc pour qu'il soit plus propre », « réorganise en plusieurs fonctions », « ce code est trop complexe, trop long »."
 name: "refactor-this"
 argument-hint: "<fonction à refactoriser> [type de problème à corriger]"
-agent: "agent"
 ---
 
 # Refactor This
@@ -22,17 +21,18 @@ Si la cible n'est pas claire, pose une seule question courte avant de modifier l
 
 ## Procédure obligatoire
 
-1. Comprendre le comportement actuel de la fonction ou du module et ses dépendances directes.
-2. Définir une stratégie de refactor par étapes et surtout sans modifier le comportement observable.
-3. Appliquer le refactor en gardant des fonctions courtes, explicites et faiblement couplées. Rester le plus simple possible, sans introduire de complexité inutile. Pas plus de 150 lignes de code par module et idéalement, moins de 80 lignes. Continuer à refactoriser jusqu'à ce que le code soit clair et compréhensible. Ajouter des commentaires, en français, si nécessaire pour clarifier le comportement.
-4. Modulariser le code en plusieurs fichiers si nécessaire, avec des imports/exports explicites. Organise les modules avec des noms clairs et cohérents. Évite les dépendances circulaires. Organise les fichiers avec des sous-dossiers et une structure claire et logique. Évite les noms génériques comme `utils` ou `helpers` : préfère des noms explicites et cohérents avec le projet.
-5. Vérifier que le comportement reste identique (hors amélioration explicitement demandée).
-6. Exécuter les validations du projet dans cet ordre :
-	- `npx task lint:file:all -- <chemin_du_fichier>` pour les fichiers touchés
-	- `npx task tests:unit`
-	- `npx task ecma:source` si la syntaxe touchée peut impacter la compatibilité
-7. Résumer : ce qui a été simplifié.
-8. Proposer d'ajouter des tests unitaires si le refactor a introduit de nouvelles fonctions ou modules.
+Suivre cette checklist pour chaque refactorisation :
+
+- [ ] Comprendre le comportement actuel et les dépendances directes
+- [ ] Définir une stratégie de refactor sans modifier le comportement observable
+- [ ] Appliquer le refactor (fonctions courtes, faible couplage, ≤ 150 lignes/module, idéalement ≤ 80 lignes, commentaires en français si nécessaire)
+- [ ] Modulariser si nécessaire (imports/exports explicites, noms clairs et pas génériques, pas de dépendances circulaires, structure logique de fichiers)
+- [ ] Vérifier que le comportement reste identique
+- [ ] `npx task lint:file:all -- <fichier>` sur les fichiers touchés
+- [ ] `npx task tests:unit`
+- [ ] `npx task ecma:source` si la syntaxe touchée peut impacter la compatibilité
+- [ ] Résumer ce qui a été simplifié
+- [ ] Proposer d'ajouter des tests unitaires si de nouvelles fonctions/modules ont été introduits
 
 ## Bonnes pratiques de refactorisation JavaScript
 
