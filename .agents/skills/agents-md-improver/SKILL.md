@@ -1,5 +1,5 @@
 ---
-description: Review and improve an existing AGENTS.md file, or create one when requested, using project evidence and general instruction-writing principles. Use when asked to audit, refine, reorganize, shorten, or strengthen agent guidance.
+description: Review and improve an existing AGENTS.md file, using project evidence and general instruction-writing principles. Use when asked to audit, refine, reorganize, shorten, or strengthen agent guidance.
 name: agents-md-improver
 argument-hint: "<path-to-agents-md>"
 ---
