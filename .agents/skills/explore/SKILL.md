@@ -1,16 +1,16 @@
 ---
-description: "Explorer de nouvelles fonctionnalités possibles pour le projet existant, sans limites et en étant créatif, puis évaluer brièvement l'intérêt de chaque proposition. À utiliser pour ouvrir le champ des possibles, générer des idées nouvelles, brainstormer des fonctionnalités ou des améliorations. Par exemple : « quelles nouvelles fonctionnalités pour ce projet ? », « explore des idées créatives », « que pourrait-on ajouter ? », « imagine des évolutions »."
+description: "Explorer de nouvelles fonctionnalités possibles pour un projet existant, ou explorer de manière créative une idée vague de nouveau projet pas encore constitué, sans limites et en étant créatif, puis évaluer brièvement l'intérêt de chaque proposition. À utiliser pour ouvrir le champ des possibles, générer des idées nouvelles, brainstormer des fonctionnalités ou des améliorations. Par exemple : « quelles nouvelles fonctionnalités pour ce projet ? », « explore des idées créatives », « que pourrait-on ajouter ? », « imagine des évolutions », « j'ai une idée vague d'app, explore autour de ça »."
 name: "explore"
 argument-hint: "[thème, angle ou contrainte éventuel]"
 ---
 
 # Explore
 
-Tu es un assistant de réflexion produit et technique pour ce projet.
+Tu es un assistant de réflexion produit et technique.
 
-Objectif : explorer de nouvelles fonctionnalités possibles pour le projet existant, **sans limites et en étant créatif**, puis proposer une **évaluation courte de l'intérêt** de chaque proposition.
+Objectif : explorer de nouvelles fonctionnalités possibles pour un projet existant, **ou** explorer de manière créative une idée vague de nouveau projet pas encore constitué, **sans limites et en étant créatif**, puis proposer une **évaluation courte de l'intérêt** de chaque proposition.
 
-Cette skill se distingue de la skill `roadmap` : ici on **ouvre le champ des possibles** (divergence, créativité, volume d'idées) plutôt que de converger vers une courte liste priorisée. La priorisation et le plan d'action relèvent de `roadmap`.
+Cette skill se distingue de la skill `roadmap` : ici on **ouvre le champ des possibles** (divergence, créativité, volume d'idées) plutôt que de converger vers une courte liste priorisée. La priorisation et le plan d'action relèvent de `roadmap`. Pour un nouveau projet, cette skill reste **exploratoire et ouverte** : c'est la skill `think-and-plan` qui articulera ensuite plus précisément l'idée retenue.
 
 ## Périmètre
 
@@ -20,21 +20,26 @@ Cette skill se distingue de la skill `roadmap` : ici on **ouvre le champ des pos
 
 ## Entrée
 
-L'argument utilisateur est optionnel. Il peut préciser un thème (ex. « i18n », « PWA », « agents IA »), un angle (ex. « DX », « accessibilité ») ou une contrainte (ex. « sans nouvelle dépendance », « pour débutants »).
+L'argument utilisateur est optionnel. Deux cas de figure :
 
-- Si un thème/angle est donné : l'explorer en profondeur, sans s'y limiter strictement — on peut ajouter une ou deux idées hors thème si elles sont frappantes.
+- **Projet existant** : l'argument peut préciser un thème (ex. « i18n », « PWA », « agents IA »), un angle (ex. « DX », « accessibilité ») ou une contrainte (ex. « sans nouvelle dépendance », « pour débutants »).
+- **Nouveau projet (idée vague)** : l'argument est une idée encore floue, une envie, un besoin ou un public cible (ex. « une app pour aider les profs à préparer leurs cours », « un outil de suivi de lecture »). On explore alors de manière créative et ouverte autour de cette idée, sans chercher à la figer.
+
+- Si un thème/angle/contrainte est donné : l'explorer en profondeur, sans s'y limiter strictement — on peut ajouter une ou deux idées hors thème si elles sont frappantes.
 - Sinon : exploration générale, large et variée.
 
 ## Procédure obligatoire
 
 Suis cette checklist et coche chaque étape au fur et à mesure :
 
-- [ ] Projet bien compris
-	- [ ] Lire `.plan/VISION.md` (si présent) pour comprendre la vision et les objectifs du projet
-		- ⚠️ `.plan/VISION.md` est par défaut ignoré par git : une recherche de fichiers (`file_search`, glob `**/VISION.md`) peut ne pas le trouver. Vérifie donc directement le dossier `.plan/` (liste son contenu, puis lis le fichier par son chemin exact) avant de conclure qu'il est absent.
-	- [ ] Lire `README.md`
-	- [ ] Lire `CHANGELOG.md`
-	- [ ] Lire `AGENTS.md` pour connaître les conventions et l'état de l'outillage
+- [ ] Contexte bien compris
+	- [ ] **Cas « projet existant »** : lire les fichiers de contexte pour comprendre la vision et l'état du projet
+		- [ ] Lire `.plan/VISION.md` (si présent) pour comprendre la vision et les objectifs du projet
+			- ⚠️ `.plan/VISION.md` est par défaut ignoré par git : une recherche de fichiers (`file_search`, glob `**/VISION.md`) peut ne pas le trouver. Vérifie donc directement le dossier `.plan/` (liste son contenu, puis lis le fichier par son chemin exact) avant de conclure qu'il est absent.
+		- [ ] Lire `README.md`
+		- [ ] Lire `CHANGELOG.md`
+		- [ ] Lire `AGENTS.md` pour connaître les conventions et l'état de l'outillage
+	- [ ] **Cas « nouveau projet »** : aucun fichier de contexte à lire (pas de README, CHANGELOG, VISION.md, etc.). Reformuler l'idée vague en quelques mots pour vérifier qu'on l'a bien comprise, puis passer directement à l'exploration créative.
 	- [ ] Questions / clarifications si nécessaire
 - [ ] Exploration créative
 	- [ ] Générer un **grand nombre** d'idées (au moins 10 à 15), variées et sans autocensure
@@ -62,7 +67,8 @@ Chaque proposition doit avoir un titre court et clair, et être :
 
 On peut s'appuyer sur les axes suivants pour générer des idées :
 
-- renforcement ou prolongement de la promesse actuelle du projet
+- **projet existant** : renforcement ou prolongement de la promesse actuelle du projet
+- **nouveau projet** : déclinaisons de l'idée de départ, publics cibles, angles d'entrée, fonctionnalités cœur et différenciantes
 - nouvelles fonctionnalités produit ou nouvelles briques d'outillage
 - améliorations de l'expérience développeur et de l'intégration des agents IA
 - qualité : tests, documentation, CI, performance, accessibilité, sécurité
@@ -74,8 +80,8 @@ On peut s'appuyer sur les axes suivants pour générer des idées :
 ```markdown
 # Exploration — YYYY-MM-DD
 
-**Contexte** : version actuelle, thème/angle demandés (ou « général »).
-**Synthèse** : 2 à 3 phrases sur l'état du projet et l'orientation générale de l'exploration.
+**Contexte** : projet existant (version actuelle) ou nouvelle idée (idée de départ), thème/angle demandés (ou « général »).
+**Synthèse** : 2 à 3 phrases sur l'état du projet ou l'idée de départ, et l'orientation générale de l'exploration.
 
 ## 1. Titre court de la proposition
 - **Description** : ce que c'est, en 1 à 2 phrases.
