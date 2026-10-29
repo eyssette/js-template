@@ -29,7 +29,7 @@ If the skill takes arguments, include an `argument-hint` field.
 
 - **Length Limits**: Keep the main SKILL.md file under 500 lines and around 5,000 tokens to preserve context space.
 - **Coherent Scope**: Encapsulate a single, well-defined unit of work that composes cleanly with other skills.
-- **Delta Principle**: Add what the agent lacks and omit general knowledge the model already possesses (e.g., skip basic syntax rules; focus strictly on project or domain-specific conventions).
+- **Delta Principle**: Add what the agent lacks and omit general knowledge the model already possesses (e.g., skip basic syntax rules; focus strictly on project or domain-specific conventions). Also check that the information is not already present in `AGENTS.md` to avoid redundancy — if it is, omit it or reference it instead of duplicating it.
 **Body Organization**: Structure the body of the SKILL.md file in a logical, easy-to-follow manner. Use clear headings and subheadings to organize the content. Each section should have a clear purpose and flow naturally from one to the next. Avoid long paragraphs; use bullet points, numbered lists, and tables where appropriate to enhance readability.
 
 ### Progressive Disclosure & Modularity
@@ -50,7 +50,7 @@ After auditing, score the skill on each dimension (1-5):
 |-----------|----------|---------------|
 | Discovery | Generic name, no description, or generic | Specific nouns/verbs, clear trigger conditions |
 | Scope | Multiple unrelated tasks, file too long | Single coherent unit of work, appropriately sized |
-| Specificity | Restates model knowledge | Only delta information |
+| Specificity | Restates model knowledge and existing information in `AGENTS.md` | Only delta information |
 | Body organization | Unstructured, long paragraphs | Clear headings, bullet points, numbered lists, tables |
 | Progressive disclosure | Everything in one file or flat | Layered with references or scripts with clear "when to load" cues |
 | Reliability | Open-ended instructions | Deterministic steps, validation loops, scripts |
