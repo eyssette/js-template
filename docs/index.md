@@ -648,6 +648,7 @@ Par exemple : `/fix-this` pour corriger un bug, ou `/roadmap` pour générer un 
 Voici les SKILLS préconfigurés pour ce projet :
 
 :::info SKILLS disponibles
+- `agents-md-improver` : améliorer le fichier `AGENTS.md` pour mieux guider les agents IA
 - `code` : écrire du code en respectant les conventions du projet
 - `css` : écrire ou vérifier du code CSS
 - `design-md` : écrire ou améliorer un fichier `DESIGN.md`
@@ -659,6 +660,7 @@ Voici les SKILLS préconfigurés pour ce projet :
 - `release-draft` : générer un brouillon de release
 - `review-this` : générer une revue de code
 - `roadmap` : générer un plan d'évolution du projet
+- `skill-md-improver` : améliorer un fichier de compétence (SKILL)
 - `think-and-plan` : aider à la réflexion et à la planification d'une nouvelle fonctionnalité
 - `unit-test` : générer des tests unitaires pour une fonction
 :::
