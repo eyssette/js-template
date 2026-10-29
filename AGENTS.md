@@ -136,7 +136,7 @@ Tests:
 | `npx task tests:unit` | Unit tests only |
 | `npx task tests:e2e` | E2e tests only |
 | `npx task tests:e2e:current` | E2e tests tagged `@CURRENT` only (fast iteration on one scenario) |
-| `npx task coverage` | Unit test coverage report |
+| `npx task tests:coverage` | Unit test coverage report |
 
 ⚠️ If `npx task <name>` fails with "command not found" or similar, check `Taskfile.yml` for the exact task name before assuming a different command — do not invent substitute commands.
 
