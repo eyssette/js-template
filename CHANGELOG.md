@@ -1,3 +1,24 @@
+## 10.2.0 (2026-10-29)
+
+### Feat
+
+- **ai**: ajout d'une SKILL "explore" pour explorer de nouvelles possibilités pour le projet [(214c7f9)](https://forge.apps.education.fr/eyssette/js-template/-/commit/214c7f9cd35ac693941dbfe506b09293553f83b1)
+- **ai**: ajout d'une SKILL pour améliorer un fichier SKILL.md [(0b4e58b)](https://forge.apps.education.fr/eyssette/js-template/-/commit/0b4e58b3046e16d57a8372eff22c907cf8d26bd1)
+
+### Fix
+
+- **ai**: élargissement de la SKILL "explore" pour pouvoir l'utiliser dans le cadre d'un nouveau projet [(cba974d)](https://forge.apps.education.fr/eyssette/js-template/-/commit/cba974de885802101415eefb3cca2c5356c30753)
+- **ai**: description de la SKILL d'améiloration d'un fichier AGENTS.md améliorée [(7b2f059)](https://forge.apps.education.fr/eyssette/js-template/-/commit/7b2f059aeb48badca050f8b9bd89890b3b44ba55)
+- **ai**: simplification et amélioration de la SKILL "agents-md-improver" [(c4ca1e6)](https://forge.apps.education.fr/eyssette/js-template/-/commit/c4ca1e6550275e8f9d511092fb09aa2e79c55491)
+- **ai**: amélioration et réorganisation du fichier AGENTS.md [(a7147ba)](https://forge.apps.education.fr/eyssette/js-template/-/commit/a7147ba0c404558a4aae77225676fd008ee781b8)
+- **ai**: référence directe à la version ECMAScript utilisée dans les fichiers SKILL.md [(a29d42c)](https://forge.apps.education.fr/eyssette/js-template/-/commit/a29d42ccd36a2d69de6d7dbf8956ebb7b4ff8f7a)
+- **ai**: simplification du fichier AGENTS.md [(bbbf5cf)](https://forge.apps.education.fr/eyssette/js-template/-/commit/bbbf5cf1e0dfd1339d238294b4fd1023e87c488f)
+- **ai**: amélioration des SKILLS [(540704b)](https://forge.apps.education.fr/eyssette/js-template/-/commit/540704b624b35b2282bddfe969435e74219bf373)
+
+### Docs
+
+- **ai**: ajout de la référence à 2 skills [(1ba1b0d)](https://forge.apps.education.fr/eyssette/js-template/-/commit/1ba1b0d02c4c3c820cfeacb12ad80fb9ec4f5627)
+
 ## 10.1.1 (2026-10-25)
 
 ### Fix
