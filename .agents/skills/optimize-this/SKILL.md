@@ -41,7 +41,7 @@ Suis cette checklist et coche chaque étape au fur et à mesure :
 - Réduire les allocations, recomputations, parcours inutiles et accès redondants quand cela simplifie aussi le code.
 - Éviter les micro-optimisations obscures qui dégradent la lisibilité sans gain clair.
 - Garder des fonctions petites, testables et avec peu d'effets de bord.
-- Rester compatible avec la version ECMAScript cible (`ECMA_VERSION` dans `rolldown.config.mjs`), vérifiée par `npx task ecma:source`.
+- Rester compatible avec la version ECMAScript cible (es2020), vérifiée par `npx task ecma:source`.
 
 ## Contraintes de conformité AGENTS.md
 

@@ -33,7 +33,7 @@ argument-hint: "<plan d'action ou fonctionnalité à implémenter>"
 
 - **Imports dynamiques pour les plugins/fonctionnalités optionnelles** : tout module chargé conditionnellement (plugin, fonctionnalité activable, code lourd non utilisé au démarrage) doit être importé via `import()` dynamique, jamais en `import` statique en tête de fichier. Cela inclut les composants Svelte non utilisés systématiquement.
 - **Pas de top-level await** : tout `await` doit être à l'intérieur d'une fonction asynchrone (`async function`). Ne jamais faire de `await` au niveau racine d'un module, y compris pour un `import()` dynamique.
-- **Compatibilité ECMAScript** : rester compatible avec `ECMA_VERSION` défini dans `rolldown.config.mjs`. En cas de doute sur une syntaxe récente, lancer `npx task ecma:source` après écriture.
+- **Compatibilité ECMAScript** : rester compatible avec l'ECMAScript cible (es2020). En cas de doute sur une syntaxe récente, lancer `npx task ecma:source` après écriture.
 - **Gestion des événements** : toujours utiliser des écouteurs d'événements (`addEventListener`) dans les fichiers JavaScript, plutôt que des attributs HTML (ex : `onclick`, `onchange`…).
 - **Architecture CSS** : ne jamais utiliser de CSS inline, ou alors seulement très rarement, quand ce serait complexifier de faire autrement. Les styles doivent être intégrés dans `app/css/style.css` ou dans un fichier dédié importé via `app/js/main.mjs`. Avant toute création de style, consulter `.plan/DESIGN.md` ; si ce fichier est absent, suggérer sa création via la SKILL `/design-md`. Utiliser la SKILL `/css` pour créer ou vérifier le style CSS produit.
 

@@ -489,7 +489,7 @@ task ecma:source    # vérifie le code source
 task ecma           # lance les deux vérifications
 ```
 
-Pour changer le standard ECMAScript ciblé, modifier la variable `ECMA_VERSION` dans `rolldown.config.mjs`, dans `Taskfile.yml`, et dans la variable `env` de `oxlint.config.mjs`.
+Pour changer le standard ECMAScript ciblé, modifier la variable `ECMA_VERSION` dans `rolldown.config.mjs`, dans `Taskfile.yml`, et dans la variable `env` de `oxlint.config.mjs`, ainsi que la référence à la version ECMAScript (par défaut "es2020") dans les différentes SKILLS du projet.
 
 
 #### Accessibilité
