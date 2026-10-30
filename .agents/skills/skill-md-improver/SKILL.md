@@ -52,7 +52,7 @@ After auditing, score the skill on each dimension (1-5):
 | Scope | Multiple unrelated tasks, file too long | Single coherent unit of work, appropriately sized |
 | Specificity | Restates model knowledge and existing information in `AGENTS.md` | Only delta information |
 | Body organization | Unstructured, long paragraphs | Clear headings, bullet points, numbered lists, tables |
-| Progressive disclosure | Everything in one file or flat | Layered with references or scripts with clear "when to load" cues |
+| Progressive disclosure | Bulky reference docs or scripts embedded in the main file | Layered with references or scripts that include clear "when to load" cues, OR a short SKILL.md that needs no references or scripts folder |
 | Reliability | Open-ended instructions | Deterministic steps, validation loops, scripts |
 
 Output a score table before proposing changes.
@@ -62,7 +62,11 @@ A score of 5 requires zero identified defects on that dimension.
 
 ## 3. Propose changes
 
-Propose changes to improve the SKILL.md file based on the audit and score table. Focus on improving the weakest dimensions first. 
+Propose changes to improve the SKILL.md file :
+
+- Base the proposed changes on the audit and score table, focusing on the weakest dimensions first.
+- Always evaluate whether creating or modifying a `references/` folder is pertinent before doing so. It is **not useful** when the SKILL is short and everything fits comfortably in SKILL.md. It is **very useful** when the document is bulky and not always used — in that case, move the bulky content into `references/` so it can be loaded only when needed (e.g., only in certain cases or on demand).
+- Always check whether a `scripts/` folder is warranted. Use scripts for tasks that are automatable and deterministic (repetitive, error-prone, or mechanical operations) rather than relying on open-ended generated code. Keep any scripts you create **simple**, and only create them **if they are genuinely useful** — avoid adding scripts for trivial or one-off tasks.
 
 After proposing changes:
 1. Ask the user to approve or reject the proposed changes. 
