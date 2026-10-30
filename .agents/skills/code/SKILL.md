@@ -6,109 +6,96 @@ argument-hint: "<plan d'action ou fonctionnalité à implémenter>"
 
 # Code
 
-Écrit du code applicatif pour ce projet (JS modulaire, ParaGlideJS pour l'i18n, Svelte en option pour la réactivité), en respectant strictement les conventions de `AGENTS.md` et les principes ci-dessous. Toute production de code doit se terminer par une revue via `npx task review:file`.
+Implémenter la demande de l'utilisateur de bout en bout : comprendre le comportement attendu, s'intégrer à l'architecture existante, écrire le minimum de code nécessaire, vérifier le résultat et rendre compte honnêtement des contrôles effectués.
+
+La priorité est, dans cet ordre :
+
+1. satisfaire le besoin exprimé et les critères d'acceptation ;
+2. préserver le comportement existant hors du périmètre demandé ;
+3. respecter les instructions et conventions du projet ;
+4. produire un code simple, lisible, sûr, testable et maintenable ;
+5. vérifier le résultat avec les contrôles disponibles.
+
+Ne jamais considérer une tâche comme terminée simplement parce que le code a été écrit.
+
+`AGENTS.md` fait autorité sur les conventions détaillées (structure, nommage, Svelte, i18n, tests, lint, accessibilité, sécurité, langue) : s'y référer plutôt qu'improviser.
 
 ## 0. Avant de coder
 
-- Reformuler très brièvement ce qui va être fait et où (fichiers/dossiers concernés).
-- Si la demande est ambiguë ou a plusieurs interprétations valables : formuler l'hypothèse retenue ou poser la question — ne jamais trancher en silence.
-- Écrire le minimum de code qui résout le problème : pas de fonctionnalité, abstraction ou option non demandée.
-- Sur du code existant : ne toucher que ce que la tâche exige. Ne pas reformater / refactoriser le code adjacent (Oxfmt/Oxlint s'en chargent). Ne retirer que les imports/variables devenus inutiles à cause du changement ; signaler le code mort préexistant sans le supprimer.
-- Prévenir l'utilisateur que toute nouvelle fonction impliquera probablement des tests unitaires et/ou des scénarios e2e (voir §5).
+- Si la demande relève d'une skill dédiée, utiliser la skill correspondante : bug à corriger → `/fix-this` ; problème de performance → `/optimize-this` ; refactorisation → `/refactor-this`.
+- Lire `AGENTS.md` et les éventuels fichiers d'instructions applicables aux dossiers concernés.
+- Explorer les modules, composants, styles, traductions et tests liés à la fonctionnalité ; réutiliser l'existant plutôt que réécrire.
+- Vérifier l'état Git pour préserver les modifications préexistantes de l'utilisateur.
+- Limiter les modifications au périmètre demandé : pas de refactor, renommage ou formatage de code non concerné.
+- Identifier les fichiers à modifier et les contrôles nécessaires.
+- Demande ambiguë ou plusieurs interprétations valables : énoncer brièvement l'hypothèse retenue ou poser la question — ne jamais trancher en silence.
 
-## 1. Emplacement du code (structure du projet)
+## 1. Structure du projet
 
-La structure du projet (chemins des sources, tests, traductions, `dist`…) est décrite dans `AGENTS.md` — s'y référer. Points spécifiques au code :
+Chemins des sources, tests, traductions, `dist`… : décrits dans `AGENTS.md`. Point d'entrée : `app/js/main.mjs` (importe les autres modules JS et les fichiers CSS principaux).
 
-- Point d'entrée : `app/js/main.mjs` (importe les autres modules JS et les fichiers CSS principaux).
-- Architecture modulaire et structure claire, de préférence par dossier/fonctionnalité, ou MVC si cela est pertinent (à faire valider par l'utilisateur si le projet n'a pas encore de structure claire).
-- Composants Svelte : de préférence `app/js/components/*.svelte`, mais demander à l'utilisateur si un autre emplacement est souhaité.
+## 2. JavaScript
 
-## 2. Principes de code à respecter systématiquement
+- **Modules ESM (`.mjs`)** organisés par dossier/fonctionnalité (ou MVC si pertinent — à faire valider par l'utilisateur si le projet n'a pas encore de structure claire). Pas d'objet fourre-tout, pas de god-module, pas de fichier « barrel ».
+- **Import dynamique** pour tout module chargé conditionnellement (plugin, fonctionnalité activable, code lourd non utilisé au démarrage, composant Svelte non systématique) : `import()`, jamais d'import statique en tête de fichier.
+- **Pas de classes** : fonctions et modules, composition plutôt qu'héritage.
+- **Pas de top-level `await`** : tout `await` se trouve dans une fonction `async`, y compris pour un `import()` dynamique.
+- **es2020 maximum** ; en cas de doute sur une syntaxe récente, lancer `npx task ecma:source` après écriture.
+- **Événements** via `addEventListener`, jamais d'attributs HTML (`onclick`, `onchange`…).
 
-### 2.1 Principes de code JS, CSS et Svelte
+## 3. CSS
 
-- **Imports dynamiques pour les plugins/fonctionnalités optionnelles** : tout module chargé conditionnellement (plugin, fonctionnalité activable, code lourd non utilisé au démarrage) doit être importé via `import()` dynamique, jamais en `import` statique en tête de fichier. Cela inclut les composants Svelte non utilisés systématiquement.
-- **Pas de top-level await** : tout `await` doit être à l'intérieur d'une fonction asynchrone (`async function`). Ne jamais faire de `await` au niveau racine d'un module, y compris pour un `import()` dynamique.
-- **Compatibilité ECMAScript** : rester compatible avec l'ECMAScript cible (es2020). En cas de doute sur une syntaxe récente, lancer `npx task ecma:source` après écriture.
-- **Gestion des événements** : toujours utiliser des écouteurs d'événements (`addEventListener`) dans les fichiers JavaScript, plutôt que des attributs HTML (ex : `onclick`, `onchange`…).
-- **Architecture CSS** : ne jamais utiliser de CSS inline, ou alors seulement très rarement, quand ce serait complexifier de faire autrement. Les styles doivent être intégrés dans `app/css/style.css` ou dans un fichier dédié importé via `app/js/main.mjs`. Avant toute création de style, consulter `.plan/DESIGN.md` ; si ce fichier est absent, suggérer sa création via la SKILL `/design-md`. Utiliser la SKILL `/css` pour créer ou vérifier le style CSS produit.
-  - ⚠️ `.plan/DESIGN.md` est par défaut ignoré par git : une recherche de fichiers (`file_search`, glob `**/DESIGN.md`) peut ne pas le trouver. Vérifie donc directement le dossier `.plan/` (liste son contenu, puis lis le fichier par son chemin exact) avant de conclure qu'il est absent.
+- Pas de CSS inline ; exception rarissime, uniquement si l'alternative compliquerait le code — la justifier.
+- Styles dans `app/css/style.css` ou dans un fichier dédié importé via `app/js/main.mjs`.
+- Utiliser la SKILL `/css` pour créer ou vérifier les styles.
+- Avant toute création ou modification de styles, consulter `.plan/DESIGN.md` et les styles existants.
+    - ⚠️ `.plan/DESIGN.md` est ignoré par git : une recherche de fichiers peut ne pas le trouver. Lister directement le contenu de `.plan/` et lire le fichier par son chemin exact avant de conclure qu'il est absent.
 
-### 2.2 Principes généraux de programmation (rappel)
+## 4. Svelte
 
-- **JavaScript modulaire** : fichiers courts, un rôle par fichier, imports/exports explicites (ESM, extension `.mjs`/`.js` selon l'existant). Pas d'objet fourre-tout, pas de fichier god-module, pas de fichier "barrel".
-- **KISS** : la solution la plus simple qui fonctionne. Pas de sur-ingénierie.
-- **DRY** : factoriser la logique dupliquée dans une fonction/module partagé, mais ne pas factoriser prématurément deux usages qui n'ont pas encore prouvé être identiques.
-- **1 fonction = 1 responsabilité** : une fonction fait une seule chose, a un nom qui le dit, et reste testable isolément. Si une fonction fait "et... et...", la découper.
-- **Pas de classes** : utiliser des fonctions et des modules, jamais `class`. Préférer la composition de fonctions à l'héritage.
-- **Pas de mutation cachée** : privilégier les fonctions pures quand c'est raisonnable ; documenter clairement toute mutation d'un paramètre si elle est nécessaire.
-- **Complexité cognitive faible** : préférer les retours anticipés (early return) aux imbrications profondes ; éviter les conditions complexes non nommées (extraire dans une variable/fonction au nom explicite).
-- **Nommage** : anglais pour le code (fonctions, variables), français pour les commentaires et la documentation (sauf demande contraire de l'utilisateur).
+- Utiliser un composant Svelte uniquement si une réactivité fine ou une gestion d'état non triviale le justifie — pas par défaut pour du HTML/CSS/JS simple. Conventions Svelte 5 (runes, `customElement`, nommage) : voir `AGENTS.md`.
+- Le composant gère la vue et la réactivité ; la logique métier réutilisable hors UI va dans un module JS classique.
+- Import dynamique si le composant n'est pas utilisé systématiquement.
+- Emplacement par défaut : `app/js/components/*.svelte` ; demander à l'utilisateur pour tout autre emplacement.
 
-## 3. Accessibilité et sécurité
+## 5. Qualité et sécurité
 
-Les standards d'accessibilité (WCAG niveau AA) et les garde-fous de sécurité sont décrits dans `AGENTS.md` — s'y référer.
+- Écrire le minimum de code qui résout le problème : pas de fonctionnalité, d'abstraction ou d'option non demandée.
+- 1 fonction = 1 responsabilité, nom explicite ; early returns plutôt qu'imbrications profondes ; extraire les conditions complexes dans une variable ou une fonction nommée.
+- Factoriser la duplication avérée dans une fonction partagée, sans factoriser prématurément deux usages pas encore prouvés identiques.
+- Privilégier les fonctions pures quand c'est raisonnable ; documenter clairement toute mutation d'un paramètre.
+- Passer des objets plutôt que des paramètres positionnels ; pas de valeur magique ; pas de variable globale inutile, dépendances explicites.
+- Ne pas exporter une fonction ni créer une API publique sans nécessité.
+- DOM : éviter les sélections répétées et les mises à jour successives dans une même fonction.
+- Ne jamais masquer une erreur (`catch` vide) ni ignorer silencieusement un cas invalide.
+- **Sécurité** : toute donnée externe est non fiable — valider et échapper les entrées/sorties (XSS, injection SQL, prudence avec `innerHTML`) ; aucune exécution de code arbitraire (`eval`, `exec`, désérialisation non sécurisée) ; aucun contournement des mécanismes d'authentification, d'autorisation ou de contrôle d'accès ; aucun secret codé en dur.
+- Aucune dépendance, CDN, script, police ou ressource externe non gérés par le projet, sauf demande explicite de l'utilisateur.
+- **Accessibilité** : WCAG niveau AA, conventions dans `AGENTS.md`.
+- Commenter de manière simple, en français (sauf demande contraire), toujours avant le code et jamais en fin de ligne : décrire une fonction, ou expliquer un point technique complexe ou une étape importante du traitement. Pas de JSDoc complexe.
 
-Important pour garantir la sécurité du code produit : validation et échappement systématique des entrées/sorties (protection contre XSS, injection SQL, etc.), aucune exécution de code arbitraire non maîtrisé (eval, exec, désérialisation non sécurisée...), et aucun contournement des mécanismes d'authentification, d'autorisation ou de contrôle d'accès existants, pas de données sensibles codées en dur dans le code (mots de passe, clés API, secrets, etc.).
+## 6. Internationalisation
 
-## 4. Bonnes pratiques générales
+Conventions i18n (ParaGlideJS, messages dans `i18n/messages`, aucun texte codé en dur) : voir `AGENTS.md`.
 
-- Avant d'écrire du nouveau code, rechercher si l'existant peut être réutilisé et respecter les conventions déjà présentes dans le projet.
-- Viser la performance, la lisibilité, la maintenabilité et la testabilité du code.
-- Documenter de manière simple les fonctions (pas de JSdoc complexe), en français sauf demande contraire de l'utilisateur, et sans excès ou précisions inutiles. Pas de commentaire inline, après une ligne de code. Commentaire uniquement pour décrire la fonction avant son code, ou pour expliquer un point technique complexe ou la structure de la fonction (avant chaque étape importante de traitement).
-- Ne pas ajouter de dépendance, d'abstraction ou de complexité sans nécessité démontrée ; privilégier les solutions natives et simples.
-- Ne jamais utiliser des CDN, des scripts externes ou des librairies non gérées par le projet, sauf demande explicite de l'utilisateur.
-- Ne jamais utiliser des polices ou des ressources externes non gérées par le projet, sauf demande explicite de l'utilisateur.
-- Ne jamais refactoriser du code hors périmètre de la tâche : signaler les améliorations possibles sans les appliquer.
-- Éviter les effets de bord inutiles : limiter les variables globales, rendre les dépendances explicites et préférer les fonctions pures quand cela reste simple.
-- Utiliser au maximum les objets comme arguments de fonction pour éviter les paramètres positionnels et faciliter l'évolution du code.
-- Gérer explicitement les erreurs : ne jamais masquer une erreur avec un `catch` vide et ne pas ignorer silencieusement un cas invalide.
-- Ne jamais faire confiance aux données externes : valider les entrées publiques et éviter les injections (`innerHTML`, `eval`, etc.).
-- Éviter les valeurs magiques.
-- Ne pas exporter une fonction ou créer une API publique si elle n'est pas nécessaire.
-- DOM : Limiter les accès répétés et les mises à jours successives du DOM, éviter les sélections identiques plusieurs fois dans une même fonction.
+Exception pour les textes longs (documentation, tutoriel dans l'application) importés via `unplugin-raw` : i18n gérée manuellement — signaler explicitement ce mécanisme à l'utilisateur lorsqu'il est utilisé.
 
-## 5. Internationalisation (ParaGlideJS)
+## 7. Tests, lint et fin de tâche
 
-Les conventions d'i18n (ParaGlideJS, messages dans `i18n/messages`, pas de texte codé en dur) sont décrites dans `AGENTS.md` — s'y référer.
-
-Cas particulier pour des textes longs : on peut les importer via `unplugin-raw`. Dans ce cas précis (pour de la documentation, ou un tutoriel, à l'intérieur de l'application par exemple), l'i18n est gérée manuellement — le signaler explicitement à l'utilisateur si ce mécanisme est utilisé.
-
-## 6. Composants Svelte (optionnel)
-
-À utiliser uniquement quand une réactivité fine ou une gestion d'état non triviale le justifie — pas par défaut pour du HTML/CSS/JS simple (KISS). Les conventions Svelte 5 (runes, `customElement`, nommage PascalCase/kebab-case) sont décrites dans `AGENTS.md` — s'y référer. Points spécifiques au skill :
-
-- Le composant reste responsable de sa vue/réactivité ; la logique métier réutilisable hors-UI va dans un module JS classique (séparation des responsabilités).
-- Charger le composant via import dynamique s'il n'est pas utilisé systématiquement (cf. §2).
-
-## 7. Tests
-
-Les conventions de tests (unitaires dans `tests/unit`, scénarios Gherkin dans `features` + step definitions, tag `@CURRENT`) sont décrites dans `AGENTS.md` — s'y référer. Points spécifiques au skill :
+Conventions de tests (unitaires dans `tests/unit`, scénarios Gherkin dans `features` + step definitions, tag `@CURRENT`) et politique de lint : voir `AGENTS.md`.
 
 - Avertir l'utilisateur avant d'ajouter une fonction que des tests seront nécessaires.
-- Correctif de bug : écrire d'abord un test qui reproduit le bug, vérifier qu'il échoue, corriger, vérifier qu'il passe.
+- Linter chaque fichier touché : d'abord `npx task lint:file -- <fichier>`, puis `npx task lint:file:all -- <fichier>`. Corriger absolument les erreurs et avertissements, sans jamais désactiver une règle. Seule exception, pour `lint:file:all` : ne pas insister si la correction complique inutilement le code ou si l'utilisateur demande de ne pas le faire.
 
-## 8. Lint
+Séquence obligatoire avant de considérer la tâche terminée :
 
-La politique de lint (erreurs vs avertissements, interdiction de désactiver une règle) est décrite dans `AGENTS.md` — s'y référer. Points spécifiques au skill :
+-  `npx task lint:file:all -- <fichier>` sur chaque fichier créé/modifié, points corrigés
+-  `npx task review:file -- <fichier>` sur chaque fichier créé/modifié, points corrigés
+-  `npx task tests:unit` (et `npx task tests:e2e:current` si un scénario `@CURRENT` est concerné)
+-  `npx task ecma:source` si une syntaxe potentiellement incompatible a été touchée
 
-- Lint les fichiers touchés d'abord avec `npx task lint:file -- <chemin_du_fichier>` et corriger absolument les erreurs ou avertissements signalés.
-- Lint les fichiers touchés ensuite avec `npx task lint:file:all -- <chemin_du_fichier>` et corriger les erreurs ou avertissements signalés (sauf si cela complique inutilement le code ou si l'utilisateur demande de ne pas le faire).
+Rendre compte des contrôles effectués et de leurs résultats dans la réponse finale.
 
-## 9. Séquence de fin de tâche (obligatoire)
+## 8. Git
 
-Avant de considérer une tâche de code terminée, exécuter dans cet ordre :
-
-- [ ] `npx task lint:file:all -- <fichier>` sur chaque fichier créé/modifié, points corrigés
-- [ ] `npx task review:file -- <fichier>` sur chaque fichier créé/modifié, points corrigés
-- [ ] `npx task tests:unit` (et `npx task tests:e2e:current` si scénario `@CURRENT`)
-- [ ] `npx task ecma:source` si syntaxe potentiellement incompatible touchée
-- [ ] Aucune commande `push`/`bump`/`git push`/`--no-verify` lancée sans demande explicite
-
-
-## 10. Commit (seulement si demandé)
-
-Les conventions de commit (Conventional Commits, scope obligatoire, hooks Husky) sont décrites dans `AGENTS.md` — s'y référer.
-
-Ne pas committer sans demande explicite de l'utilisateur. Par défaut, l'utilisateur gère lui-même les commits et le push.
+- Aucune commande `push`, `bump`, `git push` ou `--no-verify` sans demande explicite.
+- Ne jamais committer sans demande explicite : par défaut, l'utilisateur gère lui-même les commits et le push.
