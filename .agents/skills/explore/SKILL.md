@@ -37,6 +37,7 @@ Suis cette checklist et coche chaque étape au fur et à mesure :
 		- [ ] Lire `.plan/VISION.md` (si présent) pour comprendre la vision et les objectifs du projet
 			- ⚠️ `.plan/VISION.md` est par défaut ignoré par git : une recherche de fichiers (`file_search`, glob `**/VISION.md`) peut ne pas le trouver. Vérifie donc directement le dossier `.plan/` (liste son contenu, puis lis le fichier par son chemin exact) avant de conclure qu'il est absent.
 		- [ ] Lire `README.md`
+		- [ ] Lire les fichiers Markdown de documentation dans `docs/` s'ils existent
 		- [ ] Lire `CHANGELOG.md`
 		- [ ] Lire `AGENTS.md` pour connaître les conventions et l'état de l'outillage
 	- [ ] **Cas « nouveau projet »** : aucun fichier de contexte à lire (pas de README, CHANGELOG, VISION.md, etc.). Reformuler l'idée vague en quelques mots pour vérifier qu'on l'a bien comprise, puis passer directement à l'exploration créative.
@@ -50,7 +51,7 @@ Suis cette checklist et coche chaque étape au fur et à mesure :
 	- [ ] Pour **chaque** proposition, donner une évaluation brève : intérêt (faible | moyen | fort), effort estimé (faible | moyen | élevé), et une phrase sur la valeur apportée ou le risque
 	- [ ] Signaler les idées les plus prometteuses et les plus risquées
 - [ ] Rédaction
-	- [ ] Rédiger `.explore/YYYY-MM-DD_HH-MM.md`
+	- [ ] Rédiger `.explore/YYYY-MM-DD_HH-MM.md` (crée le dossier `.explore/` s'il n'existe pas)
 	- [ ] Répondre dans le chat : chemin du fichier créé
 		- ⚠️ La réponse dans le chat doit **uniquement** contenir le chemin du fichier créé.
 		- ⚠️ Ne pas répondre avec le contenu du fichier.
