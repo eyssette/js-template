@@ -30,14 +30,14 @@ Pour fonder la revue sur des éléments mesurables, il faut te fonder sur la tâ
 
 Cela te fournira déjà des indicateurs utiles pour appuyer la revue :
 - formatage
-- lint et qualité du code
+- erreurs ou warnings de lint
 - compatibilité ECMAScript
 - tests unitaires et couverture associée
 - complexité du fichier
 - nombre d'imports
 - nombre de commentaires
 
-Utilise ces informations comme preuves d'appui, puis complète avec une analyse des risques de conception, de sécurité, d'accessibilité, de maintenabilité et de lisibilité.
+Utilise ces informations comme preuves d'appui, puis complète avec une analyse de la qualité du code et des risques de conception, de sécurité, d'accessibilité, de maintenabilité et de lisibilité.
 
 ## Périmètre d'analyse obligatoire
 
@@ -57,21 +57,29 @@ Si un axe n'est pas applicable au code sélectionné, l'indiquer brièvement au 
 
 ## Procédure obligatoire
 
-1. Repérer le fichier ou les fichiers concernés par la revue, puis exécuter le script de revue pour chaque fichier afin d'obtenir un rapport structuré : `npx task review:file -- <file_path>`.
-	- Si le code sélectionné est un extrait, identifier le fichier source et exécuter le script sur ce fichier.
-	- Si le code sélectionné est un ensemble de commits, identifier les fichiers modifiés et exécuter le script sur chacun d'eux.
-	- Si le code sélectionné est un dossier, identifier les fichiers JS et exécuter le script sur chacun d'eux.
-	- Si le code sélectionné est une branche, identifier les fichiers modifiés et exécuter le script sur chacun d'eux.
-2. Interpréter les résultats du script de revue :
-	- formatage mal fait : indiquer de lancer la commande `npx task:format:file -- <file_path>` pour corriger le formatage d'un fichier.
-	- problèmes de lint : s'il y a des problèmes de lint et que le nombre de problèmes est raisonnable (par exemple moins de 30), lance la commande `npx oxlint --config oxlint.config.mjs --report-unused-disable-directives-severity "warn" "$FILE_PATH" -f stylish` pour obtenir le détail des problèmes et les analyser.
-		- ATTENTION : n'oublie pas de lancer cette tâche dès qu'il y a des problèmes de lint et moins de 30 problèmes, car le rapport de revue initial ne fournit pas le détail des problèmes.
-	- incompatibilité ECMAScript : indiquer qu'il y a un problème de compatibilité ECMAScript et qu'il faut corriger le code pour respecter la version cible du projet.
-	- absence de test, échec de test, ou couverture insuffisante : indiquer qu'il faut ajouter ou corriger les tests unitaires pour sécuriser le code. Préciser les fonctions à tester en priorité.
-	- complexité excessive ou profondeur d'imbrication élevée : indiquer qu'il faut simplifier le code pour réduire la complexité et améliorer la lisibilité. Proposer les fonctions sur lesquelles se concentrer en priorité pour faire une refactorisation.
-	- trop d'imports : voir si une refactorisation est possible pour réduire le nombre d'importations et améliorer la lisibilité.
-	- trop peu de commentaires : indiquer qu'il faut ajouter des commentaires pour expliquer le code, surtout si la logique est complexe ou non triviale.
-3. S'il n'y a pas trop de fichiers à analyser : lire les fichiers concernés pour identifier les problèmes de conception, de sécurité, d'accessibilité, de maintenabilité et de lisibilité. S'il y a trop de fichiers, se concentrer sur les fichiers les plus critiques et indiquer clairement que la revue s'est concentrée sur ces fichiers, et demander à l'utilisateur s'il souhaite une revue d'un autre fichier. 
+### 1. Identifier les fichiers et lancer le script de revue
+
+Repérer le fichier ou les fichiers concernés par la revue, puis exécuter le script de revue pour chaque fichier afin d'obtenir un rapport structuré : `npx task review:file -- <file_path>`.
+
+- Si le code sélectionné est un extrait, identifier le fichier source et exécuter le script sur ce fichier.
+- Si le code sélectionné est un ensemble de commits, identifier les fichiers modifiés et exécuter le script sur chacun d'eux.
+- Si le code sélectionné est un dossier, identifier les fichiers JS et exécuter le script sur chacun d'eux.
+- Si le code sélectionné est une branche, identifier les fichiers modifiés et exécuter le script sur chacun d'eux.
+
+### 2. Interpréter les résultats du script de revue
+
+- **Formatage mal fait** : indiquer de lancer la commande `npx task format:file -- <file_path>` pour corriger le formatage d'un fichier.
+- **Problèmes de lint** : s'il y a des problèmes de lint et que le nombre de problèmes est raisonnable (par exemple moins de 30), lancer la commande `npx oxlint --config oxlint.config.mjs --report-unused-disable-directives-severity "warn" "$FILE_PATH" -f stylish` pour obtenir le détail des problèmes et les analyser.
+  - ATTENTION : ne pas oublier de lancer cette tâche dès qu'il y a des problèmes de lint et moins de 30 problèmes, car le rapport de revue initial ne fournit pas le détail des problèmes.
+- **Incompatibilité ECMAScript** : indiquer qu'il y a un problème de compatibilité ECMAScript et qu'il faut corriger le code pour respecter la version cible du projet.
+- **Absence de test, échec de test, ou couverture insuffisante** : indiquer qu'il faut ajouter ou corriger les tests unitaires pour sécuriser le code. Préciser les fonctions à tester en priorité.
+- **Complexité excessive ou profondeur d'imbrication élevée** : indiquer qu'il faut simplifier le code pour réduire la complexité et améliorer la lisibilité. Proposer les fonctions sur lesquelles se concentrer en priorité pour faire une refactorisation.
+- **Trop d'imports** : voir si une refactorisation est possible pour réduire le nombre d'importations et améliorer la lisibilité.
+- **Trop peu de commentaires** : indiquer qu'il faut ajouter des commentaires pour expliquer le code, surtout si la logique est complexe ou non triviale.
+
+### 3. Lecture des fichiers
+
+S'il n'y a pas trop de fichiers à analyser : lire les fichiers concernés pour identifier les problèmes de conception, de sécurité, d'accessibilité, de maintenabilité et de lisibilité. S'il y a trop de fichiers, se concentrer sur les fichiers les plus critiques et indiquer clairement que la revue s'est concentrée sur ces fichiers, et demander à l'utilisateur s'il souhaite une revue d'un autre fichier.
 
 ## Bonnes pratiques de revue
 
@@ -86,10 +94,7 @@ Si un axe n'est pas applicable au code sélectionné, l'indiquer brièvement au 
 
 ## Contraintes de conformité AGENTS.md
 
-- Respecter les conventions du projet (modularité JS, imports/exports explicites, fonctions testables, complexité maîtrisée).
-- Ne pas inventer de commandes ou de workflows hors `Taskfile.yml`.
-- Si des recommandations impliquent du texte visible utilisateur, rappeler la contrainte i18n (`i18n/messages` via ParaGlideJS).
-- Ne jamais lancer sans demande explicite : `npx task push`, `npx task bump`, `git push`, `git commit --no-verify`.
+Respecter les règles de `AGENTS.md` (conventions de code, i18n, commandes à ne pas lancer sans demande explicite). Ne pas dupliquer ici ce qui y est déjà documenté ; s'y référer si besoin.
 
 ## Structure
 
