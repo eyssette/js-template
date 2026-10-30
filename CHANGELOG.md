@@ -1,3 +1,27 @@
+## 10.2.1 (2026-10-30)
+
+### Fix
+
+- **ai**: amélioration de la SKILL "fix-this" [(0a6d98e)](https://forge.apps.education.fr/eyssette/js-template/-/commit/0a6d98e46af98f72b4d28ec6bc6ab3c15a1b6f87)
+- **ai**: amélioration de la SKILL "optimize-this" [(6532f2d)](https://forge.apps.education.fr/eyssette/js-template/-/commit/6532f2d99f82ad64dd98b54e21cd7325651286d5)
+- **ai**: précision sur l'absence de log pour les tâches de lint et de tests, qui signifie que tout est OK [(c5c7736)](https://forge.apps.education.fr/eyssette/js-template/-/commit/c5c7736dce9f098f54c3cfdc063d660673d81de6)
+- **ai**: amélioration de la SKILL "code" [(909f6fa)](https://forge.apps.education.fr/eyssette/js-template/-/commit/909f6fa617f7ead8ce4fb24ab7efdaca88e9fd13)
+- **ai**: amélioration de la SKILL "refactor-this" [(dd1a6f1)](https://forge.apps.education.fr/eyssette/js-template/-/commit/dd1a6f129c3f4edc20cfd6e00a568c13130b6ba9)
+- **ai**: précisions pour la SKILL "explore" [(0f21378)](https://forge.apps.education.fr/eyssette/js-template/-/commit/0f213787b35cc04d0bfafffd7f0e73d03cabd452)
+- **ai**: précisions pour l'accès à VISION.md et à DESIGN.md [(f5dc494)](https://forge.apps.education.fr/eyssette/js-template/-/commit/f5dc49481dc01f2a812d3f447dc9afc1a4923c3c)
+- **ai**: ajout de précision sur la création de fichiers de références ou de scripts [(28f0a29)](https://forge.apps.education.fr/eyssette/js-template/-/commit/28f0a29a05faaf5eaef74bc8cf1db90215f65884)
+- **ai**: approbation par l'utilisateur des propositions d'amélioration sur une SKILL [(8ee3caa)](https://forge.apps.education.fr/eyssette/js-template/-/commit/8ee3caa5d6550365268082c4d53b732123bf3f97)
+- **ai**: amélioration de la SKILL "review-this" [(509424b)](https://forge.apps.education.fr/eyssette/js-template/-/commit/509424bacf33739eea72fe6fa0107e443a996fd5)
+- **ai**: précision sur le re-scoring d'une SKILL [(1f04bc6)](https://forge.apps.education.fr/eyssette/js-template/-/commit/1f04bc6e1346d712fd06ef9091c75ba5bcadd292)
+- **ai**: amélioration des tâches "code", "fix-this" et "optimize-this", "refactor-this" [(c7235da)](https://forge.apps.education.fr/eyssette/js-template/-/commit/c7235da4cb32e1a463fdf5f40508a0ec93d417fd)
+- **ai**: vérification de l'absence de redondance entre une SKILL et le fichier AGENTS.md [(aa8831a)](https://forge.apps.education.fr/eyssette/js-template/-/commit/aa8831a2ead97c8354e7ee540f6be96b225c2f4c)
+- **ai**: amélioration de la SKILL pour créer des tests unitaires [(eccbd39)](https://forge.apps.education.fr/eyssette/js-template/-/commit/eccbd39bfabf964d9c0c4a666f947563c916e6ec)
+- **ai**: amélioration de la SKILL pour créer des tests e2e [(011a29b)](https://forge.apps.education.fr/eyssette/js-template/-/commit/011a29bce4f3ea526142455291e2ff40466cd14f)
+
+### Docs
+
+- ajout de la référence à la SKILL "explore" [(9b24f9b)](https://forge.apps.education.fr/eyssette/js-template/-/commit/9b24f9b491f0fd47393be0b09c29c1b5772fb945)
+
 ## 10.2.0 (2026-10-29)
 
 ### Feat
