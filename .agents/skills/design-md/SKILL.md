@@ -27,7 +27,9 @@ Garder `./references/spec.md` sous la main pour vérifier le format exact au mom
 
 ## Créer ou mettre à jour ?
 
-Avant de poser la moindre question, vérifier si plan/DESIGN.md existe déjà.
+Avant de poser la moindre question, vérifier si `.plan/DESIGN.md` existe déjà.
+
+⚠️ `.plan/DESIGN.md` est par défaut ignoré par git : une recherche de fichiers (`file_search`, glob `**/DESIGN.md`) peut ne pas le trouver. Vérifie donc directement le dossier `.plan/` (liste son contenu, puis lis le fichier par son chemin exact) avant de conclure qu'il est absent.
 
 ### S'il n'existe pas
 Lancer l'entretien complet décrit plus bas, section par section, pour créer le fichier depuis zéro.

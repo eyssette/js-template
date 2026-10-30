@@ -33,6 +33,7 @@ La structure du projet (chemins des sources, tests, traductions, `dist`…) est 
 - **Compatibilité ECMAScript** : rester compatible avec l'ECMAScript cible (es2020). En cas de doute sur une syntaxe récente, lancer `npx task ecma:source` après écriture.
 - **Gestion des événements** : toujours utiliser des écouteurs d'événements (`addEventListener`) dans les fichiers JavaScript, plutôt que des attributs HTML (ex : `onclick`, `onchange`…).
 - **Architecture CSS** : ne jamais utiliser de CSS inline, ou alors seulement très rarement, quand ce serait complexifier de faire autrement. Les styles doivent être intégrés dans `app/css/style.css` ou dans un fichier dédié importé via `app/js/main.mjs`. Avant toute création de style, consulter `.plan/DESIGN.md` ; si ce fichier est absent, suggérer sa création via la SKILL `/design-md`. Utiliser la SKILL `/css` pour créer ou vérifier le style CSS produit.
+  - ⚠️ `.plan/DESIGN.md` est par défaut ignoré par git : une recherche de fichiers (`file_search`, glob `**/DESIGN.md`) peut ne pas le trouver. Vérifie donc directement le dossier `.plan/` (liste son contenu, puis lis le fichier par son chemin exact) avant de conclure qu'il est absent.
 
 ### 2.2 Principes généraux de programmation (rappel)
 

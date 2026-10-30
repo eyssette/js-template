@@ -16,6 +16,7 @@ Le cœur de cette skill n'est pas de remplir un template le plus vite possible, 
 ## Vue d'ensemble du déroulé
 
 1. IMPORTANT : Vérifier si `.plan/VISION.md` existe déjà → si oui, s'en servir de base plutôt que repartir de zéro
+  - ⚠️ `.plan/VISION.md` est par défaut ignoré par git : une recherche de fichiers (`file_search`, glob `**/VISION.md`) peut ne pas le trouver. Vérifie donc directement le dossier `.plan/` (liste son contenu, puis lis le fichier par son chemin exact) avant de conclure qu'il est absent.
 2. Extraire les contraintes techniques du fichier `AGENTS.md`
 3. Construire ou consolider la vision avec l'utilisateur, par la discussion : il faut challenger l'utilisateur et faire un brainstorming pour clarifier l'objectif, le public cible, les fonctionnalités principales et ce qui est hors périmètre
 4. Écrire `.plan/VISION.md` s'il n'existe pas, ou le mettre à jour si nécessaire (en discutant avec l'utilisateur, et en faisant valider les changements par l'utilisateur)

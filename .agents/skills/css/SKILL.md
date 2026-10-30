@@ -13,6 +13,7 @@ L'objectif est de **produire** ou de **vérifier** du CSS donné en entrée.
 Suivre cette checklist :
 
 - [ ] Vérifier la présence de `.plan/DESIGN.md` et demander à l'utilisateur s'il veut l'utiliser (ou le créer via la SKILL `design-md`)
+  - ⚠️ `.plan/DESIGN.md` est par défaut ignoré par git : une recherche de fichiers (`file_search`, glob `**/DESIGN.md`) peut ne pas le trouver. Vérifie donc directement le dossier `.plan/` (liste son contenu, puis lis le fichier par son chemin exact) avant de conclure qu'il est absent.
 - [ ] Identifier la tâche : produire ou vérifier du CSS
 - [ ] (Production) Écrire le CSS dans `app/css/styles.css` (ou découper par composant dans `app/css/components/` / `app/css/layouts/`). Importer les fichiers CSS dans `app/js/main.mjs` dans l'ordre logique.
 - [ ] (Vérification) Suivre les étapes suivantes :
