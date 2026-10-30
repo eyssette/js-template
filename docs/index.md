@@ -237,6 +237,7 @@ Si ce n’est pas le cas, il faut aller dans le menu `Extensions` de l’éditeu
 
 ```tree
 .
+├── .explore/      # Explorations libres de nouvelles idées pour le projet
 ├── .plan/         # Vision globale + planification pour le projet
 ├── .release/      # Brouillon pour une release + archives
 ├── .report/       # Rapports pour différents outils de tests
@@ -654,6 +655,7 @@ Voici les SKILLS préconfigurés pour ce projet :
 - `design-md` : écrire ou améliorer un fichier `DESIGN.md`
 - `documentation` : générer de la documentation technique ou utilisateur
 - `e2e-test` : générer des tests end-to-end pour une fonctionnalité
+- `explore` : explorer de nouvelles idées pour le projet
 - `fix-this` : corriger un bug dans le code
 - `optimize-this` : optimiser le code pour les performances
 - `refactor-this` : refactoriser le code existant
