@@ -6,9 +6,7 @@ argument-hint: "<description précise du bug>"
 
 # Fix This
 
-Tu es un assistant de correction de bug pour ce projet.
-
-Objectif : corriger un bug avec le minimum de changements, en respectant strictement les conventions du dépôt.
+Corriger un bug avec le minimum de changements, en respectant strictement les conventions du dépôt.
 
 ## Entrée
 
@@ -24,33 +22,27 @@ Si une information critique manque, pose une question courte avant de modifier l
 
 Suis cette checklist et coche chaque étape au fur et à mesure :
 
-- [ ] Bug reproduit
-- [ ] Test de reproduction écrit (échoue)
-- [ ] Correctif minimal appliqué (pas de refactor hors sujet)
-- [ ] Test de reproduction passe
-- [ ] `npx task lint:file:all -- <fichier>` (pour les fichiers touchés) OK
-- [ ] `npx task tests:unit` OK
-- [ ] `npx task ecma:source` OK (si pertinent)
-- [ ] Résumé fourni (cause racine, correctif, tests, risques)
-
-## Qualité du code
-
-- Suivre les bonnes pratiques modernes, en restant compatible avec la version ECMAScript cible du projet (es2020).
-- Respecter les conventions de code du projet (modularité, imports/exports explicites, fonctions petites et testables, complexité cognitive faible).
-- Éviter au maximum les fonctions qui peuvent avoir des effets de bord ou dépendre de l'état global. Préférer les fonctions pures et les structures de données immuables.
-- Utiliser au maximum les objets comme arguments de fonction pour éviter les paramètres positionnels et faciliter l'évolution du code.
+- [ ] **Comprendre le contexte** : lire `AGENTS.md` et la SKILL `/code` pour connaître les conventions de codage et les commandes de contrôle de fin de tâche.
+- [ ] **Reproduire le bug** : comprendre la cause racine avant de toucher au code. Poser des questions si nécessaire pour clarifier le contexte et les conditions de reproduction.
+- [ ] **Écrire un test de reproduction** qui échoue (unitaire dans `tests/unit`, ou scénario Gherkin avec tag `@CURRENT`).
+  - Charger la SKILL correspondante pour les conventions de test : 
+    - `unit-test` pour les tests unitaires
+    - `e2e-test` pour les tests end-to-end
+- [ ] **Appliquer un correctif minimal** : uniquement ce qui corrige le bug, sans refactor hors sujet.
+- [ ] **Vérifier** que le test de reproduction passe, puis lancer les contrôles de fin de tâche (lint, tests, ecma) définis dans `AGENTS.md`.
+  - [ ] `npx task format:file -- <fichier>` (pour les fichiers touchés) OK
+  - [ ] `npx task lint:file:all -- <fichier>` (pour les fichiers touchés) OK
+  - [ ] `npx task tests:unit` OK
+  - [ ] `npx task tests:e2e` OK (si pertinent)
+  - [ ] `npx task ecma:source` OK (si pertinent)
+- [ ] **Résumer** : cause racine, correctif, tests, risques.
 
 ## Conformité
 
-Respecter AGENTS.md (qualité du code, lint, i18n, guardrails, langue).
+Respecter `AGENTS.md` (qualité du code, lint, i18n, guardrails, langue).
 
-Points spécifiques au débogage :
+Points importants pour le débogage :
 - Ne pas désactiver les règles de lint ; corriger le code à la place.
 - Ne pas modifier des zones non liées au bug.
 - Ne pas changer les tests uniquement pour les faire passer sans refléter le vrai comportement.
 - Si un texte visible utilisateur change, mettre à jour l'i18n (`i18n/messages`) avec ParaGlideJS.
-
-## Format de sortie attendu
-
-- Si le mode "agent" n'est pas activé, demander à l'utilisateur de l'activer avant d'appliquer le correctif.
-- Fournir un résumé clair de la correction apportée (cause racine, correctif, tests, risques), sans verbosité inutile.
