@@ -166,7 +166,9 @@ Definition of done — before considering a change finished, run in this order:
 
 - [ ] `npx task format:file -- <file_path>` on every file you touched.
 - [ ] `npx task lint:file:all -- <file_path>` on every JS file you touched
+	- No log means the file passed linting;
 - [ ] `npx task tests:unit` if you touched logic that has unit tests.
+	- No log means the tests already passed;
 - [ ] `npx task tests:e2e` if you have made important modifications to the application's behavior.
 - [ ] `npx task ecma:source` if you touched syntax that might not be supported.
 
