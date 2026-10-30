@@ -25,9 +25,9 @@ Suivre cette checklist pour chaque refactorisation :
 
 - [ ] Comprendre le comportement actuel et les dépendances directes
 - [ ] Définir une stratégie de refactor sans modifier le comportement observable
-- [ ] Appliquer le refactor (fonctions courtes, faible couplage, ≤ 150 lignes/module, idéalement ≤ 80 lignes, commentaires en français si nécessaire)
+- [ ] Appliquer le refactor (fonctions courtes, faible couplage, ≤ 150 lignes/module, idéalement ≤ 80 lignes)
 - [ ] Modulariser si nécessaire (imports/exports explicites, noms clairs et pas génériques, pas de dépendances circulaires, structure logique de fichiers)
-- [ ] Vérifier que le comportement reste identique
+- [ ] Vérifier que le comportement reste identique (tests avant/après, comparaison des sorties)
 - [ ] `npx task lint:file:all -- <fichier>` sur les fichiers touchés
 - [ ] `npx task tests:unit`
 - [ ] `npx task ecma:source` si la syntaxe touchée peut impacter la compatibilité
@@ -41,12 +41,13 @@ Suivre cette checklist pour chaque refactorisation :
 - Réduire la complexité cognitive (conditions imbriquées, branches multiples, responsabilités mélangées).
 - Remplacer les noms ambigus par des noms explicites.
 - Éviter la duplication en extrayant seulement des helpers utiles et testables.
-- Garder des modules avec imports/exports explicites.
-- Rester compatible avec la version ECMAScript cible du projet.
+- Ne pas refactoriser du code hors périmètre : signaler les améliorations possibles sans les appliquer.
 
-## Contraintes de conformité AGENTS.md
+> Les principes généraux de code (fonctions pures, imports/exports explicites, compatibilité ECMAScript, nommage) sont décrits dans la skill `/code` (§2.2) et dans `AGENTS.md` — s'y référer, ne pas les dupliquer ici.
 
-- Utiliser les commandes `npx task <name>` du projet.
+## Conformité
+
+Respecter `AGENTS.md` (qualité du code, lint, i18n, guardrails, langue) et la skill `/code`. Points spécifiques au refactor :
 - Ne pas désactiver les règles de lint ; corriger le code à la place.
 - Limiter les modifications au périmètre demandé, sans refactor hors sujet.
 - Ne pas modifier les tests uniquement pour les faire passer.
@@ -57,11 +58,5 @@ Suivre cette checklist pour chaque refactorisation :
 
 - Appliquer le refactor demandé : si le mode "agent" n'est pas activé, demander à l'utilisateur de l'activer pour appliquer les changements.
 - Fournir un résumé concis avec :
-	- la stratégie de refactor
-	- les fichiers modifiés
-
-## Rappels de style
-
-- Communication en français (sauf demande contraire), concise.
-- Code en anglais (noms de fonctions/variables/classes).
-- Commentaires et documentation en français, sauf demande contraire.
+    - la stratégie de refactor
+    - les fichiers modifiés

@@ -33,6 +33,8 @@ Suis cette checklist et coche chaque étape au fur et à mesure :
 - [ ] `npx task ecma:source` si la syntaxe touchée peut impacter la compatibilité
 - [ ] Résumer : coût ciblé, optimisation appliquée, compromis, validations exécutées
 
+Si une validation échoue ou révèle une régression de comportement, corriger l'optimisation puis relancer les validations concernées jusqu'à ce qu'elles passent.
+
 ## Bonnes pratiques d'optimisation JavaScript
 
 - Ne pas optimiser à l'aveugle : partir d'un symptôme, d'un usage fréquent ou d'un coût identifiable.
@@ -43,14 +45,9 @@ Suis cette checklist et coche chaque étape au fur et à mesure :
 - Garder des fonctions petites, testables et avec peu d'effets de bord.
 - Rester compatible avec la version ECMAScript cible (es2020), vérifiée par `npx task ecma:source`.
 
-## Contraintes de conformité AGENTS.md
+## Conformité
 
-- Utiliser les commandes `npx task <name>` du projet.
-- Ne pas désactiver les règles de lint ; corriger le code à la place.
-- Limiter les modifications au périmètre demandé, sans refactor large non justifié.
-- Ne pas modifier les tests uniquement pour les faire passer.
-- Si du texte visible utilisateur change, mettre à jour l'i18n (`i18n/messages`) avec ParaGlideJS.
-- Ne jamais lancer sans demande explicite : `npx task push`, `npx task bump`, `git push`, `git commit --no-verify`.
+Respecter les règles générales de `AGENTS.md` (commandes `npx task`, politique de lint, i18n, périmètre des modifications, interdiction de `push`/`bump` sans demande). Ne pas les dupliquer ici ; se référer au fichier si besoin.
 
 ## Critères de décision
 

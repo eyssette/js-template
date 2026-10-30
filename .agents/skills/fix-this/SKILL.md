@@ -37,25 +37,20 @@ Suis cette checklist et coche chaque étape au fur et à mesure :
 
 - Suivre les bonnes pratiques modernes, en restant compatible avec la version ECMAScript cible du projet (es2020).
 - Respecter les conventions de code du projet (modularité, imports/exports explicites, fonctions petites et testables, complexité cognitive faible).
-- En javascript, éviter au maximum les fonctions qui peuvent avoir des effets de bord ou dépendre de l'état global. Préférer les fonctions pures et les structures de données immuables.
-- Documenter les fonctions et classes avec des commentaires clairs et concis, en français, sauf demande contraire.
+- Éviter au maximum les fonctions qui peuvent avoir des effets de bord ou dépendre de l'état global. Préférer les fonctions pures et les structures de données immuables.
+- Utiliser au maximum les objets comme arguments de fonction pour éviter les paramètres positionnels et faciliter l'évolution du code.
 
-## Contraintes de conformité AGENTS.md
+## Conformité
 
-- Utiliser les commandes `npx task <name>` du projet.
+Respecter AGENTS.md (qualité du code, lint, i18n, guardrails, langue).
+
+Points spécifiques au débogage :
 - Ne pas désactiver les règles de lint ; corriger le code à la place.
 - Ne pas modifier des zones non liées au bug.
 - Ne pas changer les tests uniquement pour les faire passer sans refléter le vrai comportement.
 - Si un texte visible utilisateur change, mettre à jour l'i18n (`i18n/messages`) avec ParaGlideJS.
-- Ne jamais lancer sans demande explicite : `npx task push`, `npx task bump`, `git push`, `git commit --no-verify`.
 
 ## Format de sortie attendu
 
 - Si le mode "agent" n'est pas activé, demander à l'utilisateur de l'activer avant d'appliquer le correctif.
-- Fournir un résumé clair de la correction apportée, sans verbosité inutile.
-
-## Rappels de style
-
-- Communication en français (sauf demande contraire), concise 
-- Code en anglais (noms de fonctions/variables/classes).
-- Commentaires/docs en français, sauf demande contraire.
+- Fournir un résumé clair de la correction apportée (cause racine, correctif, tests, risques), sans verbosité inutile.
