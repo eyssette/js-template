@@ -7,6 +7,7 @@ argument-hint: "<path to SKILL.md file>"
 # SKILL.md Improver
 
 Workflow :
+
 0. Read the SKILL.md file and check for any associated sub-folders (like `references/` or `scripts/`).
 1. Audit the SKILL.md file using the main checklist
 2. Score the skill on each dimension (1-5) and output a score table.
@@ -30,7 +31,7 @@ If the skill takes arguments, include an `argument-hint` field.
 - **Length Limits**: Keep the main SKILL.md file under 500 lines and around 5,000 tokens to preserve context space.
 - **Coherent Scope**: Encapsulate a single, well-defined unit of work that composes cleanly with other skills.
 - **Delta Principle**: Add what the agent lacks and omit general knowledge the model already possesses (e.g., skip basic syntax rules; focus strictly on project or domain-specific conventions). Also check that the information is not already present in `AGENTS.md` to avoid redundancy — if it is, omit it or reference it instead of duplicating it.
-**Body Organization**: Structure the body of the SKILL.md file in a logical, easy-to-follow manner. Use clear headings and subheadings to organize the content. Each section should have a clear purpose and flow naturally from one to the next. Avoid long paragraphs; use bullet points, numbered lists, and tables where appropriate to enhance readability.
+- **Body Organization**: Structure the body of the SKILL.md file in a logical, easy-to-follow manner. Use clear headings and subheadings to organize the content. Each section should have a clear purpose and flow naturally from one to the next. Avoid long paragraphs; use bullet points, numbered lists, and tables where appropriate to enhance readability.
 
 ### Progressive Disclosure & Modularity
 
@@ -69,6 +70,7 @@ Propose changes to improve the SKILL.md file :
 - Always check whether a `scripts/` folder is warranted. Use scripts for tasks that are automatable and deterministic (repetitive, error-prone, or mechanical operations) rather than relying on open-ended generated code. Keep any scripts you create **simple**, and only create them **if they are genuinely useful** — avoid adding scripts for trivial or one-off tasks.
 
 After proposing changes:
+
 1. Ask the user to approve or reject the proposed changes. 
 2. Once the user approves or rejects the changes, re-run the rubric scoring on the modified version of the file. When re-scoring, re-read the modified file as if for the first time; do not assume the fixes worked.
 3. Ask the user if they want to iterate further or finalize.
