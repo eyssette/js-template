@@ -66,5 +66,5 @@ Propose changes to improve the SKILL.md file based on the audit and score table.
 
 After proposing changes:
 1. Apply the diff (if approved).
-2. Re-run the rubric scoring. When re-scoring after changes, re-read the file as if for the first time; do not assume the fixes worked.
+2. Once the user approves or rejects the changes, re-run the rubric scoring on the modified version of the file. When re-scoring, re-read the modified file as if for the first time; do not assume the fixes worked.
 3. Ask the user if they want to iterate further or finalize.
