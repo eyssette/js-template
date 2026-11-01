@@ -522,10 +522,12 @@ On peut vérifier la sécurité de l'application avec plusieurs outils : [npm au
 Pour lancer les vérifications de sécurité, utiliser les commandes suivantes :
 
 ```bash
+task security:scan      # détection de secrets et informations sensibles
 task security:audit      # vulnérabilités des dépendances (npm audit)
 task security:semgrep     # analyse statique du code (semgrep)
 task security:bearer       # analyse de sécurité (bearer)
 task security:trivy         # analyse de sécurité (trivy)
+
 task security                # toutes les vérifications en une commande
 ```
 
