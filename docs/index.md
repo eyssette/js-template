@@ -517,7 +517,7 @@ task perf
 
 #### Sécurité
 
-On peut vérifier la sécurité de l'application avec plusieurs outils : [npm audit](https://docs.npmjs.com/cli/v9/commands/npm-audit), [Semgrep](https://github.com/semgrep/semgrep), [Bearer](https://www.bearer.com/), [Trivy](https://github.com/aquasecurity/trivy).
+On peut vérifier la sécurité de l'application avec un script interne qui scanne le projet pour détecter les secrets et informations sensibles, ainsi que d'autres outils de sécurité comme [npm audit](https://docs.npmjs.com/cli/v9/commands/npm-audit), [Semgrep](https://github.com/semgrep/semgrep), [Bearer](https://www.bearer.com/), [Trivy](https://github.com/aquasecurity/trivy).
 
 Pour lancer les vérifications de sécurité, utiliser les commandes suivantes :
 
@@ -577,7 +577,7 @@ Pour pousser ses modifications sur son ou ses dépôts Git, il est recommandé d
 task push
 ```
 
-Avant de pousser les modifications, plusieurs vérifications sont effectuées automatiquement via des hooks Husky et des tâches automatisées : vérification de la qualité du code (`task lint:all`), conformité au standard ECMAScript ciblé (`task ecma`), exécution des tests unitaires (`task test:unit`) et end-to-end (`task test:e2e`).
+Avant de pousser les modifications, plusieurs vérifications sont effectuées automatiquement via des hooks Husky et des tâches automatisées : vérification de la qualité du code (`task lint:all`), conformité au standard ECMAScript ciblé (`task ecma`), exécution des tests unitaires (`task test:unit`) et end-to-end (`task test:e2e`), détection de secrets et informations sensibles (`task security:scan`).
 
 Le push se fait sur les dépôts Git configurés (variable `GIT_REPO_NAMES` dans `Taskfile.yml`), et par défaut sur le dépôt `origin` défini lors de l'initialisation du projet. On peut ajouter d'autres dépôts Git si nécessaire, si on veut aussi pousser ses modifications sur plusieurs forges en même temps.
 
