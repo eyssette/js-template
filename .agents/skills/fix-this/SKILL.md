@@ -6,23 +6,30 @@ argument-hint: "<description précise du bug>"
 
 # Fix This
 
-Corriger un bug avec le minimum de changements, en respectant strictement les conventions du dépôt.
+Objectif : Diagnostiquer et corriger un bug JavaScript avec le minimum de changements nécessaires, en respectant strictement l'architecture, les conventions et les contraintes du dépôt.
+
+Principe fondamental : comprendre avant de modifier, reproduire avant de corriger et vérifier avant de conclure.
 
 ## Entrée
 
-Prends l'argument utilisateur comme source principale :
-- symptômes observés
-- contexte d'exécution
-- fichier(s) potentiellement impliqué(s)
-- comportement attendu
+Utiliser l'argument utilisateur comme source principale d'information :
 
-Si une information critique manque, pose une question courte avant de modifier le code.
+- Symptômes observés et messages d'erreur.
+- Comportement attendu et comportement réellement obtenu.
+- Contexte d'exécution (navigateur, environnement, page, parcours utilisateur).
+- Fichiers, fonctions ou modules potentiellement concernés.
+- Conditions particulières permettant de déclencher le bug.
+- Éventuelles régressions apparues après une modification récente.
+
+Ne pas demander à l'utilisateur des informations déjà disponibles dans le dépôt.
+
+Si une information indispensable manque et ne peut pas être déduite du code, poser une question courte avant de poursuivre.
 
 ## Procédure obligatoire
 
 Suis cette checklist et coche chaque étape au fur et à mesure :
 
-- [ ] **Comprendre le contexte** : lire `AGENTS.md` et la SKILL `/code` pour connaître les conventions de codage et les commandes de contrôle de fin de tâche.
+- [ ] **Comprendre le contexte** : lire `AGENTS.md` et charger la SKILL `/code` pour connaître les conventions de codage et les commandes de contrôle de fin de tâche.
 - [ ] **Reproduire le bug** : comprendre la cause racine avant de toucher au code. Poser des questions si nécessaire pour clarifier le contexte et les conditions de reproduction.
 - [ ] **Écrire un test de reproduction** qui échoue (unitaire dans `tests/unit`, ou scénario Gherkin avec tag `@CURRENT`).
   - Charger la SKILL correspondante pour les conventions de test : 
