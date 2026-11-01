@@ -564,7 +564,6 @@ tasks:
       - "{{.APP_FOLDER}}/**/*"
       - scripts/security/scanner.mjs
       - scripts/security/ignored-errors.json
-    silent: true
     cmds:
       - node scripts/security/scanner.mjs ./
 
