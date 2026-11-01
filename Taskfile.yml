@@ -150,6 +150,7 @@ tasks:
       - rm -rf {{.DIST_FOLDER}}
       - task: build
       - task: tests
+      - task: security:scan
       - for: { var: GIT_REMOTES }
         cmd: git push {{.ITEM}} && git push {{.ITEM}} --tags
 
@@ -291,6 +292,7 @@ tasks:
       - rm -rf {{.DIST_FOLDER}}
       - task: build
       - task: tests
+      - task: security:scan
       - cz bump
 
   server:start:
@@ -545,6 +547,8 @@ tasks:
   security:
     desc: Vérifie la sécurité du projet avec l'ensemble des outils de sécurité
     cmds:
+      - cmd: task security:scan
+        ignore_error: true
       - cmd: task security:npm-audit
         ignore_error: true
       - cmd: task security:semgrep
@@ -553,6 +557,15 @@ tasks:
         ignore_error: true
       - cmd: task security:trivy
         ignore_error: true
+
+  security:scan:
+    desc: Scanne le code source à la recherche de secrets et d'informations sensibles avec le script security/scanner.mjs
+    sources:
+      - "{{.APP_FOLDER}}/**/*"
+      - scripts/security/scanner.mjs
+    silent: true
+    cmds:
+      - node scripts/security/scanner.mjs "{{.APP_FOLDER}}"
 
   security:npm-audit:
     desc: Vérifie la sécurité des dépendances avec npm audit
