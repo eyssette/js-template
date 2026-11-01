@@ -998,7 +998,7 @@ function displayResult(result) {
 	console.log("-----------------------------");
 }
 
-// Affiche une erreur en mode showErrors : label puis lien cliquable vers le fichier
+// Affiche une erreur en mode "show" : label puis lien cliquable vers le fichier
 function displayResultShowErrors(result) {
 	const absolutePath = path.resolve(result.file);
 	console.log(result.label);
@@ -1007,10 +1007,19 @@ function displayResultShowErrors(result) {
 }
 
 // Affichage des résultats
-if (remainingResults.length > 0) {
-	console.log("Secrets et informations sensibles détectés:\n");
 
-	// En mode showErrors, on passe en mode non-interactif et on affiche
+// En mode "show", on affiche d'abord les erreurs ignorées
+if (showMode && ignoredErrors.length > 0) {
+	console.log("👻 Erreurs ignorées dans ce projet:\n");
+	for (const ignored of ignoredErrors) {
+		displayResultShowErrors(ignored);
+	}
+}
+
+if (remainingResults.length > 0) {
+	console.log("⚠️  Secrets et informations sensibles détectés:\n");
+
+	// En mode "show", on passe en mode non-interactif et on affiche
 	// uniquement le label de l'erreur et un lien cliquable vers le fichier.
 	if (showMode) {
 		for (const result of remainingResults) {
