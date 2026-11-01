@@ -970,6 +970,14 @@ if (fs.existsSync(targetPath)) {
 	process.exit(1);
 }
 
+// Affiche un avertissement si des erreurs sont ignorées dans le projet
+const ignoredErrors = loadIgnoredErrors();
+if (ignoredErrors.length > 0) {
+	console.log(
+		`📌 ${ignoredErrors.length} erreur(s) ignorée(s) dans ce projet.\n`,
+	);
+}
+
 // Filtre les erreurs déjà autorisées dans le fichier des erreurs ignorées
 const remainingResults = scanResults.filter(
 	(result) => !isIgnoredError(result),
