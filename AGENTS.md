@@ -61,6 +61,16 @@ Lint policy — if a rule fires (inline, per-file, or global in oxlint.config.mj
 - Never change lint configuration or disable a rule without explicit user approval.
 - Explain consequential decisions, deviations from the project's rules, and non-obvious trade-offs. Summarize routine implementation details in the final response.
 
+### External resources
+
+No CDN, no external resources — everything must be self-hosted.
+
+- FORBIDDEN: links to Google Fonts, CDNJS, jsDelivr, unpkg.
+- FORBIDDEN: `@import url()` pointing to an external domain.
+- If a font is needed: download it as `.woff2` and install it in `assets/fonts/` with `@font-face`.
+- If a JS library is needed: use npm with a `package.json` (or download it into `app/js/lib/`), but NEVER a `<script src="https://cdn...">`.
+- Same rule for icons, images, and third-party stylesheets.
+
 ### Naming conventions
 
 | Files | Convention |
