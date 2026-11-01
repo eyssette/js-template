@@ -1,0 +1,4 @@
+{
+	"$comment": "Liste des erreurs du scanner autorisées à ne pas renvoyer de code d'erreur. Chaque entrée identifie précisément une occurrence par fichier, règle, label, numéro de ligne et contenu correspondant. Format : [{ \"file\": \"chemin/du/fichier\", \"rule\": \"security|rgpd\", \"label\": \"libellé exact de la règle\", \"line\": 12, \"match\": \"texte correspondant\" }]",
+	"errors": []
+}

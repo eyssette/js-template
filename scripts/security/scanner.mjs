@@ -4,8 +4,10 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import readline from "node:readline/promises";
 
 const excludedFiles = new Set([
+	"scripts/security/ignored-errors.json",
 	"scripts/security/scanner.mjs",
 	"scripts/bump/CHANGELOG.md.j2",
 	"tests/e2e/server.mjs",
@@ -18,6 +20,73 @@ const excludedDirectories = new Set([
 	"i18n/project.inlang/cache",
 	".git",
 ]);
+
+// Chemin du fichier listant les erreurs autorisées à ne pas renvoyer de code d'erreur
+const IGNORED_ERRORS_FILE = path.join(
+	process.cwd(),
+	"scripts/security/ignored-errors.json",
+);
+
+let ignoredErrorsWarningShown = false;
+
+// Charge la liste des erreurs ignorées depuis le fichier dédié
+function loadIgnoredErrors() {
+	if (!fs.existsSync(IGNORED_ERRORS_FILE)) {
+		return [];
+	}
+
+	try {
+		const content = fs.readFileSync(IGNORED_ERRORS_FILE, "utf8");
+		const data = JSON.parse(content) || {};
+		return Array.isArray(data.errors) ? data.errors : [];
+	} catch {
+		if (!ignoredErrorsWarningShown) {
+			console.error(
+				`\n➡️  Fichier de configuration des erreurs ignorées vide ou introuvable\n`,
+			);
+			ignoredErrorsWarningShown = true;
+		}
+		return [];
+	}
+}
+
+// Ajoute une erreur à la liste des erreurs ignorées
+function addIgnoredError({ file, rule, label, line, match }) {
+	const ignoredErrors = loadIgnoredErrors();
+	const alreadyIgnored = ignoredErrors.some(
+		(entry) =>
+			entry.file === file &&
+			entry.rule === rule &&
+			entry.label === label &&
+			entry.line === line &&
+			entry.match === match,
+	);
+
+	if (alreadyIgnored) {
+		return;
+	}
+
+	ignoredErrors.push({ file, rule, label, line, match });
+
+	const data = { errors: ignoredErrors };
+	fs.writeFileSync(
+		IGNORED_ERRORS_FILE,
+		`${JSON.stringify(data, undefined, "\t")}\n`,
+		"utf8",
+	);
+}
+
+// Vérifie si une erreur est présente dans la liste des erreurs ignorées
+function isIgnoredError({ file, rule, label, line, match }) {
+	return loadIgnoredErrors().some(
+		(entry) =>
+			entry.file === file &&
+			entry.rule === rule &&
+			entry.label === label &&
+			entry.line === line &&
+			entry.match === match,
+	);
+}
 
 // Charge les motifs d'exclusion depuis le fichier .gitignore (chargement dynamique)
 function loadGitignorePatterns() {
@@ -822,17 +891,29 @@ const LOCAL_RULES = [
 
 function scanFile(filePath) {
 	const content = fs.readFileSync(filePath, "utf8");
+	const lines = content.split("\n");
 	const results = [];
 
 	for (const rule of LOCAL_RULES) {
-		const matches = content.match(rule.regex);
-		if (matches) {
+		const regex = new RegExp(rule.regex.source, rule.regex.flags);
+		let match;
+		while ((match = regex.exec(content)) !== null) {
+			// Calcule le numéro de ligne (1-indexé) de l'occurrence
+			const lineNumber = content.slice(0, match.index).split("\n").length;
+			const rawLine = lines[lineNumber - 1];
+			const lineContent = rawLine === undefined ? "" : rawLine.trim();
 			results.push({
 				file: filePath,
 				rule: rule.rule,
 				label: rule.label,
-				matches,
+				line: lineNumber,
+				match: match[0],
+				lineContent,
 			});
+			// Évite une boucle infinie avec les regex à correspondance vide
+			if (match[0] === "") {
+				regex.lastIndex += 1;
+			}
 		}
 	}
 
@@ -889,25 +970,74 @@ if (fs.existsSync(targetPath)) {
 	process.exit(1);
 }
 
-// Affichage des résultats
-if (scanResults.length > 0) {
-	console.log("Secrets détectés:");
-	for (const result of scanResults) {
-		console.log(`Fichier: ${result.file}`);
-		console.log(`Règle: ${result.rule}`);
-		console.log(`Label: ${result.label}`);
-		console.log(`Occurrences: ${result.matches.length}`);
-		console.log("Exemples:");
-		for (const match of result.matches.slice(0, 5)) {
-			console.log(`  - ${match}`);
-		}
-		if (result.matches.length > 5) {
-			console.log(`  ...et ${result.matches.length - 5} autres occurrences`);
-		}
-		console.log("-----------------------------");
+// Filtre les erreurs déjà autorisées dans le fichier des erreurs ignorées
+const remainingResults = scanResults.filter(
+	(result) => !isIgnoredError(result),
+);
+
+// Affiche une erreur détectée par le scanner
+function displayResult(result) {
+	console.log(`Fichier: ${result.file}`);
+	console.log(`Ligne: ${result.line}`);
+	console.log(`Règle: ${result.rule}`);
+	console.log(`Label: ${result.label}`);
+	console.log(`Occurrence: ${result.match}`);
+	if (result.lineContent) {
+		console.log(`Contexte: ${result.lineContent}`);
 	}
-	// Dans le cas où des secrets ou information sensible sont détectés, on renvoie un code d'erreur
-	process.exit(1);
+	console.log("-----------------------------");
+}
+
+// Affichage des résultats
+if (remainingResults.length > 0) {
+	console.log("Secrets et informations sensibles détectés:\n");
+
+	// En mode interactif (TTY), on affiche chaque erreur progressivement et on
+	// propose de désactiver le scan de cette erreur.
+	if (process.stdin.isTTY) {
+		const rl = readline.createInterface({
+			input: process.stdin,
+			output: process.stdout,
+		});
+
+		// Traite les erreurs une à une, de façon récursive, pour demander à
+		// l'utilisateur s'il souhaite désactiver le scan de chacune.
+		const processResults = async (results, index, stillFailing) => {
+			if (index >= results.length) {
+				rl.close();
+				if (stillFailing) {
+					// Dans le cas où des secrets ou information sensible sont détectés
+					// et non ignorés, on renvoie un code d'erreur
+					process.exit(1);
+				}
+				return;
+			}
+
+			const result = results[index];
+			displayResult(result);
+			const answer = await rl.question(
+				"Désactiver le scan de cette erreur ? (o/N) ",
+			);
+			const normalized = answer.trim().toLowerCase();
+			if (normalized === "o" || normalized === "oui" || normalized === "y") {
+				addIgnoredError(result);
+				console.log(`🗄️ Erreur ajoutée à la liste des erreurs ignorées.\n`);
+				await processResults(results, index + 1, stillFailing);
+			} else {
+				await processResults(results, index + 1, true);
+			}
+		};
+
+		await processResults(remainingResults, 0, false);
+	} else {
+		// En mode non interactif (CI, pipe), on affiche toutes les erreurs et on
+		// renvoie un code d'erreur.
+		for (const result of remainingResults) {
+			displayResult(result);
+		}
+		// Dans le cas où des secrets ou information sensible sont détectés, on renvoie un code d'erreur
+		process.exit(1);
+	}
 } else {
 	console.log(
 		"✅ Aucun secret ou information sensible détecté dans le projet.",
