@@ -560,10 +560,6 @@ tasks:
 
   security:scan:
     desc: Scanne le code source à la recherche de secrets et d'informations sensibles avec le script security/scanner.mjs
-    sources:
-      - "{{.APP_FOLDER}}/**/*"
-      - scripts/security/scanner.mjs
-      - scripts/security/ignored-errors.json
     cmds:
       - node scripts/security/scanner.mjs ./
 
