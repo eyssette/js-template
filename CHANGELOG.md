@@ -1,3 +1,19 @@
+## 10.3.0 (2026-11-01)
+
+### Feat
+
+- **task**: ajout d'une tâche de sécurité qui scanne le code source à la recherche de secrets et d'informations sensibles [(853b845)](https://forge.apps.education.fr/eyssette/js-template/-/commit/853b845b3a4e172973013ae7c26d5318537bada0)
+
+### Fix
+
+- **task**: tâche "security:scan" / suppression de "silent: true" [(01bb24a)](https://forge.apps.education.fr/eyssette/js-template/-/commit/01bb24aa1d41c90126237493f610f26e60b19096)
+- **task**: on ajoute le nombre d'erreurs ignorées au début de la tâche "security:scan" [(e201da5)](https://forge.apps.education.fr/eyssette/js-template/-/commit/e201da577ffc66ac5182a4696b0063320a022709)
+- **task**: possibilité d'ignorer certaines erreurs quand on lance la tâche "security:scan" [(d3438ee)](https://forge.apps.education.fr/eyssette/js-template/-/commit/d3438eee3cf607a26874b00e9697ecd1847a9148)
+- **task**: application de la tâche de scan de sécurité à tout le projet (sauf les fichiers et dossiers pas pertinents) [(974fb4e)](https://forge.apps.education.fr/eyssette/js-template/-/commit/974fb4ea9097506b555ee7e22dbef84c24dc66c2)
+- **ai**: précisions sur le fait de ne pas utiliser de CDN et de ressources externes [(d4ce55f)](https://forge.apps.education.fr/eyssette/js-template/-/commit/d4ce55f1d4eef23c0e7462271523e7c13503eac7)
+- **ai**: précisions pour la SKILL "fix-this" [(2e02a05)](https://forge.apps.education.fr/eyssette/js-template/-/commit/2e02a05a21d1155614903a03d234ada6f822c212)
+- **ai**: vérification de la correspondance entre le nom de la SKILL et le nom du dossier parent [(e86b095)](https://forge.apps.education.fr/eyssette/js-template/-/commit/e86b095af9c7179a45027bd3c3ddf03e86af7524)
+
 ## 10.2.1 (2026-10-30)
 
 ### Fix
