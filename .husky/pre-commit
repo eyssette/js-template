@@ -1,3 +1,4 @@
 npx task format:check:staged --silent
 npx task lint:staged --silent
 npx task ecma:staged --silent
+npx task security:scan < /dev/null --silent
