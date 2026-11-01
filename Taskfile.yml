@@ -565,7 +565,7 @@ tasks:
       - scripts/security/scanner.mjs
     silent: true
     cmds:
-      - node scripts/security/scanner.mjs "{{.APP_FOLDER}}"
+      - node scripts/security/scanner.mjs ./
 
   security:npm-audit:
     desc: Vérifie la sécurité des dépendances avec npm audit

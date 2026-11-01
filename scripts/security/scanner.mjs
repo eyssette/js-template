@@ -5,23 +5,74 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const extensionToScan = [
-	".js",
-	".ts",
-	".jsx",
-	".tsx",
-	".mjs",
-	".cjs",
-	".json",
-	".html",
-	".css",
-	".scss",
-	".vue",
-	".md",
-];
+const excludedFiles = new Set([
+	"scripts/security/scanner.mjs",
+	"scripts/bump/CHANGELOG.md.j2",
+	"tests/e2e/server.mjs",
+	"app/js/lib/paraglide/runtime.js",
+]);
 
-const excludedFiles = ["app/js/lib/paraglide/runtime.js"];
+const excludedDirectories = new Set([
+	"packages/create-js-template",
+	"i18n/helpers",
+	"i18n/project.inlang/cache",
+	".git",
+]);
 
+// Charge les motifs d'exclusion depuis le fichier .gitignore (chargement dynamique)
+function loadGitignorePatterns() {
+	const gitignorePath = path.join(process.cwd(), ".gitignore");
+	if (!fs.existsSync(gitignorePath)) {
+		return [];
+	}
+
+	const content = fs.readFileSync(gitignorePath, "utf8");
+	return content
+		.split("\n")
+		.map((line) => line.trim())
+		.filter((line) => line && !line.startsWith("#") && !line.startsWith("!"));
+}
+
+const gitignorePatterns = loadGitignorePatterns();
+
+// Vérifie si un chemin correspond à un motif d'exclusion du .gitignore
+function isGitignored(filePath) {
+	const normalized = filePath.replaceAll("\\", "/");
+
+	return gitignorePatterns.some((pattern) => {
+		const isDirectoryPattern = pattern.endsWith("/");
+		const basePattern = isDirectoryPattern ? pattern.slice(0, -1) : pattern;
+
+		// Motif de dossier sans chemin (ex: "node_modules/", "dist/") :
+		// s'applique à n'importe quel niveau de l'arborescence
+		if (isDirectoryPattern && !basePattern.includes("/")) {
+			return (
+				normalized === basePattern ||
+				normalized.includes(`/${basePattern}/`) ||
+				normalized.endsWith(`/${basePattern}`)
+			);
+		}
+
+		// Motif de dossier avec chemin (ex: "tests/e2e/output/") :
+		// relatif à la racine
+		if (isDirectoryPattern) {
+			return (
+				normalized === basePattern || normalized.startsWith(`${basePattern}/`)
+			);
+		}
+
+		// Motif simple sans chemin (ex: ".env") : correspond au nom de base
+		if (!pattern.includes("/")) {
+			return path.basename(normalized) === pattern;
+		}
+
+		// Motif avec chemin (ex: "app/js/lib/paraglide/runtime.js") :
+		// relatif à la racine
+		return normalized === pattern || normalized.endsWith(`/${pattern}`);
+	});
+}
+
+// Source : https://forge.apps.education.fr/rouxsimon/albert-vscode/-/blob/main/src/extension/participants/gardeFouParticipant.ts?ref_type=heads
 const LOCAL_RULES = [
 	// RGPD - CDN / ressources externes US
 	{
@@ -758,7 +809,7 @@ const LOCAL_RULES = [
 		label: "CORS wildcard (*) - risque sécurité",
 	},
 	{
-		regex: /http:\/\/(?!localhost|127\.0\.0\.1)/gi,
+		regex: /http:\/\/(?!localhost|127\.0\.0\.1|www\.w3\.org)/gi,
 		rule: "security",
 		label: "Connexion HTTP non chiffrée",
 	},
@@ -797,15 +848,15 @@ function scanDirectory(directoryPath) {
 		const stat = fs.statSync(fullPath);
 
 		if (stat.isDirectory()) {
-			results.push(...scanDirectory(fullPath));
-		} else if (stat.isFile()) {
-			const extension = path.extname(fullPath);
-			if (
-				extensionToScan.includes(extension) &&
-				!excludedFiles.includes(fullPath)
-			) {
-				results.push(...scanFile(fullPath));
+			if (!excludedDirectories.has(fullPath) && !isGitignored(fullPath)) {
+				results.push(...scanDirectory(fullPath));
 			}
+		} else if (
+			stat.isFile() &&
+			!excludedFiles.has(fullPath) &&
+			!isGitignored(fullPath)
+		) {
+			results.push(...scanFile(fullPath));
 		}
 	}
 
@@ -826,14 +877,12 @@ if (fs.existsSync(targetPath)) {
 	const stat = fs.statSync(targetPath);
 	if (stat.isDirectory()) {
 		scanResults = scanDirectory(targetPath);
-	} else if (stat.isFile()) {
-		const extension = path.extname(targetPath);
-		if (
-			extensionToScan.includes(extension) &&
-			!excludedFiles.includes(targetPath)
-		) {
-			scanResults = scanFile(targetPath);
-		}
+	} else if (
+		stat.isFile() &&
+		!excludedFiles.has(targetPath) &&
+		!isGitignored(targetPath)
+	) {
+		scanResults = scanFile(targetPath);
 	}
 } else {
 	console.error(`Le chemin spécifié n'existe pas: ${targetPath}`);
@@ -857,6 +906,10 @@ if (scanResults.length > 0) {
 		}
 		console.log("-----------------------------");
 	}
+	// Dans le cas où des secrets ou information sensible sont détectés, on renvoie un code d'erreur
+	process.exit(1);
 } else {
-	console.log("Aucun secret détecté.");
+	console.log(
+		"✅ Aucun secret ou information sensible détecté dans le projet.",
+	);
 }
