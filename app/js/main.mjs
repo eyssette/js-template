@@ -28,7 +28,9 @@ const message = m.welcome();
 mainElement.textContent = capitalizeFirstLetter(`hello world ! ${message}`);
 
 // Ajout du texte importé depuis le fichier Markdown
-mainElement.innerHTML += `<p>${constantFromFile}</p>`;
+const markdownParagraph = document.createElement("p");
+markdownParagraph.textContent = constantFromFile;
+mainElement.append(markdownParagraph);
 
 // Démonstration de l'utilisation d'un composant Svelte
 const demoSvelte = document.createElement("demo-svelte");
