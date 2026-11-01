@@ -19,7 +19,7 @@ Workflow :
 
 The front matter must contain at minimum the fields `name`, `description`.
 
-- `name`: Use a unique, short identifier, in lowercase, without spaces or accents, and must not contain special characters.
+- `name`: Use a unique, short identifier. It must be in lowercase, contain no spaces or accents, and use only letters, numbers, and hyphens. It must match the folder name.
 - `description`: A good description includes both what the skill does and when to trigger it. Include the specific nouns and verbs a user would actually type. Always write in third person and fit in one line, under 1024 characters.
 
 If the skill takes arguments, include an `argument-hint` field.
