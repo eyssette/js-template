@@ -137,6 +137,8 @@ Quality:
 | `npx task ecma:source` | Check ECMAScript compatibility of source |
 | `npx task ecma:dist` | Check ECMAScript compatibility of build output |
 | `npx task review:file -- <file_path>` | Review a file |
+| `npx task security:scan:file -- <file_path>` | Scan a file for secrets and sensitive information |
+| `npx task security:scan < /dev/null` | Scan the entire project for secrets and sensitive information |
 
 Tests:
 
@@ -181,6 +183,7 @@ Definition of done — before considering a change finished, run in this order:
 	- No log means the tests already passed;
 - [ ] `npx task tests:e2e` if you have made important modifications to the application's behavior.
 - [ ] `npx task ecma:source` if you touched syntax that might not be supported.
+- [ ] `npx task security:scan:file -- <file_path>` on every file you touched
 
 ## Security and guardrails
 

@@ -88,10 +88,11 @@ Conventions de tests (unitaires dans `tests/unit`, scénarios Gherkin dans `feat
 
 Séquence obligatoire avant de considérer la tâche terminée :
 
--  `npx task lint:file:all -- <fichier>` sur chaque fichier créé/modifié, points corrigés
--  `npx task review:file -- <fichier>` sur chaque fichier créé/modifié, points corrigés
--  `npx task tests:unit` (et `npx task tests:e2e:current` si un scénario `@CURRENT` est concerné)
--  `npx task ecma:source` si une syntaxe potentiellement incompatible a été touchée
+- `npx task lint:file:all -- <fichier>` sur chaque fichier créé/modifié, points corrigés
+- `npx task review:file -- <fichier>` sur chaque fichier créé/modifié, points corrigés
+- `npx task tests:unit` (et `npx task tests:e2e:current` si un scénario `@CURRENT` est concerné)
+- `npx task ecma:source` si une syntaxe potentiellement incompatible a été touchée
+- `npx task security:scan:file -- <file_path>` sur chaque fichier touché : s'arrêter et prévenir l'utilisateur si un secret ou une information sensible est détecté, proposer une solution pour corriger le problème, et ne pas continuer tant que l'utilisateur n'a pas validé la correction.
 
 Rendre compte des contrôles effectués et de leurs résultats dans la réponse finale.
 

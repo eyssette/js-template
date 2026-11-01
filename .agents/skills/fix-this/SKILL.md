@@ -42,6 +42,7 @@ Suis cette checklist et coche chaque étape au fur et à mesure :
   - [ ] `npx task tests:unit` OK
   - [ ] `npx task tests:e2e` OK (si pertinent)
   - [ ] `npx task ecma:source` OK (si pertinent)
+  - [ ] `npx task security:scan:file -- <file_path>` sur chaque fichier touché : s'arrêter et prévenir l'utilisateur si un secret ou une information sensible est détecté, proposer une solution pour corriger le problème, et ne pas continuer tant que l'utilisateur n'a pas validé la correction.
 - [ ] **Résumer** : cause racine, correctif, tests, risques.
 
 ## Conformité

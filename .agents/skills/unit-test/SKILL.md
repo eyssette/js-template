@@ -55,6 +55,7 @@ Ne demande pas de précision lorsque le comportement attendu peut être établi 
    - `npx task lint:file:all -- <chemin_du_fichier>` pour les fichiers concernés ;
    - `npx task tests:unit` ;
    - `npx task ecma:source` si la syntaxe modifiée peut affecter la compatibilité.
+	 - [ ] `npx task security:scan:file -- <file_path>` sur chaque fichier concerné : s'arrêter et prévenir l'utilisateur si un secret ou une information sensible est détecté, proposer une solution pour corriger le problème, et ne pas continuer tant que l'utilisateur n'a pas validé la correction.
    En cas d'échec, diagnostiquer la cause sans affaiblir les assertions. Respecter les consignes de `AGENTS.md`.
 8. **Résumer le résultat** : indiquer les fichiers créés ou modifiés, les comportements couverts, les validations exécutées et les éventuelles limites restantes. Distinguer les validations réussies, échouées et non exécutées.
 

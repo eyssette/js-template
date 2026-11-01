@@ -42,6 +42,7 @@ Suis cette checklist et coche chaque étape au fur et à mesure :
 - [ ] `npx task lint:file:all -- <chemin_du_fichier>` sur les fichiers touchés
 - [ ] `npx task tests:unit`
 - [ ] `npx task ecma:source` si la syntaxe touchée peut impacter la compatibilité (es2020)
+- [ ] `npx task security:scan:file -- <file_path>` sur chaque fichier touché : s'arrêter et prévenir l'utilisateur si un secret ou une information sensible est détecté, proposer une solution pour corriger le problème, et ne pas continuer tant que l'utilisateur n'a pas validé la correction.
 - [ ] Résumer : coût ciblé, optimisation appliquée, chiffres avant/après, compromis, validations exécutées
 
 Si une validation échoue ou révèle une régression de comportement, corriger l'optimisation puis relancer les validations concernées jusqu'à ce qu'elles passent. Si la re-mesure ne montre pas de gain net, annuler le changement (revert) plutôt que de garder du code plus complexe pour rien.

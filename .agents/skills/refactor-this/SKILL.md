@@ -33,6 +33,7 @@ Suivre cette checklist pour chaque refactorisation :
     - [ ] `npx task tests:unit`
     - [ ] `npx task tests:e2e` pour des changements importants
     - [ ] `npx task ecma:source` si la syntaxe touchée peut impacter la compatibilité
+    - [ ] `npx task security:scan:file -- <file_path>` sur chaque fichier touché : s'arrêter et prévenir l'utilisateur si un secret ou une information sensible est détecté, proposer une solution pour corriger le problème, et ne pas continuer tant que l'utilisateur n'a pas validé la correction.
 - [ ] **Résumer** : présenter les changements, les validations effectuées et les éventuels risques résiduels.
 
 ## Principes de code
