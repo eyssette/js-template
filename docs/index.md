@@ -531,6 +531,17 @@ task security:trivy         # analyse de sécurité (trivy)
 task security                # toutes les vérifications en une commande
 ```
 
+`task security:scan` est exécuté automatiquement avant chaque commit et par la tâche `task push`, pour éviter de pousser des secrets ou informations sensibles par erreur.
+
+La tâche `task security:scan` lancée manuellement ou via la tâche `task push` se lance en mode interactif : si des secrets ou informations sensibles sont détectés, on peut choisir de les ignorer (s'il s'agit de faux positifs) ou de les supprimer du code.
+
+Si on veut voir les secrets et informations sensibles détectés, ainsi que la liste des erreurs ignorées par `task security:scan`, on peut utiliser la commande :
+
+```bash
+task security:scan:show
+```
+
+Cela donne accès à un lien direct vers chaque fichier concerné, avec le type de problème détecté et la ligne correspondante dans le code source
 
 #### Compression des images
 
