@@ -41,8 +41,8 @@ name: "Agent Guidelines"
 - User approval of a plan does not authorize unrelated changes or actions restricted by the Guardrails section.
 - Write the minimum code that solves the problem: no speculative features, abstractions, or configurability that was not asked for.
 - Touch only what the task requires. Do not reformat, refactor, or "improve" adjacent code — Oxfmt/Oxlint already handle style on save. Remove only the imports/variables your own change made unused; leave pre-existing dead code, just mention it.
-- Prefer the tasks already defined in Taskfile.yml over ad-hoc commands.
-- Use the skills in .agents/skills/ when one matches the task.
+- Prefer the tasks already defined in `Taskfile.yml` over ad-hoc commands.
+- Use the skills in `.agents/skills/` when one matches the task.
 
 ## Architecture and coding conventions
 
