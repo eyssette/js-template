@@ -6,6 +6,8 @@ import fs from "node:fs";
 import path from "node:path";
 import readline from "node:readline/promises";
 
+const showMode = process.env.MODE && process.env.MODE.toLowerCase() === "show";
+
 const excludedFiles = new Set([
 	"scripts/security/ignored-errors.json",
 	"scripts/security/scanner.mjs",
@@ -837,7 +839,7 @@ const LOCAL_RULES = [
 		label: "new Function() - risque injection",
 	},
 	{
-		regex: /\.innerHTML\s*=/g,
+		regex: /\.innerHTML\s*\+?=/g,
 		rule: "security",
 		label: "Affectation innerHTML - risque XSS",
 	},
@@ -996,9 +998,26 @@ function displayResult(result) {
 	console.log("-----------------------------");
 }
 
+// Affiche une erreur en mode showErrors : label puis lien cliquable vers le fichier
+function displayResultShowErrors(result) {
+	const absolutePath = path.resolve(result.file);
+	console.log(result.label);
+	console.log(`  ${absolutePath}:${result.line}`);
+	console.log("");
+}
+
 // Affichage des résultats
 if (remainingResults.length > 0) {
 	console.log("Secrets et informations sensibles détectés:\n");
+
+	// En mode showErrors, on passe en mode non-interactif et on affiche
+	// uniquement le label de l'erreur et un lien cliquable vers le fichier.
+	if (showMode) {
+		for (const result of remainingResults) {
+			displayResultShowErrors(result);
+		}
+		process.exit(1);
+	}
 
 	// En mode interactif (TTY), on affiche chaque erreur progressivement et on
 	// propose de désactiver le scan de cette erreur.

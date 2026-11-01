@@ -563,6 +563,11 @@ tasks:
     cmds:
       - node scripts/security/scanner.mjs ./
 
+  security:scan:show:
+    desc: Scanne le code source à la recherche de secrets et d'informations sensibles avec le script security/scanner.mjs et affiche les résultats dans la console
+    cmds:
+      - MODE="show" node scripts/security/scanner.mjs ./
+
   security:scan:file:
     desc: "Scanne un fichier donné à la recherche de secrets et d'informations sensibles avec le script security/scanner.mjs (usage: task security:scan:file -- <file_path>)"
     cmds:
