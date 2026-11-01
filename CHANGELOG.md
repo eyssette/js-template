@@ -1,3 +1,19 @@
+## 10.3.1 (2026-11-02)
+
+### Fix
+
+- **task**: tâche "security:scan:show" / affichage aussi des erreurs ignorées [(02dadd5)](https://forge.apps.education.fr/eyssette/js-template/-/commit/02dadd5f1faee89767b33b2ed55b98b504c72718)
+- **husky**: ajout de la tâche "security:scan" dans le hook pre-commit [(6f7d69c)](https://forge.apps.education.fr/eyssette/js-template/-/commit/6f7d69cdcc2b37248fbdccc36d5b4238d200b289)
+- **task**: pour la tâche "security:scan", ajout d'un mode "show" pour montrer la liste des erreurs avec le type d'erreur et un lien vers le fichier et la ligne précise [(9f767db)](https://forge.apps.education.fr/eyssette/js-template/-/commit/9f767dbf86682837676e42f5960b99e04e702c37)
+- **ai**: ajout de la tâche "security:scan" (et "security:scan:file" en mode non-interactif pour les agents IA [(858a14a)](https://forge.apps.education.fr/eyssette/js-template/-/commit/858a14a3094a43487eb5a33028d0a430825704d0)
+- **task**: la tâche "security:scan" s'applique maintenant à tout le dossier, on ne peut pas mettre les "sources" spécifiques [(623845b)](https://forge.apps.education.fr/eyssette/js-template/-/commit/623845bafa8c8b15fb5354f0a800037a574a29d8)
+
+### Docs
+
+- précisions sur la tâche "security:scan:show" [(3696091)](https://forge.apps.education.fr/eyssette/js-template/-/commit/3696091627f6828389e9d8318a37da39b0b18ac5)
+- précisions sur la détection de secrets et d'informations sensibles dans le hook pre-commit et dans la tâche push [(6fec2cd)](https://forge.apps.education.fr/eyssette/js-template/-/commit/6fec2cd6d6e972e889d383771ce65e369b2d1b2e)
+- ajout de la tâche "security:scan" dans la documentation [(41f4dd2)](https://forge.apps.education.fr/eyssette/js-template/-/commit/41f4dd2624c85dfccfd09b65ae675b6d7a52fab9)
+
 ## 10.3.0 (2026-11-01)
 
 ### Feat
