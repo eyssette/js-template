@@ -154,6 +154,17 @@ tasks:
       - for: { var: GIT_REMOTES }
         cmd: git push {{.ITEM}} && git push {{.ITEM}} --tags
 
+  push:skip-ci:
+    desc: Pousse le code sur les dépôts Git en désactivant la CI
+    cmds:
+      - task: lint
+      - rm -rf {{.DIST_FOLDER}}
+      - task: build
+      - task: tests
+      - task: security:scan
+      - for: { var: GIT_REMOTES }
+        cmd: git push {{.ITEM}} -o ci.skip && git push {{.ITEM}} --tags -o ci.skip
+
   tag:
     desc: "Crée un tag avec pour date du tag la date du commit (usage: task tag -- <commit> <tag>)"
     cmds:
