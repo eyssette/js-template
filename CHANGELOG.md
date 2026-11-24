@@ -1,3 +1,10 @@
+## 10.3.2 (2026-11-24)
+
+### Fix
+
+- **ci**: build en mode CI => pas besoin d'arrêt du serveur de développement [(cc2b96d)](https://forge.apps.education.fr/eyssette/js-template/-/commit/cc2b96d7e61b0783484276f4bb868aaa9f5b7d51)
+- **task**: push possible en désactivant la CI [(db5d7f7)](https://forge.apps.education.fr/eyssette/js-template/-/commit/db5d7f703aa9d2bbcd9d08d3b2c8e2f910cb035a)
+
 ## 10.3.1 (2026-11-02)
 
 ### Fix
